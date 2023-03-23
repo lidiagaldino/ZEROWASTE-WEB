@@ -1,0 +1,172 @@
+article {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: all 0.3s linear;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    overflow: hidden;
+}
+
+.container-dicas {
+    position: relative;
+}
+
+.container-menu {
+    position: absolute;
+    left: 0;
+    z-index: 999;
+}
+
+.section {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    overflow: hidden;
+}
+
+.section-center {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.recycle-image {
+    width: 20%;
+}
+
+.prev,
+.next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+
+    background: hsl(209, 89%, 11%);
+    color: #fff;
+    width: 4rem;
+    height: 4rem;
+    display: grid;
+    place-items: center;
+    border-color: transparent;
+    font-size: 1rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: all 0.3s linear;
+}
+
+
+.prev:hover,
+.next:hover {
+    background: rgba(36, 23, 16, 0.317);
+}
+
+.prev {
+    left: 3.5%;
+}
+
+.next {
+    right: .3%;
+}
+
+
+article.activeSlide {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+article.lastSlide {
+    transform: translateX(-100%);
+}
+
+article.nextSlide {
+    transform: translateX(100%);
+}
+
+.info-recycle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 40%;
+    gap: 20px;
+}
+
+.titleslide {
+    font-weight: 800;
+    font-size: 128px;
+    line-height: 155px;
+    letter-spacing: -0.04em;
+    color: #FFFFFF;
+
+}
+
+.recycleinfoslide {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 29px;
+    letter-spacing: -0.04em;
+    gap: 20px;
+    color: #FFF4F4;
+}
+
+.donotrecycleinfoslide {
+    font-style: normal;
+    font-weight: 200;
+    font-size: 24px;
+    line-height: 29px;
+    letter-spacing: -0.04em;
+    color: #FFFFFF;
+
+}
+
+@media (max-width: 500px) {
+
+    .prev {
+        left: 3.8%;
+    }
+
+    article {
+        flex-direction: column;
+
+    }
+
+    .info-recycle {
+        width: 60%;
+    }
+
+    .titleslide {
+        font-size: 50px;
+        align-items: center;
+        justify-content: center;
+        justify-items: center;
+        display: flex;
+
+    }
+
+    .recycleinfoslide {
+        flex-wrap: nowrap;
+        font-size: 1.4rem;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        justify-items: center;
+
+    }
+
+    .donotrecycleinfoslide {
+        font-size: 1.4rem;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        justify-items: center;
+    }
+
+    .recycle-image {
+        width: 40%;
+    }
+
+}

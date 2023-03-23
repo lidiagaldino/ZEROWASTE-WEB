@@ -1,0 +1,22 @@
+.sign-up {
+    position: absolute;
+    right: 2%;
+    top: 10%;
+    width: 40%;
+}
+
+.sw {
+    font-weight: 900;
+    font-weight: bold;
+    font-family: 'Lucida Sans', sans-serif;
+
+}
+
+@media (max-width: 720px) {
+    .sign-up {
+        position: absolute;
+        right: .5%;
+        width: 100%;
+        left: .5%;
+    }
+}

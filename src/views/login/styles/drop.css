@@ -1,0 +1,11 @@
+.dropdown-content {
+    height: auto;
+    overflow: auto;
+}
+
+@media (max-width: 720px) {
+    .drop {
+        width: 100%;
+        height: 50px;
+    }
+}

@@ -1,0 +1,47 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+input {
+    font-family: "Poppins", sans-serif;
+
+}
+
+h3 {
+    font-family: "Poppins", sans-serif;
+}
+
+h2 {
+    font-family: "Poppins", sans-serif;
+}
+
+
+.container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    overflow-y: hidden;
+    height: 100vh;
+
+}
+
+.consultacep {
+    font-size: 0.7rem;
+    line-height: 1;
+    width: 400px;
+    padding-left: 270px;
+    padding-top: 10px;
+
+
+}
+
+@media(max-width: 720px) {
+    .container {
+        overflow-x: hidden;
+        overflow-y: scroll;
+    }
+}

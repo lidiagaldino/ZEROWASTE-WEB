@@ -1,0 +1,206 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap');
+
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.bdd {
+    background-image: url(../../../assets//bgcadastro.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    min-height: 100vh;
+
+
+
+}
+
+.home-section-solicite {
+    position: relative;
+    background: #ffff;
+    min-height: 100vh;
+    top: 0;
+    transition: all 0.5s ease;
+    width: 100vw;
+
+}
+
+
+div {
+    display: block;
+}
+
+.form-solicite {
+    display: block;
+
+
+}
+
+.w60 {
+    width: 50%;
+    float: left;
+    padding-right: 4px;
+
+}
+
+.boxx {
+    display: flex;
+    width: 1200px;
+
+
+
+}
+
+.img-boxx {
+    background-color: #57A43C;
+    width: 50%;
+
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-radius: 20px 0 0 20px;
+}
+
+.img-boxx img {
+    width: 100%;
+}
+
+.form-boxx {
+    background-color: #57A43C;
+    backdrop-filter: blur(40px);
+    padding: 30px 30px;
+    width: 50%;
+
+    align-items: center;
+    border-radius: 0 20px 20px 0;
+}
+
+.form-boxx h2 {
+    font-size: 25px;
+    color: white;
+    display: flex;
+    justify-content: center;
+}
+
+.form-boxx p {
+    font-weight: bold;
+    color: #3D3D3D;
+    display: flex;
+    justify-content: center;
+
+}
+
+.form-boxx p a {
+    color: #FF008A;
+    text-decoration: none;
+}
+
+.form-boxx form {
+    margin: 20px 0;
+}
+
+form .input-groupp {
+    margin-bottom: 15px;
+}
+
+form .input-groupp label {
+    color: #3D3D3D;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+form .input-groupp input {
+    width: 100%;
+    height: 47px;
+    background-color: #F0F0F0;
+    border-radius: 20px;
+    outline: none;
+    border: 2px solid transparent;
+    padding: 15px;
+    font-size: 15px;
+    color: #616161;
+    transition: all 0.4s ease;
+}
+
+
+
+
+
+
+form .input-groupp input:focus {
+    border-color: green;
+}
+
+form .input-groupp button {
+    width: 100%;
+    height: 47px;
+    background: #85CC7A;
+    border-radius: 20px;
+    outline: none;
+    border: none;
+    margin-top: 15px;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+form .input-groupp button:hover {
+    width: 100%;
+    height: 47px;
+    background: #35D31B;
+    border-radius: 20px;
+    outline: none;
+    border: none;
+    margin-top: 15px;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s ease-in-out;
+}
+
+@media (max-width:930px) {
+    .img-boxx {
+        display: none;
+    }
+
+    .boxx {
+        width: 700px;
+    }
+
+    .form-boxx {
+        width: 100%;
+        border-radius: 20px;
+    }
+}
+
+@media (max-width:500px) {
+    .w60 {
+        width: 100%;
+        padding: 0;
+    }
+
+    .menu-item-NX {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* width: 50px; */
+        height: 50px;
+        /* margin: 6px; */
+        /* margin-left: 20px; */
+        font-size: 18px;
+        border-radius: 12px;
+    }
+
+}

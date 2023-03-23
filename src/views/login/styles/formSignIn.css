@@ -1,0 +1,16 @@
+.sign-in {
+    position: absolute;
+    right: 5%;
+    top: 30%;
+    width: 40%;
+}
+
+@media (max-width: 720px) {
+    .sign-in {
+        position: absolute;
+        right: .5%;
+        top: 30%;
+        width: 100%;
+        left: .5%;
+    }
+}

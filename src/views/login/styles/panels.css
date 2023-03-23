@@ -1,0 +1,191 @@
+.panels-container {
+    position: absolute;
+    height: 100%;
+    width: 59%;
+    top: 0;
+    left: 0;
+    z-index: 7;
+}
+
+
+.panel {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: center;
+
+}
+
+.left-panel {
+    position: absolute;
+    left: 7%;
+    top: 5%;
+    font-size: 4em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+
+
+.left-panel .content {
+    color: #fff;
+    transition: transform 0.9s ease-in-out;
+    transition-delay: 0.6s;
+
+    font-size: 45px;
+
+}
+
+.left-panel .content h3 {
+    font-size: 2.4rem;
+
+}
+
+.left-panel .content p {
+    font-size: 1.15rem;
+}
+
+
+
+.left-panel .content .panel h3 {
+    font-weight: 600;
+    line-height: 1;
+    font-size: 1.5rem;
+}
+
+.panel p {
+    font-size: 0.95rem;
+    padding: 0.7rem 0;
+}
+
+.panel {
+    width: 90%;
+}
+
+.right-panel {
+    position: absolute;
+    left: 7%;
+    top: 5%;
+    font-size: 4em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+
+
+.right-panel .content {
+    color: #fff;
+    transition: transform 0.9s ease-in-out;
+    transition-delay: 0.6s;
+
+    font-size: 45px;
+
+}
+
+.right-panel .content h3 {
+    font-size: 2.4rem;
+
+}
+
+.left-panel .content p {
+    font-size: 1.15rem;
+}
+
+
+
+.right-panel .content .panel h3 {
+    font-weight: 600;
+    line-height: 1;
+    font-size: 1.5rem;
+}
+
+.panel p {
+    font-size: 0.95rem;
+    padding: 0.7rem 0;
+}
+
+.panel .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.panel .content img {
+
+    padding-top: 23%;
+    width: 55%;
+
+}
+
+@media(max-width: 1024px) {
+    .circle {
+        width: 650px;
+        height: 1000px;
+    }
+}
+
+@media(max-width: 720px) {
+    .panel .content img {
+        display: none;
+    }
+
+    .panel .content p {
+        display: none;
+
+    }
+
+    .left-panel .content h3 {
+        font-size: 1.8rem;
+        width: 80%;
+
+    }
+
+    .left-panel .content {
+        width: 100vw;
+
+        display: flex;
+        margin-left: 10%;
+        padding-left: 70%;
+        gap: 20px;
+    }
+
+    .right-panel .content {
+        width: 100vw;
+        display: flex;
+        padding-left: 80%;
+
+    }
+
+    .right-panel .content p {
+        display: none;
+    }
+
+    .right-panel .content h3 {
+        font-size: 1.76rem;
+
+
+
+    }
+
+    .panel .content {
+        width: auto;
+    }
+
+    .panels-container {
+        height: 20%;
+    }
+
+}
+
+@media (max-width: 420px) {
+    .circle {
+        height: 42%;
+    }
+}
