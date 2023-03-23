@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import '../styles/bio.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMessage, faStar } from '@fortawesome/free-solid-svg-icons'
+import { faStar } from '@fortawesome/free-solid-svg-icons'
+import EditProfile from '../components/EditProfile'
 
 type dados = {
     user: {
@@ -63,9 +64,13 @@ type dados = {
     }
 }
 
+type view = 'view' | 'edit'
+
 const Container = () => {
 
     const [info, setInfo] = useState<dados>()
+    const [viewState, setViewState] = useState<view>('edit')
+
 
     useEffect(() => {
         fetch(`https://webappdeploy-backend.azurewebsites.net/user`, {
@@ -76,7 +81,14 @@ const Container = () => {
             .then(data => setInfo(data))
 
     }, [])
+    console.log(localStorage.getItem('view-edit'))
 
+    useEffect(() => {
+        if (localStorage.getItem('view-edit') == 'view') {
+            setViewState('view')
+        }
+
+    }, [])
 
 
 
@@ -84,10 +96,10 @@ const Container = () => {
         <div className='container-bio'>
             <section className="userProfile card">
                 <div className="profile">
-                    <figure><img src="https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg" alt="profile" width="250px" height="250px"/>
-                    <h1 className='statusCliente'>Status: Indisponivel</h1>
+                    <figure><img src="https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg" alt="profile" width="250px" height="250px" />
+                        <h1 className='statusCliente'>Status: Indisponivel</h1>
                     </figure>
-                        
+
                 </div>
             </section>
 
@@ -125,20 +137,28 @@ const Container = () => {
                         <FontAwesomeIcon icon={faStar} />
                     </div>
                 </div>
-                <div className="btns">
-                    <ul>
-                        <li className="sendMsg">
-                            <a href="#">Solicite uma coleta</a>
-                        </li>
-                        <li className="sendMsgC active">
-                            <a href="#">Contatos</a>
-                        </li>
-                        <li className="sendMsg">
-                            <a href="#">Avaliar usuario</a>
-                        </li>
-                    </ul>
-                </div>
-            </section>
+
+                {viewState == 'view' &&
+                    < div className="btns">
+                        <ul>
+                            <li className="sendMsg">
+                                <a href="#">Solicite uma coleta</a>
+                            </li>
+                            <li className="sendMsgC active">
+                                <a href="#">Contatos</a>
+                            </li>
+                            <li className="sendMsg">
+                                <a href="#">Avaliar usuario</a>
+                            </li>
+                        </ul>
+                    </div>
+                }
+
+                {viewState == 'edit' &&
+                    <EditProfile />
+                }
+
+            </section >
 
 
 
@@ -195,7 +215,7 @@ const Container = () => {
 
             </section>
 
-        </div>
+        </div >
 
     )
 }

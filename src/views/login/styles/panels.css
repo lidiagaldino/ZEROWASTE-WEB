@@ -129,7 +129,12 @@
         width: 650px;
         height: 1000px;
     }
+
+    .panel .content img {
+        padding-top: 10px;
+    }
 }
+
 
 @media(max-width: 720px) {
     .panel .content img {

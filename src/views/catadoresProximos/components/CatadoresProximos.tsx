@@ -1,11 +1,11 @@
-import React , {useState} from 'react'
+import React, { useState } from 'react'
 import '../style.css'
 import catadores_proximosfoto from '../../../assets/catadores_proximosfoto.png'
 import DropwDownOptions from './DropwDownOptions'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons'
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { Dropdown } from 'rsuite';
-
+import '../bg-animation.css'
 
 
 const CatadoresProximos = () => {
@@ -15,15 +15,24 @@ const CatadoresProximos = () => {
 
     return (
         <div>
+            <div className='bg-proximos'>
+                <div className='wave -one'></div>
+                <div className='wave -two'></div>
+                <div className='wave -three'></div>
+            </div>
+
+
+
             <div className="search-box">
-            <input className="search-txt" type="text" name="" placeholder="Procure por nome ou endereço"/>
-            <a className="search-btn">
-            <FontAwesomeIcon icon={faMagnifyingGlass} style={{color: "#ffffff",}} />
+                <input className="search-txt" type="text" name="" placeholder="Procure por nome ou endereço" />
+                <a className="search-btn">
+                    <FontAwesomeIcon icon={faMagnifyingGlass} style={{ color: "#ffffff", }} />
                 </a>
             </div>
             <div className='scroll'>
                 <div className='infoS'>
                     <h1 className='titleBoxU'>Catadores proximos</h1>
+
 
                     <div className='reg-bt'>
                         <DropwDownOptions selected={selected} setSelected={setSelected} />
@@ -33,8 +42,9 @@ const CatadoresProximos = () => {
                     <img src={catadores_proximosfoto} alt="photo" />
                     <div className='boxInfoU'>
                         <h3>Eduardo Perucci Martins de Souza</h3>
-                        <p>Jandira</p>
+                        <p>Rua antonio jose maria da silva, 912</p>
                     </div>
+
                     <div className='buttonPosition'>
                         <button className='buttonBox'>Solicite</button>
                     </div>

@@ -73,9 +73,9 @@ form.sign-in-form {
     font-weight: 500;
 }
 
-@media(max-width: 1024px) {
+@media(max-width: 2024px) {
     .container {
-        overflow: auto;
+        overflow-y: auto;
     }
 
     .divbotao {

@@ -89,7 +89,12 @@ const MenuLateral = () => {
             </div>
             <div className="nav-footer">
                 {isExpanded && (
-                    <div className="nav-details" onClick={() => navigate('/profile', { replace: true })}>
+                    <div className="nav-details" onClick={() => {
+                        console.log('object');
+                        localStorage.setItem('view-edit', 'edit')
+                        navigate('/profile', { replace: true })
+                    }
+                    }>
                         <img
                             className="nav-footer-avatar"
                             src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"

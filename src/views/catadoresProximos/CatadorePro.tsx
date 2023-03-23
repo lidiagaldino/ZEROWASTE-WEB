@@ -4,7 +4,7 @@ import MenuLateral from '../home/components/MenuLateral'
 
 const CatadorePro = () => {
     return (
-        <body>
+        <body className='body-proximos'>
             <div className='containerr'>
                 <div>
                     <MenuLateral />

@@ -31,7 +31,7 @@ input {
 	height: 100vh;
 	position: relative;
 	color: var(--light);
-
+	z-index: 999;
 
 	transition: width ease-in-out .6s;
 }
@@ -190,12 +190,6 @@ input {
 
 }
 
-.menu-item-NX {
-
-	
-
-}
-
 .menu-item:hover {
 	cursor: pointer;
 	background-color: var(--light);
@@ -311,7 +305,7 @@ input {
 	transition: all 0.5s ease;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 2024px) {
 	.side-nav-container {
 		position: fixed;
 		z-index: 900;

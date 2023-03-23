@@ -185,11 +185,16 @@
   }
 }
 
-@media (max-width: 1024px) {
-  .containerr {
-    overflow-y: hidden;
+
+@media (max-width: 2000px) {
+  .content .imgBox {
+
+    width: 350px;
+    height: 350px;
+
   }
 }
+
 
 
 @media (max-width: 420px) {

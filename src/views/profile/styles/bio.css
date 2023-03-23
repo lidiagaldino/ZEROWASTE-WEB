@@ -126,10 +126,10 @@
 figure img {
     border-radius: 50%;
     border: red 5px solid;
-    
+
 }
 
-.statusCliente{
+.statusCliente {
     font-weight: bold;
     font-size: 1.5rem;
 }
@@ -237,38 +237,38 @@ figure {
     color: var(--f6-color);
 }
 
-.userDetails .btns ul li a{
+.userDetails .btns ul li a {
 
-  margin: 10px;
-  padding: 15px 30px;
-  text-align: center;
-  text-transform: uppercase;
-  transition: 0.5s;
-  background-size: 200% auto;
-  color: #fff;
-  border-radius: 10px;
-  display: block;
-  border: 0px;
-  font-weight: 700;
-  box-shadow: 0px 0px 14px -7px #77dd77;
-  background-image: linear-gradient(45deg, #32cd32 0%, #77dd77  51%, #32cd32  100%);
-  cursor: pointer;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  border-radius: 25px;
-  text-decoration: none;
+    margin: 10px;
+    padding: 15px 30px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: #fff;
+    border-radius: 10px;
+    display: block;
+    border: 0px;
+    font-weight: 700;
+    box-shadow: 0px 0px 14px -7px #77dd77;
+    background-image: linear-gradient(45deg, #32cd32 0%, #77dd77 51%, #32cd32 100%);
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    border-radius: 25px;
+    text-decoration: none;
 }
 
 .userDetails .btns ul li a:hover {
-  background-position: right center;
-  
-  color: #fff;
-  text-decoration: none;
+    background-position: right center;
+
+    color: #fff;
+    text-decoration: none;
 }
 
 .userDetails .btns ul li a:active {
-  transform: scale(0.95);
+    transform: scale(0.95);
 }
 
 
@@ -288,9 +288,7 @@ figure {
     font-size: var(--xl-fs);
 }
 
-.userDetails .btns ul li a {
-  
-}
+.userDetails .btns ul li a {}
 
 
 
@@ -337,6 +335,7 @@ figure {
 .timeline_about .tabs ul li span {
     font-size: var(--l-fs);
     font-weight: 500;
+
 }
 
 .timeline_about .tabs ul li .ri {
