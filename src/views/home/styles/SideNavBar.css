@@ -305,7 +305,7 @@ input {
 	transition: all 0.5s ease;
 }
 
-@media (max-width: 2024px) {
+@media (max-width: 1368px) {
 	.side-nav-container {
 		position: fixed;
 		z-index: 900;

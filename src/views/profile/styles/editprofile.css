@@ -182,7 +182,7 @@
      padding-bottom: 6px;
      font-weight: 700;
      border-width: 3px;
-     border-image: linear-gradient(to right, green, red);
+     border-image: linear-gradient(to right, green, #90ee90 );
      border-image-slice: 1;
  }
 

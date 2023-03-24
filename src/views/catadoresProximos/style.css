@@ -197,6 +197,13 @@
   text-decoration: none;
   border: none;
   color: #FFFFFF;
+  transition: all 0.4s ease-in-out;
+}
+
+.buttonBox:hover{
+  transform: scale(1.08);
+  transition: all 0.4s ease-in-out;
+  box-shadow: 13.6526px 30.0434px 63px rgba(0, 0, 0, 0.07), 8.84889px 19.4726px 36.8958px rgba(0, 0, 0, 0.0531481), 5.25877px 11.5723px 20.0667px rgba(0, 0, 0, 0.0425185), 2.73051px 6.00868px 10.2375px rgba(0, 0, 0, 0.035), 1.11243px 2.44798px 5.13333px rgba(0, 0, 0, 0.0274815), 0.252825px 0.55636px 2.47917px rgba(0, 0, 0, 0.0168519);
 }
 
 @media(max-width: 1368px) {
