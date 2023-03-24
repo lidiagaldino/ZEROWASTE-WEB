@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form';
 import Placeholder from 'react-select/dist/declarations/src/components/Placeholder';
 import { useRouteLoaderData } from 'react-router-dom';
 import { encodePlaceholder } from '@syncfusion/ej2-react-dropdowns';
+import Swal from 'sweetalert2';
 
 
 type dados = {
@@ -97,7 +98,7 @@ const CadastroPage = () => {
     async function registrar(event: FormEvent) {
         event.preventDefault()
 
-        if (!cep || !complemento || !estado || !cidade || !logradouro) {
+        if (!cep || !estado || !cidade || !logradouro) {
             return
         }
 
@@ -107,7 +108,7 @@ const CadastroPage = () => {
             logradouro: cepData.logradouro,
             cidade: cepData.localidade,
             estado: cepData.uf,
-            complemento: complemento,
+            complemento: !complemento ? ' ' : complemento,
             bairro: cepData.bairro,
             id_usuario: localStorage.getItem('id')
 
@@ -126,17 +127,26 @@ const CadastroPage = () => {
 
         const teste = await cadastroPonto.json()
         console.log(teste);
+        console.log(cadastroPonto)
 
 
         if (cadastroPonto.ok) {
-            alert('Cadastro feito com sucesso')
+            Swal.fire({
+                title: 'Tudo certo!!',
+                text: 'Endereço criado com sucesso',
+                icon: 'success'
+            })
             setCep('')
             setCidade('')
             setComplemento('')
             setLogradouto('')
             setEstado('')
         } else {
-            alert('Algo deu errado')
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Algo está errado!',
+            })
         }
 
     }
@@ -149,9 +159,9 @@ const CadastroPage = () => {
         setCep(event.target.value)
 
         if (event.target.value.length == 8) {
-            console.log(cep)
+            // console.log(cep)
             try {
-
+                console.log(event.target.value)
                 const data = await fetch(`https://viacep.com.br/ws/${event.target.value}/json/`).then(res => res.json())
                 setCidade(data.localidade)
                 setEstado(data.uf)
@@ -185,7 +195,7 @@ const CadastroPage = () => {
                 <div className="form-box">
                     <h2>Cadastrar um novo endereço</h2>
                     <p> Cadastre um ponto de entrega.</p>
-                    <form onSubmit={handleSubmit(onsubmit)} action="#" className='form-endereco'>
+                    <form onSubmit={registrar} action="#" className='form-endereco'>
                         <div className="input-group">
                             <input  {...register("cep")} onChange={checkCEP} maxLength={8} /*onChange={handleChangeCep} value={cep}*/ type="text" id="cep" placeholder="CEP" />
                         </div>

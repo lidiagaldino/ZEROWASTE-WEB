@@ -67,7 +67,7 @@ const CatadoresProximos = () => {
                     <img src={catadores_proximosfoto} alt="photo" />
                     <div className='boxInfoU'>
                         <h3>Miguel</h3>
-                        <p>Jandira</p>
+                        <p>Itapevi</p>
                     </div>
                     <div className='buttonPosition'>
                         <button className='buttonBox'>Solicite</button>
@@ -78,7 +78,7 @@ const CatadoresProximos = () => {
                     <img src={catadores_proximosfoto} alt="photo" />
                     <div className='boxInfoU'>
                         <h3>Larissa</h3>
-                        <p>Jandira</p>
+                        <p>Barueri</p>
                     </div>
                     <div className='buttonPosition'>
                         <button className='buttonBox'>Solicite</button>
@@ -89,7 +89,7 @@ const CatadoresProximos = () => {
                     <img src={catadores_proximosfoto} alt="photo" />
                     <div className='boxInfoU'>
                         <h3>Ana</h3>
-                        <p>Jandira</p>
+                        <p>Osasco</p>
                     </div>
                     <div className='buttonPosition'>
                         <button className='buttonBox'>Solicite</button>

@@ -14,11 +14,12 @@ const SolicitePage = () => {
     const [complementoOptions, setComplementoOptions] = useState([])
 
     useEffect(() => {
-        fetch(`https://webappdeploy-backend.azurewebsites.net/gerador`).then(response => response.json()).then(resposta => setComplementoOptions(resposta.message.map((item) => {
+        fetch(`https://webappdeploy-backend.azurewebsites.net/endereco/${localStorage.getItem('id')}`).then(response => response.json()).then(resposta => setComplementoOptions(resposta.map((item) => {
+            console.log(item.endereco)
             return (
                 {
-                    label: localStorage.getItem('complemento'),
-                    value: item.complemento,
+                    label: item.endereco.logradouro,
+                    value: item.endereco.logradouro,
                     id: item.id
                 }
             )
@@ -33,6 +34,7 @@ const SolicitePage = () => {
         fetch(`https://webappdeploy-backend.azurewebsites.net/materiais`).then(response => response.json()).then(resposta => setDropOptions(resposta.message.map((item) => {
             return (
                 {
+
                     label: item.nome,
                     value: item.nome,
                     id: item.id
@@ -69,13 +71,28 @@ const SolicitePage = () => {
                     <h2>Solicite uma coleta</h2>
                     <p>Formulario para solicitacao de uma coleta</p>
                     <form action="#" className='form-solicite'>
-                        <div className="input-groupp">
+                        {/* <div className="input-groupp">
                             <input type="text" id="localizacao" placeholder="Localizaçao" required />
+                        </div> */}
+
+                        <div className='drop' style={{ width: 375, height: 50, borderRadius: 100 }}>
+                            <p>Selecione os materiais que sera descartado:</p>
+                            <Select
+                                defaultValue={[complementoOptions[2]]}
+                                isMulti
+                                name="materials"
+                                options={complementoOptions}
+                                className="basic-multi-select"
+                                classNamePrefix="Selecione"
+                                onChange={handleChange}
+                                required
+                            />
+
                         </div>
 
 
 
-                        <div className='drop' style={{ width: 375, height: 50, borderRadius: 100 }}>
+                        <div className='drop' style={{ width: 375, height: 50, borderRadius: 100, paddingTop: 30 }}>
                             <p>Selecione os materiais que sera descartado:</p>
                             <Select
                                 defaultValue={[dropOptions[2]]}

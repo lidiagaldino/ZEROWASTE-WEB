@@ -163,6 +163,10 @@
      color: transparent;
  }
 
+ .form__field::placeholder::focus {
+     background-color: red;
+ }
+
  .form__field:placeholder-shown~.form__label {
      font-size: 1.3rem;
      cursor: text;
@@ -182,7 +186,7 @@
      padding-bottom: 6px;
      font-weight: 700;
      border-width: 3px;
-     border-image: linear-gradient(to right, green, #90ee90 );
+     border-image: linear-gradient(to right, green, #90ee90);
      border-image-slice: 1;
  }
 
@@ -217,7 +221,7 @@
      font-weight: 600;
      width: 80%;
      transition: all 0.3s ease-in-out;
-     margin-top: 50px;
+     margin-top: 180px;
  }
 
  .save-changes:hover {
