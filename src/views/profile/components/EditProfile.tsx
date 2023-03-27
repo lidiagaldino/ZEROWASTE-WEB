@@ -1,21 +1,66 @@
-import React, { useState } from 'react'
+import React, { useState, ChangeEvent } from 'react'
 import '../styles/editprofile.css'
 import '../styles/bio.css'
 import logofoto from '../../../assets/catadores_proximosfoto.png'
-
+import { defer } from 'react-router-dom';
+import storage from '../../../firebase';
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export default function EditProfile() {
-    const [modal, setModal] = useState(false);
 
+
+
+
+
+    const [modal, setModal] = useState(false);
+    const [editnome, setEditNome] = useState("")
+
+    const handleChangeName = (event: ChangeEvent<HTMLInputElement>): void => {
+        setEditNome(event.target.value)
+    }
 
 
     const [updatecpfcnpj, setUpdateCpfCnpj] = useState('')
 
 
-    function handleSubmit(event: any) {
-        event.preventDefault();
-        console.log("valor do cpf novo:" + localStorage.setItem('cpf_novo', event.target.value));
+    const [image, setImage] = useState(null)
+    const [url, setUrl] = useState(null);
+    const handleImageChange = (e) => {
+        if (e.target.files[0]) {
+            setImage(e.target.files[0])
+        }
     }
+
+    const handleSubmitImage = () => {
+        const imageRef = ref(storage, "image");
+        uploadBytes(imageRef, image)
+            .then(() => {
+                getDownloadURL(imageRef)
+                    .then((url) => {
+                        setUrl(url);
+                    })
+                    .then(() => {
+                        localStorage.setItem('foto', ref(storage, "image"))
+                    })
+                    .catch((error) => {
+                        console.log(error.message, "error getting the image url");
+                    });
+                setImage(null);
+            })
+            .catch((error) => {
+                console.log(error.message);
+            });
+    }
+
+    function handleSubmit(event) {
+        event.preventDefault();
+
+    }
+
+    const removeName = () => {
+        localStorage.removeItem('nome')
+    }
+
 
 
     const toggleModal = () => {
@@ -34,6 +79,7 @@ export default function EditProfile() {
                 <ul>
                     <li className="sendMsg">
                         <button onClick={toggleModal}>Editar</button>
+
                     </li>
                 </ul>
             </div>
@@ -44,8 +90,9 @@ export default function EditProfile() {
                     <div className="modal-content">
                         <div className='top-content-profile'>
                             <h1>Minha Conta</h1>
-                            <img src={logofoto} alt="fotologo" />
-                            <button>Editar foto</button>
+                            <img src={url} style={{ width: 190, height: 190, borderRadius: 100 }} alt="fotologo" />
+                            <input type="file" onChange={handleImageChange} className='customfile' />
+                            <button onClick={handleSubmitImage}>Salvar</button>
                             <hr />
                         </div>
 
@@ -53,7 +100,7 @@ export default function EditProfile() {
                             <div className='content-edit-profile'>
 
                                 <div className="form__group field">
-                                    <input type="input" className="form__field" placeholder="Name" name="name" id='name' required />
+                                    <input defaultValue={localStorage.getItem('nome')} onClick={removeName} type="text" className="form__field" placeholder="Name" name="name" id='nomeedit' required />
                                     <label htmlFor="name" className="form__label">Nome</label>
                                 </div>
 
@@ -93,7 +140,7 @@ export default function EditProfile() {
                         </div>
 
                         <div className='save-changes-position'>
-                            <button onSubmit={handleSubmit} className='save-changes'>Salvar Alteracoes</button>
+                            <button onSubmit={handleSubmit} onChange={handleChangeName} className='save-changes'>Salvar Alteracoes</button>
                         </div>
 
                         <button className="close-modal" onClick={toggleModal}>

@@ -8,10 +8,12 @@ import { Dropdown } from 'rsuite';
 import '../bg-animation.css'
 
 
+
 const CatadoresProximos = () => {
 
     const [selected, setSelected] = useState("")
-
+    const [query, setQuery] = useState("")
+    const options = ['Barueri', 'Jandira', 'Itapevi', 'Osasco', 'Carapicuiba']
 
     return (
         <div>
@@ -35,7 +37,7 @@ const CatadoresProximos = () => {
 
 
                     <div className='reg-bt'>
-                        <DropwDownOptions selected={selected} setSelected={setSelected} />
+                        <DropwDownOptions />
                     </div>
                 </div>
                 <div className="boxUserProximos">

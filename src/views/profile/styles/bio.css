@@ -306,14 +306,14 @@ figure {
     padding: var(--p-2-5);
 }
 
-.timeline_about .tabs ul {
-    position: relative;
+.timeline_about .tabss ul {
+
     display: flex;
     align-items: center;
     margin-bottom: var(--m-2-5);
 }
 
-.timeline_about .tabs ul::before {
+.timeline_about .tabss ul::before {
     content: "";
     position: absolute;
     bottom: 0;
@@ -323,8 +323,8 @@ figure {
     background: var(--bg7-color);
 }
 
-.timeline_about .tabs ul li {
-    position: relative;
+.timeline_about .tabss ul li {
+
     display: flex;
     align-items: center;
     margin-right: var(--m-2-5);
@@ -332,17 +332,17 @@ figure {
     cursor: pointer;
 }
 
-.timeline_about .tabs ul li span {
+.timeline_about .tabss ul li span {
     font-size: var(--l-fs);
     font-weight: 500;
 
 }
 
-.timeline_about .tabs ul li .ri {
+.timeline_about .tabss ul li .ri {
     margin-right: var(--m-0-5);
 }
 
-.timeline_about .tabs ul .active::before {
+.timeline_about .tabss ul .active::before {
     content: "";
     position: absolute;
     bottom: 0;

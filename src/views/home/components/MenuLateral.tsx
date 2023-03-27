@@ -4,9 +4,17 @@ import { faBook, faHouseUser, faMapLocationDot, faMapPin, faStreetView, faTicket
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useNavigate } from 'react-router-dom'
 import 'boxicons'
+import storage from '../../../firebase';
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 
 const MenuLateral = () => {
+
+
+
+
+
+
     const [isExpanded, setExpendState] = useState(false);
 
     const navigate = useNavigate()
@@ -97,7 +105,7 @@ const MenuLateral = () => {
                     }>
                         <img
                             className="nav-footer-avatar"
-                            src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                            src={'https://firebasestorage.googleapis.com/v0/b/profile-picture-zerowaste.appspot.com/o/image?alt=media&token=7e584d9e-24e5-4261-a5cf-390caff05a61'}
                             alt=""
 
                         />

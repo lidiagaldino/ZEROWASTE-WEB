@@ -164,7 +164,7 @@ const Container = () => {
 
             <section className="timeline_about card">
 
-                <div className="tabs">
+                <div className="tabss">
                     <ul>
                         <li className="about active">
                             <i className="ri-user-3-fill ri"></i>

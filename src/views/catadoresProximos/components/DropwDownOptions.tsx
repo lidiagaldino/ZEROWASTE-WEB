@@ -8,59 +8,32 @@ type drop = {
     label: string
 }
 
-function DropwDownOptions({ selected, setSelected }) {
+function DropwDownOptions() {
 
     const [regiao, setRegiao] = useState([])
+    const [selected, setSelected] = useState('')
 
     useEffect(() => {
-        fetch(`https://webappdeploy-backend.azurewebsites.net/endereco/${localStorage.getItem('id')}`).then(response => response.json()).then(resposta => setRegiao(resposta.map((item) => {
-            console.log(item.endereco)
-            return (
-                {
-                    label: item.endereco.logradouro,
-                    value: item.endereco.logradouro,
-                    id: item.id
-                }
-            )
-        })))
+        fetch(`https://webappdeploy-backend.azurewebsites.net/endereco/${localStorage.getItem('id')}`).then(response => response.json()).then(resposta => setRegiao(resposta))
     }, [])
 
-
-    const handleChange = (value: any) => {
-        let array: string[] = []
-
-        value.map((item: drop) => {
-            console.log(typeof (item.id))
-            array.push(item.id)
-        })
-        console.log(array);
-        setSelected(array)
-    }
-
-
-
     const [isActive, setIsActive] = useState(false)
-
-    const [query, setQuery] = useState("")
-    const options = ['Barueri', 'Jandira', 'Itapevi', 'Osasco', 'Carapicuiba']
-
-
-    console.log(selected);
 
     return (
         <div className="dropdown">
 
             <div className="dropdown-btn" onClick={(e) => setIsActive(!isActive)}> Região: {selected}</div>
             {isActive && (
-                <div className="dropdown-content" onChange={handleChange}>
-                    {options.map((option) => (
-                        <div onClick={(e) => {
-                            setSelected(option)
+                <div className="dropdown-content">
+                    {regiao.map((option) => (
+                        <div key={option.id} onClick={(e) => {
+                            console.log(e.target)
+                            setSelected(option.endereco.logradouro)
                             setIsActive(false)
 
                         }}
                             className="dropdown-item">
-                            {option}
+                            {option.endereco.logradouro}
                         </div>
                     ))}
                 </div>

@@ -26,6 +26,7 @@ type dados = {
         cidade: string,
         estado: string,
         cep: string,
+        numero: string,
         complemento: string
     },
     materiais?: string[]
@@ -150,7 +151,7 @@ function RegisterForm() {
             return
         }
 
-        const cepInfo = await fetch(`https://viacep.com.br/ws/${cep}/json/`)
+        const cepInfo = await fetch(`https://opencep.com/v1/${cep.replace('-', '')}.json`)
         const cepInfoResponse = await cepInfo.json()
         console.log(cepInfoResponse);
 
@@ -162,6 +163,7 @@ function RegisterForm() {
                 bairro: cepInfoResponse.bairro,
                 cidade: cepInfoResponse.localidade,
                 estado: cepInfoResponse.uf,
+                numero: numero,
                 complemento: complemento ? complemento : " "
             },
             telefone: telefone,
