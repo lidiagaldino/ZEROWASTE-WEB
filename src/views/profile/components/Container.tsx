@@ -96,7 +96,7 @@ const Container = () => {
         <div className='container-bio'>
             <section className="userProfile card">
                 <div className="profile">
-                    <figure><img src="https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg" alt="profile" width="250px" height="250px" />
+                    <figure><img src={'https://firebasestorage.googleapis.com/v0/b/profile-picture-zerowaste.appspot.com/o/image?alt=media&token=7e584d9e-24e5-4261-a5cf-390caff05a61'} alt="profile" width="250px" height="250px" />
                         <h1 className='statusCliente'>Status: Indisponivel</h1>
                     </figure>
 
