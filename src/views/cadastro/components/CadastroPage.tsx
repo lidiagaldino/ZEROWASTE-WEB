@@ -220,6 +220,10 @@ const CadastroPage = () => {
                             <input onChange={handleChangeComplemento} value={complemento} type="text" id="complemento" placeholder="Complemento" />
                         </div>
 
+                        <div className="input-group">
+                            <input  type="text" id="cep" placeholder="Nomear Local" required />
+                        </div>
+
                         {/* <div className="input-group">
                             <input type="text" id="nomelocal" placeholder="Nomear Local ?" required />
                         </div> */}
