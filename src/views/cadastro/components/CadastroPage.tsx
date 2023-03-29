@@ -20,6 +20,8 @@ type dados = {
     complemento: string,
     cep: string,
     bairro: string,
+    apelido: string,
+    numero: string,
     id_usuario: string
 
 }
@@ -76,6 +78,8 @@ const CadastroPage = () => {
     const [estado, setEstado] = useState('')
     const [cidade, setCidade] = useState('')
     const [logradouro, setLogradouto] = useState('')
+    const [apelido, setApelido] = useState('')
+    const [numero, setNumero] = useState('')
     const [cepData, setCepData] = useState<dadosCEP>()
 
     const handleChangeCep = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -94,6 +98,13 @@ const CadastroPage = () => {
     const handleChangeLogradouro = (event: ChangeEvent<HTMLInputElement>): void => {
         setLogradouto(event.target.value)
     }
+    const handleChangeApelido = (event: ChangeEvent<HTMLInputElement>): void => {
+        setApelido(event.target.value)
+    }
+
+    const handleChangeNumero = (event: ChangeEvent<HTMLInputElement>): void => {
+        setNumero(event.target.value)
+    }
 
     async function registrar(event: FormEvent) {
         event.preventDefault()
@@ -110,6 +121,8 @@ const CadastroPage = () => {
             estado: cepData.uf,
             complemento: !complemento ? ' ' : complemento,
             bairro: cepData.bairro,
+            apelido: apelido,
+            numero: numero,
             id_usuario: localStorage.getItem('id')
 
         }
@@ -141,6 +154,8 @@ const CadastroPage = () => {
             setComplemento('')
             setLogradouto('')
             setEstado('')
+            setApelido('')
+            setNumero('')
         } else {
             Swal.fire({
                 icon: 'error',
@@ -162,7 +177,7 @@ const CadastroPage = () => {
             // console.log(cep)
             try {
                 console.log(event.target.value)
-                const data = await fetch(`https://viacep.com.br/ws/${event.target.value}/json/`).then(res => res.json())
+                const data = await fetch(`https://opencep.com/v1/${event.target.value}.json`).then(res => res.json())
                 setCidade(data.localidade)
                 setEstado(data.uf)
                 setLogradouto(data.logradouro)
@@ -217,11 +232,16 @@ const CadastroPage = () => {
 
                         <div className="input-group w50">
 
+                            <input {...register("numero")} onChange={handleChangeNumero} value={numero} type="text" id="logradouro" placeholder="Numero" />
+                        </div>
+
+                        <div className="input-group">
+
                             <input onChange={handleChangeComplemento} value={complemento} type="text" id="complemento" placeholder="Complemento" />
                         </div>
 
                         <div className="input-group">
-                            <input  type="text" id="cep" placeholder="Nomear Local" required />
+                            <input onChange={handleChangeApelido} type="text" id="cep" placeholder="Nomear Local" required />
                         </div>
 
                         {/* <div className="input-group">

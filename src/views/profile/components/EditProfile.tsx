@@ -9,19 +9,18 @@ import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom'
 import { refresh } from '../../../utils/refreshToken';
 
-    type edituser = {
-        foto: string,
-        nome: string,
-        email: string,
-        telefone: string,
-        biografia: string,
-        senha: string,
-        cpf: string
-    }
+type edituser = {
+    foto: string,
+    nome: string,
+    email: string,
+    telefone: string,
+    biografia: string,
+    senha: string,
+    cpf: string
+}
 
-export default function EditProfile() {
+export default function EditProfile({ foto, setFoto, setInfo }) {
 
-    const navigate = useNavigate()
     const [nome, setNome] = useState(localStorage.getItem('nome'))
     const [telefone, setTelefone] = useState(localStorage.getItem('telefone'))
     const [cpfValue, setCpfValue] = useState(localStorage.getItem('cpfcnpj'))
@@ -29,7 +28,6 @@ export default function EditProfile() {
     const [senha, setSenha] = useState('')
     const [biografia, setBiografia] = useState("Eu amo reciclar <3")
     const [modal, setModal] = useState(false);
-
 
     const handleChangeTelefone = (event: ChangeEvent<HTMLInputElement>): void => {
         setTelefone(event.target.value)
@@ -54,7 +52,7 @@ export default function EditProfile() {
         event.preventDefault()
 
         const usuarioEdit: edituser = {
-            foto: url,
+            foto: url ? url : localStorage.getItem('foto'),
             nome: nome,
             telefone: telefone,
             email: email,
@@ -63,7 +61,7 @@ export default function EditProfile() {
             cpf: cpfValue
         }
 
-        if (!nome || !telefone || telefone == "(" || !email || !senha || !cpfValue) {  
+        if (!nome || !telefone || telefone == "(" || !email || !senha || !cpfValue) {
             return
         }
 
@@ -81,12 +79,13 @@ export default function EditProfile() {
 
         if (cadastroAtualizado.ok) {
             Swal.fire({
-            text: 'Tudo certo!!',
-            title: 'Conta atualizada com sucesso',
-            icon: 'success'
-        })        
+                text: 'Tudo certo!!',
+                title: 'Conta atualizada com sucesso',
+                icon: 'success'
+            })
+            toggleModal()
             await refresh(email, senha)
-            navigate('/profile', { replace: true })
+            setInfo()
         } else {
             Swal.fire({
                 icon: 'error',
@@ -105,11 +104,13 @@ export default function EditProfile() {
     }
 
     const handleSubmitImage = () => {
-        const imageRef = ref(storage, "image");
+        const imageRef = ref(storage, `image/${localStorage.getItem('id')}`);
         uploadBytes(imageRef, image)
             .then(() => {
                 getDownloadURL(imageRef)
                     .then((url) => {
+                        localStorage.setItem('foto', url)
+                        setFoto(url)
                         setUrl(url);
                     })
                     .catch((error) => {
@@ -143,14 +144,14 @@ export default function EditProfile() {
                 </ul>
             </div>
 
-            {modal && (                
+            {modal && (
                 <div className="modal">
                     <div onClick={toggleModal} className="overlay"></div>
                     <form onSubmit={registrarEdit} className="modal-content">
                         <div className='top-content-profile'>
                             <h1>Minha Conta</h1>
                             <img src={localStorage.getItem('foto')} style={{ width: 190, height: 190, borderRadius: 100 }} alt="fotologo" />
-                            <input type="file"  onChange={handleImageChange}  className='customfile' />
+                            <input type="file" onChange={handleImageChange} className='customfile' />
                             <button type='button' onClick={handleSubmitImage}>Salvar</button>
                             <hr />
                         </div>
@@ -166,7 +167,7 @@ export default function EditProfile() {
                                 <hr />
 
                                 <div className="form__group field">
-                                    <input defaultValue={localStorage.getItem('email')}  onChange={handleChangeEmail} type="email" className="form__field" placeholder="email" name="name" id='email' required />
+                                    <input defaultValue={localStorage.getItem('email')} onChange={handleChangeEmail} type="email" className="form__field" placeholder="email" name="name" id='email' required />
                                     <label htmlFor="name" className="form__label">Email</label>
                                 </div>
 
@@ -181,7 +182,7 @@ export default function EditProfile() {
                                 <hr />
 
                                 <div className="form__group field">
-                                    <input defaultValue="Eu amo reciclar <3"  onChange={handleChangeBiografia} type="input" className="form__field" placeholder="Biografia" name="name" id='biografia' required />
+                                    <input defaultValue="Eu amo reciclar <3" onChange={handleChangeBiografia} type="input" className="form__field" placeholder="Biografia" name="name" id='biografia' required />
                                     <label htmlFor="name" className="form__label">Biografia</label>
                                 </div>
 
@@ -191,7 +192,7 @@ export default function EditProfile() {
                                 </div>
 
                                 <div className="form__group field">
-                                        <input  defaultValue={localStorage.getItem('cpfcnpj')} type="text" className="form__field" placeholder={localStorage.getItem('cpfcnpj')} onChange={handleChangeCpf} name="name"    required />
+                                    <input defaultValue={localStorage.getItem('cpfcnpj')} type="text" className="form__field" placeholder={localStorage.getItem('cpfcnpj')} onChange={handleChangeCpf} name="name" required />
                                     <label htmlFor="name" className="form__label">{localStorage.getItem('tipo_pessoa') == 'Pessoa Fisica' ? 'CPF' : 'CNPJ'}</label>
                                 </div>
 

@@ -105,9 +105,8 @@ const MenuLateral = () => {
                     }>
                         <img
                             className="nav-footer-avatar"
-                            src={'https://firebasestorage.googleapis.com/v0/b/profile-picture-zerowaste.appspot.com/o/image?alt=media&token=7e584d9e-24e5-4261-a5cf-390caff05a61'}
+                            src={`https://firebasestorage.googleapis.com/v0/b/profile-picture-zerowaste.appspot.com/o/image?alt=media&token=https://firebasestorage.googleapis.com/v0/b/profile-picture-zerowaste.appspot.com/o/image?alt=media&token=59495361-3c6e-4819-ae4c-5dce0e049fa5`}
                             alt=""
-                            style={{borderRadius: 100}}
 
                         />
                         <div className="nav-footer-info">

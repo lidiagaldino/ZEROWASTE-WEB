@@ -70,6 +70,7 @@ const Container = () => {
 
     const [info, setInfo] = useState<dados>()
     const [viewState, setViewState] = useState<view>('edit')
+    const [foto, setFoto] = useState(localStorage.getItem('foto'))
 
 
     useEffect(() => {
@@ -90,13 +91,22 @@ const Container = () => {
 
     }, [])
 
+    const update = () => {
+        fetch(`https://webappdeploy-backend.azurewebsites.net/user`, {
+            headers: {
+                'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
+            },
+        }).then(response => response.json())
+            .then(data => setInfo(data))
+    }
+
 
 
     return (
         <div className='container-bio'>
             <section className="userProfile card">
                 <div className="profile">
-                    <figure><img src={'https://firebasestorage.googleapis.com/v0/b/profile-picture-zerowaste.appspot.com/o/image?alt=media&token=7e584d9e-24e5-4261-a5cf-390caff05a61'} alt="profile" width="250px" height="250px" />
+                    <figure><img src={localStorage.getItem('foto')} alt="profile" width="250px" height="250px" />
                         <h1 className='statusCliente'>Status: Indisponivel</h1>
                     </figure>
 
@@ -108,6 +118,7 @@ const Container = () => {
                 <div className="work">
                     <div className="primary">
                         <h1>Biografia</h1>
+                        <hr></hr>
                         <span>{localStorage.getItem('biografia')}</span>
 
                     </div>
@@ -151,7 +162,7 @@ const Container = () => {
                 }
 
                 {viewState == 'edit' &&
-                    <EditProfile />
+                    <EditProfile foto={foto} setFoto={setFoto} setInfo={update} />
                 }
 
             </section >
@@ -164,6 +175,7 @@ const Container = () => {
                     <ul>
                         <li className="about active">
                             <i className="ri-user-3-fill ri"></i>
+                            <hr></hr>
                             <span>Sobre</span>
                         </li>
                     </ul>

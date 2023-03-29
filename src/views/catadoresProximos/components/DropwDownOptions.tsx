@@ -1,3 +1,4 @@
+import { Item } from 'firebase/analytics'
 import React from 'react'
 import { useState, useEffect } from "react"
 
@@ -8,34 +9,33 @@ type drop = {
     label: string
 }
 
-function DropwDownOptions() {
+function DropwDownOptions({ selected, setSelected, regiao, setRegiao, dropChange }) {
 
-    const [regiao, setRegiao] = useState([])
-    const [selected, setSelected] = useState('')
 
-    useEffect(() => {
-        fetch(`https://webappdeploy-backend.azurewebsites.net/endereco/${localStorage.getItem('id')}`).then(response => response.json()).then(resposta => setRegiao(resposta))
-    }, [])
+
 
     const [isActive, setIsActive] = useState(false)
+    console.log(regiao)
 
     return (
         <div className="dropdown">
 
-            <div className="dropdown-btn" onClick={(e) => setIsActive(!isActive)}> Região: {selected}</div>
+            <div className="dropdown-btn" onClick={(e) => setIsActive(!isActive)}> Local: {selected}</div>
             {isActive && (
                 <div className="dropdown-content">
-                    {regiao.map((option) => (
-                        <div key={option.id} onClick={(e) => {
-                            console.log(e.target)
-                            setSelected(option.endereco.logradouro)
-                            setIsActive(false)
-
-                        }}
-                            className="dropdown-item">
-                            {option.endereco.logradouro}
-                        </div>
-                    ))}
+                    {regiao.map((option) => {
+                        return (
+                            <div key={option.id} onClick={(e) => {
+                                console.log(option.value)
+                                setSelected(option.value)
+                                setIsActive(false)
+                                dropChange(option.id_endereco)
+                            }}
+                                className="dropdown-item">
+                                {option.value}
+                            </div>
+                        )
+                    })}
                 </div>
             )}
         </div>

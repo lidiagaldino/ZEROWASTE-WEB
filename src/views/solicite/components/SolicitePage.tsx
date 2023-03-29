@@ -18,8 +18,8 @@ const SolicitePage = () => {
             console.log(item.endereco)
             return (
                 {
-                    label: item.endereco.logradouro,
-                    value: item.endereco.logradouro,
+                    label: item.endereco.apelido,
+                    value: item.endereco.apelido,
                     id: item.id
                 }
             )
@@ -76,7 +76,7 @@ const SolicitePage = () => {
                         </div> */}
 
                         <div className='drop' style={{ width: 375, height: 50, borderRadius: 100 }}>
-                            <p>Selecione os materiais que sera descartado:</p>
+                            <p>Selecione o local que será solicitado:</p>
                             <Select
                                 defaultValue={[complementoOptions[2]]}
                                 isMulti

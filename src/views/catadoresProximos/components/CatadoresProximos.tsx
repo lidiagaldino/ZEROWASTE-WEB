@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../style.css'
 import catadores_proximosfoto from '../../../assets/catadores_proximosfoto.png'
 import DropwDownOptions from './DropwDownOptions'
@@ -10,10 +10,41 @@ import '../bg-animation.css'
 
 
 const CatadoresProximos = () => {
-
-    const [selected, setSelected] = useState("")
     const [query, setQuery] = useState("")
     const options = ['Barueri', 'Jandira', 'Itapevi', 'Osasco', 'Carapicuiba']
+
+    const [selected, setSelected] = useState('')
+    const [regiao, setRegiao] = useState([])
+    const [data, setData] = useState([])
+
+    useEffect(() => {
+        fetch(`https://webappdeploy-backend.azurewebsites.net/endereco/${localStorage.getItem('id')}`).then(response => response.json()).then(resposta => setRegiao(resposta.map((item) => {
+            return (
+                {
+                    label: item.endereco.apelido,
+                    value: item.endereco.apelido,
+                    id: item.id,
+                    id_endereco: item.id_endereco
+                }
+            )
+        })))
+    }, [])
+
+    const handleDropChange = (id) => {
+        fetch(`https://webappdeploy-backend.azurewebsites.net/gerador/${id}`, {
+            headers: {
+                'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
+            },
+        }).then(response => response.json()).then(resposta => setData(resposta.map((item) => {
+            return ({
+                foto: item.foto,
+                endereco: `${item.logradouro} - ${item.cidade}, ${item.numero}`,
+                nome: item.nome ? item.nome : item.nome_fantasia
+            })
+        })))
+    }
+
+    console.log(data)
 
     return (
         <div>
@@ -37,135 +68,34 @@ const CatadoresProximos = () => {
 
 
                     <div className='reg-bt'>
-                        <DropwDownOptions />
-                    </div>
-                </div>
-                <div className="boxUserProximos">
-                    <img src={catadores_proximosfoto} alt="photo" />
-                    <div className='boxInfoU'>
-                        <h3>Eduardo Perucci Martins de Souza</h3>
-                        <p>Rua antonio jose maria da silva, 912</p>
-                    </div>
-
-                    <div className='buttonPosition'>
-                        <button className='buttonBox'>Solicite</button>
+                        <DropwDownOptions dropChange={handleDropChange} selected={selected} setSelected={setSelected} regiao={regiao} setRegiao={setRegiao} />
                     </div>
                 </div>
 
-                <hr />
+                {data.map((item) => {
+                    return (
+                        <>
+                            <div className="boxUserProximos">
 
-                <div className="boxUserProximos">
-                    <img src={catadores_proximosfoto} alt="photo" />
-                    <div className='boxInfoU'>
-                        <h3>Lidia Galdiano</h3>
-                        <p>Jandira</p>
-                    </div>
-                    <div className='buttonPosition'>
-                        <button className='buttonBox'>Solicite</button>
-                    </div>
-                </div>
-                <hr />
-                <div className="boxUserProximos">
-                    <img src={catadores_proximosfoto} alt="photo" />
-                    <div className='boxInfoU'>
-                        <h3>Miguel</h3>
-                        <p>Itapevi</p>
-                    </div>
-                    <div className='buttonPosition'>
-                        <button className='buttonBox'>Solicite</button>
-                    </div>
-                </div>
-                <hr />
-                <div className="boxUserProximos">
-                    <img src={catadores_proximosfoto} alt="photo" />
-                    <div className='boxInfoU'>
-                        <h3>Larissa</h3>
-                        <p>Barueri</p>
-                    </div>
-                    <div className='buttonPosition'>
-                        <button className='buttonBox'>Solicite</button>
-                    </div>
-                </div>
-                <hr />
-                <div className="boxUserProximos">
-                    <img src={catadores_proximosfoto} alt="photo" />
-                    <div className='boxInfoU'>
-                        <h3>Ana</h3>
-                        <p>Osasco</p>
-                    </div>
-                    <div className='buttonPosition'>
-                        <button className='buttonBox'>Solicite</button>
-                    </div>
-                </div>
-                <hr />
-                <div className="boxUserProximos">
-                    <img src={catadores_proximosfoto} alt="photo" />
-                    <div className='boxInfoU'>
-                        <h3>Eduardo</h3>
-                        <p>Jandira</p>
-                    </div>
-                    <div className='buttonPosition'>
-                        <button className='buttonBox'>Solicite</button>
-                    </div>
-                </div>
-                <hr />
-                <div className="boxUserProximos">
-                    <img src={catadores_proximosfoto} alt="photo" />
-                    <div className='boxInfoU'>
-                        <h3>Eduardo</h3>
-                        <p>Jandira</p>
-                    </div>
-                    <div className='buttonPosition'>
-                        <button className='buttonBox'>Solicite</button>
-                    </div>
-                </div>
-                <hr />
-                <div className="boxUserProximos">
-                    <img src={catadores_proximosfoto} alt="photo" />
-                    <div className='boxInfoU'>
-                        <h3>Eduardo</h3>
-                        <p>Jandira</p>
-                    </div>
-                    <div className='buttonPosition'>
-                        <button className='buttonBox'>Solicite</button>
-                    </div>
-                </div>
-                <hr />
-                <div className="boxUserProximos">
-                    <img src={catadores_proximosfoto} alt="photo" />
-                    <div className='boxInfoU'>
-                        <h3>Eduardo</h3>
-                        <p>Jandira</p>
-                    </div>
-                    <div className='buttonPosition'>
-                        <button className='buttonBox'>Solicite</button>
-                    </div>
-                </div>
-                <hr />
-                <div className="boxUserProximos">
-                    <img src={catadores_proximosfoto} alt="photo" />
-                    <div className='boxInfoU'>
-                        <h3>Eduardo</h3>
-                        <p>Jandira</p>
-                    </div>
-                    <div className='buttonPosition'>
-                        <button className='buttonBox'>Solicite</button>
-                    </div>
-                </div>
-                <hr />
-                <div className="boxUserProximos">
-                    <img src={catadores_proximosfoto} alt="photo" />
-                    <div className='boxInfoU'>
-                        <h3>Eduardo</h3>
-                        <p>Jandira</p>
-                    </div>
-                    <div className='buttonPosition'>
-                        <button className='buttonBox'>Solicite</button>
-                    </div>
-                </div>
+                                <img src={item.foto} alt="photo" className='fotoUser' style={{ borderRadius: 100, width: 93, height: 93 }} />
+                                <div className='boxInfoU'>
+                                    <h3>{item.nome}</h3>
+                                    <p>{item.endereco}</p>
+                                </div>
+
+                                <div className='buttonPosition'>
+                                    <button className='buttonBox'>Solicite</button>
+                                </div>
+
+                            </div>
+
+
+                            <hr />
+
+                        </>
+                    )
+                })}
             </div>
-
-
 
         </div>
     )
