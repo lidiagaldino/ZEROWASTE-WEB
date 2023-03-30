@@ -4,10 +4,17 @@ import '../styles/formSignIn.css'
 import '../styles/button.css'
 import { Person, Envelope } from 'phosphor-react'
 import { Navigate, useLocation, useNavigate } from 'react-router-dom'
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import schemaLogin from '../../../validations/loginValidation'
 
 const form = () => {
   const [emailState, setEmailState] = useState({ value: '' })
   const [passState, setPassState] = useState({ value: '' })
+  const { register, handleSubmit, setError } = useForm({
+    resolver: yupResolver(schemaLogin)
+  })
 
   const navigate = useNavigate()
 
@@ -59,7 +66,7 @@ const form = () => {
       localStorage.setItem('cpfcnpj', responde.user.pessoa_juridica.length > 0 ? responde.user.pessoa_juridica[0].cnpj : responde.user.pessoa_fisica[0].cpf)
       navigate('/home', { replace: true })
     }
-  } 
+  }
 
   return (
     <form onSubmit={login} className="sign-in-form">

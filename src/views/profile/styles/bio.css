@@ -64,7 +64,7 @@
 .container-bio {
     position: relative;
     display: grid;
-    grid-template-columns: 2fr 2fr;
+    grid-template-columns: 1fr 2fr;
     grid-template-areas:
         "userProfile userDetails"
         "work_skills timeline_about"
@@ -182,7 +182,7 @@ figure {
 }
 
 .userDetails .userName h1 {
-    font-size: var(--xxxl-fs);
+    font-size: 3rem;
 }
 
 .userDetails .userName .map {
@@ -207,7 +207,7 @@ figure {
 }
 
 .userDetails .userName p {
-    font-size: var(--m-fs);
+    font-size: 1.6rem;
     font-weight: 700;
     color: green;
     ;
@@ -220,26 +220,27 @@ figure {
 }
 
 .userDetails .rank .heading {
-    font-size: var(--xs-fs);
+    font-size: 1.4rem;
     color: var(--f4-color);
     text-transform: uppercase;
     margin-bottom: var(--m-0-6);
 }
 
 .userDetails .rank span {
-    font-size: 4.5rem;
+    font-size: 6.5rem;
     font-weight: 700;
 }
 
 .userDetails .rank .rating {
     position: absolute;
-    top: 4.8rem;
-    left: 8rem;
+    top: 6.5rem;
+    left: 11rem;
+
 }
 
 .userDetails .rank .rating .rate {
     color: var(--f5-color);
-    font-size: var(--l-fs);
+    font-size: 10rem;
 }
 
 .userDetails .rank .rating .underrate {
@@ -297,7 +298,40 @@ figure {
     font-size: var(--xl-fs);
 }
 
-.userDetails .btns ul li a {}
+.OqRecolho {
+    display: flex;
+    justify-content: center;
+
+    margin-top: 60px;
+    width: 100%;
+}
+
+.OqRecolho h1 {
+    font-size: 1.4rem;
+
+}
+
+.recolheButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.recolheButton button {
+    border: none;
+    outline: none;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    background-color: #097c09;
+    transition: all 0.3s ease-in-out;
+}
+
+.recolheButton button:hover {
+    height: 45px;
+    width: 45px;
+    transition: all 0.3s ease-in-out;
+}
 
 
 
@@ -342,8 +376,8 @@ figure {
 }
 
 .timeline_about .tabss ul li span {
-    font-size: var(--l-fs);
-    font-weight: 500;
+    font-size: 2.2rem;
+    font-weight: 600;
 
 }
 

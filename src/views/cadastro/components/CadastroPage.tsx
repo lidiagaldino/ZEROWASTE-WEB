@@ -1,14 +1,7 @@
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import '../styles/cadastroPage.css'
 import celular from '../../../assets/celular.png'
-import Select from "react-select";
-import Item from 'antd/es/list/Item';
-import { valueContainerCSS } from 'react-select/dist/declarations/src/components/containers';
-import useCep from 'react-hook-usecep'
 import { useForm } from 'react-hook-form';
-import Placeholder from 'react-select/dist/declarations/src/components/Placeholder';
-import { useRouteLoaderData } from 'react-router-dom';
-import { encodePlaceholder } from '@syncfusion/ej2-react-dropdowns';
 import Swal from 'sweetalert2';
 
 
@@ -44,34 +37,6 @@ type drop = {
 
 
 const CadastroPage = () => {
-
-    // //DROP DOWN
-    // const [dropOptions, setDropOptions] = useState([])
-
-    // useEffect(() => {
-    //     fetch(`https://webappdeploy-backend.azurewebsites.net/materiais`).then(response => response.json()).then(resposta => setDropOptions(resposta.message.map((item) => {
-    //         return (
-    //             {
-    //                 label: item.nome,
-    //                 value: item.nome,
-    //                 id: item.id
-    //             }
-    //         )
-    //     })))
-    // }, [])
-
-    // const [selected, setSelected] = useState<string[]>([])
-
-    // const handleChange = (value: any) => {
-    //     let array: string[] = []
-
-    //     value.map((item: drop) => {
-    //         array.push(item.id)
-    //     })
-    //     setSelected(array)
-    // }
-
-
 
     const [cep, setCep] = useState('')
     const [complemento, setComplemento] = useState('')
@@ -174,7 +139,6 @@ const CadastroPage = () => {
         setCep(event.target.value)
 
         if (event.target.value.length == 8) {
-            // console.log(cep)
             try {
                 console.log(event.target.value)
                 const data = await fetch(`https://opencep.com/v1/${event.target.value}.json`).then(res => res.json())
@@ -243,25 +207,6 @@ const CadastroPage = () => {
                         <div className="input-group">
                             <input onChange={handleChangeApelido} type="text" id="cep" placeholder="Nomear Local" required />
                         </div>
-
-                        {/* <div className="input-group">
-                            <input type="text" id="nomelocal" placeholder="Nomear Local ?" required />
-                        </div> */}
-
-                        {/* <div className='drop' style={{ width: 375, height: 50, borderRadius: 100}}>
-                            <Select
-                                defaultValue={[dropOptions[2]]}
-                                isMulti
-                                name="materials"
-                                options={dropOptions}
-                                className="basic-multi-select"
-                                classNamePrefix="select"
-                                onChange={handleChange}
-                            />
-                        </div> */}
-
-
-
 
                         <div className="input-group w50">
                             <button type='submit'>Cadastrar</button>

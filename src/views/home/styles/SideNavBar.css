@@ -263,9 +263,12 @@ input {
 
 .nav-footer-user-name {
 	font-size: 18px;
-	font-weight: 700;
+	font-weight: 600;
 	margin-left: 20px;
+	max-width: 100%;
+	display: flex;
 	flex-wrap: nowrap;
+
 
 }
 
@@ -285,6 +288,8 @@ input {
 	margin-top: -15px;
 	color: var(--gray);
 }
+
+
 
 .nav-footer-avatar img {
 	display: flex;

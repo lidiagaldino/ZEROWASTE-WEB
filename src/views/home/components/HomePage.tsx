@@ -22,6 +22,7 @@ const HomePage = () => {
   return (
 
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
+
       <section className="seção" id={theme}>
         <div className="circlee"></div>
         <div className="content">

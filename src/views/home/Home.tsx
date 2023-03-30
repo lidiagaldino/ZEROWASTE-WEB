@@ -5,19 +5,9 @@ import './styles/main.css'
 
 
 
-
 const Home = () => {
-
-
-
-
-
   return (
-
-
-
     <body>
-     
       <div className='containerr'>
         <div>
           <MenuLateral />

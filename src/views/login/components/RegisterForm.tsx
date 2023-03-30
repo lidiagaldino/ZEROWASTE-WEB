@@ -10,6 +10,7 @@ import InputMask from "react-input-mask";
 import { IMaskInput } from "react-imask";
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
+import { getLatitudeLongitude } from '../../../utils/getLatitudeLongitude';
 
 type dados = {
     email: string,
@@ -27,7 +28,9 @@ type dados = {
         estado: string,
         cep: string,
         numero: string,
-        complemento: string
+        complemento: string,
+        latitude: string,
+        longitude: string
     },
     materiais?: string[]
 
@@ -153,7 +156,7 @@ function RegisterForm() {
 
         const cepInfo = await fetch(`https://opencep.com/v1/${cep.replace('-', '')}.json`)
         const cepInfoResponse = await cepInfo.json()
-        console.log(cepInfoResponse);
+        const teste = await getLatitudeLongitude({ logradouro: cepInfoResponse.logradouro, cidade: cepInfoResponse.localidade, estado: cepInfoResponse.uf })
 
         const usuario: dados = {
             nome: nome,
@@ -164,7 +167,9 @@ function RegisterForm() {
                 cidade: cepInfoResponse.localidade,
                 estado: cepInfoResponse.uf,
                 numero: numero,
-                complemento: complemento ? complemento : " "
+                complemento: complemento ? complemento : " ",
+                latitude: `${teste.lat}`,
+                longitude: `${teste.lng}`
             },
             telefone: telefone,
             email: email,

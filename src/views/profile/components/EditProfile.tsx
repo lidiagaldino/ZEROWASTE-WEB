@@ -51,6 +51,11 @@ export default function EditProfile({ foto, setFoto, setInfo }) {
     async function registrarEdit(event: FormEvent) {
         event.preventDefault()
 
+        if (image) {
+            handleSubmitImage()
+        }
+
+
         const usuarioEdit: edituser = {
             foto: url ? url : localStorage.getItem('foto'),
             nome: nome,
@@ -86,6 +91,7 @@ export default function EditProfile({ foto, setFoto, setInfo }) {
             toggleModal()
             await refresh(email, senha)
             setInfo()
+
         } else {
             Swal.fire({
                 icon: 'error',
@@ -152,7 +158,7 @@ export default function EditProfile({ foto, setFoto, setInfo }) {
                             <h1>Minha Conta</h1>
                             <img src={localStorage.getItem('foto')} style={{ width: 190, height: 190, borderRadius: 100 }} alt="fotologo" />
                             <input type="file" onChange={handleImageChange} className='customfile' />
-                            <button type='button' onClick={handleSubmitImage}>Salvar</button>
+
                             <hr />
                         </div>
 

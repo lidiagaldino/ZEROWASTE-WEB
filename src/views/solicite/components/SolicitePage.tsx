@@ -44,6 +44,7 @@ const SolicitePage = () => {
     }, [])
 
     const [selected, setSelected] = useState<string[]>([]);
+    const [local, setLocal] = useState('')
 
     const handleChange = (value: any) => {
         let array: string[] = []
@@ -54,6 +55,10 @@ const SolicitePage = () => {
         })
         console.log(array);
         setSelected(array)
+    }
+
+    const handleSelectChange = (value: any) => {
+        setLocal(value)
     }
 
 
@@ -78,13 +83,11 @@ const SolicitePage = () => {
                         <div className='drop' style={{ width: 375, height: 50, borderRadius: 100 }}>
                             <p>Selecione o local que será solicitado:</p>
                             <Select
-                                defaultValue={[complementoOptions[2]]}
-                                isMulti
                                 name="materials"
                                 options={complementoOptions}
                                 className="basic-multi-select"
                                 classNamePrefix="Selecione"
-                                onChange={handleChange}
+                                onChange={handleSelectChange}
                                 required
                             />
 

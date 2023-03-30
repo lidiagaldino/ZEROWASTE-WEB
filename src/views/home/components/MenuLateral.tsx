@@ -7,13 +7,18 @@ import 'boxicons'
 import storage from '../../../firebase';
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
+function limitarTexto(texto, limite) {
+    if (texto.length > limite) {
+        return texto.slice(0, limite) + "...";
+    } else {
+        return texto;
+    }
+}
+
 
 const MenuLateral = () => {
 
-
-
-
-
+    const texto = localStorage.getItem('nome')
 
     const [isExpanded, setExpendState] = useState(false);
 
@@ -105,12 +110,14 @@ const MenuLateral = () => {
                     }>
                         <img
                             className="nav-footer-avatar"
-                            src={`https://firebasestorage.googleapis.com/v0/b/profile-picture-zerowaste.appspot.com/o/image?alt=media&token=https://firebasestorage.googleapis.com/v0/b/profile-picture-zerowaste.appspot.com/o/image?alt=media&token=59495361-3c6e-4819-ae4c-5dce0e049fa5`}
+                            src={localStorage.getItem('foto')} style={{ borderRadius: 100 }}
                             alt=""
 
                         />
                         <div className="nav-footer-info">
-                            <p className="nav-footer-user-name">{localStorage.getItem('nome')}</p>
+
+                            <p className="nav-footer-user-name">{limitarTexto(texto, 13)}</p>
+
                             <p className="nav-footer-user-position">{localStorage.getItem('tipo')}</p>
                         </div>
                     </div>

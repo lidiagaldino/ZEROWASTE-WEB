@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import '../style.css'
-import catadores_proximosfoto from '../../../assets/catadores_proximosfoto.png'
 import DropwDownOptions from './DropwDownOptions'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
-import { Dropdown } from 'rsuite';
 import '../bg-animation.css'
 
 
 
 const CatadoresProximos = () => {
-    const [query, setQuery] = useState("")
-    const options = ['Barueri', 'Jandira', 'Itapevi', 'Osasco', 'Carapicuiba']
-
     const [selected, setSelected] = useState('')
     const [regiao, setRegiao] = useState([])
     const [data, setData] = useState([])
@@ -72,6 +67,10 @@ const CatadoresProximos = () => {
                     </div>
                 </div>
 
+                {data.length == 0 &&
+                    < span > Selecione um endereço para ver os catadores disponíveis</span>
+                }
+
                 {data.map((item) => {
                     return (
                         <>
@@ -97,7 +96,7 @@ const CatadoresProximos = () => {
                 })}
             </div>
 
-        </div>
+        </div >
     )
 }
 

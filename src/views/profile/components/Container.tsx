@@ -10,6 +10,7 @@ type dados = {
         email: string,
         senha: string,
         telefone: string,
+        biografia: string
         catador: [
             {
                 id: string,
@@ -106,7 +107,7 @@ const Container = () => {
         <div className='container-bio'>
             <section className="userProfile card">
                 <div className="profile">
-                    <figure><img src={localStorage.getItem('foto')} alt="profile" width="250px" height="250px" />
+                    <figure><img src={localStorage.getItem('foto')} alt="profile" width="320px" height="320px" />
                         <h1 className='statusCliente'>Status: Indisponivel</h1>
                     </figure>
 
@@ -119,7 +120,7 @@ const Container = () => {
                     <div className="primary">
                         <h1>Biografia</h1>
                         <hr></hr>
-                        <span>{localStorage.getItem('biografia')}</span>
+                        <span>{info?.user.biografia}</span>
 
                     </div>
                 </div>
@@ -137,11 +138,11 @@ const Container = () => {
                     <h1 className="heading">Avaliação</h1>
                     <span>8,6</span>
                     <div className="rating">
-                        <FontAwesomeIcon icon={faStar} />
-                        <FontAwesomeIcon icon={faStar} />
-                        <FontAwesomeIcon icon={faStar} />
-                        <FontAwesomeIcon icon={faStar} />
-                        <FontAwesomeIcon icon={faStar} />
+                        <FontAwesomeIcon icon={faStar} style={{ height: 30 }} />
+                        <FontAwesomeIcon icon={faStar} style={{ height: 30 }} />
+                        <FontAwesomeIcon icon={faStar} style={{ height: 30 }} />
+                        <FontAwesomeIcon icon={faStar} style={{ height: 30 }} />
+                        <FontAwesomeIcon icon={faStar} style={{ height: 30 }} />
                     </div>
                 </div>
 
@@ -196,6 +197,16 @@ const Container = () => {
                             <span className='info'>{info?.user.email}</span>
                         </li>
                     </ul>
+                </div>
+
+                <div className=''>
+                    <div className='OqRecolho'>
+                        <h1>Materiais que {localStorage.getItem('nome')} recolhe:</h1>
+                    </div>
+                    <div className='recolheButton'>
+                        <button>+</button>
+                    </div>
+
                 </div>
 
 
