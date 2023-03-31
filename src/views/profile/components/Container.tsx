@@ -5,6 +5,12 @@ import { faStar } from '@fortawesome/free-solid-svg-icons'
 import EditProfile from '../components/EditProfile'
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons'
 
+type drop = {
+    id: string,
+    value: string,
+    label: string
+}
+
 type dados = {
     user: {
         id: string,
@@ -208,6 +214,8 @@ const Container = () => {
                     </ul>
                 </div>
 
+                {info?.user.catador.length > 0 &&info?.user.catador[0].materiais_catador.map((item2) => {
+                    return (
                 <div className='section-recolher'>
                     <div className='OqRecolho'>
                         <h1>Materiais que {localStorage.getItem('nome')} recolhe:</h1>
@@ -218,9 +226,8 @@ const Container = () => {
                         Ver 
                         </h3>
                         <div className='cu'>
-                            <ul className={clicado ? "retangulo" : "quadrado"} >
-                            <li className='opa'>Metais</li>
-                            <li>Papeis</li>
+                            <ul className={clicado ? "retangulo" : "quadrado"} > 
+                            <li className='item-text'>{item2.material.nome}</li>
                             <li>Orgânicos</li>
                             <li>Plásticos</li>
                             <li>Eletrônicos</li>
@@ -229,12 +236,9 @@ const Container = () => {
                         </div>
                         </nav>
                     </div>
-
                 </div>
-
-                
-
-
+                    )
+                })}
 
                 <div className='basic_info'>
                     <ul>
