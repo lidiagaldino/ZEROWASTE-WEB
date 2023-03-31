@@ -118,7 +118,7 @@
 figure img {
     border-radius: 50%;
     border: red 5px solid;
-    
+
 }
 
 .statusCliente {
@@ -310,7 +310,7 @@ figure {
 
 .OqRecolho h1 {
     font-size: 1.4rem;
-    
+
 
 }
 
@@ -318,10 +318,12 @@ figure {
     display: flex;
     align-items: center;
     justify-content: center;
-    
+
+
 }
 
 .recolheButton nav {
+
     border: none;
     outline: none;
     border-radius: 20%;
@@ -350,15 +352,15 @@ figure {
     display: flex;
     justify-content: center;
     align-items: center;
-  }
+}
 
-  .botao:hover{
+.botao:hover {
     width: 85px;
-   
-  }
-  
-  .botao.clicado {
-    
+
+}
+
+.botao.clicado {
+
     height: 120px;
     width: 80%;
     background-color: rgba(0, 255, 0, 0.3);
@@ -372,62 +374,65 @@ figure {
     display: flex;
     justify-content: center;
     align-items: center;
-  }
+}
 
-  @keyframes descer {
+@keyframes descer {
     0% {
-      transform: translateY(0);
+        transform: translateY(0);
     }
-    100% {
-      transform: translateY(30px);
-    }
-  }
 
-  .ListaOqRecolho {
+    100% {
+        transform: translateY(30px);
+    }
+}
+
+.ListaOqRecolho {
     display: flex;
     justify-content: column;
     align-items: center;
-    
-  }
+    position: relative;
+}
 
-  .quadrado{
-    
+.quadrado {
+
     display: none;
- 
-  }
 
-  .retangulo{
+}
+
+.retangulo {
     list-style-type: none;
     padding: 0;
     margin: 0;
     display: flex;
     flex-wrap: wrap;
     gap: 4px;
-    
-   
-  }
+    position: relative;
 
-  .retangulo li {
+
+}
+
+.retangulo li {
     width: 25%;
     padding: 3px;
     background-color: #f2f2f2;
     border: 1px solid #ddd;
     border-radius: 12px;
-    
+
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     transition: opacity 5.2s ease-in;
     text-align: center;
-  }
+    position: relative;
+}
 
-  .iconnaoclicado{
+.iconnaoclicado {
     color: white;
     font-weight: 300;
-  }
+}
 
 
-  .iconclicado {
+.iconclicado {
     display: none;
-  }
+}
 
 
 .userDetails .btns ul .active a,
@@ -448,7 +453,7 @@ figure {
 }
 
 .timeline_about .tabss ul::before {
- 
+
     position: absolute;
     bottom: 0;
     right: 0;
@@ -477,7 +482,7 @@ figure {
 }
 
 .timeline_about .tabss ul .active::before {
-  
+
     position: absolute;
     bottom: 0;
     width: 100%;

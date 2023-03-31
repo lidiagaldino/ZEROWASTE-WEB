@@ -11,6 +11,7 @@ import { IMaskInput } from "react-imask";
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import { getLatitudeLongitude } from '../../../utils/getLatitudeLongitude';
+import cadastroValidation from '../../../validations/cadastroValidation';
 
 type dados = {
     email: string,
@@ -108,33 +109,58 @@ function RegisterForm() {
     const [senha, setSenha] = useState('')
     const [maskState, setMaskState] = useState('99.999.999/9999-99')
 
+    const [user, setUser] = useState({
+        nome: nome,
+        telefone: telefone,
+        cpf: cpfValue,
+        email: email,
+        data_nascimento: data,
+        cep: cep,
+        complemento: complemento,
+        numero: numero,
+        senha: senha
+    })
+
+    const [status, setStatus] = useState({
+        type: '',
+        message: ''
+    })
+
     const handleChangeName = (event: ChangeEvent<HTMLInputElement>): void => {
         setNome(event.target.value)
+        setUser({ nome: event.target.value, telefone, cpf: cpfValue, email, data_nascimento: data, cep, complemento, numero, senha })
     }
     const handleChangePhone = (event: ChangeEvent<HTMLInputElement>): void => {
         setTelefone(event.target.value)
-        console.log(event.target.value);
+        setUser({ nome, telefone: event.target.value, cpf: cpfValue, email, data_nascimento: data, cep, complemento, numero, senha })
     }
     const handleChangeCpf = (event: ChangeEvent<HTMLInputElement>): void => {
         setCpfValue(event.target.value)
+        setUser({ nome, telefone, cpf: event.target.value, email, data_nascimento: data, cep, complemento, numero, senha })
     }
     const handleChangeEmail = (event: ChangeEvent<HTMLInputElement>): void => {
         setEmail(event.target.value)
+        setUser({ nome, telefone, cpf: cpfValue, email: event.target.value, data_nascimento: data, cep, complemento, numero, senha })
     }
     const handleChangeData = (event: ChangeEvent<HTMLInputElement>): void => {
         setData(event.target.value)
+        setUser({ nome, telefone, cpf: cpfValue, email, data_nascimento: event.target.value, cep, complemento, numero, senha })
     }
     const handleChangeCep = (event: ChangeEvent<HTMLInputElement>): void => {
         setCep(event.target.value)
+        setUser({ nome, telefone, cpf: cpfValue, email, data_nascimento: data, cep: event.target.value, complemento, numero, senha })
     }
     const handleChangeComplemento = (event: ChangeEvent<HTMLInputElement>): void => {
         setComplemento(event.target.value)
+        setUser({ nome, telefone, cpf: cpfValue, email, data_nascimento: data, cep, complemento: event.target.value, numero, senha })
     }
     const handleChangeNumero = (event: ChangeEvent<HTMLInputElement>): void => {
         setNumero(event.target.value)
+        setUser({ nome, telefone, cpf: cpfValue, email, data_nascimento: data, cep, complemento, numero: event.target.value, senha })
     }
     const handleChangeSenha = (event: ChangeEvent<HTMLInputElement>): void => {
         setSenha(event.target.value)
+        setUser({ nome, telefone, cpf: cpfValue, email, data_nascimento: data, cep, complemento, numero, senha: event.target.value })
     }
 
     const onChange = (newValue: any) => {
@@ -146,7 +172,7 @@ function RegisterForm() {
         event.preventDefault()
 
 
-        if (!nome || !telefone || telefone == "(" || !cpfValue || !email || !data || !cep || !complemento || !numero || !senha) {
+        if (!(await cadastroValidation(user, setStatus))) {
             return
         }
 
@@ -221,6 +247,8 @@ function RegisterForm() {
             setNumero('')
             setSenha('')
             setTelefone('')
+            setIsmaterialVisible('false')
+            setStatus({ message: '', type: '' })
         } else {
             Swal.fire({
                 icon: 'error',
@@ -234,25 +262,19 @@ function RegisterForm() {
 
     return (
         <form onSubmit={registrar} id="form-sign-up" action="#" className="sign-up-form">
+            {status.type === 'success' ? <p style={{ color: "green" }}>{status.message}</p> : ""}
+            {status.type === 'error' ? <p style={{ color: "red" }}>{status.message}</p> : ""}
             <img src={logo} className='logoo' alt="logo" />
             <h2 className='title'>Registrar-se</h2>
             <div className="input-field">
                 <i><FontAwesomeIcon icon={faUser} /></i>
-                <input onChange={handleChangeName} value={nome} type="text" id="username" placeholder="Nome" required />
+                <input onChange={handleChangeName} value={nome} type="text" id="username" placeholder="Nome" />
             </div>
 
             <div className="input-field">
                 <i><FontAwesomeIcon icon={faPhone} /></i>
-                {/* <IMaskInput
-                    mask="(00) 00000-0000"
-                    onComplete={handleChangePhone}
-                    placeholder="telefone"
-                    value={telefone}
-
-                /> */}
 
                 <InputMask placeholder="Telefone" lazy={false} mask="(99) 99999-9999" maskChar={null} value={telefone} onChange={handleChangePhone} />
-                {/* <input onChange={handleChangePhone} value={telefone} type="number" id="telefone" placeholder="Telefone" required /> */}
             </div>
 
             <div className="sw" style={{ width: 350, height: 45 }}>
@@ -261,15 +283,8 @@ function RegisterForm() {
                     options={options}
                     backgroundColor={"#006400"}
                     selectedFontColor={"#000000"}
-
-
                 />
             </div>
-
-
-
-
-
             <div className="input-field" id="adicionar_CPFCNPJ">
                 <i id="icone_cpfcnpj"><FontAwesomeIcon icon={faFile} /></i>
                 <InputMask placeholder={cpfCnpj} value={cpfValue} onChange={handleChangeCpf} mask={maskState} maskChar={null} />
@@ -277,7 +292,7 @@ function RegisterForm() {
 
             <div className="input-field">
                 <i><FontAwesomeIcon icon={faEnvelope} /></i>
-                <input onChange={handleChangeEmail} value={email} type="email" id="email" name="email" placeholder="Email" required />
+                <input onChange={handleChangeEmail} value={email} type="email" id="email" name="email" placeholder="Email" />
             </div>
             <div className="input-field">
                 <i><FontAwesomeIcon icon={faEnvelope} /></i>
@@ -285,20 +300,20 @@ function RegisterForm() {
             </div>
             <div className="input-field">
                 <i><FontAwesomeIcon icon={faLocationDot} /></i>
-                <InputMask mask="99999-999" maskChar={null} onChange={handleChangeCep} value={cep} placeholder="CEP" required />
+                <InputMask mask="99999-999" maskChar={null} onChange={handleChangeCep} value={cep} placeholder="CEP" />
                 <a href="https://buscacepinter.correios.com.br/app/endereco/index.php" target="_blank"
                     className="consultacep">Consultar CEP</a>
             </div>
 
             <div className="divbotao">
                 <input onChange={handleChangeComplemento} value={complemento} type="text" id="complemento" placeholder="Complemento" />
-                <input onChange={handleChangeNumero} value={numero} type="number" id="numero" placeholder="Numero" required />
+                <input onChange={handleChangeNumero} value={numero} type="number" id="numero" placeholder="Numero" />
             </div>
 
 
             <div className="input-field">
                 <i ><FontAwesomeIcon icon={faLock} /></i>
-                <input onChange={handleChangeSenha} value={senha} type="password" id="senha" placeholder="Senha" required />
+                <input onChange={handleChangeSenha} value={senha} type="password" id="senha" placeholder="Senha" />
             </div>
 
 

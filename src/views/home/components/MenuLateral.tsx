@@ -30,9 +30,9 @@ const MenuLateral = () => {
             href: '/home'
         },
         {
-            text: "Solicite uma coleta",
+            text: localStorage.getItem('tipo') == "Catador" ? "Cadastre um novo material" : "Solicite uma coleta",
             icon: <FontAwesomeIcon className='icon' icon={faStreetView} />,
-            href: '/solicite'
+            href: localStorage.getItem('tipo') == "Catador" ? '/material' : '/solicite'
         },
         {
             text: "Cadastre um endereço",
@@ -57,6 +57,7 @@ const MenuLateral = () => {
 
 
     ];
+
     return (
         <div
             className={
@@ -110,13 +111,15 @@ const MenuLateral = () => {
                     }>
                         <img
                             className="nav-footer-avatar"
-                            src={localStorage.getItem('foto')} style={{ borderRadius: 100 }}
+
+                            src={`https://firebasestorage.googleapis.com/v0/b/profile-picture-zerowaste.appspot.com/o/image%2F${localStorage.getItem('id')}?alt=media&token=5d893246-31d9-4e40-af16-8bbb8df714d9`} style={{ borderRadius: 100 }}
                             alt=""
 
                         />
+
                         <div className="nav-footer-info">
 
-                            <p className="nav-footer-user-name">{limitarTexto(texto, 13)}</p>
+                            <p className="nav-footer-user-name">{limitarTexto(texto, 10)}</p>
 
                             <p className="nav-footer-user-position">{localStorage.getItem('tipo')}</p>
                         </div>
@@ -131,6 +134,7 @@ const MenuLateral = () => {
             </div>
         </div >
     )
+
 }
 
 export default MenuLateral

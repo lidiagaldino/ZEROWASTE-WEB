@@ -76,13 +76,17 @@ type view = 'view' | 'edit'
 
 const Container = () => {
 
+    const [recolhoMateriais, setRecolhoMateriais] = useState([])
 
 
-        const [clicado, setClicado] = useState(false);
-      
-        const handleClick = () => {
-          setClicado(!clicado);
-        };
+
+
+
+    const [clicado, setClicado] = useState(false);
+
+    const handleClick = () => {
+        setClicado(!clicado);
+    };
 
     const [info, setInfo] = useState<dados>()
     const [viewState, setViewState] = useState<view>('edit')
@@ -115,6 +119,23 @@ const Container = () => {
         }).then(response => response.json())
             .then(data => setInfo(data))
     }
+
+    useEffect(() => {
+        fetch(`https://webappdeploy-backend.azurewebsites.net/materiais/${localStorage.getItem('id_modo')}`, {
+            headers: {
+                'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
+            },
+        }).then(response => response.json()).then(resposta => setRecolhoMateriais(resposta.map((item) => {
+            return (
+                {
+
+                    label: item.material.nome,
+                    value: item.material.nome,
+                    id: item.id
+                }
+            )
+        })))
+    }, [])
 
 
 
@@ -214,42 +235,43 @@ const Container = () => {
                     </ul>
                 </div>
 
-                {info?.user.catador.length > 0 &&info?.user.catador[0].materiais_catador.map((item2) => {
-                    return (
-                <div className='section-recolher'>
-                    <div className='OqRecolho'>
-                        <h1>Materiais que {localStorage.getItem('nome')} recolhe:</h1>
-                    </div>
-                    <div className='recolheButton'>
-                    <nav className={clicado ? "botao clicado" : "botao"} onClick={handleClick}>
-                    <h3 className={clicado? "iconclicado" : "iconnaoclicado"}>
-                        Ver 
-                        </h3>
-                        <div className='cu'>
-                            <ul className={clicado ? "retangulo" : "quadrado"} > 
-                            <li className='item-text'>{item2.material.nome}</li>
-                            <li>Orgânicos</li>
-                            <li>Plásticos</li>
-                            <li>Eletrônicos</li>
-                            <li>Comun</li>
-                            </ul>
-                        </div>
-                        </nav>
-                    </div>
-                </div>
-                    )
-                })}
+                {info?.user.catador.length > 0 &&
+                    recolhoMateriais.map((item) => {
+                        return (
+                            <div className='section-recolher'>
+                                <div className='OqRecolho'>
+                                    <h1>Materiais que {localStorage.getItem('nome')} recolhe:</h1>
+                                </div>
+                                <div className='recolheButton'>
+                                    <nav className={clicado ? "botao clicado" : "botao"} onClick={handleClick}>
+                                        <h3 className={clicado ? "iconclicado" : "iconnaoclicado"}>
+                                            Ver
+                                        </h3>
+                                        <div className='cu'>
+                                            <ul className={clicado ? "retangulo" : "quadrado"} >
 
-                <div className='basic_info'>
+                                                <li className='item-text'>{item.value}</li>
+
+                                            </ul>
+                                        </div>
+                                    </nav>
+                                </div>
+                            </div>
+                        )
+                    })
+                }
+
+
+                {/* <div className='basic_info'>
                     <ul>
                         <li className="birthday">
                             <h1 className="label">{localStorage.getItem('tipo') == "Catador" ? 'Hora/Disponível:' : ''}</h1>
                             <span className="info">{localStorage.getItem('tipo') == "Catador" ? '14:00 -- 19:30' : ''}</span>
                         </li>
                     </ul>
-                </div>
+                </div> */}
 
-                {info?.user.catador.length > 0 && info?.user.catador[0].materiais_catador.map((item) => {
+                {/* {info?.user.catador.length > 0 && info?.user.catador[0].materiais_catador.map((item) => {
                     return (
                         <li className='item' key={item.id}>
                             <span className='checkbox'>
@@ -258,7 +280,7 @@ const Container = () => {
                             <span className='item-text'>{item.material.nome}</span>
                         </li>
                     )
-                })}
+                })} */}
 
 
             </section>

@@ -6,31 +6,36 @@ import { Person, Envelope } from 'phosphor-react'
 import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { useForm } from "react-hook-form";
 
-import schemaLogin from '../../../validations/loginValidation'
+import { validateLogin } from '../../../validations/loginValidation'
 
 const form = () => {
   const [emailState, setEmailState] = useState({ value: '' })
   const [passState, setPassState] = useState({ value: '' })
-  const { register, handleSubmit, setError } = useForm({
-
+  const [status, setStatus] = useState({
+    type: '',
+    message: ''
+  })
+  const [user, setUser] = useState({
+    email: emailState.value,
+    senha: passState.value
   })
 
   const navigate = useNavigate()
 
-
-
   function handleEmailChange(event: ChangeEvent<HTMLInputElement>): void {
     setEmailState({ value: event.target.value })
+    setUser({ email: event.target.value, senha: passState.value })
   }
 
   function handlePassChange(event: ChangeEvent<HTMLInputElement>): void {
     setPassState({ value: event.target.value })
+    setUser({ email: emailState.value, senha: event.target.value })
   }
 
   async function login(event: FormEvent) {
     event.preventDefault()
 
-    if (!emailState.value || !passState.value) {
+    if (!(await validateLogin(user, setStatus))) {
       return
     }
 
@@ -63,12 +68,16 @@ const form = () => {
       localStorage.setItem('biografia', responde.user.biografia)
       localStorage.setItem('foto', responde.user.foto)
       localStorage.setItem('cpfcnpj', responde.user.pessoa_juridica.length > 0 ? responde.user.pessoa_juridica[0].cnpj : responde.user.pessoa_fisica[0].cpf)
+      localStorage.setItem('id_modo', responde.user.catador.length > 0 ? responde.user.catador[0].id : responde.user.gerador[0].id)
       navigate('/home', { replace: true })
     }
   }
 
   return (
+
     <form onSubmit={login} className="sign-in-form">
+      {status.type === 'success' ? <p style={{ color: "green" }}>{status.message}</p> : ""}
+      {status.type === 'error' ? <p style={{ color: "red" }}>{status.message}</p> : ""}
       <img src={logo} className='logoo' alt="logo" />
       <h2 className='title'>Entrar</h2>
       <div className="input-field">

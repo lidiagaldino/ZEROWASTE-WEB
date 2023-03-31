@@ -21,6 +21,15 @@ type edituser = {
 
 export default function EditProfile({ foto, setFoto, setInfo }) {
 
+    const [isLoading, setIsLoading] = useState(false);
+
+    function handleClick() {
+        setIsLoading(true);
+        setTimeout(() => {
+            window.location.reload();
+        }, 3000);
+    }
+
     const [nome, setNome] = useState(localStorage.getItem('nome'))
     const [telefone, setTelefone] = useState(localStorage.getItem('telefone'))
     const [cpfValue, setCpfValue] = useState(localStorage.getItem('cpfcnpj'))
@@ -88,6 +97,7 @@ export default function EditProfile({ foto, setFoto, setInfo }) {
                 title: 'Conta atualizada com sucesso',
                 icon: 'success'
             })
+
             toggleModal()
             await refresh(email, senha)
             setInfo()
@@ -118,6 +128,7 @@ export default function EditProfile({ foto, setFoto, setInfo }) {
                         localStorage.setItem('foto', url)
                         setFoto(url)
                         setUrl(url);
+
                     })
                     .catch((error) => {
                         console.log(error.message, "error getting the image url");
@@ -206,7 +217,7 @@ export default function EditProfile({ foto, setFoto, setInfo }) {
                         </div>
 
                         <div className='save-changes-position'>
-                            <button type='submit' className='save-changes'>Salvar Alteracoes</button>
+                            <button type='submit' className='save-changes' onClick={handleClick}> {isLoading ? 'Salvando alteracoes...' : 'Salvar Alteracoes'} </button>
                         </div>
 
                         <button className="close-modal" onClick={toggleModal}>

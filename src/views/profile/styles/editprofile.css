@@ -1,5 +1,6 @@
  body.active-modal {
      overflow-y: hidden;
+     transition: all 1s ease-in-out;
  }
 
 
@@ -37,6 +38,13 @@
      right: 0;
      bottom: 0;
      position: fixed;
+     transition: all 1s ease-in-out;
+
+ }
+
+ .modal {
+     z-index: 999;
+     transition: all 1s ease-in-out;
  }
 
  .overlay {
@@ -56,6 +64,7 @@
      height: 1020px;
      z-index: 1;
      border-radius: 25px;
+     transition: all 1s ease-in-out;
  }
 
  .close-modal {
