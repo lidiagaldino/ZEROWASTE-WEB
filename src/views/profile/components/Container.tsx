@@ -3,6 +3,7 @@ import '../styles/bio.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import EditProfile from '../components/EditProfile'
+import { faArrowDown } from '@fortawesome/free-solid-svg-icons'
 
 type dados = {
     user: {
@@ -69,6 +70,14 @@ type view = 'view' | 'edit'
 
 const Container = () => {
 
+
+
+        const [clicado, setClicado] = useState(false);
+      
+        const handleClick = () => {
+          setClicado(!clicado);
+        };
+
     const [info, setInfo] = useState<dados>()
     const [viewState, setViewState] = useState<view>('edit')
     const [foto, setFoto] = useState(localStorage.getItem('foto'))
@@ -107,7 +116,7 @@ const Container = () => {
         <div className='container-bio'>
             <section className="userProfile card">
                 <div className="profile">
-                    <figure><img src={localStorage.getItem('foto')} alt="profile" width="320px" height="320px" />
+                    <figure><img src={localStorage.getItem('foto')} alt="profile" width="250px" height="250px" />
                         <h1 className='statusCliente'>Status: Indisponivel</h1>
                     </figure>
 
@@ -138,11 +147,11 @@ const Container = () => {
                     <h1 className="heading">Avaliação</h1>
                     <span>8,6</span>
                     <div className="rating">
-                        <FontAwesomeIcon icon={faStar} style={{ height: 30 }} />
-                        <FontAwesomeIcon icon={faStar} style={{ height: 30 }} />
-                        <FontAwesomeIcon icon={faStar} style={{ height: 30 }} />
-                        <FontAwesomeIcon icon={faStar} style={{ height: 30 }} />
-                        <FontAwesomeIcon icon={faStar} style={{ height: 30 }} />
+                        <FontAwesomeIcon icon={faStar} style={{ height: 20 }} />
+                        <FontAwesomeIcon icon={faStar} style={{ height: 20 }} />
+                        <FontAwesomeIcon icon={faStar} style={{ height: 20 }} />
+                        <FontAwesomeIcon icon={faStar} style={{ height: 20 }} />
+                        <FontAwesomeIcon icon={faStar} style={{ height: 20 }} />
                     </div>
                 </div>
 
@@ -199,15 +208,31 @@ const Container = () => {
                     </ul>
                 </div>
 
-                <div className=''>
+                <div className='section-recolher'>
                     <div className='OqRecolho'>
                         <h1>Materiais que {localStorage.getItem('nome')} recolhe:</h1>
                     </div>
                     <div className='recolheButton'>
-                        <button>+</button>
+                    <nav className={clicado ? "botao clicado" : "botao"} onClick={handleClick}>
+                    <h3 className={clicado? "iconclicado" : "iconnaoclicado"}>
+                        Ver 
+                        </h3>
+                        <div className='cu'>
+                            <ul className={clicado ? "retangulo" : "quadrado"} >
+                            <li className='opa'>Metais</li>
+                            <li>Papeis</li>
+                            <li>Orgânicos</li>
+                            <li>Plásticos</li>
+                            <li>Eletrônicos</li>
+                            <li>Comun</li>
+                            </ul>
+                        </div>
+                        </nav>
                     </div>
 
                 </div>
+
+                
 
 
 

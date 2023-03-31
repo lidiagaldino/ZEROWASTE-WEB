@@ -64,7 +64,7 @@
 .container-bio {
     position: relative;
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 1fr 1.5fr;
     grid-template-areas:
         "userProfile userDetails"
         "work_skills timeline_about"
@@ -105,8 +105,8 @@
 
 
 .container header .brandLogo figure img {
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
 }
 
 .container header .brandLogo span {
@@ -118,7 +118,7 @@
 figure img {
     border-radius: 50%;
     border: red 5px solid;
-
+    
 }
 
 .statusCliente {
@@ -182,13 +182,13 @@ figure {
 }
 
 .userDetails .userName h1 {
-    font-size: 3rem;
+    font-size: 2rem;
 }
 
 .userDetails .userName .map {
     position: absolute;
     top: 2.5rem;
-    left: 22.5rem;
+    left: 12.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -207,7 +207,7 @@ figure {
 }
 
 .userDetails .userName p {
-    font-size: 1.6rem;
+    font-size: 1.1rem;
     font-weight: 700;
     color: green;
     ;
@@ -227,20 +227,20 @@ figure {
 }
 
 .userDetails .rank span {
-    font-size: 6.5rem;
+    font-size: 3.5rem;
     font-weight: 700;
 }
 
 .userDetails .rank .rating {
     position: absolute;
-    top: 6.5rem;
-    left: 11rem;
+    top: 4.0rem;
+    left: 6rem;
 
 }
 
 .userDetails .rank .rating .rate {
     color: var(--f5-color);
-    font-size: 10rem;
+    font-size: 8rem;
 }
 
 .userDetails .rank .rating .underrate {
@@ -306,8 +306,11 @@ figure {
     width: 100%;
 }
 
+
+
 .OqRecolho h1 {
     font-size: 1.4rem;
+    
 
 }
 
@@ -315,28 +318,116 @@ figure {
     display: flex;
     align-items: center;
     justify-content: center;
+    
 }
 
-.recolheButton button {
+.recolheButton nav {
     border: none;
     outline: none;
-    border-radius: 50%;
+    border-radius: 20%;
     height: 40px;
-    width: 40px;
-    background-color: #097c09;
+    width: 70px;
+    background-color: rgba(0, 255, 0, 0.3);
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5), 0 0 20px rgba(0, 255, 0, 0.3), inset 0 0 20px rgba(0, 255, 0, 0.3);
     transition: all 0.3s ease-in-out;
+    display: flex;
+    justify-content: column;
+    align-items: center;
 }
 
-.recolheButton button:hover {
-    height: 45px;
-    width: 45px;
-    transition: all 0.3s ease-in-out;
-}
 
 
 
+.botao {
+    padding: 10px;
+    border: none;
+    border-radius: 50%;
+    background-color: rgba(0, 255, 0, 0.3);
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5), 0 0 20px rgba(0, 255, 0, 0.3), inset 0 0 20px rgba(0, 255, 0, 0.3);
+    color: black;
+    font-size: 16px;
+    transition: all 0.5s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .botao:hover{
+    width: 85px;
+   
+  }
+  
+  .botao.clicado {
+    
+    height: 120px;
+    width: 80%;
+    background-color: rgba(0, 255, 0, 0.3);
+    border: 1px solid rgba(0, 255, 0, 0.5);
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5), 0 0 20px rgba(0, 255, 0, 0.3), inset 0 0 20px rgba(0, 255, 0, 0.3);
+    transition: all 0.5s ease-in-out;
+    animation-name: descer;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  @keyframes descer {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(30px);
+    }
+  }
+
+  .ListaOqRecolho {
+    display: flex;
+    justify-content: column;
+    align-items: center;
+    
+  }
+
+  .quadrado{
+    
+    display: none;
+ 
+  }
+
+  .retangulo{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    
+   
+  }
+
+  .retangulo li {
+    width: 25%;
+    padding: 3px;
+    background-color: #f2f2f2;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    transition: opacity 5.2s ease-in;
+    text-align: center;
+  }
+
+  .iconnaoclicado{
+    color: white;
+    font-weight: 300;
+  }
 
 
+  .iconclicado {
+    display: none;
+  }
 
 
 .userDetails .btns ul .active a,
@@ -357,7 +448,7 @@ figure {
 }
 
 .timeline_about .tabss ul::before {
-    content: "";
+ 
     position: absolute;
     bottom: 0;
     right: 0;
@@ -386,7 +477,7 @@ figure {
 }
 
 .timeline_about .tabss ul .active::before {
-    content: "";
+  
     position: absolute;
     bottom: 0;
     width: 100%;
