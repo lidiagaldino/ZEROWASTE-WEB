@@ -5,10 +5,10 @@ import MaterialCadastro from './components/MaterialCadastro'
 
 const Material = () => {
 
-  
+
 
     return (
-        <div className='main'>
+        <div className='main-material'>
             <MenuLateral />
             <div className='body-cadastro'>
                 <MaterialCadastro />

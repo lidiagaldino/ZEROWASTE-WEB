@@ -126,6 +126,8 @@ const Container = () => {
                 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
             },
         }).then(response => response.json()).then(resposta => setRecolhoMateriais(resposta.map((item) => {
+            console.log(item);
+
             return (
                 {
 
@@ -236,29 +238,36 @@ const Container = () => {
                 </div>
 
                 {info?.user.catador.length > 0 &&
-                    recolhoMateriais.map((item) => {
-                        return (
-                            <div className='section-recolher'>
-                                <div className='OqRecolho'>
-                                    <h1>Materiais que {localStorage.getItem('nome')} recolhe:</h1>
-                                </div>
-                                <div className='recolheButton'>
-                                    <nav className={clicado ? "botao clicado" : "botao"} onClick={handleClick}>
-                                        <h3 className={clicado ? "iconclicado" : "iconnaoclicado"}>
-                                            Ver
-                                        </h3>
-                                        <div className='cu'>
-                                            <ul className={clicado ? "retangulo" : "quadrado"} >
 
+                    <div className='section-recolher'>
+                        <div className='OqRecolho'>
+                            <h1>Materiais que {localStorage.getItem('nome')} recolhe:</h1>
+                        </div>
+                        <div className='recolheButton'>
+                            <nav className={clicado ? "botao clicado" : "botao"} onClick={handleClick}>
+                                <h3 className={clicado ? "iconclicado" : "iconnaoclicado"}>
+                                    Ver
+                                </h3>
+                                <div className=''>
+                                    <ul className={clicado ? "retangulo" : "quadrado"} >
+
+
+                                        {recolhoMateriais.map((item) => {
+                                            return (
                                                 <li className='item-text'>{item.value}</li>
+                                            )
 
-                                            </ul>
-                                        </div>
-                                    </nav>
+                                        })}
+
+
+
+                                    </ul>
                                 </div>
-                            </div>
-                        )
-                    })
+                            </nav>
+                        </div>
+                    </div>
+
+
                 }
 
 

@@ -390,12 +390,13 @@ figure {
     display: flex;
     justify-content: column;
     align-items: center;
-    position: relative;
+  
 }
 
 .quadrado {
 
     display: none;
+    
 
 }
 
