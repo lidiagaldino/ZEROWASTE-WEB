@@ -42,9 +42,9 @@ const SolicitePage = () => {
             )
         })))
     }, [])
-
-    const [selected, setSelected] = useState<string[]>([]);
     const [local, setLocal] = useState('')
+    const [selected, setSelected] = useState<string[]>([]);
+    
 
     const handleChange = (value: any) => {
         let array: string[] = []

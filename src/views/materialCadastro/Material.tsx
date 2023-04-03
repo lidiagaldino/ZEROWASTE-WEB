@@ -5,6 +5,8 @@ import MaterialCadastro from './components/MaterialCadastro'
 
 const Material = () => {
 
+  
+
     return (
         <div className='main'>
             <MenuLateral />

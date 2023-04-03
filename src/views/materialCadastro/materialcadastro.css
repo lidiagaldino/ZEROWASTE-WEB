@@ -1,0 +1,72 @@
+.material-section{
+  display: flex;
+  justify-content: center;
+  transform: translateX(500px);
+  margin-top: 80px;
+}
+
+.material-container{
+  display: flex;
+  justify-content: center;
+  background-color: #2D2E37;
+  box-shadow: -40.6395px 89.1764px 123px rgba(0, 0, 0, 0.07), -26.3404px 57.7995px 72.0347px rgba(0, 0, 0, 0.0531481), -15.6537px 34.3494px 39.1778px rgba(0, 0, 0, 0.0425185), -8.12791px 17.8353px 19.9875px rgba(0, 0, 0, 0.035), -3.31137px 7.26622px 10.0222px rgba(0, 0, 0, 0.0274815), -0.752584px 1.65141px 4.84028px rgba(0, 0, 0, 0.0168519);
+  border-radius: 15px;
+  width: 747px;
+  height: 767px;
+  
+}
+
+.material-content {
+  display: flex;
+  align-text: center;
+  flex-direction: column;
+  margin-top: 5%;
+  align-items: center;
+  
+}
+
+.material-content h1 {
+ 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-text: center;
+  font-size: 40px;
+  width: 80%;
+  font-style: normal;
+  font-weight: bold;
+  color: #fff;
+  line-height: 48px;
+ 
+}
+
+.material-content p {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100;
+  font-size: 25px;
+  line-height: 24px;
+  margin-top: 10px;
+  color: #FFFFFF;
+}
+
+.buttonMaterial {
+  background: linear-gradient(87.27deg, #53C82A 2.79%, #6DF93C 99.19%);
+  border-radius: 19px;
+  width: 274px;
+  height: 65px;
+  color: #fff;
+  margin-top: 450px;
+}
+
+.basic-multi-selectt{
+border-radius: 50px;
+transform: translatey(40px);
+  width: 420px;
+}
+
+.materials-select {
+  background: red;
+  
+}
+
