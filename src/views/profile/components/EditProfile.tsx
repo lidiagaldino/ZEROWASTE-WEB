@@ -35,26 +35,36 @@ export default function EditProfile({ foto, setFoto, setInfo }) {
     const [cpfValue, setCpfValue] = useState(localStorage.getItem('cpfcnpj'))
     const [email, setEmail] = useState(localStorage.getItem('email'))
     const [senha, setSenha] = useState('')
-    const [biografia, setBiografia] = useState("Eu amo reciclar <3")
+    const [biografia, setBiografia] = useState(localStorage.getItem('biografia'))
     const [modal, setModal] = useState(false);
+    const [user, setUser] = useState({
+        nome, telefone, cpf: cpfValue, email, biografia, senha
+    })
 
     const handleChangeTelefone = (event: ChangeEvent<HTMLInputElement>): void => {
         setTelefone(event.target.value)
+        setUser({telefone: event.target.value, nome, cpf: cpfValue, email, biografia, senha})
     }
     const handleChangeEmail = (event: ChangeEvent<HTMLInputElement>): void => {
         setEmail(event.target.value)
+        setUser({telefone, nome, cpf: cpfValue, email: event.target.value, biografia, senha})
     }
     const handleChangeBiografia = (event: ChangeEvent<HTMLInputElement>): void => {
         setBiografia(event.target.value)
+        setUser({telefone, nome, cpf: cpfValue, email, biografia: event.target.value, senha})
+
     }
     const handleChangeSenha = (event: ChangeEvent<HTMLInputElement>): void => {
         setSenha(event.target.value)
+        setUser({telefone, nome, cpf: cpfValue, email, biografia, senha: event.target.value})
     }
     const handleChangeCpf = (event: ChangeEvent<HTMLInputElement>): void => {
         setCpfValue(event.target.value)
+        setUser({telefone, nome, cpf: event.target.value, email, biografia, senha})
     }
     const handleChangeNome = (event: ChangeEvent<HTMLInputElement>): void => {
         setNome(event.target.value)
+        setUser({telefone, nome: event.target.value, cpf: cpfValue, email, biografia, senha})
     }
 
     async function registrarEdit(event: FormEvent) {

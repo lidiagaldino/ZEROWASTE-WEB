@@ -182,7 +182,7 @@ function RegisterForm() {
 
         const cepInfo = await fetch(`https://opencep.com/v1/${cep.replace('-', '')}.json`)
         const cepInfoResponse = await cepInfo.json()
-        const teste = await getLatitudeLongitude({ logradouro: cepInfoResponse.logradouro, cidade: cepInfoResponse.localidade, estado: cepInfoResponse.uf })
+        const latlong = await getLatitudeLongitude({ logradouro: cepInfoResponse.logradouro, cidade: cepInfoResponse.localidade, estado: cepInfoResponse.uf })
 
         const usuario: dados = {
             nome: nome,
@@ -194,8 +194,8 @@ function RegisterForm() {
                 estado: cepInfoResponse.uf,
                 numero: numero,
                 complemento: complemento ? complemento : " ",
-                latitude: `${teste.lat}`,
-                longitude: `${teste.lng}`
+                latitude: `${latlong.lat}`,
+                longitude: `${latlong.lng}`
             },
             telefone: telefone,
             email: email,

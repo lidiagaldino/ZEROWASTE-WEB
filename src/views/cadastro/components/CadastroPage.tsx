@@ -3,6 +3,10 @@ import '../styles/cadastroPage.css'
 import celular from '../../../assets/celular.png'
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
+import InputMask from "react-input-mask";
+import { getLatitudeLongitude } from '../../../utils/getLatitudeLongitude';
+import enderecoValidation from '../../../validations/cadastroValidation';
+import { validateEndereco } from '../../../validations/enderecoValidation';
 
 
 type dados = {
@@ -15,7 +19,9 @@ type dados = {
     bairro: string,
     apelido: string,
     numero: string,
-    id_usuario: string
+    id_usuario: string,
+    latitude: string,
+    longitude: string
 
 }
 
@@ -46,37 +52,59 @@ const CadastroPage = () => {
     const [apelido, setApelido] = useState('')
     const [numero, setNumero] = useState('')
     const [cepData, setCepData] = useState<dadosCEP>()
+    const [endereco, setEndereco] = useState({
+        cep,
+        cidade,
+        estado,
+        complemento,
+        logradouro,
+        apelido,
+        numero
+    })
+
+    const [status, setStatus] = useState({
+        type: '',
+        message: ''
+    })
 
     const handleChangeCep = (event: ChangeEvent<HTMLInputElement>): void => {
         setCep(event.target.value)
+        setEndereco({cep: event.target.value, cidade, estado, complemento, logradouro, apelido, numero})
     }
     const handleChangeComplemento = (event: ChangeEvent<HTMLInputElement>): void => {
         setComplemento(event.target.value)
+        setEndereco({cep, complemento: event.target.value, cidade, estado, logradouro, apelido, numero})
     }
     const handleChangeEstado = (event: ChangeEvent<HTMLInputElement>): void => {
-        console.log(event.target.value)
         setEstado(event.target.value)
+        setEndereco({cep, estado: event.target.value, cidade, complemento, logradouro, numero, apelido})
     }
     const handleChangeCidade = (event: ChangeEvent<HTMLInputElement>): void => {
         setCidade(event.target.value)
+        setEndereco({cep, cidade: event.target.value, estado, complemento, logradouro, apelido, numero})
     }
     const handleChangeLogradouro = (event: ChangeEvent<HTMLInputElement>): void => {
         setLogradouto(event.target.value)
+        setEndereco({cep, logradouro: event.target.value, cidade, estado, complemento, apelido, numero})
     }
     const handleChangeApelido = (event: ChangeEvent<HTMLInputElement>): void => {
         setApelido(event.target.value)
+        setEndereco({cep, logradouro, cidade, estado, complemento, apelido: event.target.value, numero})
     }
 
     const handleChangeNumero = (event: ChangeEvent<HTMLInputElement>): void => {
         setNumero(event.target.value)
+        setEndereco({cep, logradouro, cidade, estado, complemento, apelido, numero: event.target.value})
     }
 
     async function registrar(event: FormEvent) {
         event.preventDefault()
 
-        if (!cep || !estado || !cidade || !logradouro) {
+        if (!(await validateEndereco(endereco, setStatus))) {
             return
         }
+
+        const latlong = await getLatitudeLongitude({ logradouro: cepData.logradouro, cidade: cepData.localidade, estado: cepData.uf })
 
         const pontocadastro: dados = {
 
@@ -88,7 +116,9 @@ const CadastroPage = () => {
             bairro: cepData.bairro,
             apelido: apelido,
             numero: numero,
-            id_usuario: localStorage.getItem('id')
+            id_usuario: localStorage.getItem('id'),
+            latitude: `${latlong.lat}`,
+            longitude: `${latlong.lng}`
 
         }
 
@@ -104,8 +134,6 @@ const CadastroPage = () => {
         })
 
         const teste = await cadastroPonto.json()
-        console.log(teste);
-        console.log(cadastroPonto)
 
 
         if (cadastroPonto.ok) {
@@ -131,17 +159,17 @@ const CadastroPage = () => {
 
     }
 
-    const { register, setValue, handleSubmit } = useForm()
+    const { register } = useForm()
 
 
     const checkCEP = async (event: ChangeEvent<HTMLInputElement>): Promise<void> => {
 
         setCep(event.target.value)
 
-        if (event.target.value.length == 8) {
+        if (event.target.value.length == 9) {
             try {
                 console.log(event.target.value)
-                const data = await fetch(`https://opencep.com/v1/${event.target.value}.json`).then(res => res.json())
+                const data = await fetch(`https://opencep.com/v1/${event.target.value.replace('-', '')}.json`).then(res => res.json())
                 setCidade(data.localidade)
                 setEstado(data.uf)
                 setLogradouto(data.logradouro)
@@ -175,8 +203,10 @@ const CadastroPage = () => {
                     <h2>Cadastrar um novo endereço</h2>
                     <p> Cadastre um ponto de entrega.</p>
                     <form onSubmit={registrar} action="#" className='form-endereco'>
+                    {status.type === 'success' ? <p style={{ color: "green" }}>{status.message}</p> : ""}
+                    {status.type === 'error' ? <p style={{ color: "red" }}>{status.message}</p> : ""}
                         <div className="input-group">
-                            <input  {...register("cep")} onChange={checkCEP} maxLength={8} /*onChange={handleChangeCep} value={cep}*/ type="text" id="cep" placeholder="CEP" />
+                            <InputMask {...register("cep")} mask="99999-999" maskChar={null} onChange={checkCEP} placeholder="CEP" />
                         </div>
 
                         <div className="input-group w50">
@@ -205,7 +235,7 @@ const CadastroPage = () => {
                         </div>
 
                         <div className="input-group">
-                            <input onChange={handleChangeApelido} type="text" id="cep" placeholder="Nomear Local" required />
+                            <input onChange={handleChangeApelido} type="text" id="cep" placeholder="Nomear Local" />
                         </div>
 
                         <div className="input-group w50">

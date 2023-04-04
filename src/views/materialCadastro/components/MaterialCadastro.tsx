@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import '../materialcadastro.css'
 import Select from "react-select";
+
+
 
 
 type dadosMateriais = {
@@ -15,8 +17,6 @@ type drop = {
 }
 
 const MaterialCadastro = () => {
-
-    const [isRemoverClicked, setIsRemoverClicked] = useState(false)
     const [dropOptions, setDropOptions] = useState([])
     useEffect(() => {
         fetch(`https://webappdeploy-backend.azurewebsites.net/materiais/not_collect/${localStorage.getItem('id_modo')}`).then(response => response.json()).then(resposta => setDropOptions(resposta.map((item) => {
@@ -42,6 +42,8 @@ const MaterialCadastro = () => {
         console.log(array);
         setSelected(array)
     }
+
+
 
 
     async function registrarMaterial() {
@@ -70,65 +72,68 @@ const MaterialCadastro = () => {
 
     }
 
+    const [addclass, setaddclass] = useState("");
+
 
     return (
         <>
-            <div>
-                <button>Adicione material</button>
-                <button>Remover material</button>
+            <div className={`material ${addclass}`} id="material">
+                <div className="form-material  sign-up-material">
+                    <form className='form-cadastro-material'>
+                        <div className='material-content'>
+                            <h1>Olá, {localStorage.getItem('nome')}!</h1>
+                            <p>Selecione materiais que voce queira remover</p>
+                            <ul>
+                                <li>a</li>
+                                <li>a</li>
+                                <li>a</li>
+                                <li>a</li>
+                                <li>a</li>
+                                <li>a</li>
+                                <li>a</li>
+                            </ul>
+                        </div>
+                        <button className='btn-register-mt' type="submit">Confirmar</button>
+                    </form>
+                </div>
+                <div className="form-material sign-in-material">
+                    <form className='form-cadastro-material'>
+                        <div className='material-content'>
+                            <h1>Bem-vindo {localStorage.getItem('nome')} ao cadastro de materiais !</h1>
+                            <p>Selecione materiais que voce recolhe</p>
+                            <Select
+                                defaultValue={[dropOptions[2]]}
+                                isMulti
+                                name={"materials-select"}
+                                options={dropOptions}
+                                className={'basic-multi-selectt'}
+                                onChange={handleChange}
+                                placeholder="Selecione os materiais:"
+                                blurInputOnSelect={true}
+                                required
+                            />
+                        </div>
+                        <button className='btn-register-mt' type="submit">Confirmar</button>
+                    </form>
+                </div>
+                <div className="overlay-material">
+                    <div className="overlay-mt">
+                        <div className="overlay-panel-mt overlay-left-mt">
+                            <button
+                                className="ghost"
+                                id="signIn"
+                                onClick={() => setaddclass("")}>Adicionar Materiais</button>
+                        </div>
+                        <div className="overlay-panel-mt overlay-right-mt">
+                            <button
+                                className="ghost"
+                                id="signUp"
+                                onClick={() => setaddclass("right-panel-active-mt")}>Remover materiais</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <form onSubmit={registrarMaterial} className='material-section'>
-                <div className='material-container'>
-
-                    <div className='material-content'>
-                        <h1>Bem-vindo Eduardo Perucci
-                            ao cadastro de materiais !</h1>
-                        <p>Selecione materiais que voce recolhe</p>
-                        <div className='drop'>
-                            <Select
-                                defaultValue={[dropOptions[2]]}
-                                isMulti
-                                name={"materials-select"}
-                                options={dropOptions}
-                                className={'basic-multi-selectt'}
-                                onChange={handleChange}
-                                placeholder="Selecione os materiais:"
-                                blurInputOnSelect={true}
-                                required
-                            />
-                        </div>
-                        <button type='submit' className='buttonMaterial'>CONFIRMAR</button>
-                    </div>
-                </div>
-            </form>
-
-            <form onSubmit={registrarMaterial} className='material-section'>
-                <div className='material-container'>
-
-                    <div className='material-content'>
-                        <h1>Bem-vindo Eduardo Perucci
-                            a remocao de materiais !</h1>
-                        <p>Selecione materiais que voce queira apagar</p>
-                        <div className='drop'>
-                            <Select
-                                defaultValue={[dropOptions[2]]}
-                                isMulti
-                                name={"materials-select"}
-                                options={dropOptions}
-                                className={'basic-multi-selectt'}
-                                onChange={handleChange}
-                                placeholder="Selecione os materiais:"
-                                blurInputOnSelect={true}
-                                required
-                            />
-                        </div>
-                        <button type='submit' className='buttonMaterial'>CONFIRMAR</button>
-                    </div>
-                </div>
-            </form>
         </>
-
     )
 }
 
