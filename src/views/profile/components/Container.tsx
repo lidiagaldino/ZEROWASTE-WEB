@@ -241,7 +241,7 @@ const Container = () => {
 
                     <div className='section-recolher'>
                         <div className='OqRecolho'>
-                            <h1>Materiais que {localStorage.getItem('nome')} recolhe:</h1>
+                            <h1>Materiais que <span>{localStorage.getItem('nome')}</span> recolhe:</h1>
                         </div>
                         <div className='recolheButton'>
                             <nav className={clicado ? "botao clicado" : "botao"} onClick={handleClick}>

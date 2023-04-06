@@ -2,6 +2,7 @@ import React, { useState, useEffect, Fragment, ChangeEvent, FormEvent } from 're
 import '../materialcadastro.css'
 import Select from "react-select";
 import Swal from 'sweetalert2';
+import api from '../../../api/axios';
 
 type dadosMateriais = {
     id_catador: string,
@@ -15,26 +16,32 @@ type drop = {
 }
 
 const MaterialCadastro = () => {
+    const [isLoading, setIsLoading] = useState(false);
     const [dropOptions, setDropOptions] = useState([])
+
+    function handleClick() {
+        setIsLoading(true);
+        setTimeout(() => {
+            window.location.reload();
+        }, 2000);
+    }
+
     useEffect(() => {
-        fetch(`https://webappdeploy-backend.azurewebsites.net/materiais/not_collect/${localStorage.getItem('id_modo')}`).then(response => response.json()).then(resposta => setDropOptions(resposta.map((item) => {
-            console.log(item);
+        api.get(`/materiais/not_collect/${localStorage.getItem('id_modo')}`).then(response => setDropOptions(response.data.map((item) => {
             return (
                 {
-
                     label: item.nome,
                     value: item.nome,
                     id: item.id
                 }
             )
         })))
-    }, [])
-
-
+    })
 
     const [dropAllMaterials, setDropAllMaterials] = useState([])
+
     useEffect(() => {
-        fetch(`https://webappdeploy-backend.azurewebsites.net/materiais/${localStorage.getItem('id_modo')}`).then(response => response.json()).then(resposta => setDropAllMaterials(resposta.map((item) => {
+        api.get(`/materiais/${localStorage.getItem('id_modo')}`).then(response => setDropAllMaterials(response.data.map((item) => {
             return (
                 {
                     label: item.material.nome,
@@ -44,19 +51,7 @@ const MaterialCadastro = () => {
                 }
             )
         })))
-    }, [])
-
-    const [selecionado, setSelecionado] = useState<string[]>([])
-    const handleChangeRemove = (value: any) => {
-        let array: string[] = []
-
-        value.map((item: drop) => {
-            console.log(typeof (item.id))
-            array.push(item.id)
-        })
-        console.log(array);
-        setSelecionado(array)
-    }
+    })
 
     const [selected, setSelected] = useState<string[]>([]);
     const handleChange = (value: any) => {
@@ -72,29 +67,30 @@ const MaterialCadastro = () => {
 
     async function removeMaterial(event: any): Promise<void> {
         event.preventDefault()
-        EventTarget
         const id = event.target.id
-        const remover = await fetch(`https://webappdeploy-backend.azurewebsites.net/materiais/${localStorage.getItem('id_modo')}/${id}`, {
-            method: 'DELETE',
+
+        const config = {
             headers: {
-                'content-type': 'application/json',
-                'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
             }
-        })
-        if (remover.ok) {
+        }
+
+        api.delete(`/materiais/${localStorage.getItem('id_modo')}/${id}`, config).then(() => {
             Swal.fire({
                 text: 'Tudo certo!!',
                 title: 'Materiais removidos com sucesso',
                 icon: 'success'
             })
-        } else {
+        }).catch(() => {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Algo deu errado!',
             })
-        }
+        })
+
     }
+
     async function registrarMaterial(event: FormEvent) {
         event.preventDefault()
 
@@ -102,27 +98,30 @@ const MaterialCadastro = () => {
             id_catador: localStorage.getItem('id_modo'),
             id_materiais: selected
         }
-        const cadastro = await fetch(`https://webappdeploy-backend.azurewebsites.net/materiais/catador`, {
-            method: 'POST',
-            body: JSON.stringify(usuario),
+
+        const config = {
             headers: {
                 'content-type': 'application/json',
-                'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
             }
-        })
-        if (cadastro.ok) {
+        }
+
+        api.post('/materiais/catador', usuario, config).then(() => {
+
             Swal.fire({
                 text: 'Voce adicionou os materiais ao seu perfil',
                 title: 'Materiais cadastrados com sucesso',
                 icon: 'success'
             })
-        } else {
+            handleClick()
+        }).catch(() => {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Algo deu errado!',
             })
-        }
+        })
+
     }
     const [addclass, setaddclass] = useState("");
     return (
@@ -152,7 +151,7 @@ const MaterialCadastro = () => {
                             <h1>Bem-vindo {localStorage.getItem('nome')} ao cadastro de materiais !</h1>
                             <p>Selecione materiais que voce recolhe</p>
                             <Select
-                                defaultValue={[dropOptions[2]]}
+                                defaultValue={[]}
                                 isMulti
                                 name={"materials-select"}
                                 options={dropOptions}
@@ -160,10 +159,11 @@ const MaterialCadastro = () => {
                                 onChange={handleChange}
                                 placeholder="Selecione os materiais:"
                                 blurInputOnSelect={true}
+
                                 required
                             />
                         </div>
-                        <button className='btn-register-mt' type="submit">Confirmar</button>
+                        <button className='btn-register-mt' type="submit">{isLoading ? 'Salvando alterações...' : "Confirmar"}</button>
                     </form>
                 </div>
                 <div className="overlay-material">

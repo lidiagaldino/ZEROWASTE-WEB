@@ -329,8 +329,10 @@ figure {
     border-radius: 20%;
     height: 40px;
     width: 70px;
-    background-color: rgba(0, 255, 0, 0.3);
-    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5), 0 0 20px rgba(0, 255, 0, 0.3), inset 0 0 20px rgba(0, 255, 0, 0.3);
+    background: #FFFFFF;
+    box-shadow: 31.3778px 24.8079px 67px rgba(0, 0, 0, 0.08), 20.3375px 16.0792px 39.2384px rgba(0, 0, 0, 0.0607407), 12.0863px 9.55563px 21.3407px rgba(0, 0, 0, 0.0485926), 6.27557px 4.96158px 10.8875px rgba(0, 0, 0, 0.04), 2.55671px 2.02138px 5.45926px rgba(0, 0, 0, 0.0314074), 0.581071px 0.459406px 2.63657px rgba(0, 0, 0, 0.0192593);
+    border-radius: 20px;
+
     transition: all 0.3s ease-in-out;
     display: flex;
     justify-content: column;
@@ -344,8 +346,10 @@ figure {
     padding: 10px;
     border: none;
     border-radius: 50%;
-    background-color: rgba(0, 255, 0, 0.3);
-    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5), 0 0 20px rgba(0, 255, 0, 0.3), inset 0 0 20px rgba(0, 255, 0, 0.3);
+    background: #FFFFFF;
+    box-shadow: 31.3778px 24.8079px 67px rgba(0, 0, 0, 0.08), 20.3375px 16.0792px 39.2384px rgba(0, 0, 0, 0.0607407), 12.0863px 9.55563px 21.3407px rgba(0, 0, 0, 0.0485926), 6.27557px 4.96158px 10.8875px rgba(0, 0, 0, 0.04), 2.55671px 2.02138px 5.45926px rgba(0, 0, 0, 0.0314074), 0.581071px 0.459406px 2.63657px rgba(0, 0, 0, 0.0192593);
+    border-radius: 50px;
+
     color: black;
     font-size: 16px;
     transition: all 0.5s ease-in-out;
@@ -361,12 +365,13 @@ figure {
 
 .botao.clicado {
 
-    height: 120px;
-    width: 80%;
-    background-color: rgba(0, 255, 0, 0.3);
-    border: 1px solid rgba(0, 255, 0, 0.5);
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5), 0 0 20px rgba(0, 255, 0, 0.3), inset 0 0 20px rgba(0, 255, 0, 0.3);
+    height: 150px;
+    width: 50%;
+    background: #FFFFFF;
+    box-shadow: 31.3778px 24.8079px 67px rgba(0, 0, 0, 0.08), 20.3375px 16.0792px 39.2384px rgba(0, 0, 0, 0.0607407), 12.0863px 9.55563px 21.3407px rgba(0, 0, 0, 0.0485926), 6.27557px 4.96158px 10.8875px rgba(0, 0, 0, 0.04), 2.55671px 2.02138px 5.45926px rgba(0, 0, 0, 0.0314074), 0.581071px 0.459406px 2.63657px rgba(0, 0, 0, 0.0192593);
+    border-radius: 25px;
+
+
     transition: all 0.5s ease-in-out;
     animation-name: descer;
     animation-duration: 0.5s;
@@ -390,33 +395,33 @@ figure {
     display: flex;
     justify-content: column;
     align-items: center;
-  
+
 }
 
 .quadrado {
 
     display: none;
-    
+
 
 }
 
 .retangulo {
     list-style-type: none;
     padding: 0;
-    margin: 0;
+    margin-left: 100px;
     display: flex;
     flex-wrap: wrap;
     gap: 4px;
     position: relative;
-
+    border-radius: 60px;
 
 }
 
 .retangulo li {
     width: 25%;
     padding: 3px;
-    background-color: #f2f2f2;
-    border: 1px solid #ddd;
+
+    border: 1px solid rgb(144, 163, 232);
     border-radius: 12px;
 
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
@@ -426,8 +431,8 @@ figure {
 }
 
 .iconnaoclicado {
-    color: white;
-    font-weight: 300;
+    color: rgb(0, 0, 0);
+    font-weight: 600;
 }
 
 
@@ -533,6 +538,15 @@ figure {
 .timeline_about .contact_info ul .email span,
 .timeline_about .contact_info ul .site span {
     color: var(--f5-color);
+}
+
+.section-recolher .OqRecolho h1 {
+    color: rgb(0, 0, 0)(255, 255, 255);
+}
+
+.section-recolher .OqRecolho span {
+    color: rgb(54, 101, 0);
+    font-size: 1.4rem;
 }
 
 

@@ -7,6 +7,7 @@ import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { useForm } from "react-hook-form";
 
 import { validateLogin } from '../../../validations/loginValidation'
+import api from '../../../api/axios'
 
 const form = () => {
   const [emailState, setEmailState] = useState({ value: '' })
@@ -44,33 +45,32 @@ const form = () => {
       senha: passState.value
     }
 
-    const teste = await fetch('https://webappdeploy-backend.azurewebsites.net/user/auth', {
-      method: 'POST',
-      body: JSON.stringify(usuario),
+    api.post('/user/auth', usuario, {
       headers: {
         'content-type': 'application/json'
       }
-    })
+    }).then((responde) => {
+      setEmailState({ value: '' })
+      setPassState({ value: '' })
 
-    const responde = await teste.json()
-
-    setEmailState({ value: '' })
-    setPassState({ value: '' })
-
-    if (teste.ok) {
-      localStorage.setItem('email', responde.user.email)
-      localStorage.setItem('telefone', responde.user.telefone)
-      localStorage.setItem('token', responde.token)
-      localStorage.setItem('nome', responde.user.pessoa_juridica.length > 0 ? responde.user.pessoa_juridica[0].nome_fantasia : responde.user.pessoa_fisica[0].nome)
-      localStorage.setItem('tipo', responde.user.catador.length > 0 ? 'Catador' : 'Gerador')
-      localStorage.setItem('tipo_pessoa', responde.user.pessoa_juridica[0] > 0 ? 'Pessoa Juridica' : 'Pessoa Fisica')
-      localStorage.setItem('id', responde.user.id)
-      localStorage.setItem('biografia', responde.user.biografia)
-      localStorage.setItem('foto', responde.user.foto)
-      localStorage.setItem('cpfcnpj', responde.user.pessoa_juridica.length > 0 ? responde.user.pessoa_juridica[0].cnpj : responde.user.pessoa_fisica[0].cpf)
-      localStorage.setItem('id_modo', responde.user.catador.length > 0 ? responde.user.catador[0].id : responde.user.gerador[0].id)
+      localStorage.setItem('email', responde.data.user.email)
+      localStorage.setItem('telefone', responde.data.user.telefone)
+      localStorage.setItem('token', responde.data.token)
+      localStorage.setItem('nome', responde.data.user.pessoa_juridica.length > 0 ? responde.data.user.pessoa_juridica[0].nome_fantasia : responde.data.user.pessoa_fisica[0].nome)
+      localStorage.setItem('tipo', responde.data.user.catador.length > 0 ? 'Catador' : 'Gerador')
+      localStorage.setItem('tipo_pessoa', responde.data.user.pessoa_juridica.length > 0 ? 'Pessoa Juridica' : 'Pessoa Fisica')
+      localStorage.setItem('id', responde.data.user.id)
+      localStorage.setItem('biografia', responde.data.user.biografia)
+      localStorage.setItem('foto', responde.data.user.foto)
+      localStorage.setItem('cpfcnpj', responde.data.user.pessoa_juridica.length > 0 ? responde.data.user.pessoa_juridica[0].cnpj : responde.data.user.pessoa_fisica[0].cpf)
+      localStorage.setItem('id_modo', responde.data.user.catador.length > 0 ? responde.data.user.catador[0].id : responde.data.user.gerador[0].id)
       navigate('/home', { replace: true })
-    }
+    }).catch(() => {
+      setStatus({
+        message: 'Email ou senha incorretos',
+        type: 'error'
+      })
+    })
   }
 
   return (

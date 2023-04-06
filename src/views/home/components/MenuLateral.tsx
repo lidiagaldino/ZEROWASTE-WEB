@@ -119,7 +119,7 @@ const MenuLateral = () => {
 
                         <div className="nav-footer-info">
 
-                            <p className="nav-footer-user-name">{limitarTexto(texto, 10)}</p>
+                            <p className="nav-footer-user-name">{limitarTexto(texto, 5)}</p>
 
                             <p className="nav-footer-user-position">{localStorage.getItem('tipo')}</p>
                         </div>

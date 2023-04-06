@@ -68,14 +68,16 @@ const CatadoresProximos = () => {
                 </div>
 
                 {data.length == 0 &&
-                    < span > Selecione um endereço para ver os catadores disponíveis</span>
+                    <>
+
+                        <h1 style={{ paddingTop: 400, alignItems: 'center', display: 'flex', justifyContent: 'center    ' }}>Selecione um local para saber quais catadores estao pertos</h1>
+                    </>
                 }
 
                 {data.map((item) => {
                     return (
                         <>
                             <div className="boxUserProximos">
-
                                 <img src={item.foto} alt="photo" className='fotoUser' style={{ borderRadius: 100, width: 93, height: 93 }} />
                                 <div className='boxInfoU'>
                                     <h3>{item.nome}</h3>

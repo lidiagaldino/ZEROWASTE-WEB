@@ -19,16 +19,37 @@ type edituser = {
     cpf: string
 }
 
+type dados = {
+    user: {
+        id: string,
+        email: string,
+        senha: string,
+        telefone: string,
+        biografia: string
+    }
+}
+
 export default function EditProfile({ foto, setFoto, setInfo }) {
 
     const [isLoading, setIsLoading] = useState(false);
-
+    const [infoo, setInfoo] = useState<dados>()
     function handleClick() {
         setIsLoading(true);
         setTimeout(() => {
             window.location.reload();
         }, 3000);
     }
+    console.log(infoo);
+
+    useEffect(() => {
+        fetch(`https://webappdeploy-backend.azurewebsites.net/user`, {
+            headers: {
+                'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
+            },
+        }).then(response => response.json())
+            .then(data => setInfoo(data))
+
+    }, [])
 
     const [nome, setNome] = useState(localStorage.getItem('nome'))
     const [telefone, setTelefone] = useState(localStorage.getItem('telefone'))
@@ -43,28 +64,28 @@ export default function EditProfile({ foto, setFoto, setInfo }) {
 
     const handleChangeTelefone = (event: ChangeEvent<HTMLInputElement>): void => {
         setTelefone(event.target.value)
-        setUser({telefone: event.target.value, nome, cpf: cpfValue, email, biografia, senha})
+        setUser({ telefone: event.target.value, nome, cpf: cpfValue, email, biografia, senha })
     }
     const handleChangeEmail = (event: ChangeEvent<HTMLInputElement>): void => {
         setEmail(event.target.value)
-        setUser({telefone, nome, cpf: cpfValue, email: event.target.value, biografia, senha})
+        setUser({ telefone, nome, cpf: cpfValue, email: event.target.value, biografia, senha })
     }
     const handleChangeBiografia = (event: ChangeEvent<HTMLInputElement>): void => {
         setBiografia(event.target.value)
-        setUser({telefone, nome, cpf: cpfValue, email, biografia: event.target.value, senha})
+        setUser({ telefone, nome, cpf: cpfValue, email, biografia: event.target.value, senha })
 
     }
     const handleChangeSenha = (event: ChangeEvent<HTMLInputElement>): void => {
         setSenha(event.target.value)
-        setUser({telefone, nome, cpf: cpfValue, email, biografia, senha: event.target.value})
+        setUser({ telefone, nome, cpf: cpfValue, email, biografia, senha: event.target.value })
     }
     const handleChangeCpf = (event: ChangeEvent<HTMLInputElement>): void => {
         setCpfValue(event.target.value)
-        setUser({telefone, nome, cpf: event.target.value, email, biografia, senha})
+        setUser({ telefone, nome, cpf: event.target.value, email, biografia, senha })
     }
     const handleChangeNome = (event: ChangeEvent<HTMLInputElement>): void => {
         setNome(event.target.value)
-        setUser({telefone, nome: event.target.value, cpf: cpfValue, email, biografia, senha})
+        setUser({ telefone, nome: event.target.value, cpf: cpfValue, email, biografia, senha })
     }
 
     async function registrarEdit(event: FormEvent) {
@@ -74,16 +95,32 @@ export default function EditProfile({ foto, setFoto, setInfo }) {
             handleSubmitImage()
         }
 
+        console.log(localStorage.getItem('foto'));
 
-        const usuarioEdit: edituser = {
-            foto: url ? url : localStorage.getItem('foto'),
-            nome: nome,
-            telefone: telefone,
-            email: email,
-            senha: senha,
-            biografia: biografia,
-            cpf: cpfValue
+        let usuarioEdit
+
+        if (localStorage.getItem('tipo_pessoa') == 'Pessoa Fisica') {
+            usuarioEdit = {
+                foto: url ? url : localStorage.getItem('foto'),
+                nome: nome,
+                telefone: telefone,
+                email: email,
+                senha: senha,
+                biografia: biografia,
+                cpf: cpfValue
+            }
+        } else {
+            usuarioEdit = {
+                foto: url ? url : localStorage.getItem('foto'),
+                nome: nome,
+                telefone: telefone,
+                email: email,
+                senha: senha,
+                biografia: biografia,
+                cnpj: cpfValue
+            }
         }
+
 
         if (!nome || !telefone || telefone == "(" || !email || !senha || !cpfValue) {
             return
@@ -209,13 +246,13 @@ export default function EditProfile({ foto, setFoto, setInfo }) {
                                 <hr />
 
                                 <div className="form__group field">
-                                    <input defaultValue="Eu amo reciclar <3" onChange={handleChangeBiografia} type="input" className="form__field" placeholder="Biografia" name="name" id='biografia' required />
+                                    <input defaultValue={infoo?.user.biografia} onChange={handleChangeBiografia} type="input" className="form__field" placeholder="Biografia" name="name" id='biografia' required />
                                     <label htmlFor="name" className="form__label">Biografia</label>
                                 </div>
 
                                 <div className="form__group field">
                                     <input onChange={handleChangeSenha} type="password" className="form__field" placeholder="Password" name="name" required />
-                                    <label htmlFor="name" className="form__label">Senha</label>
+                                    <label htmlFor="name" className="form__label">Senha <small>(confirme a senha para salvar as alterações)</small></label>
                                 </div>
 
                                 <div className="form__group field">

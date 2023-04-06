@@ -7,6 +7,7 @@ import InputMask from "react-input-mask";
 import { getLatitudeLongitude } from '../../../utils/getLatitudeLongitude';
 import enderecoValidation from '../../../validations/cadastroValidation';
 import { validateEndereco } from '../../../validations/enderecoValidation';
+import api from '../../../api/axios';
 
 
 type dados = {
@@ -33,12 +34,6 @@ type dadosCEP = {
     cep: string,
     bairro: string,
     id_usuario: string
-}
-
-type drop = {
-    id: string,
-    value: string,
-    label: string
 }
 
 
@@ -69,32 +64,31 @@ const CadastroPage = () => {
 
     const handleChangeCep = (event: ChangeEvent<HTMLInputElement>): void => {
         setCep(event.target.value)
-        setEndereco({cep: event.target.value, cidade, estado, complemento, logradouro, apelido, numero})
+        setEndereco({ cep: event.target.value, cidade, estado, complemento, logradouro, apelido, numero })
     }
     const handleChangeComplemento = (event: ChangeEvent<HTMLInputElement>): void => {
         setComplemento(event.target.value)
-        setEndereco({cep, complemento: event.target.value, cidade, estado, logradouro, apelido, numero})
+        setEndereco({ cep, complemento: event.target.value, cidade, estado, logradouro, apelido, numero })
     }
     const handleChangeEstado = (event: ChangeEvent<HTMLInputElement>): void => {
         setEstado(event.target.value)
-        setEndereco({cep, estado: event.target.value, cidade, complemento, logradouro, numero, apelido})
+        setEndereco({ cep, estado: event.target.value, cidade, complemento, logradouro, numero, apelido })
     }
     const handleChangeCidade = (event: ChangeEvent<HTMLInputElement>): void => {
         setCidade(event.target.value)
-        setEndereco({cep, cidade: event.target.value, estado, complemento, logradouro, apelido, numero})
+        setEndereco({ cep, cidade: event.target.value, estado, complemento, logradouro, apelido, numero })
     }
     const handleChangeLogradouro = (event: ChangeEvent<HTMLInputElement>): void => {
         setLogradouto(event.target.value)
-        setEndereco({cep, logradouro: event.target.value, cidade, estado, complemento, apelido, numero})
+        setEndereco({ cep, logradouro: event.target.value, cidade, estado, complemento, apelido, numero })
     }
     const handleChangeApelido = (event: ChangeEvent<HTMLInputElement>): void => {
         setApelido(event.target.value)
-        setEndereco({cep, logradouro, cidade, estado, complemento, apelido: event.target.value, numero})
+        setEndereco({ cep, logradouro, cidade, estado, complemento, apelido: event.target.value, numero })
     }
-
     const handleChangeNumero = (event: ChangeEvent<HTMLInputElement>): void => {
         setNumero(event.target.value)
-        setEndereco({cep, logradouro, cidade, estado, complemento, apelido, numero: event.target.value})
+        setEndereco({ cep, logradouro, cidade, estado, complemento, apelido, numero: event.target.value })
     }
 
     async function registrar(event: FormEvent) {
@@ -122,21 +116,11 @@ const CadastroPage = () => {
 
         }
 
-
-
-
-        const cadastroPonto = await fetch(`https://webappdeploy-backend.azurewebsites.net/endereco`, {
-            method: 'POST',
-            body: JSON.stringify(pontocadastro),
+        api.post('/endereco', pontocadastro, {
             headers: {
                 'content-type': 'application/json'
             }
-        })
-
-        const teste = await cadastroPonto.json()
-
-
-        if (cadastroPonto.ok) {
+        }).then(() => {
             Swal.fire({
                 title: 'Tudo certo!!',
                 text: 'Endereço criado com sucesso',
@@ -149,13 +133,13 @@ const CadastroPage = () => {
             setEstado('')
             setApelido('')
             setNumero('')
-        } else {
+        }).catch(() => {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Algo está errado!',
             })
-        }
+        })
 
     }
 
@@ -203,8 +187,8 @@ const CadastroPage = () => {
                     <h2>Cadastrar um novo endereço</h2>
                     <p> Cadastre um ponto de entrega.</p>
                     <form onSubmit={registrar} action="#" className='form-endereco'>
-                    {status.type === 'success' ? <p style={{ color: "green" }}>{status.message}</p> : ""}
-                    {status.type === 'error' ? <p style={{ color: "red" }}>{status.message}</p> : ""}
+                        {status.type === 'success' ? <p style={{ color: "green" }}>{status.message}</p> : ""}
+                        {status.type === 'error' ? <p style={{ color: "red" }}>{status.message}</p> : ""}
                         <div className="input-group">
                             <InputMask {...register("cep")} mask="99999-999" maskChar={null} onChange={checkCEP} placeholder="CEP" />
                         </div>

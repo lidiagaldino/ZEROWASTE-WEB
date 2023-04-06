@@ -14,6 +14,7 @@ import Dicas from './dicas/Dicas'
 import CatadoresProximos from './catadoresProximos/components/CatadoresProximos'
 import CatadorePro from './catadoresProximos/CatadorePro'
 import Material from './materialCadastro/Material'
+import { ProtectedRoutes, CatadorRoutes, GeradorRoutes } from './ProtectedRoutes'
 
 
 const Routess = () => {
@@ -24,46 +25,53 @@ const Routess = () => {
         <Route path='/' element={<Login />} />
 
         <Route path='/home' element={
-          //<ProtectedRoutes>
-          <Home />
-          //</ProtectedRoutes>
+          <ProtectedRoutes>
+            <Home />
+          </ProtectedRoutes>
 
         } />
 
         <Route path='/profile' element={
-          //<ProtectedRoutes>
-          <Profile />
-          //</ProtectedRoutes>
+          <ProtectedRoutes>
+            <Profile />
+          </ProtectedRoutes>
         } />
 
         <Route path='/cadastro' element={
-          //<ProtectedRoutes>
-          <Cadastro />
-          //</ProtectedRoutes>
+          <ProtectedRoutes>
+            <Cadastro />
+          </ProtectedRoutes>
         } />
 
         <Route path='/solicite' element={
-          //<ProtectedRoutes>
-          <Solicite />
-          //</ProtectedRoutes>
+          <ProtectedRoutes>
+            <GeradorRoutes>
+              <Solicite />
+            </GeradorRoutes>
+          </ProtectedRoutes>
         } />
 
         <Route path='/material' element={
-          //<ProtectedRoutes>
-          <Material />
-          //</ProtectedRoutes>
+          <ProtectedRoutes>
+            <CatadorRoutes>
+              <Material />
+            </CatadorRoutes>
+
+          </ProtectedRoutes>
         } />
 
         <Route path='/dicas' element={
-          //<ProtectedRoutes>
-          <Dicas />
-          //</ProtectedRoutes>
+          <ProtectedRoutes>
+            <Dicas />
+          </ProtectedRoutes>
         } />
 
         <Route path='/catadores_proximos' element={
-          //<ProtectedRoutes>
-          <CatadorePro />
-          //</ProtectedRoutes>
+          <ProtectedRoutes>
+            <GeradorRoutes>
+              <CatadorePro />
+            </GeradorRoutes>
+          </ProtectedRoutes>
         } />
 
 
