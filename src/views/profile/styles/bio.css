@@ -70,7 +70,6 @@
         "work_skills timeline_about"
         "work_skills timeline_about";
     width: 90%;
-    height: 90vh;
     grid-gap: 10px;
     padding: 20px;
     background: rgba(234, 255, 247, 0.23);
@@ -355,6 +354,7 @@ figure {
     transition: all 0.5s ease-in-out;
     display: flex;
     justify-content: center;
+    margin-bottom: 32px;
     align-items: center;
 }
 
@@ -371,7 +371,7 @@ figure {
     box-shadow: 31.3778px 24.8079px 67px rgba(0, 0, 0, 0.08), 20.3375px 16.0792px 39.2384px rgba(0, 0, 0, 0.0607407), 12.0863px 9.55563px 21.3407px rgba(0, 0, 0, 0.0485926), 6.27557px 4.96158px 10.8875px rgba(0, 0, 0, 0.04), 2.55671px 2.02138px 5.45926px rgba(0, 0, 0, 0.0314074), 0.581071px 0.459406px 2.63657px rgba(0, 0, 0, 0.0192593);
     border-radius: 25px;
 
-
+    
     transition: all 0.5s ease-in-out;
     animation-name: descer;
     animation-duration: 0.5s;
@@ -549,6 +549,28 @@ figure {
     font-size: 1.4rem;
 }
 
+@media (min-width: 1920px) {
+    .timeline_about {
+        padding: 0.7rem;
+    }
+
+    .botao.clicado {
+
+        height: 130px;
+        width: 50%;
+        background: #FFFFFF;
+        box-shadow: 31.3778px 24.8079px 67px rgba(0, 0, 0, 0.08), 20.3375px 16.0792px 39.2384px rgba(0, 0, 0, 0.0607407), 12.0863px 9.55563px 21.3407px rgba(0, 0, 0, 0.0485926), 6.27557px 4.96158px 10.8875px rgba(0, 0, 0, 0.04), 2.55671px 2.02138px 5.45926px rgba(0, 0, 0, 0.0314074), 0.581071px 0.459406px 2.63657px rgba(0, 0, 0, 0.0192593);
+        border-radius: 25px;
+        transition: all 0.5s ease-in-out;
+        animation-name: descer;
+        animation-duration: 0.5s;
+        animation-fill-mode: forwards;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
 
 @media screen and (max-width: 1024px) {
     html {
@@ -605,3 +627,4 @@ figure {
         padding: 2.5rem;
     }
 }
+

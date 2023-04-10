@@ -38,6 +38,7 @@ input {
 
 .side-nav-container-NX {
 	width: 85px;
+
 	transition: width ease-in-out .6s;
 }
 
