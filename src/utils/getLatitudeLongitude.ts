@@ -10,7 +10,7 @@ interface Payload {
 }
 
 const convertToQuery = (local: Payload) => {
-    const text = `${local.logradouro}, ${local.cidade}, ${local.cidade}`
+    const text = `${local.logradouro}, ${local.cidade}, ${local.estado}`
     const query = encodeURIComponent(text)
 
     return query

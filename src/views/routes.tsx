@@ -1,5 +1,5 @@
 
-import React from 'react'
+import React, { useState } from 'react'
 
 import Login from './login/Login'
 
@@ -18,6 +18,8 @@ import { ProtectedRoutes, CatadorRoutes, GeradorRoutes } from './ProtectedRoutes
 
 
 const Routess = () => {
+
+
   return (
 
     <Router>
@@ -31,7 +33,13 @@ const Routess = () => {
 
         } />
 
-        <Route path='/profile' element={
+        <Route path={`/profile/:id`} element={
+          <ProtectedRoutes>
+            <Profile />
+          </ProtectedRoutes>
+        } />
+
+        <Route path={`/profile`} element={
           <ProtectedRoutes>
             <Profile />
           </ProtectedRoutes>

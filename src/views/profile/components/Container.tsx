@@ -4,6 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import EditProfile from '../components/EditProfile'
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons'
+import { useParams } from 'react-router-dom'
+import { getUsetData } from '../../../api/consume'
+import api from '../../../api/axios'
 
 type drop = {
     id: string,
@@ -12,103 +15,104 @@ type drop = {
 }
 
 type dados = {
-    user: {
-        id: string,
-        email: string,
-        senha: string,
-        telefone: string,
-        biografia: string
-        catador: [
-            {
-                id: string,
-                id_usuario: string,
-                materiais_catador: [
-                    {
-                        id: string,
-                        id_materiais: string,
-                        id_catador: string,
-                        material: {
-                            id: string,
-                            nome: string
-                        }
-                    }
-                ]
-            }
-        ],
-        gerador: [],
-        pessoa_fisica?: [
-            {
-                id: string,
-                cpf: string,
-                nome: string,
-                data_nascimento: string,
-                id_usuario: string
-            }
-        ],
-        pessoa_juridica?: [
-            {
-                id: string,
-                cnpj: string,
-                nome_fantasia: string,
-                id_usuario: string
-            }
-        ],
-        endereco_usuario: [
-            {
-                id: string,
-                id_endereco: string,
-                id_usuario: string,
-                endereco: {
+    id: string,
+    email: string,
+    senha: string,
+    telefone: string,
+    biografia: string
+    catador: [
+        {
+            id: string,
+            id_usuario: string,
+            materiais_catador: [
+                {
                     id: string,
-                    logradouro: string,
-                    bairro: string,
-                    cidade: string,
-                    estado: string,
-                    cep: string,
-                    complemento: string
+                    id_materiais: string,
+                    id_catador: string,
+                    material: {
+                        id: string,
+                        nome: string
+                    }
                 }
+            ]
+        }
+    ],
+    gerador: [],
+    pessoa_fisica?: [
+        {
+            id: string,
+            cpf: string,
+            nome: string,
+            data_nascimento: string,
+            id_usuario: string
+        }
+    ],
+    pessoa_juridica?: [
+        {
+            id: string,
+            cnpj: string,
+            nome_fantasia: string,
+            id_usuario: string
+        }
+    ],
+    endereco_usuario: [
+        {
+            id: string,
+            id_endereco: string,
+            id_usuario: string,
+            endereco: {
+                id: string,
+                logradouro: string,
+                bairro: string,
+                cidade: string,
+                estado: string,
+                cep: string,
+                complemento: string
             }
-        ]
-    }
+        }
+    ]
+
 }
 
 type view = 'view' | 'edit'
 
 const Container = () => {
 
+    const { id }: { id: string } = useParams()
+
     const [recolhoMateriais, setRecolhoMateriais] = useState([])
-
-
-
-
-
     const [clicado, setClicado] = useState(false);
-
-    const handleClick = () => {
-        setClicado(!clicado);
-    };
 
     const [info, setInfo] = useState<dados>()
     const [viewState, setViewState] = useState<view>('edit')
     const [foto, setFoto] = useState(localStorage.getItem('foto'))
 
 
+    const handleClick = () => {
+        setClicado(!clicado);
+    };
+
     useEffect(() => {
-        fetch(`https://webappdeploy-backend.azurewebsites.net/user`, {
+        const config = {
             headers: {
-                'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
-            },
-        }).then(response => response.json())
-            .then(data => setInfo(data))
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }
+        }
+
+        let teste = '/user'
+
+        if (localStorage.getItem('view-edit') == 'view') {
+            teste = `/user/${id}`
+        }
+
+        api.get(teste, config).then(response => setInfo(response.data))
 
     }, [])
-    console.log(localStorage.getItem('view-edit'))
 
     useEffect(() => {
         if (localStorage.getItem('view-edit') == 'view') {
             setViewState('view')
         }
-
     }, [])
 
     const update = () => {
@@ -121,13 +125,11 @@ const Container = () => {
     }
 
     useEffect(() => {
-        fetch(`https://webappdeploy-backend.azurewebsites.net/materiais/${localStorage.getItem('id_modo')}`, {
+        api.get(`/materiais/${localStorage.getItem('id_modo')}`, {
             headers: {
                 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
             },
-        }).then(response => response.json()).then(resposta => setRecolhoMateriais(resposta.map((item) => {
-            console.log(item);
-
+        }).then(resposta => setRecolhoMateriais(resposta.data.map((item) => {
             return (
                 {
 
@@ -141,12 +143,14 @@ const Container = () => {
 
 
 
+
     return (
+
         <div className='container-bio'>
             <section className="userProfile card">
                 <div className="profile">
                     <figure><img src={localStorage.getItem('foto')} alt="profile" width="250px" height="250px" />
-                        <h1 className='statusCliente'>Status: Indisponivel</h1>
+                        <h1 className='statusCliente'>Status: {id}</h1>
                     </figure>
 
                 </div>
@@ -158,7 +162,7 @@ const Container = () => {
                     <div className="primary">
                         <h1>Biografia</h1>
                         <hr></hr>
-                        <span>{info?.user.biografia}</span>
+                        <span>{info?.biografia}</span>
 
                     </div>
                 </div>
@@ -166,11 +170,11 @@ const Container = () => {
 
             <section className="userDetails card">
                 <div className='userName'>
-                    <h1 className='name' id='name'>{info?.user.pessoa_fisica[0] ? info?.user.pessoa_fisica[0].nome : info?.user.pessoa_juridica[0].nome_fantasia}</h1>
+                    <h1 className='name' id='name'>{info?.pessoa_fisica[0] ? info?.pessoa_fisica[0].nome : info?.pessoa_juridica[0].nome_fantasia}</h1>
                     <div className='map'>
-                        <span>{info?.user.endereco_usuario[0].endereco.cidade}</span>
+                        <span>{info?.endereco_usuario[0].endereco.cidade}</span>
                     </div>
-                    <p>{info?.user.gerador.length > 0 ? 'Gerador' : 'Catador'}</p>
+                    <p>{info?.gerador.length > 0 ? 'Gerador' : 'Catador'}</p>
                 </div>
                 <div className='rank'>
                     <h1 className="heading">Avaliação</h1>
@@ -224,20 +228,20 @@ const Container = () => {
                     <ul>
                         <li className='phone'>
                             <h1 className='label'>Telefone:</h1>
-                            <span className='info'>{info?.user.telefone}</span>
+                            <span className='info'>{info?.telefone}</span>
                         </li>
                         <li className='adress'>
                             <h1 className='label'>CEP:</h1>
-                            <span className='info'>{info?.user.endereco_usuario[0].endereco.cep}</span>
+                            <span className='info'>{info?.endereco_usuario[0].endereco.cep}</span>
                         </li>
                         <li className='email'>
                             <h1 className='label'>Email:</h1>
-                            <span className='info'>{info?.user.email}</span>
+                            <span className='info'>{info?.email}</span>
                         </li>
                     </ul>
                 </div>
 
-                {info?.user.catador.length > 0 &&
+                {info?.catador.length > 0 &&
 
                     <div className='section-recolher'>
                         <div className='OqRecolho'>

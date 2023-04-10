@@ -55,7 +55,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  
+
 }
 
 .material-content h1 {
@@ -96,8 +96,8 @@
 
 .material.right-panel-active-mt {
   justify-content: center;
-  
-  
+
+
 }
 
 .material.right-panel-active-mt .sign-up-material {
@@ -313,24 +313,9 @@ button:active {
   transition: all 0.2s ease-in-out;
 }
 
-.h1-mt-cadastro {
-  background: linear-gradient(180deg, #19FB8E 0%, #07B5EC 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-fill-color: transparent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 40px;
-  width: 72%;
-  font-style: normal;
-  font-weight: bold;
-  line-height: 48px;
-  
-}
 
-@media (min-width: 1920px) {
+
+@media (max-width: 1920px) {
   .material {
     background-color: #2D2E37;
     border-radius: 10px;
@@ -346,29 +331,28 @@ button:active {
   .material.right-panel-active-mt {
     justify-content: center;
     height: 600px
-    
   }
 
   .material-contentt {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items:center;
-    margin-top: 100px;
+    align-items: center;
+    margin-top: 80px;
     height: 100vh;
-    
+
   }
 
   .material-contentt h1 {
     display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 40px;
-  width: 90%;
-  font-style: normal;
-  font-weight: bold;
-  color: #fff;
-  line-height: 48px;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    width: 90%;
+    font-style: normal;
+    font-weight: bold;
+    color: #fff;
+    line-height: 48px;
   }
 
   .material-contentt p {
@@ -381,7 +365,7 @@ button:active {
     color: #ffffff9f;
   }
 
-  .form-cadastro-materiall{
+  .form-cadastro-materiall {
     display: flex;
     justify-content: center;
     align-items: center;

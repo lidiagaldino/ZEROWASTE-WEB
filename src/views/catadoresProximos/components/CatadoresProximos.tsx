@@ -4,6 +4,7 @@ import DropwDownOptions from './DropwDownOptions'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import '../bg-animation.css'
+import { useNavigate, useParams } from 'react-router-dom'
 
 
 
@@ -11,6 +12,8 @@ const CatadoresProximos = () => {
     const [selected, setSelected] = useState('')
     const [regiao, setRegiao] = useState([])
     const [data, setData] = useState([])
+    const navigate = useNavigate()
+
 
     useEffect(() => {
         fetch(`https://webappdeploy-backend.azurewebsites.net/endereco/${localStorage.getItem('id')}`).then(response => response.json()).then(resposta => setRegiao(resposta.map((item) => {
@@ -32,12 +35,21 @@ const CatadoresProximos = () => {
             },
         }).then(response => response.json()).then(resposta => setData(resposta.map((item) => {
             return ({
+
+                id: item.id_usuario,
                 foto: item.foto,
                 endereco: `${item.logradouro} - ${item.cidade}, ${item.numero}`,
                 nome: item.nome ? item.nome : item.nome_fantasia
             })
+
+
         })))
+
     }
+
+
+
+
 
     console.log(data)
 
@@ -77,7 +89,13 @@ const CatadoresProximos = () => {
                 {data.map((item) => {
                     return (
                         <>
-                            <div className="boxUserProximos">
+
+                            <div id={item.id} key={item.id_usuario} className="boxUserProximos" onClick={(event) => {
+                                localStorage.setItem('view-edit', 'view')
+                                navigate(`/profile/${event.currentTarget.id}`,)
+
+
+                            }} >
                                 <img src={item.foto} alt="photo" className='fotoUser' style={{ borderRadius: 100, width: 93, height: 93 }} />
                                 <div className='boxInfoU'>
                                     <h3>{item.nome}</h3>

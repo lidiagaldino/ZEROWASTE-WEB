@@ -106,7 +106,7 @@ const MenuLateral = () => {
                     <div className="nav-details" onClick={() => {
                         console.log('object');
                         localStorage.setItem('view-edit', 'edit')
-                        navigate('/profile', { replace: true })
+                        navigate(`/profile`, { replace: true })
                     }
                     }>
                         <img

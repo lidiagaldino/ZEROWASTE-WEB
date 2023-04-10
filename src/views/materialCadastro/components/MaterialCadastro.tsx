@@ -130,7 +130,7 @@ const MaterialCadastro = () => {
                 <div className="form-material  sign-up-material">
                     <form className='form-cadastro-materiall' >
                         <div className='material-contentt'>
-                            <h1>Olá, <h2 className='h1-mt-cadastro'> {localStorage.getItem('nome')} </h2>!</h1>
+                            <h1>Olá,{localStorage.getItem('nome')}!</h1>
                             <p>Selecione materiais que voce queira remover</p>
                             {dropAllMaterials.map((item2) => {
                                 return (
