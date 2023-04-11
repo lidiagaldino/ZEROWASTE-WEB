@@ -7,7 +7,6 @@ const schemaEdit = yup.object().shape({
     telefone: yup.string().min(14, "Digite um telefone válido").max(16).required("Campo telefone é obrigatório"),
     cpf: yup.string().required('Informe um CPF ou CNPJ'),
     email: yup.string().email("Digite um e-mail válido").required("Campo e-mail é obrigatório"),
-    numero: yup.string().required("Campo número é obrigatório"),
     senha: yup.string().min(5, "A senha deve ter no mínimo 5 caracteres").required("Campo senha é obrigatório"),
     biografia: yup.string()
 })

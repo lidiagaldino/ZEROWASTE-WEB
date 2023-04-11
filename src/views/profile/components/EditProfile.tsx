@@ -8,6 +8,8 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom'
 import { refresh } from '../../../utils/refreshToken';
+import editValidation from '../../../validations/editValidation';
+import InputMask from "react-input-mask";
 
 type edituser = {
     foto: string,
@@ -24,6 +26,7 @@ type dados = {
         id: string,
         email: string,
         senha: string,
+        cpf: string,
         telefone: string,
         biografia: string
     }
@@ -61,6 +64,10 @@ export default function EditProfile({ foto, setFoto, setInfo }) {
     const [user, setUser] = useState({
         nome, telefone, cpf: cpfValue, email, biografia, senha
     })
+    const [status, setStatus] = useState({
+        type: '',
+        message: ''
+      })
 
     const handleChangeTelefone = (event: ChangeEvent<HTMLInputElement>): void => {
         setTelefone(event.target.value)
@@ -81,7 +88,9 @@ export default function EditProfile({ foto, setFoto, setInfo }) {
     }
     const handleChangeCpf = (event: ChangeEvent<HTMLInputElement>): void => {
         setCpfValue(event.target.value)
-        setUser({ telefone, nome, cpf: event.target.value, email, biografia, senha })
+        setUser({ telefone, nome, cpf: event.target.value, email, biografia, senha })   
+        
+        
     }
     const handleChangeNome = (event: ChangeEvent<HTMLInputElement>): void => {
         setNome(event.target.value)
@@ -122,7 +131,7 @@ export default function EditProfile({ foto, setFoto, setInfo }) {
         }
 
 
-        if (!nome || !telefone || telefone == "(" || !email || !senha || !cpfValue) {
+        if (!(await editValidation(user, setStatus))) {
             return
         }
 
@@ -157,13 +166,34 @@ export default function EditProfile({ foto, setFoto, setInfo }) {
             })
         }
     }
+    const [cpfCnpj, setCpfCnpj] = useState('CPF')
+    const [maskState, setMaskState] = useState(localStorage.getItem('tipo_pessoa') == "Pessoa Fisica" ? '999.999.999-99' : '99.999.999/9999-99')
+    const mask = (newValue: any) => {
+        setCpfCnpj(newValue)
+        setMaskState(localStorage.getItem('tipo_pessoa') == "Pessoa Fisica" ? '999.999.999-99' : '99.999.999/9999-99')
+    };
 
     const [image, setImage] = useState(null)
     const [url, setUrl] = useState(null);
     const handleImageChange = (e: any) => {
-        if (e.target.files[0]) {
+        
+           
+            if (e.target.files[0]) {
             setImage(e.target.files[0])
-        }
+            }
+            const imageRef = ref(storage, `image/${localStorage.getItem('id')}`);
+            uploadBytes(imageRef, image)
+            .then(() => {
+                getDownloadURL(imageRef)
+                    .then((url) => {
+                       
+                        setFoto(url)
+                        setUrl(url);
+                        
+
+                    })
+                })
+            
     }
 
     const handleSubmitImage = () => {
@@ -214,7 +244,9 @@ export default function EditProfile({ foto, setFoto, setInfo }) {
                     <form onSubmit={registrarEdit} className="modal-content">
                         <div className='top-content-profile'>
                             <h1>Minha Conta</h1>
-                            <img src={localStorage.getItem('foto')} style={{ width: 190, height: 190, borderRadius: 100 }} alt="fotologo" />
+                            {image && (
+                            <img src={URL.createObjectURL(image)} style={{ width: 190, height: 190, borderRadius: 100 }}  alt="Preview" />
+                            )}
                             <input type="file" onChange={handleImageChange} className='customfile' />
 
                             <hr />
@@ -224,7 +256,7 @@ export default function EditProfile({ foto, setFoto, setInfo }) {
                             <div className='content-edit-profile'>
 
                                 <div className="form__group field">
-                                    <input defaultValue={localStorage.getItem('nome')} onChange={handleChangeNome} type="text" className="form__field" placeholder="Name" name="name" id='nomeedit' required />
+                                    <input defaultValue={localStorage.getItem('nome')} onChange={handleChangeNome} type="text" className="form__field" placeholder="Name" name="name" id='nomeedit' required />                              
                                     <label htmlFor="name" className="form__label">Nome</label>
                                 </div>
 
@@ -246,17 +278,17 @@ export default function EditProfile({ foto, setFoto, setInfo }) {
                                 <hr />
 
                                 <div className="form__group field">
-                                    <input defaultValue={infoo?.user.biografia} onChange={handleChangeBiografia} type="input" className="form__field" placeholder="Biografia" name="name" id='biografia' required />
+                                    <input defaultValue={localStorage.getItem('biografia')} onChange={handleChangeBiografia} type="input" className="form__field" placeholder="Biografia" name="name" id='biografia' required />
                                     <label htmlFor="name" className="form__label">Biografia</label>
                                 </div>
 
                                 <div className="form__group field">
-                                    <input onChange={handleChangeSenha} type="password" className="form__field" placeholder="Password" name="name" required />
+                                    <input onChange={handleChangeSenha} type="password" className="form__field" placeholder="Password" name="name"   />
                                     <label htmlFor="name" className="form__label">Senha <small>(confirme a senha para salvar as alterações)</small></label>
                                 </div>
 
                                 <div className="form__group field">
-                                    <input defaultValue={localStorage.getItem('cpfcnpj')} type="text" className="form__field" placeholder={localStorage.getItem('cpfcnpj')} onChange={handleChangeCpf} name="name" required />
+                                    <InputMask defaultValue={localStorage.getItem('cpfcnpj')} type="text" className="form__field" placeholder="" onChange={handleChangeCpf} mask={maskState} maskChar={null} name="CPF" required />
                                     <label htmlFor="name" className="form__label">{localStorage.getItem('tipo_pessoa') == 'Pessoa Fisica' ? 'CPF' : 'CNPJ'}</label>
                                 </div>
 
@@ -266,6 +298,8 @@ export default function EditProfile({ foto, setFoto, setInfo }) {
                         <div className='save-changes-position'>
                             <button type='submit' className='save-changes' onClick={handleClick}> {isLoading ? 'Salvando alteracoes...' : 'Salvar Alteracoes'} </button>
                         </div>
+                     
+                        
 
                         <button className="close-modal" onClick={toggleModal}>
                             Fechar

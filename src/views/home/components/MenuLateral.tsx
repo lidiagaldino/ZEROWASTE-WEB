@@ -17,6 +17,13 @@ function limitarTexto(texto, limite) {
 
 
 const MenuLateral = () => {
+    const [isLoading, setIsLoading] = useState(false);
+    function handleClick() {
+        setIsLoading(true);
+        setTimeout(() => {
+            window.location.reload();
+        }, 100);
+    }
 
     const texto = localStorage.getItem('nome')
 
@@ -104,6 +111,7 @@ const MenuLateral = () => {
             <div className="nav-footer">
                 {isExpanded && (
                     <div className="nav-details" onClick={() => {
+                        handleClick()
                         console.log('object');
                         localStorage.setItem('view-edit', 'edit')
                         navigate(`/profile`, { replace: true })

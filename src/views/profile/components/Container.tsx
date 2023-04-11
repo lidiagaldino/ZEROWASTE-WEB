@@ -19,6 +19,7 @@ type dados = {
     email: string,
     senha: string,
     telefone: string,
+    foto: string,
     biografia: string
     catador: [
         {
@@ -149,7 +150,7 @@ const Container = () => {
         <div className='container-bio'>
             <section className="userProfile card">
                 <div className="profile">
-                    <figure><img src={localStorage.getItem('foto')} alt="profile" width="250px" height="250px" />
+                    <figure><img src={localStorage.getItem('view-edit') == 'view' ? info?.foto : localStorage.getItem('foto')} alt="profile" width="250px" height="250px" />
                         <h1 className='statusCliente'>Status: {id}</h1>
                     </figure>
 
@@ -245,7 +246,8 @@ const Container = () => {
 
                     <div className='section-recolher'>
                         <div className='OqRecolho'>
-                            <h1>Materiais que <span>{localStorage.getItem('nome')}</span> recolhe:</h1>
+                            
+                            <h1>Materiais que <span>{localStorage.getItem('view-edit') == 'view' ? info.pessoa_fisica.length > 0 && info.pessoa_fisica[0].nome || info.pessoa_juridica.length > 0 && info.pessoa_juridica[0].nome_fantasia  : localStorage.getItem('nome')}</span> recolhe:</h1>
                         </div>
                         <div className='recolheButton'>
                             <nav className={clicado ? "botao clicado" : "botao"} onClick={handleClick}>
