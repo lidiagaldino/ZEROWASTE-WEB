@@ -7,6 +7,7 @@ import { faArrowDown } from '@fortawesome/free-solid-svg-icons'
 import { useParams } from 'react-router-dom'
 import { getUsetData } from '../../../api/consume'
 import api from '../../../api/axios'
+import FavoritarButton from './FavoritarButton';
 
 type drop = {
     id: string,
@@ -77,13 +78,11 @@ type dados = {
 
 type view = 'view' | 'edit'
 
-const Container = () => {
+const Container = (props) => {
 
     const { id }: { id: string } = useParams()
-
     const [recolhoMateriais, setRecolhoMateriais] = useState([])
     const [clicado, setClicado] = useState(false);
-
     const [info, setInfo] = useState<dados>()
     const [viewState, setViewState] = useState<view>('edit')
     const [foto, setFoto] = useState(localStorage.getItem('foto'))
@@ -142,9 +141,6 @@ const Container = () => {
         })))
     }, [])
 
-
-
-
     return (
 
         <div className='container-bio'>
@@ -172,6 +168,9 @@ const Container = () => {
             <section className="userDetails card">
                 <div className='userName'>
                     <h1 className='name' id='name'>{info?.pessoa_fisica[0] ? info?.pessoa_fisica[0].nome : info?.pessoa_juridica[0].nome_fantasia}</h1>
+                    {viewState == 'view' &&
+                        <FavoritarButton id={info?.catador[0].id}></FavoritarButton>
+                    }
                     <div className='map'>
                         <span>{info?.endereco_usuario[0].endereco.cidade}</span>
                     </div>
@@ -189,7 +188,8 @@ const Container = () => {
                     </div>
                 </div>
 
-                {viewState == 'view' &&
+                {
+                    viewState == 'view' &&
                     < div className="btns">
                         <ul>
                             <li className="sendMsg">
@@ -205,7 +205,8 @@ const Container = () => {
                     </div>
                 }
 
-                {viewState == 'edit' &&
+                {
+                    viewState == 'edit' &&
                     <EditProfile foto={foto} setFoto={setFoto} setInfo={update} />
                 }
 
@@ -246,8 +247,8 @@ const Container = () => {
 
                     <div className='section-recolher'>
                         <div className='OqRecolho'>
-                            
-                            <h1>Materiais que <span>{localStorage.getItem('view-edit') == 'view' ? info.pessoa_fisica.length > 0 && info.pessoa_fisica[0].nome || info.pessoa_juridica.length > 0 && info.pessoa_juridica[0].nome_fantasia  : localStorage.getItem('nome')}</span> recolhe:</h1>
+
+                            <h1>Materiais que <span>{localStorage.getItem('view-edit') == 'view' ? info.pessoa_fisica.length > 0 && info.pessoa_fisica[0].nome || info.pessoa_juridica.length > 0 && info.pessoa_juridica[0].nome_fantasia : localStorage.getItem('nome')}</span> recolhe:</h1>
                         </div>
                         <div className='recolheButton'>
                             <nav className={clicado ? "botao clicado" : "botao"} onClick={handleClick}>
