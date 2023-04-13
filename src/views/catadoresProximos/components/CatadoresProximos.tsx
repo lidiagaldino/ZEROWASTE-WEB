@@ -90,10 +90,11 @@ const CatadoresProximos = () => {
                     return (
                         <>
 
+
                             <div id={item.id} key={item.id_usuario} className="boxUserProximos" onClick={(event) => {
                                 localStorage.setItem('view-edit', 'view')
                                 navigate(`/profile/${event.currentTarget.id}`,)
-
+                                localStorage.setItem('viewPriv', event.currentTarget.id)
 
                             }} >
                                 <img src={item.foto} alt="photo" className='fotoUser' style={{ borderRadius: 100, width: 93, height: 93 }} />
