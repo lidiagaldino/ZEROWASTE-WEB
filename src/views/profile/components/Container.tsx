@@ -9,6 +9,7 @@ import { getUsetData } from '../../../api/consume'
 import api from '../../../api/axios'
 import FavoritarButton from './FavoritarButton';
 
+
 type drop = {
     id: string,
     value: string,
