@@ -7,8 +7,6 @@ import gsap from 'gsap';
 import { faL } from '@fortawesome/free-solid-svg-icons';
 import { Action } from '@remix-run/router';
 
-
-
 type dados = {
   id: string,
   email: string,
@@ -71,15 +69,29 @@ type dados = {
 }
 
 function FavoritarButton(props: { id: string }) {
+
   const [info, setInfo] = useState<dados>()
   const buttonRef = useRef(null);
   const [isUserFavorited, setIsUserFavorited] = useState(localStorage.getItem('favorito') == '200')
   const [isClicked, setIsClicked] = useState(false)
+  const [viewPriv, setViewPriv] = useState(localStorage.getItem('viewPriv'))
+  const [favorite, setFavorited] = useState(false)
+  const [button, setButton] = useState('')
+
+  const verifyClick = () => {
+
+    api.get(`/favoritar/${localStorage.getItem('id_modo')}/${props.id}`, {
+    }).then(response => {
+      if (response.status == 200) {
+        setButton('active')
+        setFavorited(true)
+      }
+    })
+  }
+
+  verifyClick()
 
   const handleClick = () => {
-
-
-
 
     api.patch(`/favoritar`, {
       "id_gerador": localStorage.getItem('id_modo'),
@@ -93,20 +105,17 @@ function FavoritarButton(props: { id: string }) {
       .then(response => {
         setTimeout(() => {
           setIsClicked(!isClicked)
+
           localStorage.setItem('favorito', JSON.stringify(response.status));
         }, 3000);
       })
       .catch(error => {
         alert('Erro ao favoritar: ' + error.message);
       });
-
-    // 200 - removido       201 - criado
-    // MonkeyType esta favoritado 201
   }
 
   const handleClickk = () => {
     const button = buttonRef.current;
-
 
     if (button.classList.contains('animated')) {
       return;
@@ -131,11 +140,9 @@ function FavoritarButton(props: { id: string }) {
         duration: .45,
         ease: 'power2.out',
         onStart() {
-          setIsUserFavorited(localStorage.getItem('favorito') == '201')
-          //button.classList.toggle('active')
+
+          button.classList.toggle('active')
           setTimeout(() => button.classList.remove('star-round'), 100)
-
-
         }
       }, {
         '--star-y': '0px',
@@ -176,21 +183,20 @@ function FavoritarButton(props: { id: string }) {
       clearProps: true
     })
   }
-
   return (
     <button onClick={() => {
       handleClick()
       setIsClicked(true)
-      console.log(isUserFavorited);
 
-    }} onClickCapture={handleClickk} ref={buttonRef} className="favorite-button">
+    }}
+      onClickCapture={() => {
+        handleClickk()
+      }} ref={buttonRef} className={`${button} favorite-button`}>
       <div className="iconn">
         <div className='starr'></div>
       </div>
-      <span className='favorite_span'>{isUserFavorited ? 'Favoritar' : 'Favoritado'}</span>
+      <span className='favorite_span'>{favorite ? 'Favoritado' : 'Favoritar'}</span>
     </button>
   );
-
 }
-
 export default FavoritarButton
