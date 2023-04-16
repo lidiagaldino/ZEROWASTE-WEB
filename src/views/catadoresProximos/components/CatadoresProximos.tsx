@@ -52,24 +52,26 @@ const CatadoresProximos = () => {
     }
 
     function clickFavorite() {
+
+
         api.get(`/favoritar/${localStorage.getItem('id_modo')}`, {
             headers: {
                 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
             },
         }).then(response => setCheckFavorite(response.data.map((elemento) => {
+
+
             return ({
-                id: elemento.catador[0].user[0].id,
-                foto: elemento.catador[0].user[0].foto,
-                email: elemento.catador[0].user[0].email
+                foto: elemento.catador.user.foto,
+                email: elemento.catador.user.email
             })
         })))
     }
+    
 
-
-
-
-
-    console.log(data)
+    function handleClickFavorite() {
+        setIsFavorited(prevIsFavorited => !prevIsFavorited); // prevIsFavorited == true / !prev == false / function alternate
+      }
 
     return (
         <div>
@@ -91,22 +93,52 @@ const CatadoresProximos = () => {
                 <div className='infoS'>
                     <h1 className='titleBoxU'>Catadores proximos</h1>
 
-                    <input type="checkbox" name="" id=""
-                        onClick={() => {
-                            clickFavorite()
-                            setIsFavorited(true)
-                        }}
-                    />
+                    <div>
+                        <h2>Catadores Favoritos</h2>
+                        <input type="checkbox" name="" id=""
+                            onClick={() => {
+                                clickFavorite()
+                                handleClickFavorite()
+                            }}
+                        />
+
+                    </div>
+
 
                     <div className='reg-bt'>
                         <DropwDownOptions dropChange={handleDropChange} selected={selected} setSelected={setSelected} regiao={regiao} setRegiao={setRegiao} />
                     </div>
                 </div>
 
+                {isFavorited ? checkFavorite.map((elemento) => {
+                    return (
+                        <>
+                            <div id={elemento.id} key={elemento.id_usuario} className="boxUserProximos" onClick={(event) => {
+                                localStorage.setItem('view-edit', 'view')
+                                navigate(`/profile/${event.currentTarget.id}`,)
+                                localStorage.setItem('viewPriv', event.currentTarget.id)
+                            }} >
+                                <img src={elemento.foto} alt="photo" className='fotoUser' style={{ borderRadius: 100, width: 93, height: 93 }} />
+                                <div className='boxInfoU'>
+
+                                    <h3>{elemento.email}</h3>
+                                    <p>a</p>
+                                </div>
+                                <div className='buttonPosition'>
+                                    <button className='buttonBox'>Solicite</button>
+                                </div>
+                            </div>
+                            <hr />
+                        </>
+                    )
+                })
+                    : ''}
+
+
                 {data.length == 0 &&
                     <>
 
-                        <h1 style={{ paddingTop: 400, alignItems: 'center', display: 'flex', justifyContent: 'center    ' }}>Selecione um local para saber quais catadores estao pertos</h1>
+                        <h1 style={{ paddingTop: 400, alignItems: 'center', display: 'flex', justifyContent: 'center    ' }}>Sselecione um local para saber quais catadores estao pertos</h1>
                     </>
                 }
 
