@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom'
 import { getUsetData } from '../../../api/consume'
 import api from '../../../api/axios'
 import FavoritarButton from './FavoritarButton';
-
+import EditAdress from '../components/EditAdress'
 
 type drop = {
     id: string,
@@ -241,6 +241,10 @@ const Container = (props) => {
                         <li className='email'>
                             <h1 className='label'>Email:</h1>
                             <span className='info'>{info?.email}</span>
+                        </li>
+                        <li className=''>
+                            <h1 className=''>Endereços <EditAdress></EditAdress></h1>
+                            <span className='info'></span>
                         </li>
                     </ul>
                 </div>

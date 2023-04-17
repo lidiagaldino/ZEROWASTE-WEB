@@ -62,16 +62,17 @@ const CatadoresProximos = () => {
 
 
             return ({
+                id: elemento.catador.user.id,
                 foto: elemento.catador.user.foto,
                 email: elemento.catador.user.email
             })
         })))
     }
-    
+
 
     function handleClickFavorite() {
         setIsFavorited(prevIsFavorited => !prevIsFavorited); // prevIsFavorited == true / !prev == false / function alternate
-      }
+    }
 
     return (
         <div>
@@ -113,7 +114,7 @@ const CatadoresProximos = () => {
                 {isFavorited ? checkFavorite.map((elemento) => {
                     return (
                         <>
-                            <div id={elemento.id} key={elemento.id_usuario} className="boxUserProximos" onClick={(event) => {
+                            <div id={elemento.id} key={elemento.id} className="boxUserProximos" onClick={(event) => {
                                 localStorage.setItem('view-edit', 'view')
                                 navigate(`/profile/${event.currentTarget.id}`,)
                                 localStorage.setItem('viewPriv', event.currentTarget.id)

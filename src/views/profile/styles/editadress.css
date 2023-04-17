@@ -1,0 +1,67 @@
+body.active-modal {
+    overflow-y: hidden;
+    transition: all 1s ease-in-out;
+}
+
+.modal,
+.overlay {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+    transition: all 1s ease-in-out;
+
+}
+
+.modal {
+    z-index: 998;
+    transition: all 1s ease-in-out;
+}
+
+.overlay {
+    background: rgba(49, 49, 49, 0.8);
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 1.4;
+    background: #f1f1f1;
+    padding: 14px 28px;
+    border-radius: 3px;
+    width: 695px;
+    height: 1020px;
+    z-index: 1;
+    border-radius: 25px;
+    transition: all 1s ease-in-out;
+}
+
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 7px;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+.close-modal:hover {
+
+    box-shadow: 0px 78px 80px rgba(0, 0, 0, 0.08), 0px 39.4875px 34.875px rgba(0, 0, 0, 0.054), 0px 15.6px 13px rgba(0, 0, 0, 0.04), 0px 3.4125px 4.625px rgba(0, 0, 0, 0.026);
+    transition: all 0.3s ease-in-out;
+}
+
+.Edit_adress_buton {
+    background-color: green;
+    border: none;
+    outline: none;
+    color: #fff;
+    border-radius: 15px;
+    padding: 5px 20px;
+
+}
