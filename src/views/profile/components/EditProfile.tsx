@@ -67,7 +67,7 @@ export default function EditProfile({ foto, setFoto, setInfo }) {
     const [status, setStatus] = useState({
         type: '',
         message: ''
-      })
+    })
 
     const handleChangeTelefone = (event: ChangeEvent<HTMLInputElement>): void => {
         setTelefone(event.target.value)
@@ -88,9 +88,9 @@ export default function EditProfile({ foto, setFoto, setInfo }) {
     }
     const handleChangeCpf = (event: ChangeEvent<HTMLInputElement>): void => {
         setCpfValue(event.target.value)
-        setUser({ telefone, nome, cpf: event.target.value, email, biografia, senha })   
-        
-        
+        setUser({ telefone, nome, cpf: event.target.value, email, biografia, senha })
+
+
     }
     const handleChangeNome = (event: ChangeEvent<HTMLInputElement>): void => {
         setNome(event.target.value)
@@ -176,24 +176,24 @@ export default function EditProfile({ foto, setFoto, setInfo }) {
     const [image, setImage] = useState(null)
     const [url, setUrl] = useState(null);
     const handleImageChange = (e: any) => {
-        
-           
-            if (e.target.files[0]) {
+
+
+        if (e.target.files[0]) {
             setImage(e.target.files[0])
-            }
-            const imageRef = ref(storage, `image/${localStorage.getItem('id')}`);
-            uploadBytes(imageRef, image)
+        }
+        const imageRef = ref(storage, `image/${localStorage.getItem('id')}`);
+        uploadBytes(imageRef, image)
             .then(() => {
                 getDownloadURL(imageRef)
                     .then((url) => {
-                       
+
                         setFoto(url)
                         setUrl(url);
-                        
+
 
                     })
-                })
-            
+            })
+
     }
 
     const handleSubmitImage = () => {
@@ -245,7 +245,7 @@ export default function EditProfile({ foto, setFoto, setInfo }) {
                         <div className='top-content-profile'>
                             <h1>Minha Conta</h1>
                             {image && (
-                            <img src={URL.createObjectURL(image)} style={{ width: 190, height: 190, borderRadius: 100 }}  alt="Preview" />
+                                <img src={URL.createObjectURL(image)} style={{ width: 190, height: 190, borderRadius: 100 }} alt="Preview" />
                             )}
                             <input type="file" onChange={handleImageChange} className='customfile' />
 
@@ -256,7 +256,7 @@ export default function EditProfile({ foto, setFoto, setInfo }) {
                             <div className='content-edit-profile'>
 
                                 <div className="form__group field">
-                                    <input defaultValue={localStorage.getItem('nome')} onChange={handleChangeNome} type="text" className="form__field" placeholder="Name" name="name" id='nomeedit' required />                              
+                                    <input defaultValue={localStorage.getItem('nome')} onChange={handleChangeNome} type="text" className="form__field" placeholder="Name" name="name" id='nomeedit' required />
                                     <label htmlFor="name" className="form__label">Nome</label>
                                 </div>
 
@@ -283,7 +283,7 @@ export default function EditProfile({ foto, setFoto, setInfo }) {
                                 </div>
 
                                 <div className="form__group field">
-                                    <input onChange={handleChangeSenha} type="password" className="form__field" placeholder="Password" name="name"   />
+                                    <input onChange={handleChangeSenha} type="password" className="form__field" placeholder="Password" name="name" />
                                     <label htmlFor="name" className="form__label">Senha <small>(confirme a senha para salvar as alterações)</small></label>
                                 </div>
 
@@ -298,8 +298,8 @@ export default function EditProfile({ foto, setFoto, setInfo }) {
                         <div className='save-changes-position'>
                             <button type='submit' className='save-changes' onClick={handleClick}> {isLoading ? 'Salvando alteracoes...' : 'Salvar Alteracoes'} </button>
                         </div>
-                     
-                        
+
+
 
                         <button className="close-modal" onClick={toggleModal}>
                             Fechar
