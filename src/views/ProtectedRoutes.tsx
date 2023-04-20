@@ -6,7 +6,6 @@ type props = JSX.Element
 
 export const ProtectedRoutes = ({ children: props }): JSX.Element => {
     const user = localStorage.getItem('token')
-    console.log(user);
     return user != null && user != 'undefined' ? props : <Navigate to='/' replace={true} />
 }
 

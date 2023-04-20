@@ -42,7 +42,7 @@ export default function EditProfile({ foto, setFoto, setInfo }) {
             window.location.reload();
         }, 3000);
     }
-    console.log(infoo);
+
 
     useEffect(() => {
         fetch(`https://webappdeploy-backend.azurewebsites.net/user`, {

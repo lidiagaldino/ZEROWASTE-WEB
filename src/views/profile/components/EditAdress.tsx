@@ -1,9 +1,11 @@
 import React, { useState, ChangeEvent, useEffect, FormEvent } from 'react'
+import InputMask from "react-input-mask";
 import UpdateAdress from './UptadeAdress';
 import '../styles/editadress.css'
 import '../styles/uptadeadress.css'
 import api from '../../../api/axios';
 import Swal from 'sweetalert2';
+import { useForm } from 'react-hook-form';
 import { setLocale } from 'yup';
 
 type dados = {
@@ -35,6 +37,7 @@ export default function EditAdress() {
     const [logradouro, setLogradouro] = useState<string>()
     const [local, setLocal] = useState({ id: '', logradouro: '', bairro: '', cidade: '', estado: '', apelido: '', numero: '', complemento: '', cep: '' })
     const [cepData, setCepData] = useState<dadosCEP>()
+    const [infoo, setInfoo] = useState<dados>()
     const [cep, setCep] = useState('')
     const [user, setUser] = useState({
         cep, logradouro, cidade, complemento, apelido, numero
@@ -56,6 +59,14 @@ export default function EditAdress() {
         })))
     }, [])
 
+    const [isLoading, setIsLoading] = useState(false);
+
+    function handleClick() {
+        setIsLoading(true);
+        setTimeout(() => {
+            window.location.reload();
+        }, 3000);
+    }
 
 
     const takeID = (e) => {
@@ -123,16 +134,21 @@ export default function EditAdress() {
             }
         })
 
-        const enderecoa = await enderecoAtualizado.json()
+
 
 
 
         if (enderecoAtualizado.ok) {
             Swal.fire({
                 text: 'Tudo certo!!',
-                title: 'Conta atualizada com sucesso',
+                title: 'Endereço atualizado com sucesso',
                 icon: 'success'
             })
+
+            toggleModal()
+            setInfoo
+            console.log(enderecoAtualizado);
+            
 
         } else {
             Swal.fire({
@@ -165,7 +181,32 @@ export default function EditAdress() {
     } else {
         document.body.classList.remove('active-modal')
     }
+    const { register } = useForm()
+    const checkCEP = async (event: ChangeEvent<HTMLInputElement>): Promise<void> => {
 
+        setCep(event.target.value)
+
+        if (event.target.value.length == 9) {
+            try {
+
+                const data = await fetch(`https://opencep.com/v1/${event.target.value.replace('-', '')}.json`).then(res => res.json())
+                setCidade(data.localidade)
+                setLogradouro(data.logradouro)
+                setCepData(data)
+
+            } catch (error) {
+                console.log(`teste`)
+                setCidade('')
+                setLogradouro('')
+            }
+        } else {
+            setCidade('')
+            setLogradouro('')
+        }
+
+
+
+    }
 
 
     return (
@@ -175,7 +216,7 @@ export default function EditAdress() {
             {modal && (
                 <div className="modal">
                     <div className="overlay"></div>
-                    <form onSubmit={updateAdress} className="modal-content">
+                    <form className="modal-content">
                         <div className='top-content-profile'>
                             <h1>Endereços Cadastrados de (nome usuario)</h1>
                             <hr />
@@ -196,6 +237,8 @@ export default function EditAdress() {
                                                     <button type='button' id={item.id} key={item.id} onClick={(e) => {
                                                         toggleModall()
                                                         e.currentTarget.id
+
+
                                                         takeID(e)
 
                                                     }} className='Edit_adress_buton'>Editar</button>
@@ -204,7 +247,7 @@ export default function EditAdress() {
                                                         {modall && (
 
                                                             <div className="modal-2">
-                                                                <div onClick={toggleModal} className="overlay-2"></div>
+                                                                <div className="overlay-2"></div>
                                                                 <form onSubmit={updateAdress} className="modal-content-2">
                                                                     <div className='top-content-profile-2'>
                                                                         <h1>Editar enderecos</h1>
@@ -215,28 +258,28 @@ export default function EditAdress() {
                                                                         <div className='content-edit-profile-2'>
 
                                                                             <div className="form__group field">
-                                                                                <input defaultValue={local.cep} type="text" className="form__field" placeholder="Name" name="name" id='nomeedit' required />
+                                                                                <InputMask mask="99999-999" maskChar={null} onChange={checkCEP} placeholder="CEP" />
                                                                                 <label htmlFor="name" className="form__label">CEP</label>
                                                                             </div>
 
                                                                             <div className="form__group field">
-                                                                                <input defaultValue={local.logradouro} type="text" className="form__field" placeholder="Name" name="name" id='nomeedit' required />
+                                                                                <input defaultValue={local.logradouro} value={logradouro} onChange={handleChangeLogradouro} type="text" className="form__field" placeholder="Name" required />
                                                                                 <label htmlFor="name" className="form__label">Rua</label>
                                                                             </div>
 
 
                                                                             <div className="form__group field">
-                                                                                <input defaultValue={local.numero} type="text" className="form__field" placeholder="Name" name="name" id='nomeedit' required />
+                                                                                <input defaultValue={local.numero} value={numero} onChange={handleChangeNumero} type="text" className="form__field" placeholder="Name" required />
                                                                                 <label htmlFor="name" className="form__label">Numero</label>
                                                                             </div>
 
                                                                             <div className="form__group field">
-                                                                                <input defaultValue={local.complemento} type="text" className="form__field" placeholder="Name" name="name" id='nomeedit' required />
+                                                                                <input defaultValue={local.complemento} onChange={handleChangeComplemento} type="text" className="form__field" placeholder="Name" required />
                                                                                 <label htmlFor="name" className="form__label">Complemento</label>
                                                                             </div>
 
                                                                             <div className="form__group field">
-                                                                                <input defaultValue={local.apelido} type="text" className="form__field" placeholder="Name" name="name" id='nomeedit' required />
+                                                                                <input defaultValue={local.apelido} onChange={handleChangeApelido} type="text" className="form__field" placeholder="Name" name="name" required />
                                                                                 <label htmlFor="name" className="form__label">Renomear local</label>
                                                                             </div>
 
@@ -245,11 +288,12 @@ export default function EditAdress() {
                                                                     </div>
 
                                                                     <div className='save-changes-position-2'>
-                                                                        <button type='submit' className='save-changes-2' >  </button>
+                                                                        <button type='submit' className='save-changes-2' onClick={handleClick}> {isLoading ? 'Salvando alteracoes...' : 'Salvar Alteracoes'} </button>
+
                                                                     </div>
 
 
-                                                                    <button className="close-modal-2" onClick={toggleModall}>
+                                                                    <button className="close-modal-2" onClick={toggleModall} >
                                                                         Fechar
                                                                     </button>
                                                                 </form>
@@ -265,7 +309,9 @@ export default function EditAdress() {
                             </div>
                         </div>
 
-
+                        <button className="close-modal" onClick={toggleModal}>
+                            Fechar
+                        </button>
                     </form>
                 </div >
             )}
