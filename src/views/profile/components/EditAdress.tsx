@@ -171,7 +171,7 @@ export default function EditAdress() {
             })
 
             toggleModal()
-            setLocal()
+
             console.log(enderecoAtualizado);
             alert('certo')
 
