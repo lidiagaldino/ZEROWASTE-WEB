@@ -7,6 +7,7 @@ import api from '../../../api/axios';
 import Swal from 'sweetalert2';
 import { useForm } from 'react-hook-form';
 import { setLocale } from 'yup';
+import { getLatitudeLongitude } from '../../../utils/getLatitudeLongitude';
 
 type dados = {
     id: string,
@@ -15,14 +16,16 @@ type dados = {
     complemento: string,
     apelido: string,
     numero: string
-    lat: number;
-    lng: number;
+    latitude: string,
+    longitude: string
 
 }
 
 type dadosCEP = {
     logradouro: string,
+    localidade: string,
     complemento?: string,
+    uf: string,
     cep: string,
     numero: string,
     id_usuario: string
@@ -93,6 +96,8 @@ export default function EditAdress() {
         cep, logradouro, cidade, complemento, apelido, numero, bairro, estado, latitude, longitude
     })
 
+
+
     const handleChangeCep = (event: ChangeEvent<HTMLInputElement>): void => {
         setCep(event.target.value)
         setUser({ cep: event.target.value, logradouro, cidade, complemento, apelido, numero, bairro, estado, latitude, longitude })
@@ -132,6 +137,8 @@ export default function EditAdress() {
 
     async function updateAdress(event: FormEvent) {
         event.preventDefault()
+
+        const latlong = await getLatitudeLongitude({ logradouro: cepData.logradouro, cidade: cepData.localidade, estado: cepData.uf })
 
         let enderecoEdit
 
