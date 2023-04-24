@@ -151,14 +151,14 @@ export default function EditAdress() {
             numero: numero,
             bairro: bairro,
             estado: estado,
-            latitude: latitude,
-            longitude: longitude
+            latitude: `${latlong.lat}`,
+            longitude: `${latlong.lng}`
         }
         console.log(enderecoEdit);
 
 
 
-        const enderecoAtualizado = await fetch(`https://webappdeploy-backend.azurewebsites.net/endereco/${localStorage.getItem('id')}`, {
+        const enderecoAtualizado = await fetch(`https://webappdeploy-backend.azurewebsites.net/endereco/unique/${localStorage.getItem('clickEdit')}`, {
             method: 'PUT',
             body: JSON.stringify(enderecoEdit),
             headers: {
@@ -166,7 +166,7 @@ export default function EditAdress() {
             }
         })
 
-        console.log(`https://webappdeploy-backend.azurewebsites.net/endereco/${localStorage.getItem('id')}`);
+        console.log(`https://webappdeploy-backend.azurewebsites.net/endereco/unique/${localStorage.getItem('clickEdit')}`);
 
         console.log(enderecoAtualizado.ok);
 
@@ -179,7 +179,7 @@ export default function EditAdress() {
 
             toggleModal()
 
-            console.log(enderecoAtualizado);
+            console.log(enderecoAtualizado.ok);
             alert('certo')
 
         } else {
@@ -276,7 +276,8 @@ export default function EditAdress() {
                                                     <button type='button' id={item.id} key={item.id} onClick={(e) => {
                                                         toggleModall()
                                                         e.currentTarget.id
-
+                                                        localStorage.setItem('clickEdit', e.currentTarget.id)
+                                                        console.log(e.currentTarget.id);
 
                                                         takeID(e)
 
