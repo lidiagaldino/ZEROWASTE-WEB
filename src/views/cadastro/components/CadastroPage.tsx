@@ -115,6 +115,8 @@ const CadastroPage = () => {
             longitude: `${latlong.lng}`
 
         }
+        console.log(pontocadastro);
+
 
         api.post('/endereco', pontocadastro, {
             headers: {

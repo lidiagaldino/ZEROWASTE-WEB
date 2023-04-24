@@ -28,7 +28,7 @@ body.active-modal-2 {
 .modal-content-2 {
     position: absolute;
     top: 59%;
-    left: 22.60%;
+    left: 10%;
     transform: translate(-50%, -50%);
     line-height: 1.4;
     background: #f9f9f9;
@@ -79,6 +79,10 @@ body.active-modal-2 {
 .top-contentadrees-profile-2 {
     background-color: red;
 
+}
+
+.Edit_adress_buton-remove {
+    background-color: red;
 }
 
 .toph1 {
