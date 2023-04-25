@@ -244,7 +244,7 @@ const Container = (props) => {
                             <span className='info'>{info?.email}</span>
                         </li>
                         <li className=''>
-                            <h1 className=''>Endereços <EditAdress></EditAdress></h1>
+                            <h1 className=''>Endereços: <EditAdress></EditAdress></h1>
                             <span className='info'></span>
                         </li>
                     </ul>

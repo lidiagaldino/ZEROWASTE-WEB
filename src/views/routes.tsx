@@ -40,9 +40,9 @@ const Routess = () => {
         } />
 
         <Route path={`/profile`} element={
-          <ProtectedRoutes>
+         
             <Profile />
-          </ProtectedRoutes>
+          
         } />
 
         <Route path='/cadastro' element={

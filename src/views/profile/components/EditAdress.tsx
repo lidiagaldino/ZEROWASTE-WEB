@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import { useForm } from 'react-hook-form';
 import { setLocale } from 'yup';
 import { getLatitudeLongitude } from '../../../utils/getLatitudeLongitude';
+import { CloudFog } from 'phosphor-react';
 
 type dados = {
     id: string,
@@ -73,6 +74,7 @@ export default function EditAdress() {
                 complemento: response.data.complemento,
                 cep: response.data.cep
             })
+            setCep(response.data.cep)
         })
     }
 
@@ -82,12 +84,15 @@ export default function EditAdress() {
                 'Authorization': 'Bearer ' + localStorage.getItem('token')
             },
         }).then(() => {
+            
             Swal.fire({
                 text: 'Tudo certo!!',
                 title: 'Endereço removidos com sucesso',
                 icon: 'success'
             })
-        }).catch(() => {
+        }).catch((e) => {
+            console.log(e);
+            
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -120,37 +125,37 @@ export default function EditAdress() {
 
     const handleChangeCep = (event: ChangeEvent<HTMLInputElement>): void => {
         setCep(event.target.value)
-        setUser({ cep: event.target.value, logradouro, cidade, complemento, apelido, numero, bairro, estado, latitude, longitude })
+        setLocal({ ...local, cep: event.target.value })
     }
 
     const handleChangeLogradouro = (event: ChangeEvent<HTMLInputElement>): void => {
         setLogradouro(event.target.value)
-        setUser({ cep, logradouro: event.target.value, cidade, complemento, apelido, numero, bairro, estado, latitude, longitude })
+        setLocal({ ...local, logradouro: event.target.value })
     }
     const handleChangeCidade = (event: ChangeEvent<HTMLInputElement>): void => {
         setCidade(event.target.value)
-        setUser({ cep, logradouro, cidade: event.target.value, complemento, apelido, numero, bairro, estado, latitude, longitude })
+        setLocal({ ...local, cidade: event.target.value })
     }
     const handleChangeBairro = (event: ChangeEvent<HTMLInputElement>): void => {
         setBairro(event.target.value)
-        setUser({ cep, logradouro, cidade, complemento, apelido, numero, bairro: event.target.value, estado, latitude, longitude })
+        setLocal({ ...local, bairro: event.target.value })
     }
 
     const handleChangeEstado = (event: ChangeEvent<HTMLInputElement>): void => {
         setEstado(event.target.value)
-        setUser({ cep, logradouro, cidade, complemento, apelido, numero, bairro, estado: event.target.value, latitude, longitude })
+        setLocal({ ...local, estado: event.target.value })
     }
     const handleChangeComplemento = (event: ChangeEvent<HTMLInputElement>): void => {
         setComplemento(event.target.value)
-        setUser({ cep, logradouro, cidade, complemento: event.target.value, apelido, numero, bairro, estado, latitude, longitude })
+        setLocal({ ...local, complemento: event.target.value })
     }
     const handleChangeApelido = (event: ChangeEvent<HTMLInputElement>): void => {
         setApelido(event.target.value)
-        setUser({ cep, logradouro, cidade, complemento, apelido: event.target.value, numero, bairro, estado, latitude, longitude })
+        setLocal({ ...local, apelido: event.target.value})
     }
-    const handleChangeNumero = (event: ChangeEvent<HTMLInputElement>): void => {
+    const handleChangeNumero = (event: ChangeEvent<HTMLInputElement>): void => {    
         setNumero(event.target.value)
-        setUser({ cep, logradouro, cidade, complemento, apelido, numero: event.target.value, bairro, estado, latitude, longitude })
+        setLocal({...local, numero: event.target.value })
     }
 
 
@@ -160,37 +165,29 @@ export default function EditAdress() {
 
         
         const latlong2 = await getLatitudeLongitude({ logradouro: local.logradouro, cidade: local.cidade, estado: local.estado })
-        let enderecoEdit
 
-        enderecoEdit = {
-            cep: cep,
-            complemento: complemento,
-            cidade: cidade,
-            logradouro: logradouro,
-            apelido: apelido,
-            numero: numero,
-            bairro: bairro,
-            estado: estado,
+        const enderecoEdit = {
+            cep: local.cep,
+            complemento: local.complemento ? local.complemento : ' ',
+            cidade: local.cidade,
+            logradouro: local.logradouro,
+            apelido: local.apelido,
+            numero: local.numero,
+            bairro: local.bairro,
+            estado: local.estado,
             latitude:  `${latlong2.lat}` ,
             longitude: `${latlong2.lng}` 
         }
-        console.log(enderecoEdit);
 
-        console.log(logradouro);
-
-        const enderecoAtualizado = await fetch(`https://webappdeploy-backend.azurewebsites.net/endereco/${localStorage.getItem('clickEdit')}`, {
-            method: 'PUT',
-            body: JSON.stringify(enderecoEdit),
+        const enderecoAtualizado = await api.put(`/endereco/${localStorage.getItem('clickEdit')}`, enderecoEdit, {
             headers: {
                 'content-type': 'application/json', 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
             }
         })
 
-        console.log(`https://webappdeploy-backend.azurewebsites.net/endereco/${localStorage.getItem('id')}/${localStorage.getItem('clickEdit')}`);
+        console.log(enderecoAtualizado.status);
 
-        console.log(enderecoAtualizado.ok);
-
-        if (enderecoAtualizado.ok) {
+        if (enderecoAtualizado.status == 200) {
             Swal.fire({
                 text: 'Tudo certo!!',
                 title: 'Endereço atualizado com sucesso',
@@ -199,19 +196,20 @@ export default function EditAdress() {
 
             toggleModal()
 
-            console.log(enderecoAtualizado.ok);
-            alert('certo')
-
         } else {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Algo deu errado!',
             })
-            alert('errado')
+
         }
     }
 
+
+ 
+
+        
 
 
     const toggleModal = () => {
@@ -237,21 +235,21 @@ export default function EditAdress() {
     }
 
     const checkCEP = async (event: ChangeEvent<HTMLInputElement>): Promise<void> => {
-
-        setCep(event.target.value)
-
+        setLocal({ ...local, cep: event.target.value })
+        
         if (event.target.value.length == 9) {
             try {
 
                 const data = await fetch(`https://opencep.com/v1/${event.target.value.replace('-', '')}.json`).then(res => res.json())
-                setCep(data.cep)
-                setCidade(data.localidade)
-                setLogradouro(data.logradouro)
-                setApelido(data.complemento)
-                setBairro(data.bairro)
-                setComplemento(data.complemento)
-                setEstado(data.uf)
-                setCepData(data)
+                setLocal({
+                    ...local,
+                    cep: data.cep,
+                    cidade: data.localidade,
+                    bairro: data.bairro,
+                    estado: data.uf,
+                    complemento: data.complemento,
+                    logradouro: data.logradouro
+                })
 
             } catch (error) {
                 
@@ -272,7 +270,7 @@ export default function EditAdress() {
     return (
         <>
 
-            <button onClick={toggleModal}>ver endereços</button>
+            <button onClick={toggleModal} className='edit-adresss'>Ver endereços</button>
 
 
             {modal && (
@@ -280,7 +278,7 @@ export default function EditAdress() {
                     <div className="overlay"></div>
                     <form className="modal-content">
                         <div className='top-content-profile'>
-                            <h1>Endereços Cadastrados de (nome usuario)</h1>
+                            <h1>Endereços Cadastrados de {localStorage.getItem('nome')}</h1>
                             <hr />
                         </div>
                         <div className='under-content-profile'>
@@ -329,43 +327,43 @@ export default function EditAdress() {
                                                                         <div className='content-edit-profile-2'>
 
                                                                             <div className="form__group field">
-                                                                                <InputMask mask="99999-999" maskChar={null} onChange={checkCEP}  placeholder="CEP" />
+                                                                                <InputMask mask="99999-999" maskChar={null} onChange={checkCEP} value={local.cep}  placeholder="CEP" />
                                                                                 <label htmlFor="name" className="form__label">CEP</label>
                                                                             </div>
 
                                                                             <div className="form__group field">
-                                                                                <input defaultValue={logradouro} onChange={handleChangeLogradouro} type="text" className="form__field" placeholder="Name" />
+                                                                                <input  onChange={handleChangeLogradouro} value={local.logradouro} type="text" className="form__field" placeholder="Name" />
                                                                                 <label htmlFor="name" className="form__label">Rua</label>
                                                                             </div>
 
 
                                                                             <div className="form__group field">
-                                                                                <input defaultValue={numero} onChange={handleChangeNumero} type="text" className="form__field" placeholder="Name" />
+                                                                                <input  onChange={handleChangeNumero} type="text" value={local.numero} className="form__field" placeholder="Name" />
                                                                                 <label htmlFor="name" className="form__label">Numero</label>
                                                                             </div>
 
                                                                             <div className="form__group field">
-                                                                                <input defaultValue={complemento} onChange={handleChangeComplemento} type="text" className="form__field" placeholder="Name" />
+                                                                                <input onChange={handleChangeComplemento} type="text"value={local.complemento} className="form__field" placeholder="Name" />
                                                                                 <label htmlFor="name" className="form__label">Complemento</label>
                                                                             </div>
 
                                                                             <div className="form__group field">
-                                                                                <input defaultValue={local.apelido} onChange={handleChangeApelido} type="text" className="form__field" placeholder="Name" name="name" />
+                                                                                <input  onChange={handleChangeApelido} type="text" className="form__field" value={local.apelido} placeholder="Name" name="name" />
                                                                                 <label htmlFor="name" className="form__label">Renomear local</label>
                                                                             </div>
 
                                                                             <div className="form__group field">
-                                                                                <input defaultValue={bairro} onChange={handleChangeBairro} type="text" className="form__field" placeholder="Name" />
+                                                                                <input  onChange={handleChangeBairro} type="text" className="form__field" value={local.bairro} placeholder="Name" />
                                                                                 <label htmlFor="name" className="form__label">Bairro</label>
                                                                             </div>
 
                                                                             <div className="form__group field">
-                                                                                <input defaultValue={cidade} onChange={handleChangeCidade} type="text" className="form__field" placeholder="Name" name="name" />
+                                                                                <input  onChange={handleChangeCidade} type="text" value={local.cidade} className="form__field" placeholder="Name" name="name" />
                                                                                 <label htmlFor="name" className="form__label">Cidade</label>
                                                                             </div>
 
                                                                             <div className="form__group field">
-                                                                                <input defaultValue={estado} onChange={handleChangeEstado} type="text" className="form__field" placeholder="Name" name="name" />
+                                                                                <input  onChange={handleChangeEstado} type="text" value={local.estado} className="form__field" placeholder="Name" name="name" />
                                                                                 <label htmlFor="name" className="form__label">Estado</label>
                                                                             </div>
 
