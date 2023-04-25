@@ -76,6 +76,25 @@ export default function EditAdress() {
         })
     }
 
+    const deleteAdresss = () => {
+        api.delete(`/endereco/${localStorage.getItem('id')}/${localStorage.getItem('clickEdit')}`, {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+        }).then(() => {
+            Swal.fire({
+                text: 'Tudo certo!!',
+                title: 'Endereço removidos com sucesso',
+                icon: 'success'
+            })
+        }).catch(() => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Algo deu errado!',
+            })
+        })
+    }
 
     const [modal, setModal] = useState(false);
     const [modall, setModall] = useState(false);
@@ -96,7 +115,8 @@ export default function EditAdress() {
         cep, logradouro, cidade, complemento, apelido, numero, bairro, estado, latitude, longitude
     })
 
-
+    
+    
 
     const handleChangeCep = (event: ChangeEvent<HTMLInputElement>): void => {
         setCep(event.target.value)
@@ -138,8 +158,8 @@ export default function EditAdress() {
     async function updateAdress(event: FormEvent) {
         event.preventDefault()
 
-        const latlong = await getLatitudeLongitude({ logradouro: cepData.logradouro, cidade: cepData.localidade, estado: cepData.uf })
-
+        
+        const latlong2 = await getLatitudeLongitude({ logradouro: local.logradouro, cidade: local.cidade, estado: local.estado })
         let enderecoEdit
 
         enderecoEdit = {
@@ -151,12 +171,12 @@ export default function EditAdress() {
             numero: numero,
             bairro: bairro,
             estado: estado,
-            latitude: `${latlong.lat}`,
-            longitude: `${latlong.lng}`
+            latitude:  `${latlong2.lat}` ,
+            longitude: `${latlong2.lng}` 
         }
         console.log(enderecoEdit);
 
-
+        console.log(logradouro);
 
         const enderecoAtualizado = await fetch(`https://webappdeploy-backend.azurewebsites.net/endereco/${localStorage.getItem('clickEdit')}`, {
             method: 'PUT',
@@ -192,30 +212,6 @@ export default function EditAdress() {
         }
     }
 
-    // const deleteAdress = () => {
-    //     api.delete(`/endereco/${localStorage.getItem('id')}/${localStorage.getItem('clickEdit')}`, {
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'Authorization': 'Bearer ' + localStorage.getItem('token')
-    //         },
-    //     }).then(() => {
-    //         Swal.fire({
-    //             text: 'Tudo certo!!',
-    //             title: 'Endereço removidos com sucesso',
-    //             icon: 'success'
-    //         })
-    //     }).catch(() => {
-    //         Swal.fire({
-    //             icon: 'error',
-    //             title: 'Oops...',
-    //             text: 'Algo deu errado!',
-    //         })
-    //     })
-
-
-
-
-    // }
 
 
     const toggleModal = () => {
@@ -248,6 +244,7 @@ export default function EditAdress() {
             try {
 
                 const data = await fetch(`https://opencep.com/v1/${event.target.value.replace('-', '')}.json`).then(res => res.json())
+                setCep(data.cep)
                 setCidade(data.localidade)
                 setLogradouro(data.logradouro)
                 setApelido(data.complemento)
@@ -257,11 +254,12 @@ export default function EditAdress() {
                 setCepData(data)
 
             } catch (error) {
-                console.log(`teste`)
+                
                 setCidade('')
                 setLogradouro('')
             }
         } else {
+            
             setCidade('')
             setLogradouro('')
         }
@@ -302,11 +300,19 @@ export default function EditAdress() {
                                                         toggleModall()
                                                         e.currentTarget.id
                                                         localStorage.setItem('clickEdit', e.currentTarget.id)
-                                                        console.log(e.currentTarget.id);
-
+                                                        
                                                         takeID(e)
 
                                                     }} className='Edit_adress_buton'>Editar</button>
+
+                                                    <button type='button' id={item.id} key={item.id} onClick={(e) => {
+
+                                                        e.currentTarget.id
+                                                        localStorage.setItem('clickEdit', e.currentTarget.id)
+
+                                                        deleteAdresss()
+
+                                                    }} className='Edit_adress_buton'>Remover</button>
                                                     <>
 
                                                         {modall && (
@@ -323,38 +329,43 @@ export default function EditAdress() {
                                                                         <div className='content-edit-profile-2'>
 
                                                                             <div className="form__group field">
-                                                                                <InputMask mask="99999-999" maskChar={null} onChange={checkCEP} placeholder="CEP" />
+                                                                                <InputMask mask="99999-999" maskChar={null} onChange={checkCEP}  placeholder="CEP" />
                                                                                 <label htmlFor="name" className="form__label">CEP</label>
                                                                             </div>
 
                                                                             <div className="form__group field">
-                                                                                <input value={local.logradouro} onChange={handleChangeLogradouro} type="text" className="form__field" placeholder="Name" />
+                                                                                <input defaultValue={logradouro} onChange={handleChangeLogradouro} type="text" className="form__field" placeholder="Name" />
                                                                                 <label htmlFor="name" className="form__label">Rua</label>
                                                                             </div>
 
 
                                                                             <div className="form__group field">
-                                                                                <input value={local.numero} onChange={handleChangeNumero} type="text" className="form__field" placeholder="Name" />
+                                                                                <input defaultValue={numero} onChange={handleChangeNumero} type="text" className="form__field" placeholder="Name" />
                                                                                 <label htmlFor="name" className="form__label">Numero</label>
                                                                             </div>
 
                                                                             <div className="form__group field">
-                                                                                <input value={local.complemento} onChange={handleChangeComplemento} type="text" className="form__field" placeholder="Name" />
+                                                                                <input defaultValue={complemento} onChange={handleChangeComplemento} type="text" className="form__field" placeholder="Name" />
                                                                                 <label htmlFor="name" className="form__label">Complemento</label>
                                                                             </div>
 
                                                                             <div className="form__group field">
-                                                                                <input value={local.apelido} onChange={handleChangeApelido} type="text" className="form__field" placeholder="Name" name="name" />
+                                                                                <input defaultValue={local.apelido} onChange={handleChangeApelido} type="text" className="form__field" placeholder="Name" name="name" />
                                                                                 <label htmlFor="name" className="form__label">Renomear local</label>
                                                                             </div>
 
                                                                             <div className="form__group field">
-                                                                                <input value={local.bairro} onChange={handleChangeBairro} type="text" className="form__field" placeholder="Name" />
+                                                                                <input defaultValue={bairro} onChange={handleChangeBairro} type="text" className="form__field" placeholder="Name" />
                                                                                 <label htmlFor="name" className="form__label">Bairro</label>
                                                                             </div>
 
                                                                             <div className="form__group field">
-                                                                                <input value={local.estado} onChange={handleChangeEstado} type="text" className="form__field" placeholder="Name" name="name" />
+                                                                                <input defaultValue={cidade} onChange={handleChangeCidade} type="text" className="form__field" placeholder="Name" name="name" />
+                                                                                <label htmlFor="name" className="form__label">Cidade</label>
+                                                                            </div>
+
+                                                                            <div className="form__group field">
+                                                                                <input defaultValue={estado} onChange={handleChangeEstado} type="text" className="form__field" placeholder="Name" name="name" />
                                                                                 <label htmlFor="name" className="form__label">Estado</label>
                                                                             </div>
 
