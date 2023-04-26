@@ -22,6 +22,8 @@ type dados = {
 
 }
 
+type view = 'view' | 'edit'
+
 type dadosCEP = {
     logradouro: string,
     localidade: string,
@@ -46,6 +48,7 @@ export default function EditAdress() {
     useEffect(() => {
         api.get(`/endereco/${localStorage.getItem('id')}`, {
             headers: {
+                'Access-Control-Allow-Origin': '*',
                 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
             },
         }).then(response => setRegiao(response.data.map((elemento) => {
@@ -81,10 +84,11 @@ export default function EditAdress() {
     const deleteAdresss = () => {
         api.delete(`/endereco/${localStorage.getItem('id')}/${localStorage.getItem('clickEdit')}`, {
             headers: {
+                'Access-Control-Allow-Origin': '*',
                 'Authorization': 'Bearer ' + localStorage.getItem('token')
             },
         }).then(() => {
-            
+
             Swal.fire({
                 text: 'Tudo certo!!',
                 title: 'Endereço removidos com sucesso',
@@ -92,7 +96,7 @@ export default function EditAdress() {
             })
         }).catch((e) => {
             console.log(e);
-            
+
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -100,7 +104,7 @@ export default function EditAdress() {
             })
         })
     }
-
+    const [viewState, setViewState] = useState<view>('edit')
     const [modal, setModal] = useState(false);
     const [modall, setModall] = useState(false);
     const [numero, setNumero] = useState<string>()
@@ -120,8 +124,8 @@ export default function EditAdress() {
         cep, logradouro, cidade, complemento, apelido, numero, bairro, estado, latitude, longitude
     })
 
-    
-    
+
+
 
     const handleChangeCep = (event: ChangeEvent<HTMLInputElement>): void => {
         setCep(event.target.value)
@@ -151,11 +155,11 @@ export default function EditAdress() {
     }
     const handleChangeApelido = (event: ChangeEvent<HTMLInputElement>): void => {
         setApelido(event.target.value)
-        setLocal({ ...local, apelido: event.target.value})
+        setLocal({ ...local, apelido: event.target.value })
     }
-    const handleChangeNumero = (event: ChangeEvent<HTMLInputElement>): void => {    
+    const handleChangeNumero = (event: ChangeEvent<HTMLInputElement>): void => {
         setNumero(event.target.value)
-        setLocal({...local, numero: event.target.value })
+        setLocal({ ...local, numero: event.target.value })
     }
 
 
@@ -163,7 +167,7 @@ export default function EditAdress() {
     async function updateAdress(event: FormEvent) {
         event.preventDefault()
 
-        
+
         const latlong2 = await getLatitudeLongitude({ logradouro: local.logradouro, cidade: local.cidade, estado: local.estado })
 
         const enderecoEdit = {
@@ -175,8 +179,8 @@ export default function EditAdress() {
             numero: local.numero,
             bairro: local.bairro,
             estado: local.estado,
-            latitude:  `${latlong2.lat}` ,
-            longitude: `${latlong2.lng}` 
+            latitude: `${latlong2.lat}`,
+            longitude: `${latlong2.lng}`
         }
 
         const enderecoAtualizado = await api.put(`/endereco/${localStorage.getItem('clickEdit')}`, enderecoEdit, {
@@ -207,9 +211,9 @@ export default function EditAdress() {
     }
 
 
- 
 
-        
+
+
 
 
     const toggleModal = () => {
@@ -236,7 +240,7 @@ export default function EditAdress() {
 
     const checkCEP = async (event: ChangeEvent<HTMLInputElement>): Promise<void> => {
         setLocal({ ...local, cep: event.target.value })
-        
+
         if (event.target.value.length == 9) {
             try {
 
@@ -252,12 +256,12 @@ export default function EditAdress() {
                 })
 
             } catch (error) {
-                
+
                 setCidade('')
                 setLogradouro('')
             }
         } else {
-            
+
             setCidade('')
             setLogradouro('')
         }
@@ -289,28 +293,32 @@ export default function EditAdress() {
                                     return (
                                         <>
                                             <div className="boxUserProximos" >
-                                                <div className=''>
-                                                    <h3>{item.apelido}</h3>
+                                                <div className='container_apelido_adress'>
+                                                    <h3 className='apelido_adress'>{item.apelido}</h3>
                                                 </div>
                                                 <div className=''>
+                                                    <div className='box_edit_adress'>
+                                                        {viewState == 'edit' &&
+                                                        <button type='button' id={item.id} key={item.id} onClick={(e) => {
+                                                            toggleModall()
+                                                            e.currentTarget.id
+                                                            localStorage.setItem('clickEdit', e.currentTarget.id)
 
-                                                    <button type='button' id={item.id} key={item.id} onClick={(e) => {
-                                                        toggleModall()
-                                                        e.currentTarget.id
-                                                        localStorage.setItem('clickEdit', e.currentTarget.id)
-                                                        
-                                                        takeID(e)
+                                                            takeID(e)
 
-                                                    }} className='Edit_adress_buton'>Editar</button>
-
+                                                        }} className='Edit_adress_buton'>Editar</button>
+                                                    }
+                                                    </div>
+                                                    {viewState == 'edit' &&
                                                     <button type='button' id={item.id} key={item.id} onClick={(e) => {
 
                                                         e.currentTarget.id
                                                         localStorage.setItem('clickEdit', e.currentTarget.id)
 
                                                         deleteAdresss()
-
-                                                    }} className='Edit_adress_buton'>Remover</button>
+                                                        handleClick()
+                                                    }} className='Edit_adress_buton_remove'>Remover</button>
+                                                    }
                                                     <>
 
                                                         {modall && (
@@ -327,43 +335,43 @@ export default function EditAdress() {
                                                                         <div className='content-edit-profile-2'>
 
                                                                             <div className="form__group field">
-                                                                                <InputMask mask="99999-999" maskChar={null} onChange={checkCEP} value={local.cep}  placeholder="CEP" />
+                                                                                <InputMask mask="99999-999" maskChar={null} onChange={checkCEP} className="form_field_adress" value={local.cep} placeholder="CEP" />
                                                                                 <label htmlFor="name" className="form__label">CEP</label>
                                                                             </div>
 
                                                                             <div className="form__group field">
-                                                                                <input  onChange={handleChangeLogradouro} value={local.logradouro} type="text" className="form__field" placeholder="Name" />
+                                                                                <input onChange={handleChangeLogradouro} value={local.logradouro} type="text" className="form_field_adress" placeholder="Name" />
                                                                                 <label htmlFor="name" className="form__label">Rua</label>
                                                                             </div>
 
 
                                                                             <div className="form__group field">
-                                                                                <input  onChange={handleChangeNumero} type="text" value={local.numero} className="form__field" placeholder="Name" />
+                                                                                <input onChange={handleChangeNumero} type="text" value={local.numero} className="form_field_adress" placeholder="Name" />
                                                                                 <label htmlFor="name" className="form__label">Numero</label>
                                                                             </div>
 
                                                                             <div className="form__group field">
-                                                                                <input onChange={handleChangeComplemento} type="text"value={local.complemento} className="form__field" placeholder="Name" />
+                                                                                <input onChange={handleChangeComplemento} type="text" value={local.complemento} className="form_field_adress" placeholder="Name" />
                                                                                 <label htmlFor="name" className="form__label">Complemento</label>
                                                                             </div>
 
                                                                             <div className="form__group field">
-                                                                                <input  onChange={handleChangeApelido} type="text" className="form__field" value={local.apelido} placeholder="Name" name="name" />
+                                                                                <input onChange={handleChangeApelido} type="text" className="form_field_adress" value={local.apelido} placeholder="Name" name="name" />
                                                                                 <label htmlFor="name" className="form__label">Renomear local</label>
                                                                             </div>
 
                                                                             <div className="form__group field">
-                                                                                <input  onChange={handleChangeBairro} type="text" className="form__field" value={local.bairro} placeholder="Name" />
+                                                                                <input onChange={handleChangeBairro} type="text" className="form_field_adress" value={local.bairro} placeholder="Name" />
                                                                                 <label htmlFor="name" className="form__label">Bairro</label>
                                                                             </div>
 
                                                                             <div className="form__group field">
-                                                                                <input  onChange={handleChangeCidade} type="text" value={local.cidade} className="form__field" placeholder="Name" name="name" />
+                                                                                <input onChange={handleChangeCidade} type="text" value={local.cidade} className="form_field_adress" placeholder="Name" name="name" />
                                                                                 <label htmlFor="name" className="form__label">Cidade</label>
                                                                             </div>
 
                                                                             <div className="form__group field">
-                                                                                <input  onChange={handleChangeEstado} type="text" value={local.estado} className="form__field" placeholder="Name" name="name" />
+                                                                                <input onChange={handleChangeEstado} type="text" value={local.estado} className="form_field_adress" placeholder="Name" name="name" />
                                                                                 <label htmlFor="name" className="form__label">Estado</label>
                                                                             </div>
 

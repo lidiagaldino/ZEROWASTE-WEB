@@ -63,7 +63,7 @@ body.active-modal {
     color: #fff;
     border-radius: 15px;
     padding: 5px 20px;
-
+    width: 110px;
 }
 
 .Edit_adress_buton_remove {
@@ -73,12 +73,13 @@ body.active-modal {
     color: #fff;
     border-radius: 15px;
     padding: 5px 20px;
+
 }
 
 .edit-adresss {
     background-color: green;
-    border-radius: 40px ;
-    border-color:  #fff ;
+    border-radius: 40px;
+    border-color: #fff;
     outline: none;
     color: #fff;
     height: 40px;
@@ -86,12 +87,39 @@ body.active-modal {
     transition: all 0.2s ease-in-out;
 }
 
-.edit-adresss:hover{
+.edit-adresss:hover {
     height: 45px;
     width: 145px;
     transition: all 0.2s ease-in-out;
 }
 
+.Edit_adress_buton_remove {
+    background-color: red;
+    margin-left: 70px;
+    margin-top: 10px;
+}
+
+.box_edit_adress {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: 70px;
+
+}
+
+.apelido_adress {
+
+    width: 350px;
+}
+
+.container_apelido_adress {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 
 
-/* PARTE TESTE */   
+
+/* PARTE TESTE */

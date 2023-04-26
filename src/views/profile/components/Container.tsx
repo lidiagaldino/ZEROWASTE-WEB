@@ -11,13 +11,13 @@ import FavoritarButton from './FavoritarButton';
 import EditAdress from '../components/EditAdress'
 
 type drop = {
-    id: string,
+    id: Number,
     value: string,
     label: string
 }
 
 type dados = {
-    id: string,
+    id: number,
     email: string,
     senha: string,
     telefone: string,
@@ -25,15 +25,15 @@ type dados = {
     biografia: string
     catador: [
         {
-            id: string,
-            id_usuario: string,
+            id: number,
+            id_usuario: number,
             materiais_catador: [
                 {
-                    id: string,
-                    id_materiais: string,
-                    id_catador: string,
+                    id: number,
+                    id_materiais: number,
+                    id_catador: number,
                     material: {
-                        id: string,
+                        id: number,
                         nome: string
                     }
                 }
@@ -43,28 +43,28 @@ type dados = {
     gerador: [],
     pessoa_fisica?: [
         {
-            id: string,
+            id: number,
             cpf: string,
             nome: string,
             data_nascimento: string,
-            id_usuario: string
+            id_usuario: number
         }
     ],
     pessoa_juridica?: [
         {
-            id: string,
+            id: number,
             cnpj: string,
             nome_fantasia: string,
-            id_usuario: string
+            id_usuario: number
         }
     ],
     endereco_usuario: [
         {
-            id: string,
-            id_endereco: string,
-            id_usuario: string,
+            id: number,
+            id_endereco: number,
+            id_usuario: number,
             endereco: {
-                id: string,
+                id: number,
                 logradouro: string,
                 bairro: string,
                 cidade: string,
@@ -82,8 +82,8 @@ type view = 'view' | 'edit'
 
 const Container = (props) => {
 
-   
-    const { id }: { id: string } = useParams()
+
+    const { id }: { id: number } = useParams()
     const [recolhoMateriais, setRecolhoMateriais] = useState([])
     const [clicado, setClicado] = useState(false);
     const [info, setInfo] = useState<dados>()
@@ -98,6 +98,7 @@ const Container = (props) => {
     useEffect(() => {
         const config = {
             headers: {
+                 'Access-Control-Allow-Origin': '*',
                 'Authorization': 'Bearer ' + localStorage.getItem('token')
             }
         }
@@ -121,6 +122,7 @@ const Container = (props) => {
     const update = () => {
         fetch(`https://webappdeploy-backend.azurewebsites.net/user`, {
             headers: {
+                'Access-Control-Allow-Origin': '*',
                 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
             },
         }).then(response => response.json())
@@ -130,6 +132,7 @@ const Container = (props) => {
     useEffect(() => {
         api.get(`/materiais/${localStorage.getItem('id_modo')}`, {
             headers: {
+                'Access-Control-Allow-Origin': '*',
                 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
             },
         }).then(resposta => setRecolhoMateriais(resposta.data.map((item) => {
@@ -143,6 +146,7 @@ const Container = (props) => {
             )
         })))
     }, [])
+
 
     return (
 
@@ -244,8 +248,11 @@ const Container = (props) => {
                             <span className='info'>{info?.email}</span>
                         </li>
                         <li className=''>
+                            {viewState == 'edit' && 
                             <h1 className=''>Endereços: <EditAdress></EditAdress></h1>
+            }
                             <span className='info'></span>
+                            
                         </li>
                     </ul>
                 </div>

@@ -8,7 +8,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import * as Checkbox from '@radix-ui/react-checkbox';
 import { CheckIcon } from '@radix-ui/react-icons';
 import api from '../../../api/axios'
-
+import { v4 as uuidv4 } from 'uuid';
 
 const CatadoresProximos = () => {
     const [selected, setSelected] = useState('')
@@ -114,7 +114,7 @@ const CatadoresProximos = () => {
                 {isFavorited ? checkFavorite.map((elemento) => {
                     return (
                         <>
-                            <div id={elemento.id} key={elemento.id} className="boxUserProximos" onClick={(event) => {
+                            <div id={elemento.id} key={`${elemento.id}_${uuidv4()}`} className="boxUserProximos" onClick={(event) => {
                                 localStorage.setItem('view-edit', 'view')
                                 navigate(`/profile/${event.currentTarget.id}`,)
                                 localStorage.setItem('viewPriv', event.currentTarget.id)
@@ -147,7 +147,7 @@ const CatadoresProximos = () => {
                 {data.map((item) => {
                     return (
                         <>
-                            <div id={item.id} key={item.id_usuario} className="boxUserProximos" onClick={(event) => {
+                            <div id={item.id} key={`${item.id_usuario}_${uuidv4()}`} className="boxUserProximos" onClick={(event) => {
                                 localStorage.setItem('view-edit', 'view')
                                 navigate(`/profile/${event.currentTarget.id}`,)
                                 localStorage.setItem('viewPriv', event.currentTarget.id)

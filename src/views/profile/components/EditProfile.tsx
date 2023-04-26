@@ -23,7 +23,7 @@ type edituser = {
 
 type dados = {
     user: {
-        id: string,
+        id: number,
         email: string,
         senha: string,
         cpf: string,
@@ -44,15 +44,20 @@ export default function EditProfile({ foto, setFoto, setInfo }) {
     }
 
 
+
     useEffect(() => {
         fetch(`https://webappdeploy-backend.azurewebsites.net/user`, {
             headers: {
+                'Access-Control-Allow-Origin': '*',
                 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
             },
         }).then(response => response.json())
             .then(data => setInfoo(data))
 
     }, [])
+
+
+
 
     const [nome, setNome] = useState(localStorage.getItem('nome'))
     const [telefone, setTelefone] = useState(localStorage.getItem('telefone'))
@@ -135,6 +140,8 @@ export default function EditProfile({ foto, setFoto, setInfo }) {
             return
         }
 
+        console.log(usuarioEdit)
+
         const cadastroAtualizado = await fetch(`https://webappdeploy-backend.azurewebsites.net/user`, {
             method: 'PUT',
             body: JSON.stringify(usuarioEdit),
@@ -145,7 +152,7 @@ export default function EditProfile({ foto, setFoto, setInfo }) {
 
         const cadastroa = await cadastroAtualizado.json()
 
-        console.log(cadastroa);
+        console.log(cadastroa.nome);
 
         if (cadastroAtualizado.ok) {
             Swal.fire({
@@ -195,6 +202,9 @@ export default function EditProfile({ foto, setFoto, setInfo }) {
             })
 
     }
+
+
+
 
     const handleSubmitImage = () => {
         const imageRef = ref(storage, `image/${localStorage.getItem('id')}`);
@@ -296,7 +306,7 @@ export default function EditProfile({ foto, setFoto, setInfo }) {
                         </div>
 
                         <div className='save-changes-position'>
-                            <button type='submit' className='save-changes' onClick={handleClick}> {isLoading ? 'Salvando alteracoes...' : 'Salvar Alteracoes'} </button>
+                            <button type='submit' className='save-changes' > {isLoading ? 'Salvando alteracoes...' : 'Salvar Alteracoes'} </button>
                         </div>
 
 

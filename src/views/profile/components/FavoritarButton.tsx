@@ -8,7 +8,7 @@ import { faL } from '@fortawesome/free-solid-svg-icons';
 import { Action } from '@remix-run/router';
 
 type dados = {
-  id: string,
+  id: number,
   email: string,
   senha: string,
   telefone: string,
@@ -16,16 +16,16 @@ type dados = {
   biografia: string
   catador: [
     {
-      id: string,
-      id_usuario: string,
+      id: number,
+      id_usuario: number,
       materiais_catador: [
         {
-          id: string,
-          id_materiais: string,
-          id_catador: string,
+          id: number,
+          id_materiais: number,
+          id_catador: number,
           material: {
-            id: string,
-            nome: string
+            id: number,
+            nome: number
           }
         }
       ]
@@ -34,28 +34,28 @@ type dados = {
   gerador: [],
   pessoa_fisica?: [
     {
-      id: string,
+      id: number,
       cpf: string,
       nome: string,
       data_nascimento: string,
-      id_usuario: string
+      id_usuario: number
     }
   ],
   pessoa_juridica?: [
     {
-      id: string,
+      id: number,
       cnpj: string,
       nome_fantasia: string,
-      id_usuario: string
+      id_usuario: number
     }
   ],
   endereco_usuario: [
     {
-      id: string,
-      id_endereco: string,
-      id_usuario: string,
+      id: number,
+      id_endereco: number,
+      id_usuario: number,
       endereco: {
-        id: string,
+        id: number,
         logradouro: string,
         bairro: string,
         cidade: string,
@@ -68,7 +68,8 @@ type dados = {
 
 }
 
-function FavoritarButton(props: { id: string }) {
+function FavoritarButton(props: { id: number }) {
+  console.log(props)
 
   const [info, setInfo] = useState<dados>()
   const buttonRef = useRef(null);
@@ -80,7 +81,7 @@ function FavoritarButton(props: { id: string }) {
 
   const verifyClick = () => {
 
-    api.get(`/favoritar/${localStorage.getItem('id_modo')}/${props.id}`, {
+    fetch(`/favoritar/${localStorage.getItem('id_modo')}/${props.id}`, {
     }).then(response => {
       if (response.status == 200) {
         setButton('active')
@@ -88,6 +89,7 @@ function FavoritarButton(props: { id: string }) {
       }
     })
   }
+  console.log(`/favoritar/${localStorage.getItem('id_modo')}/${props.id}`);
 
   verifyClick()
 
