@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../../api/axios'
-import { useParams } from 'react-router-dom'
 import '../styles/favorite.css'
 import { useRef } from 'react';
 import gsap from 'gsap';
-import { faL } from '@fortawesome/free-solid-svg-icons';
-import { Action } from '@remix-run/router';
 
 type dados = {
   id: number,
@@ -81,15 +78,21 @@ function FavoritarButton(props: { id: number }) {
 
   const verifyClick = () => {
 
-    fetch(`/favoritar/${localStorage.getItem('id_modo')}/${props.id}`, {
+    fetch(`https://webappdeploy-backend.azurewebsites.net/favoritar/${localStorage.getItem('id_modo')}/${props.id}`, {
     }).then(response => {
+      console.log(response);
+
       if (response.status == 200) {
         setButton('active')
         setFavorited(true)
+      } else {
+        setButton('')
+        setFavorited(false)
       }
     })
   }
-  console.log(`/favoritar/${localStorage.getItem('id_modo')}/${props.id}`);
+
+
 
   verifyClick()
 

@@ -1,12 +1,9 @@
 import React, { useState, ChangeEvent, useEffect, FormEvent } from 'react'
 import '../styles/editprofile.css'
 import '../styles/bio.css'
-import logofoto from '../../../assets/catadores_proximosfoto.png'
-import { defer } from 'react-router-dom';
 import storage from '../../../firebase';
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom'
 import { refresh } from '../../../utils/refreshToken';
 import editValidation from '../../../validations/editValidation';
 import InputMask from "react-input-mask";

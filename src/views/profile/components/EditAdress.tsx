@@ -1,14 +1,10 @@
 import React, { useState, ChangeEvent, useEffect, FormEvent } from 'react'
 import InputMask from "react-input-mask";
-import UpdateAdress from './UptadeAdress';
 import '../styles/editadress.css'
 import '../styles/uptadeadress.css'
 import api from '../../../api/axios';
 import Swal from 'sweetalert2';
-import { useForm } from 'react-hook-form';
-import { setLocale } from 'yup';
 import { getLatitudeLongitude } from '../../../utils/getLatitudeLongitude';
-import { CloudFog } from 'phosphor-react';
 
 type dados = {
     id: string,
@@ -292,6 +288,7 @@ export default function EditAdress() {
 
                                     return (
                                         <>
+                                        <div className='scrolll'>
                                             <div className="boxUserProximos" >
                                                 <div className='container_apelido_adress'>
                                                     <h3 className='apelido_adress'>{item.apelido}</h3>
@@ -319,6 +316,7 @@ export default function EditAdress() {
                                                         handleClick()
                                                     }} className='Edit_adress_buton_remove'>Remover</button>
                                                     }
+                                                    </div>
                                                     <>
 
                                                         {modall && (

@@ -3,18 +3,12 @@ import '../styles/bio.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import EditProfile from '../components/EditProfile'
-import { faArrowDown } from '@fortawesome/free-solid-svg-icons'
 import { useParams } from 'react-router-dom'
-import { getUsetData } from '../../../api/consume'
 import api from '../../../api/axios'
 import FavoritarButton from './FavoritarButton';
 import EditAdress from '../components/EditAdress'
 
-type drop = {
-    id: Number,
-    value: string,
-    label: string
-}
+
 
 type dados = {
     id: number,
@@ -98,7 +92,7 @@ const Container = (props) => {
     useEffect(() => {
         const config = {
             headers: {
-                 'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Origin': '*',
                 'Authorization': 'Bearer ' + localStorage.getItem('token')
             }
         }
@@ -106,10 +100,12 @@ const Container = (props) => {
         let teste = '/user'
 
         if (localStorage.getItem('view-edit') == 'view') {
-            teste = `/user/${id}`
+            teste = `https://webappdeploy-backend.azurewebsites.net/user/${id}`
         }
 
-        api.get(teste, config).then(response => setInfo(response.data))
+        api.get(teste, config).then(response => {
+            setInfo(response.data)
+        })
 
     }, [])
 
@@ -147,14 +143,15 @@ const Container = (props) => {
         })))
     }, [])
 
+    console.log(info)
 
     return (
 
         <div className='container-bio'>
             <section className="userProfile card">
                 <div className="profile">
-                    <figure><img src={localStorage.getItem('view-edit') == 'view' ? info?.foto : localStorage.getItem('foto')} alt="profile" width="250px" height="250px" />
-                        <h1 className='statusCliente'>Status: {id}</h1>
+                    <figure><img src={localStorage.getItem('view-edit') == 'view' ? info?.foto : localStorage.getItem('foto')} style={localStorage.getItem('tipo') == 'Gerador' ? {} : {border: "4px solid red"} } alt="profile" width="250px" height="250px" />
+                        <h1 className='statusCliente'>{localStorage.getItem('tipo') == 'Gerador' ? '' : 'Status:'}</h1>
                     </figure>
 
                 </div>
@@ -248,11 +245,11 @@ const Container = (props) => {
                             <span className='info'>{info?.email}</span>
                         </li>
                         <li className=''>
-                            {viewState == 'edit' && 
-                            <h1 className=''>Endereços: <EditAdress></EditAdress></h1>
-            }
+                            {viewState == 'edit' &&
+                                <h1 className=''>Endereços: <EditAdress></EditAdress></h1>
+                            }
                             <span className='info'></span>
-                            
+
                         </li>
                     </ul>
                 </div>

@@ -15,7 +15,7 @@ import CatadoresProximos from './catadoresProximos/components/CatadoresProximos'
 import CatadorePro from './catadoresProximos/CatadorePro'
 import Material from './materialCadastro/Material'
 import { ProtectedRoutes, CatadorRoutes, GeradorRoutes } from './ProtectedRoutes'
-
+import ColetasPro from './coletas/ColetasPro'
 
 const Routess = () => {
 
@@ -40,9 +40,9 @@ const Routess = () => {
         } />
 
         <Route path={`/profile`} element={
-         
-            <Profile />
-          
+
+          <Profile />
+
         } />
 
         <Route path='/cadastro' element={
@@ -79,6 +79,14 @@ const Routess = () => {
             <GeradorRoutes>
               <CatadorePro />
             </GeradorRoutes>
+          </ProtectedRoutes>
+        } />
+
+        <Route path='/coletas_proximas' element={
+          <ProtectedRoutes>
+            <CatadorRoutes>
+              <ColetasPro />
+            </CatadorRoutes>
           </ProtectedRoutes>
         } />
 

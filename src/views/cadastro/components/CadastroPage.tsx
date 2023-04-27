@@ -117,12 +117,19 @@ const CadastroPage = () => {
         }
         console.log(pontocadastro);
 
-
-        api.post('/endereco', pontocadastro, {
+        const cadstro = await fetch(`https://webappdeploy-backend.azurewebsites.net/endereco`, {
+            method: 'POST',
+            body: JSON.stringify(pontocadastro),
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json', 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
             }
-        }).then(() => {
+        })
+        // const json = await cadstro.json()
+        // console.log(json)
+        console.log(cadstro);
+        
+
+        if (cadstro.status == 201) {
             Swal.fire({
                 title: 'Tudo certo!!',
                 text: 'Endereço criado com sucesso',
@@ -135,13 +142,14 @@ const CadastroPage = () => {
             setEstado('')
             setApelido('')
             setNumero('')
-        }).catch(() => {
+        } else {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Algo está errado!',
             })
-        })
+        }
+
 
     }
 

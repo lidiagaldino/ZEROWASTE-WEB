@@ -2,7 +2,7 @@ import * as yup from 'yup'
 import React, { Dispatch, SetStateAction } from 'react'
 
 const schemaEndereco = yup.object().shape({
-    apelido: yup.string().required("Campo apelido é obrigatório"),
+    apelido: yup.string().required("Campo apelido é obrigatório").min(3, 'Apelido deve ter no minímo 3 caracteres'),
     cidade: yup.string().required('Campo cidade é obrigatório'),
     estado: yup.string().required('Campo estado é obrigatório'),
     logradouro: yup.string().required('Campo logradouro é obrigatório'),

@@ -2,7 +2,6 @@ import React, { useState, ChangeEvent, useEffect, FormEvent } from 'react'
 import api from '../../../api/axios';
 import Swal from 'sweetalert2';
 import '../styles/uptadeadress.css'
-import { OptionItem } from 'react-switch-selector/dist/SwitchSelector.styled';
 
 
 type dados = {

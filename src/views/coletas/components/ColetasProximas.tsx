@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import '../style.css'
-import DropwDownOptions from './DropwDownOptions'
+import DropwDownColetas from './DropDownColetas'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import '../bg-animation.css'
@@ -9,7 +8,8 @@ import { CheckIcon } from '@radix-ui/react-icons';
 import api from '../../../api/axios'
 import { v4 as uuidv4 } from 'uuid';
 
-const CatadoresProximos = () => {
+
+const ColetasProximas = () => {
     const [selected, setSelected] = useState('')
     const [regiao, setRegiao] = useState([])
     const [data, setData] = useState([])
@@ -36,7 +36,7 @@ const CatadoresProximos = () => {
             headers: {
                 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
             },
-        }).then(response => response.json()).then(resposta => setData(resposta.map((item) => { 
+        }).then(response => response.json()).then(resposta => setData(resposta.map((item) => {
             return ({
                 id: item.id_usuario,
                 foto: item.foto,
@@ -90,22 +90,9 @@ const CatadoresProximos = () => {
             </div>
             <div className='scroll'>
                 <div className='infoS'>
-                    <h1 className='titleBoxU'>Catadores proximos</h1>
-
-                    <div>
-                        <h2>Catadores Favoritos</h2>
-                        <input type="checkbox" name="" id=""
-                            onClick={() => {
-                                clickFavorite()
-                                handleClickFavorite()
-                            }}
-                        />
-
-                    </div>
-
-
+                    <h1 className='titleBoxU'>Coletas proximas</h1>
                     <div className='reg-bt'>
-                        <DropwDownOptions dropChange={handleDropChange} selected={selected} setSelected={setSelected} regiao={regiao} setRegiao={setRegiao} />
+                        <DropwDownColetas dropChange={handleDropChange} selected={selected} setSelected={setSelected} regiao={regiao} setRegiao={setRegiao} />
                     </div>
                 </div>
 
@@ -124,7 +111,7 @@ const CatadoresProximos = () => {
                                     <p>a</p>
                                 </div>
                                 <div className='buttonPosition'>
-                                    <button className='buttonBox'>Solicite</button>
+                                    <button className='buttonBox'>Aceitar</button>
                                 </div>
                             </div>
                             <hr />
@@ -168,4 +155,4 @@ const CatadoresProximos = () => {
     )
 }
 
-export default CatadoresProximos
+export default ColetasProximas

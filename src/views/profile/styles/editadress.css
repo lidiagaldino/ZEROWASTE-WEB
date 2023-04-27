@@ -3,6 +3,22 @@ body.active-modal {
     transition: all 1s ease-in-out;
 }
 
+.modal-content::-webkit-scrollbar {
+    width: 15px;
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    background: #262626;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: linear-gradient(0deg, rgba(12, 14, 19, 0.28), rgba(12, 14, 19, 0.28)), linear-gradient(168.02deg, #0C8B11 20.52%, rgba(28, 247, 36, 0.8) 91.24%);
+    border-radius: 20px;
+
+
+}
+
+
+
 .modal,
 .overlay {
     width: 100vw;
@@ -31,14 +47,16 @@ body.active-modal {
     align-items: center;
     transform: translate(-50%, -50%);
     line-height: 1.4;
-    background: #f1f1f1;
+    background: #262626;
     padding: 14px 28px;
     border-radius: 3px;
     width: 695px;
     height: 1020px;
+    overflow-y: scroll;
     z-index: 1;
     border-radius: 25px;
     transition: all 1s ease-in-out;
+    color: #fff;
 }
 
 .close-modal {
@@ -64,6 +82,7 @@ body.active-modal {
     border-radius: 15px;
     padding: 5px 20px;
     width: 110px;
+    border-color: 14px white;
 }
 
 .Edit_adress_buton_remove {
@@ -84,6 +103,7 @@ body.active-modal {
     color: #fff;
     height: 40px;
     width: 140px;
+
     transition: all 0.2s ease-in-out;
 }
 

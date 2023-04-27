@@ -49,7 +49,7 @@ const MenuLateral = () => {
         {
             text: localStorage.getItem('tipo') == "Catador" ? 'Coletas' : "Mapa de catadores proximos",
             icon: <FontAwesomeIcon className='icon' icon={faMapPin} />,
-            href: localStorage.getItem('tipo') == "Catador" ? '/' : "/catadores_proximos"
+            href: localStorage.getItem('tipo') == "Catador" ? '/coletas_proximas' : "/catadores_proximos"
         },
         {
             text: "Pontuação",
