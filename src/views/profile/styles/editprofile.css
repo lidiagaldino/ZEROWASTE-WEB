@@ -1,4 +1,4 @@
- body.active-modal {
+ body.active-modal{
      overflow-y: hidden;
      transition: all 1s ease-in-out;
  }

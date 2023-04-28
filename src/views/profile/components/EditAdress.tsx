@@ -1,10 +1,13 @@
 import React, { useState, ChangeEvent, useEffect, FormEvent } from 'react'
 import InputMask from "react-input-mask";
-import '../styles/editadress.css'
+import  '../styles/editadress.css'
 import '../styles/uptadeadress.css'
 import api from '../../../api/axios';
 import Swal from 'sweetalert2';
 import { getLatitudeLongitude } from '../../../utils/getLatitudeLongitude';
+import 'animate.css';
+import { faXmark } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 type dados = {
     id: string,
@@ -274,48 +277,51 @@ export default function EditAdress() {
 
 
             {modal && (
-                <div className="modal">
-                    <div className="overlay"></div>
-                    <form className="modal-content">
-                        <div className='top-content-profile'>
-                            <h1>Endereços Cadastrados de {localStorage.getItem('nome')}</h1>
-                            <hr />
+                <div className="modal ">
+                    <div className="overlay "></div>
+                    <form className="modal-contentt animate__animated animate__fadeInUp ">
+                        <div className='modal-support animate__animated animate__fadeInUp'>
+
+                        
+                        <div className='top-content-adress'>
+                            <h2 className='titulo-content-adress'>Endereços Cadastrados de <small>{localStorage.getItem('nome')}</small></h2>
+               
                         </div>
-                        <div className='under-content-profile'>
-                            <div className='content-edit-profile'>
+                        <div className='under-content-adress'>
+                            <div className='content-edit-adress'>
                                 {regiao.map((item) => {
 
 
                                     return (
                                         <>
-                                        <div className='scrolll'>
-                                            <div className="boxUserProximos" >
-                                                <div className='container_apelido_adress'>
-                                                    <h3 className='apelido_adress'>{item.apelido}</h3>
-                                                </div>
-                                                <div className=''>
-                                                    <div className='box_edit_adress'>
-                                                        {viewState == 'edit' &&
-                                                        <button type='button' id={item.id} key={item.id} onClick={(e) => {
-                                                            toggleModall()
-                                                            e.currentTarget.id
-                                                            localStorage.setItem('clickEdit', e.currentTarget.id)
-
-                                                            takeID(e)
-
-                                                        }} className='Edit_adress_buton'>Editar</button>
-                                                    }
+                                            <div className='scrolll'>
+                                                <div className="boxUserProximos" >
+                                                    <div className='container_apelido_adress'>
+                                                        <h3 className='apelido_adress'>{item.apelido}</h3>
                                                     </div>
-                                                    {viewState == 'edit' &&
-                                                    <button type='button' id={item.id} key={item.id} onClick={(e) => {
+                                                    <div className=''>
+                                                        <div className='box_edit_adress'>
+                                                            {viewState == 'edit' &&
+                                                                <button type='button' id={item.id} key={item.id} onClick={(e) => {
+                                                                    toggleModall()
+                                                                    e.currentTarget.id
+                                                                    localStorage.setItem('clickEdit', e.currentTarget.id)
 
-                                                        e.currentTarget.id
-                                                        localStorage.setItem('clickEdit', e.currentTarget.id)
+                                                                    takeID(e)
 
-                                                        deleteAdresss()
-                                                        handleClick()
-                                                    }} className='Edit_adress_buton_remove'>Remover</button>
-                                                    }
+                                                                }} className='Edit_adress_buton'>Editar</button>
+                                                            }
+                                                        </div>
+                                                        {viewState == 'edit' &&
+                                                            <button type='button' id={item.id} key={item.id} onClick={(e) => {
+
+                                                                e.currentTarget.id
+                                                                localStorage.setItem('clickEdit', e.currentTarget.id)
+
+                                                                deleteAdresss()
+                                                                handleClick()
+                                                            }} className='Edit_adress_buton_remove'>Remover</button>
+                                                        }
                                                     </div>
                                                     <>
 
@@ -384,8 +390,9 @@ export default function EditAdress() {
 
 
                                                                     <button className="close-modal-2" onClick={toggleModall} >
-                                                                        Fechar
+                                                                        Fechar2
                                                                     </button>
+                                                                    
                                                                 </form>
                                                             </div >
                                                         )}
@@ -399,9 +406,10 @@ export default function EditAdress() {
                             </div>
                         </div>
 
-                        <button className="close-modal" onClick={toggleModal}>
-                            Fechar
+                        <button className="close-modall" onClick={toggleModal}>
+                        <FontAwesomeIcon icon={faXmark} className="icon-xmark" />
                         </button>
+                        </div>
                     </form>
                 </div >
             )}

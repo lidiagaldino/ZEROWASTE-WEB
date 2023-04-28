@@ -37,7 +37,7 @@ export default function EditProfile({ foto, setFoto, setInfo }) {
         setIsLoading(true);
         setTimeout(() => {
             window.location.reload();
-        }, 3000);
+        }, 1000);
     }
 
 
@@ -303,7 +303,7 @@ export default function EditProfile({ foto, setFoto, setInfo }) {
                         </div>
 
                         <div className='save-changes-position'>
-                            <button type='submit' className='save-changes' > {isLoading ? 'Salvando alteracoes...' : 'Salvar Alteracoes'} </button>
+                            <button type='submit' onClick={handleClick} className='save-changes' > {isLoading ? 'Salvando alteracoes...' : 'Salvar Alteracoes'} </button>
                         </div>
 
 
