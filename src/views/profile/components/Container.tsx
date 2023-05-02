@@ -246,7 +246,7 @@ const Container = (props) => {
                         </li>
                         <li className=''>
                             {viewState == 'edit' &&
-                                <h1 className=''>Endereços: <EditAdress></EditAdress></h1>
+                                <h1 className='label'>Endereços: <EditAdress></EditAdress></h1>
                             }
                             <span className='info'></span>
 

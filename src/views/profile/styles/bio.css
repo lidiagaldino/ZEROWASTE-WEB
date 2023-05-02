@@ -496,7 +496,7 @@ figure {
     background: var(--bg5-color);
 }
 
-.timeline_about .contact_info h1 {
+.timeline_about .contact_info .label {
     font-size: 3rem;
 }
 
@@ -519,10 +519,10 @@ figure {
     margin: var(--m-0-5) 0;
 }
 
-.timeline_about .contact_info ul li h1,
-.timeline_about .basic_info ul li h1 {
+.timeline_about .contact_info ul li .label,
+.timeline_about .basic_info ul li .label {
     font-weight: 500;
-    font-size: var(--m-fs);
+    font-size: 20px;
     min-width: 12rem;
 
 }

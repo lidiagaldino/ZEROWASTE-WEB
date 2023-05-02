@@ -8,6 +8,7 @@ import { getLatitudeLongitude } from '../../../utils/getLatitudeLongitude';
 import 'animate.css';
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { set } from 'react-hook-form';
 
 type dados = {
     id: string,
@@ -105,6 +106,8 @@ export default function EditAdress() {
     }
     const [viewState, setViewState] = useState<view>('edit')
     const [modal, setModal] = useState(false);
+    const [isLoadingg, setIsLoadingg] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
     const [modall, setModall] = useState(false);
     const [numero, setNumero] = useState<string>()
     const [apelido, setApelido] = useState<string>()
@@ -191,13 +194,21 @@ export default function EditAdress() {
         console.log(enderecoAtualizado.status);
 
         if (enderecoAtualizado.status == 200) {
-            Swal.fire({
+            setTimeout(() => {
+                 Swal.fire({
                 text: 'Tudo certo!!',
                 title: 'Endereço atualizado com sucesso',
                 icon: 'success'
             })
-
+            }, 3000)
+           
+            SaveChanges()
+         setTimeout(() => {
             toggleModal()
+         }, 3000)
+         setTimeout(() => {
+            window.location.reload();
+         }, 5000)
 
         } else {
             Swal.fire({
@@ -207,11 +218,19 @@ export default function EditAdress() {
             })
 
         }
+        
     }
 
+    const SaveChanges = () => {
+        setIsLoadingg(true);
+        setTimeout(() => {
+          setIsLoadingg(false);
+          setIsSuccess(true);
+        }, 2000);
+      };
 
 
-
+   
 
 
 
@@ -331,52 +350,52 @@ export default function EditAdress() {
                                                                 <div className="overlay-2"></div>
                                                                 <form onSubmit={updateAdress} className="modal-content-2">
                                                                     <div className='top-contentadrees-profile-2'>
-                                                                        <h1 className='toph1'>Editar enderecos</h1>
-                                                                        <hr />
+                                                                        <h1 className='toph1'>Editar Endereço</h1>
+                                                                      
                                                                     </div>
 
                                                                     <div className='under-content-profile-2'>
                                                                         <div className='content-edit-profile-2'>
 
-                                                                            <div className="form__group field">
-                                                                                <InputMask mask="99999-999" maskChar={null} onChange={checkCEP} className="form_field_adress" value={local.cep} placeholder="CEP" />
-                                                                                <label htmlFor="name" className="form__label">CEP</label>
+                                                                            <div className="form__groupg field">
+                                                                                <InputMask mask="99999-999" maskChar={null} onChange={checkCEP}style={{paddingLeft: 10}}  className="form_field_adress" value={local.cep} placeholder="CEP" />
+                                                                                <label htmlFor="name"  style={{paddingLeft: 7}} className="form__labell">CEP</label>
                                                                             </div>
 
-                                                                            <div className="form__group field">
-                                                                                <input onChange={handleChangeLogradouro} value={local.logradouro} type="text" className="form_field_adress" placeholder="Name" />
-                                                                                <label htmlFor="name" className="form__label">Rua</label>
+                                                                            <div className="form__groupg field">
+                                                                                <input onChange={handleChangeLogradouro} value={local.logradouro} type="text"  style={{paddingLeft: 10}}className="form_field_adress" placeholder="Name" />
+                                                                                <label htmlFor="name" style={{paddingLeft: 7}} className="form__labell">Rua</label>
                                                                             </div>
 
 
-                                                                            <div className="form__group field">
-                                                                                <input onChange={handleChangeNumero} type="text" value={local.numero} className="form_field_adress" placeholder="Name" />
-                                                                                <label htmlFor="name" className="form__label">Numero</label>
+                                                                            <div className="form__groupg field">
+                                                                                <input onChange={handleChangeNumero} type="text" value={local.numero} style={{paddingLeft: 10}} className="form_field_adress" placeholder="Name" />
+                                                                                <label htmlFor="name" style={{paddingLeft: 7}} className="form__labell">Numero</label>
                                                                             </div>
 
-                                                                            <div className="form__group field">
-                                                                                <input onChange={handleChangeComplemento} type="text" value={local.complemento} className="form_field_adress" placeholder="Name" />
-                                                                                <label htmlFor="name" className="form__label">Complemento</label>
+                                                                            <div className="form__groupg field">
+                                                                                <input onChange={handleChangeComplemento} type="text" value={local.complemento} style={{paddingLeft: 10}} className="form_field_adress" placeholder="Name" />
+                                                                                <label htmlFor="name" style={{paddingLeft: 7}} className="form__labell">Complemento</label>
                                                                             </div>
 
-                                                                            <div className="form__group field">
-                                                                                <input onChange={handleChangeApelido} type="text" className="form_field_adress" value={local.apelido} placeholder="Name" name="name" />
-                                                                                <label htmlFor="name" className="form__label">Renomear local</label>
+                                                                            <div className="form__groupg field">
+                                                                                <input onChange={handleChangeApelido} type="text" className="form_field_adress" style={{paddingLeft: 10}} value={local.apelido}  />
+                                                                                <label htmlFor="name" style={{paddingLeft: 7}} className="form__labell">Renomear local</label>
                                                                             </div>
 
-                                                                            <div className="form__group field">
-                                                                                <input onChange={handleChangeBairro} type="text" className="form_field_adress" value={local.bairro} placeholder="Name" />
-                                                                                <label htmlFor="name" className="form__label">Bairro</label>
+                                                                            <div className="form__groupg field">
+                                                                                <input onChange={handleChangeBairro} type="text" className="form_field_adress" style={{paddingLeft: 10}} value={local.bairro} placeholder="Name" />
+                                                                                <label htmlFor="name" style={{paddingLeft: 7}} className="form__labell">Bairro</label>
                                                                             </div>
 
-                                                                            <div className="form__group field">
-                                                                                <input onChange={handleChangeCidade} type="text" value={local.cidade} className="form_field_adress" placeholder="Name" name="name" />
-                                                                                <label htmlFor="name" className="form__label">Cidade</label>
+                                                                            <div className="form__groupg field">
+                                                                                <input onChange={handleChangeCidade} type="text" value={local.cidade}  style={{paddingLeft: 10}}className="form_field_adress" placeholder="Name" name="name" />
+                                                                                <label htmlFor="name" style={{paddingLeft: 7, paddingTop: 0}}  className="form__labell">Cidade</label>
                                                                             </div>
 
-                                                                            <div className="form__group field">
-                                                                                <input onChange={handleChangeEstado} type="text" value={local.estado} className="form_field_adress" placeholder="Name" name="name" />
-                                                                                <label htmlFor="name" className="form__label">Estado</label>
+                                                                            <div className="form__groupg field">
+                                                                                <input onChange={handleChangeEstado} type="text" value={local.estado}  style={{paddingLeft: 10}} className="form_field_adress" placeholder="Name" name="name" />
+                                                                                <label htmlFor="name" style={{paddingLeft: 7}} className="form__labell">Estado</label>
                                                                             </div>
 
 
@@ -384,13 +403,15 @@ export default function EditAdress() {
                                                                     </div>
 
                                                                     <div className='save-changes-position-2'>
-                                                                        <button type='submit' className='save-changes-2' onClick={updateAdress}> {isLoading ? 'Salvando alteracoes...' : 'Salvar Alteracoes'} </button>
+                                                                         <button className={`save-changes-2 ${isLoadingg ? 'loading' : ''} ${isSuccess ? 'success' : ''}`} onClick={updateAdress}>
+                                                                            {isLoadingg ? 'Salvando alterações' : isSuccess ? <svg viewBox="0 0 24 24"><path d="M10.293 16.293l-4-4c-.39-.39-.39-1.023 0-1.414l1.414-1.414c.39-.39 1.024-.39 1.415 0l2.293 2.293 6.293-6.293c.39-.39 1.024-.39 1.415 0l1.414 1.414c.39.39.39 1.023 0 1.414l-8 8c-.39.39-1.023.39-1.414 0z"/></svg> : 'Salvar'}
+                                                                        </button>
 
                                                                     </div>
 
 
                                                                     <button className="close-modal-2" onClick={toggleModall} >
-                                                                        Fechar2
+                                                                    <FontAwesomeIcon icon={faXmark} className="icon-xmark" />
                                                                     </button>
                                                                     
                                                                 </form>
