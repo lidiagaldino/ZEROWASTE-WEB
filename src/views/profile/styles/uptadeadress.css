@@ -69,11 +69,13 @@ body.active-modal-2 {
 .save-changes-position-2{
 display: flex;
 margin-top: 30px;
+justify-content: center;
+align-items: center;
 
 }
 
 .save-changes-2 {
-    width: 140px;
+    width: 180px;
     height: 45px;
     font-family: 'Roboto', sans-serif;
     font-size: 11px;
@@ -88,6 +90,9 @@ margin-top: 30px;
     transition: all 0.3s ease 0s;
     cursor: pointer;
     outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .save-changes-2:hover{
@@ -129,21 +134,20 @@ padding-left: 20px;
 
 .under-content-profile-2 {
     display: flex;
-    align-items: center;
-    justify-content: center;
 
+    left: 0;
 }
 
 
 
 
 .form_field_adress {
-    width: 120%;
+    width: 150%;
     border-radius: 20px;
     border: 0;
     font-size: 1.3rem;
     color: rgb(39, 36, 36);
-    padding: 7px 0;
+    padding: 7px 0px;
     transition: all 0.5s solid ease-in-out;
 }
 

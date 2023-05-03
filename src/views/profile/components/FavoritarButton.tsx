@@ -76,9 +76,9 @@ function FavoritarButton(props: { id: number }) {
   const [favorite, setFavorited] = useState(false)
   const [button, setButton] = useState('')
 
-  const verifyClick = () => {
+  const verifyClick = async () => {
 
-    fetch(`https://webappdeploy-backend.azurewebsites.net/favoritar/${localStorage.getItem('id_modo')}/${props.id}`, {
+    await fetch(`https://webappdeploy-backend.azurewebsites.net/favoritar/${localStorage.getItem('id_modo')}/${props.id}`, {
     }).then(response => {
       console.log(response);
 

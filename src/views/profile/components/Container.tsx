@@ -74,7 +74,7 @@ type dados = {
 type view = 'view' | 'edit'
 
 
-const Container = (props) => {
+const Container = () => {
 
 
     const { id }: { id: number } = useParams()
@@ -150,7 +150,7 @@ const Container = (props) => {
         <div className='container-bio'>
             <section className="userProfile card">
                 <div className="profile">
-                    <figure><img src={localStorage.getItem('view-edit') == 'view' ? info?.foto : localStorage.getItem('foto')} style={localStorage.getItem('tipo') == 'Gerador' ? {} : {border: "4px solid red"} } alt="profile" width="250px" height="250px" />
+                    <figure><img src={localStorage.getItem('view-edit') == 'view' ? info?.foto : localStorage.getItem('foto')} style={localStorage.getItem('tipo') == 'Gerador' ? {} : { border: "4px solid red" }} alt="profile" width="250px" height="250px" />
                         <h1 className='statusCliente'>{localStorage.getItem('tipo') == 'Gerador' ? '' : 'Status:'}</h1>
                     </figure>
 
@@ -173,7 +173,7 @@ const Container = (props) => {
                 <div className='userName'>
                     <h1 className='name' id='name'>{info?.pessoa_fisica[0] ? info?.pessoa_fisica[0].nome : info?.pessoa_juridica[0].nome_fantasia}</h1>
                     {viewState == 'view' &&
-                        <FavoritarButton id={info?.catador[0].id}></FavoritarButton>
+                        <FavoritarButton id={Number(localStorage.getItem('viewPriv'))}></FavoritarButton> // aqui
                     }
                     <div className='map'>
                         <span>{info?.endereco_usuario[0].endereco.cidade}</span>

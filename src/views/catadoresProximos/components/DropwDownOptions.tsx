@@ -30,6 +30,7 @@ function DropwDownOptions({ selected, setSelected, regiao, setRegiao, dropChange
                                 setSelected(option.value)
                                 setIsActive(false)
                                 dropChange(option.id_endereco)
+                                localStorage.setItem('idEnd', option.id_endereco)
                             }}
                                 className="dropdown-item">
                                 {option.value}

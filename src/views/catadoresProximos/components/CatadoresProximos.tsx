@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react'
 import '../style.css'
 import DropwDownOptions from './DropwDownOptions'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import { faMagnifyingGlass, faStar } from '@fortawesome/free-solid-svg-icons'
+
 import '../bg-animation.css'
 import { useNavigate, useParams } from 'react-router-dom'
 import { CheckIcon } from '@radix-ui/react-icons';
 import api from '../../../api/axios'
+
 import { v4 as uuidv4 } from 'uuid';
 
 const CatadoresProximos = () => {
@@ -15,18 +17,23 @@ const CatadoresProximos = () => {
     const [data, setData] = useState([])
     const [checkFavorite, setCheckFavorite] = useState([])
     const [isFavorited, setIsFavorited] = useState(false)
+    const [mensagem, setMensagem] = useState('')
+    const [codeTrue, setCodeTrue] = useState(false)
     const navigate = useNavigate()
 
 
     useEffect(() => {
         fetch(`https://webappdeploy-backend.azurewebsites.net/endereco/${localStorage.getItem('id')}`).then(response => response.json()).then(resposta => setRegiao(resposta.map((item) => {
             return (
+
                 {
                     label: item.endereco.apelido,
                     value: item.endereco.apelido,
                     id: item.id,
                     id_endereco: item.id_endereco
+
                 }
+
             )
         })))
     }, [])
@@ -36,7 +43,7 @@ const CatadoresProximos = () => {
             headers: {
                 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
             },
-        }).then(response => response.json()).then(resposta => setData(resposta.map((item) => { 
+        }).then(response => response.json()).then(resposta => setData(resposta.map((item) => {
             return ({
                 id: item.id_usuario,
                 foto: item.foto,
@@ -52,24 +59,34 @@ const CatadoresProximos = () => {
     function clickFavorite() {
 
 
-        api.get(`/favoritar/${localStorage.getItem('id_modo')}`, {
+        api.get(`/favoritar/endereco/${localStorage.getItem('id_modo')}/${localStorage.getItem('idEnd')}`, {
             headers: {
                 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
             },
         }).then(response => setCheckFavorite(response.data.map((elemento) => {
-
+            
+           
+            
+            
+            setIsFavorited(true)
+            setCodeTrue(true)
 
             return ({
-                id: elemento.catador.user.id,
-                foto: elemento.catador.user.foto,
-                email: elemento.catador.user.email
-            })
-        })))
-    }
+                nome: elemento.nome,
+                logradouro: elemento.logradouro,
+                foto: elemento.foto
 
+            })
+        }))).catch(error => setMensagem('nao tem favoritos aqui nao irmao'))
+        
+    
+    }
+   
 
     function handleClickFavorite() {
-        setIsFavorited(prevIsFavorited => !prevIsFavorited); // prevIsFavorited == true / !prev == false / function alternate
+
+        setCodeTrue(prevCodeTrue => !prevCodeTrue) // prevIsFavorited == true / !prev == false / function alternate
+
     }
 
     return (
@@ -94,10 +111,17 @@ const CatadoresProximos = () => {
 
                     <div>
                         <h2>Catadores Favoritos</h2>
-                        <input type="checkbox" name="" id=""
-                            onClick={() => {
-                                clickFavorite()
-                                handleClickFavorite()
+                        <input type="checkbox" name="" id="check"
+                            onClick={(event) => {
+
+                                if (event.currentTarget.checked) {
+                                    clickFavorite()
+                                   
+                                } else {
+                                    setCodeTrue(false)
+                                    
+                                }
+
                             }}
                         />
 
@@ -109,8 +133,10 @@ const CatadoresProximos = () => {
                     </div>
                 </div>
 
-                {isFavorited ? checkFavorite.map((elemento) => {
+                {codeTrue ? checkFavorite.map((elemento) => {
+
                     return (
+
                         <>
                             <div id={elemento.id} key={`${elemento.id}_${uuidv4()}`} className="boxUserProximos" onClick={(event) => {
                                 localStorage.setItem('view-edit', 'view')
@@ -120,8 +146,8 @@ const CatadoresProximos = () => {
                                 <img src={elemento.foto} alt="photo" className='fotoUser' style={{ borderRadius: 100, width: 93, height: 93 }} />
                                 <div className='boxInfoU'>
 
-                                    <h3>{elemento.email}</h3>
-                                    <p>a</p>
+                                    <h3>{elemento.nome} <FontAwesomeIcon icon={faStar} style={{ color: "#ffea00", }} /></h3>
+                                    <p>{elemento.logradouro}</p>
                                 </div>
                                 <div className='buttonPosition'>
                                     <button className='buttonBox'>Solicite</button>
@@ -130,6 +156,8 @@ const CatadoresProximos = () => {
                             <hr />
                         </>
                     )
+
+
                 })
                     : ''}
 
@@ -143,25 +171,31 @@ const CatadoresProximos = () => {
 
 
                 {data.map((item) => {
-                    return (
-                        <>
-                            <div id={item.id} key={`${item.id_usuario}_${uuidv4()}`} className="boxUserProximos" onClick={(event) => {
-                                localStorage.setItem('view-edit', 'view')
-                                navigate(`/profile/${event.currentTarget.id}`,)
-                                localStorage.setItem('viewPriv', event.currentTarget.id)
-                            }} >
-                                <img src={item.foto} alt="photo" className='fotoUser' style={{ borderRadius: 100, width: 93, height: 93 }} />
-                                <div className='boxInfoU'>
-                                    <h3>{item.nome}</h3>
-                                    <p>{item.endereco}</p>
+                    if (codeTrue == false ) {
+                        
+
+                        return (
+
+                            <>
+                    <h1>{codeTrue == false ? mensagem : ''}</h1>
+                                <div id={item.id} key={`${item.id_usuario}_${uuidv4()}`} className="boxUserProximos" onClick={(event) => {
+                                    localStorage.setItem('view-edit', 'view')
+                                    navigate(`/profile/${event.currentTarget.id}`,)
+                                    localStorage.setItem('viewPriv', event.currentTarget.id)
+                                }} >
+                                    <img src={item.foto} alt="photo" className='fotoUser' style={{ borderRadius: 100, width: 93, height: 93 }} />
+                                    <div className='boxInfoU'>
+                                        <h3>{item.nome}</h3>
+                                        <p>{item.endereco}</p>
+                                    </div>
+                                    <div className='buttonPosition'>
+                                        <button className='buttonBox'>Solicite</button>
+                                    </div>
                                 </div>
-                                <div className='buttonPosition'>
-                                    <button className='buttonBox'>Solicite</button>
-                                </div>
-                            </div>
-                            <hr />
-                        </>
-                    )
+                                <hr />
+                            </>
+                        )
+                    }
                 })}
             </div>
         </div >
