@@ -14,7 +14,7 @@ const ColetasProximas = () => {
     const [regiao, setRegiao] = useState([])
     const [data, setData] = useState([])
     const [checkFavorite, setCheckFavorite] = useState([])
-    const [isFavorited, setIsFavorited] = useState(false)
+
     const navigate = useNavigate()
 
 
@@ -49,28 +49,7 @@ const ColetasProximas = () => {
 
     }
 
-    function clickFavorite() {
-
-
-        api.get(`/favoritar/${localStorage.getItem('id_modo')}`, {
-            headers: {
-                'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
-            },
-        }).then(response => setCheckFavorite(response.data.map((elemento) => {
-
-
-            return ({
-                id: elemento.catador.user.id,
-                foto: elemento.catador.user.foto,
-                email: elemento.catador.user.email
-            })
-        })))
-    }
-
-
-    function handleClickFavorite() {
-        setIsFavorited(prevIsFavorited => !prevIsFavorited); // prevIsFavorited == true / !prev == false / function alternate
-    }
+   
 
     return (
         <div>
@@ -96,29 +75,6 @@ const ColetasProximas = () => {
                     </div>
                 </div>
 
-                {isFavorited ? checkFavorite.map((elemento) => {
-                    return (
-                        <>
-                            <div id={elemento.id} key={`${elemento.id}_${uuidv4()}`} className="boxUserProximos" onClick={(event) => {
-                                localStorage.setItem('view-edit', 'view')
-                                navigate(`/profile/${event.currentTarget.id}`,)
-                                localStorage.setItem('viewPriv', event.currentTarget.id)
-                            }} >
-                                <img src={elemento.foto} alt="photo" className='fotoUser' style={{ borderRadius: 100, width: 93, height: 93 }} />
-                                <div className='boxInfoU'>
-
-                                    <h3>{elemento.email}</h3>
-                                    <p>a</p>
-                                </div>
-                                <div className='buttonPosition'>
-                                    <button className='buttonBox'>Aceitar</button>
-                                </div>
-                            </div>
-                            <hr />
-                        </>
-                    )
-                })
-                    : ''}
 
 
                 {data.length == 0 &&

@@ -1,7 +1,15 @@
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import '../styles/solicitepage.css'
 import celular from '../../../assets/celular.png'
+import Swal from 'sweetalert2';
+import { connectionWebSocket } from '../../../utils/connectionWebSocket';
 import Select from "react-select";
+
+type dados = {
+    id_endereco: number
+    id_gerador: number
+    id_materiais?: string[]
+}
 
 type drop = {
     id: string,
@@ -15,7 +23,7 @@ const SolicitePage = () => {
 
     useEffect(() => {
         fetch(`https://webappdeploy-backend.azurewebsites.net/endereco/${localStorage.getItem('id')}`).then(response => response.json()).then(resposta => setComplementoOptions(resposta.map((item) => {
-            console.log(item.endereco)
+            localStorage.setItem('idEndP', item.id)
             return (
                 {
                     label: item.endereco.apelido,
@@ -42,6 +50,45 @@ const SolicitePage = () => {
             )
         })))
     }, [])
+
+
+    async function pedido(event: FormEvent) {
+        event.preventDefault()
+
+   
+            const requisitos: dados = {
+                id_endereco: Number(local),
+                id_gerador: Number(localStorage.getItem('id_modo')),
+                id_materiais: selected 
+            }
+    console.log(requisitos);
+    
+
+        const cadastrarPedido = await fetch ('https://zero-waste-logistic.azurewebsites.net/order', {
+            method: 'POST',
+            body: JSON.stringify(requisitos),
+            headers: {
+                'content-type': 'application/json', 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
+            }
+        })
+        
+        if(cadastrarPedido.ok){
+            Swal.fire({
+                title: 'Tudo certo!!',
+                text: 'Material foi enviado (fila)',
+                icon: 'success'
+        })
+        }else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Nao foi possivel criar a fila',
+            })
+        }
+        
+    }
+
+
     const [local, setLocal] = useState('')
     const [selected, setSelected] = useState<string[]>([]);
     
@@ -57,8 +104,9 @@ const SolicitePage = () => {
         setSelected(array)
     }
 
-    const handleSelectChange = (value: any) => {
-        setLocal(value)
+    const handleSelectChange = (value: any) => {console.log(value);
+    
+        setLocal(value.id)
     }
 
 
@@ -75,7 +123,7 @@ const SolicitePage = () => {
                 <div className="form-boxx">
                     <h2>Solicite uma coleta</h2>
                     <p>Formulario para solicitacao de uma coleta</p>
-                    <form action="#" className='form-solicite'>
+                    <form onSubmit={pedido} className='form-solicite'>
                         {/* <div className="input-groupp">
                             <input type="text" id="localizacao" placeholder="Localizaçao" required />
                         </div> */}
@@ -127,7 +175,7 @@ const SolicitePage = () => {
 
 
                         <div className="input-groupp w50">
-                            <button type='submit'>Solicite</button>
+                            <button type='submit'   >Solicite</button>
                         </div>
 
 

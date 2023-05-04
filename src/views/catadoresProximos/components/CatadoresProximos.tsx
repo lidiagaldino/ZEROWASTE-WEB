@@ -44,8 +44,11 @@ const CatadoresProximos = () => {
                 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
             },
         }).then(response => response.json()).then(resposta => setData(resposta.map((item) => {
+       
+            
             return ({
                 id: item.id_usuario,
+                id_modo: item.id_catador,
                 foto: item.foto,
                 endereco: `${item.logradouro} - ${item.cidade}, ${item.numero}`,
                 nome: item.nome ? item.nome : item.nome_fantasia
@@ -57,31 +60,22 @@ const CatadoresProximos = () => {
     }
 
     function clickFavorite() {
-
-
         api.get(`/favoritar/endereco/${localStorage.getItem('id_modo')}/${localStorage.getItem('idEnd')}`, {
             headers: {
                 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
             },
         }).then(response => setCheckFavorite(response.data.map((elemento) => {
-            
-           
-            
-            
             setIsFavorited(true)
             setCodeTrue(true)
-
             return ({
                 nome: elemento.nome,
                 logradouro: elemento.logradouro,
                 foto: elemento.foto
-
             })
-        }))).catch(error => setMensagem('nao tem favoritos aqui nao irmao'))
-        
-    
+        })
+        ))
     }
-   
+
 
     function handleClickFavorite() {
 
@@ -116,10 +110,10 @@ const CatadoresProximos = () => {
 
                                 if (event.currentTarget.checked) {
                                     clickFavorite()
-                                   
+
                                 } else {
                                     setCodeTrue(false)
-                                    
+
                                 }
 
                             }}
@@ -139,6 +133,8 @@ const CatadoresProximos = () => {
 
                         <>
                             <div id={elemento.id} key={`${elemento.id}_${uuidv4()}`} className="boxUserProximos" onClick={(event) => {
+                                console.log(event.currentTarget.id);
+
                                 localStorage.setItem('view-edit', 'view')
                                 navigate(`/profile/${event.currentTarget.id}`,)
                                 localStorage.setItem('viewPriv', event.currentTarget.id)
@@ -171,17 +167,17 @@ const CatadoresProximos = () => {
 
 
                 {data.map((item) => {
-                    if (codeTrue == false ) {
-                        
+                    if (codeTrue == false) {
+
 
                         return (
 
                             <>
-                    <h1>{codeTrue == false ? mensagem : ''}</h1>
-                                <div id={item.id} key={`${item.id_usuario}_${uuidv4()}`} className="boxUserProximos" onClick={(event) => {
+                                <h1>{codeTrue == false ? mensagem : ''}</h1>
+                                <div id={item.id} key={`${item.id_modo}_${uuidv4()}`} data-key={item.id_modo} className="boxUserProximos" onClick={(event) => {
                                     localStorage.setItem('view-edit', 'view')
                                     navigate(`/profile/${event.currentTarget.id}`,)
-                                    localStorage.setItem('viewPriv', event.currentTarget.id)
+                                    localStorage.setItem('viewPriv', event.currentTarget.getAttribute('data-key'))
                                 }} >
                                     <img src={item.foto} alt="photo" className='fotoUser' style={{ borderRadius: 100, width: 93, height: 93 }} />
                                     <div className='boxInfoU'>

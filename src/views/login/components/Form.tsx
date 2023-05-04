@@ -1,17 +1,22 @@
-import React, { ChangeEvent, FormEvent, useContext, useState } from 'react'
+import React, { ChangeEvent, FormEvent, useContext, useEffect, useState } from 'react'
 import logo from '../../../assets/logo.png'
 import '../styles/formSignIn.css'
 import '../styles/button.css'
 import { Person, Envelope } from 'phosphor-react'
 import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { useForm } from "react-hook-form";
-
 import { validateLogin } from '../../../validations/loginValidation'
 import api from '../../../api/axios'
+
+import { connectionWebSocket } from '../../../utils/connectionWebSocket'
+
+
+
 
 const form = () => {
   const [emailState, setEmailState] = useState({ value: '' })
   const [passState, setPassState] = useState({ value: '' })
+
   const [status, setStatus] = useState({
     type: '',
     message: ''
@@ -20,6 +25,8 @@ const form = () => {
     email: emailState.value,
     senha: passState.value
   })
+
+
 
   const navigate = useNavigate()
 
@@ -35,6 +42,9 @@ const form = () => {
 
   async function login(event: FormEvent) {
     event.preventDefault()
+
+
+
 
     if (!(await validateLogin(user, setStatus))) {
       return
@@ -52,7 +62,6 @@ const form = () => {
     }).then((responde) => {
       setEmailState({ value: '' })
       setPassState({ value: '' })
-
       localStorage.setItem('email', responde.data.user.email)
       localStorage.setItem('telefone', responde.data.user.telefone)
       localStorage.setItem('token', responde.data.token)
@@ -64,6 +73,9 @@ const form = () => {
       localStorage.setItem('foto', responde.data.user.foto)
       localStorage.setItem('cpfcnpj', responde.data.user.pessoa_juridica.length > 0 ? responde.data.user.pessoa_juridica[0].cnpj : responde.data.user.pessoa_fisica[0].cpf)
       localStorage.setItem('id_modo', responde.data.user.catador.length > 0 ? responde.data.user.catador[0].id : responde.data.user.gerador[0].id)
+      connectionWebSocket.connect()
+      connectionWebSocket.on('disconnect', (disc) => { console.log(disc);
+      })
       navigate('/home', { replace: true })
     }).catch(() => {
       setStatus({

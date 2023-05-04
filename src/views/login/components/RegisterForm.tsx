@@ -274,7 +274,7 @@ function RegisterForm() {
             <div className="input-field">
                 <i><FontAwesomeIcon icon={faPhone} /></i>
 
-                <InputMask placeholder="Telefone" lazy={false} mask="(99) 99999-9999" maskChar={null} value={telefone} onChange={handleChangePhone} />
+                <InputMask placeholder="Telefone"  mask="(99) 99999-9999" maskChar={null} value={telefone} onChange={handleChangePhone} />
             </div>
 
             <div className="sw" style={{ width: 350, height: 45 }}>

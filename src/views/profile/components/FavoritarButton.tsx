@@ -66,7 +66,7 @@ type dados = {
 }
 
 function FavoritarButton(props: { id: number }) {
-  console.log(props)
+  console.log(props.id)
 
   const [info, setInfo] = useState<dados>()
   const buttonRef = useRef(null);
