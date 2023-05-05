@@ -37,7 +37,7 @@ export default function EditProfile({ foto, setFoto, setInfo }) {
         setIsLoading(true);
         setTimeout(() => {
             window.location.reload();
-        }, 1000);
+        }, 2500);
     }
 
 
@@ -181,6 +181,7 @@ export default function EditProfile({ foto, setFoto, setInfo }) {
     const [url, setUrl] = useState(null);
     const handleImageChange = (e: any) => {
 
+console.log(image);
 
         if (e.target.files[0]) {
             setImage(e.target.files[0])
@@ -303,7 +304,7 @@ export default function EditProfile({ foto, setFoto, setInfo }) {
                         </div>
 
                         <div className='save-changes-position'>
-                            <button type='submit' onClick={handleClick} className='save-changes' > {isLoading ? 'Salvando alteracoes...' : 'Salvar Alteracoes'} </button>
+                            <button type='submit'  className='save-changes' > {isLoading ? 'Salvando alteracoes...' : 'Salvar Alteracoes'} </button>
                         </div>
 
 

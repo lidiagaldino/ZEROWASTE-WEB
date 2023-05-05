@@ -181,8 +181,8 @@ export default function EditAdress() {
             numero: local.numero,
             bairro: local.bairro,
             estado: local.estado,
-            latitude: `${latlong2.lat}`,
-            longitude: `${latlong2.lng}`
+            latitude: latlong2.lat,
+            longitude: latlong2.lng
         }
 
         const enderecoAtualizado = await api.put(`/endereco/${localStorage.getItem('clickEdit')}`, enderecoEdit, {

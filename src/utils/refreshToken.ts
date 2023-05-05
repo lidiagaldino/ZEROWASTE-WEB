@@ -14,7 +14,7 @@ export const refresh = async (email: string, senha: string) => {
   const response = await fetch(url, options)
   const user = await response.json()
 
-  console.log(user.user.pessoa_juridica[0].nome_fantasia)
+
 
   localStorage.setItem('email', user.user.email)
   localStorage.setItem('telefone', user.user.telefone)

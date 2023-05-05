@@ -21,8 +21,8 @@ type dados = {
     apelido: string,
     numero: string,
     id_usuario: string,
-    latitude: string,
-    longitude: string
+    latitude: number,
+    longitude: number
 
 }
 
@@ -111,8 +111,8 @@ const CadastroPage = () => {
             apelido: apelido,
             numero: numero,
             id_usuario: localStorage.getItem('id'),
-            latitude: `${latlong.lat}`,
-            longitude: `${latlong.lng}`
+            latitude: latlong.lat,
+            longitude: latlong.lng
 
         }
         console.log(pontocadastro);

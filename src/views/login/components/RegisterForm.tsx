@@ -30,8 +30,8 @@ type dados = {
         cep: string,
         numero: string,
         complemento: string,
-        latitude: string,
-        longitude: string
+        latitude: number,
+        longitude: number
     },
     materiais?: string[]
 
@@ -194,8 +194,8 @@ function RegisterForm() {
                 estado: cepInfoResponse.uf,
                 numero: numero,
                 complemento: complemento ? complemento : " ",
-                latitude: `${latlong.lat}`,
-                longitude: `${latlong.lng}`
+                latitude: latlong.lat,
+                longitude: latlong.lng
             },
             telefone: telefone,
             email: email,
