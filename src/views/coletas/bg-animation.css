@@ -1,124 +1,125 @@
 .bg-proximos {
-    position: fixed;
-    top: 0;
-    transform: rotate(80deg);
-    left: 0;
+  position: fixed;
+  top: 0;
+  transform: rotate(80deg);
+  left: 0;
 }
 
 .body-proximos {
-    background-color: #dff8ea;
+  background-color: #dff8ea;
 }
 
 .wave {
-    position: fixed;
-    top: 0;
-    left: 0;
-    opacity: .4;
-    position: absolute;
-    top: 3%;
-    left: 10%;
-    background: rgb(3, 64, 28);
-    width: 1500px;
-    height: 1300px;
-    margin-left: -150px;
-    margin-top: -250px;
-    transform-origin: 50% 48%;
-    border-radius: 43%;
-    animation: drift 130000ms infinite linear;
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: .4;
+  position: absolute;
+  top: 3%;
+  left: 10%;
+  background: rgb(3, 64, 28);
+  width: 1500px;
+  height: 1300px;
+  margin-left: -150px;
+  margin-top: -250px;
+  transform-origin: 50% 48%;
+  border-radius: 43%;
+  animation: drift 130000ms infinite linear;
 }
 
 .wave.-three {
-    animation: drift 18500ms infinite linear;
-    position: fixed;
-    background-color: #062b04;
+  animation: drift 18500ms infinite linear;
+  position: fixed;
+  background-color: #062b04;
 }
 
 .wave.-two {
-    animation: drift 13000ms infinite linear;
-    opacity: .1;
-    background: black;
-    position: fixed;
+  animation: drift 13000ms infinite linear;
+  opacity: .1;
+  background: black;
+  position: fixed;
 }
 
 .bg-proximos:after {
-    content: '';
-    display: block;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 11;
-    transform: translate3d(0, 0, 0);
+  content: '';
+  display: block;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 11;
+  transform: translate3d(0, 0, 0);
 }
 
 @keyframes drift {
-    from {
-        transform: rotate(0deg);
-    }
+  from {
+    transform: rotate(0deg);
+  }
 
-    from {
-        transform: rotate(360deg);
-    }
+  from {
+    transform: rotate(360deg);
+  }
 }
 
-.container-branco{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 200px;
-    margin-left: 40px;
-    height: 50vh;
-    width: 90vw;
-    background-color: white;
-    border-radius: 15px;
-    box-shadow: 0px 143px 328px rgba(0, 0, 0, 0.06), 0px 84.1984px 171.085px rgba(0, 0, 0, 0.043392), 0px 43.2432px 80.2944px rgba(0, 0, 0, 0.033696), 0px 17.3888px 35.1616px rgba(0, 0, 0, 0.026304), 0px 3.8896px 15.2192px rgba(0, 0, 0, 0.016608);
-  }
-  
-  .subContainer-info{
-    display: flex;
-    align-items: center;
-    height: 45vh;
-    width: 85vw;
-  }
-  
-  .info-card {
-    display: flex;
-    margin-left: 15px;
-    height: 42vh;
-    width: 84vw;
-    flex-direction: column;
-  }
-  
-  .info-card h1 {
-    color: black;
-    font-size: 3rem;
-  }
-  
-  .subContainer-info .AcceptRecuse {
-    display: flex;
-    outline: none;
-    border: none;
-    flex-direction: column;
-    gap: 40px;
-    margin: 80px;
-  }
-  
-  .declineButton, .acceptButton {
-    height: 60px;
-    width: 250px;
-    border-radius: 15px;
-    border: none;
-    outline: none;
-    color: white;
-    
-  }
-  
-  .acceptButton {
-    background-color: green;
-    font-size: 1.5rem;
-  }
-  
-  .declineButton {
-    background-color: red;
-    font-size: 1.5rem;
-  }
+.container-branco {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 200px;
+  margin-left: 40px;
+  height: 40vh;
+  width: 50vw;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0px 143px 328px rgba(0, 0, 0, 0.06), 0px 84.1984px 171.085px rgba(0, 0, 0, 0.043392), 0px 43.2432px 80.2944px rgba(0, 0, 0, 0.033696), 0px 17.3888px 35.1616px rgba(0, 0, 0, 0.026304), 0px 3.8896px 15.2192px rgba(0, 0, 0, 0.016608);
+}
+
+.subContainer-info {
+  display: flex;
+  align-items: center;
+  height: 25vh;
+  width: 35vw;
+}
+
+.info-card {
+  display: flex;
+  margin-left: 15px;
+  height: 12vh;
+  width: 34vw;
+  flex-direction: column;
+}
+
+.info-card h1 {
+  color: black;
+  font-size: 3rem;
+}
+
+.subContainer-info .AcceptRecuse {
+  display: flex;
+  outline: none;
+  border: none;
+  flex-direction: column;
+  gap: 40px;
+  margin: 80px;
+}
+
+.declineButton,
+.acceptButton {
+  height: 60px;
+  width: 250px;
+  border-radius: 15px;
+  border: none;
+  outline: none;
+  color: white;
+
+}
+
+.acceptButton {
+  background-color: green;
+  font-size: 1.5rem;
+}
+
+.declineButton {
+  background-color: red;
+  font-size: 1.5rem;
+}

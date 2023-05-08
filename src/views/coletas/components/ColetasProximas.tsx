@@ -8,6 +8,7 @@ import { CheckIcon } from '@radix-ui/react-icons';
 import api from '../../../api/axios'
 import { v4 as uuidv4 } from 'uuid';
 import { connectionWebSocket } from '../../../utils/connectionWebSocket'
+import Swal from 'sweetalert2'
 
 
 type dados = {
@@ -43,6 +44,42 @@ const ColetasProximas = () => {
 
     const navigate = useNavigate()
 
+    useEffect(() => {
+        fetch(`https://zero-waste-logistic.azurewebsites.net/order`, {
+            headers: {
+                'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
+            }
+        }).then(response => response.json()).then((resposta) => {
+            console.log(resposta.pedido.FilaPedidoCatador)
+            setData(
+                {
+                    id: resposta.pedido.id,
+                    id_gerador: resposta.pedido.id_gerador,
+                    id_catador: resposta.pedido.id_catador,
+                    id_status: resposta.pedido.id_status,
+                    endereco: {
+                        id: resposta.pedido.endereco.id,
+                        bairro: resposta.pedido.endereco.bairro,
+                        cidade: resposta.pedido.endereco.cidade,
+                        estado: resposta.pedido.endereco.estado,
+                        cep: resposta.pedido.endereco.cep,
+                        complemento: resposta.pedido.endereco.complemento,
+                        latitude: resposta.pedido.endereco.latitude,
+                        longitude: resposta.pedido.endereco.longitude,
+                        apelido: resposta.pedido.endereco.apelido,
+                        numero: resposta.pedido.endereco.numero,
+                        logradouro: resposta.pedido.endereco.logradouro
+                    },
+                    created_at: resposta.pedido.created_at,
+                    finished_at: resposta.pedido.finished_at,
+                    distancia: resposta.pedido.FilaPedidoCatador[0].distancia,
+                    id_material: resposta.pedido.MateriaisPedido
+                }
+            )
+        })
+
+    }, [])
+
 
     useEffect(() => {
         fetch(`https://webappdeploy-backend.azurewebsites.net/endereco/${localStorage.getItem('id')}`).then(response => response.json()).then(resposta => setRegiao(resposta.map((item) => {
@@ -57,6 +94,74 @@ const ColetasProximas = () => {
         })))
     }, [])
 
+    const acceptOrder = () => {
+        fetch(`https://zero-waste-logistic.azurewebsites.net/order/${data.id}`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
+            }
+        }).then(() => {
+            Swal.fire({
+                title: 'Tudo certo!!',
+                text: 'Aceito criado com sucesso',
+                icon: 'success'
+            })
+        }).catch((e) => {
+
+            console.log(e)
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Algo está errado!',
+            })
+        })
+    }
+
+    const finishOrder = () => {
+        fetch(`https://zero-waste-logistic.azurewebsites.net/order/finish/${data.id}`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
+            }
+        }).then(() => {
+            Swal.fire({
+                title: 'Tudo certo!!',
+                text: 'Finalizada criado com sucesso',
+                icon: 'success'
+            })
+        }).catch((e) => {
+
+            console.log(e)
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Algo está errado!',
+            })
+        })
+    }
+
+    const denyOrder = () => {
+        fetch(`https://zero-waste-logistic.azurewebsites.net/order/deny/${data.id}`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
+            }
+        }).then(() => {
+            Swal.fire({
+                title: 'Tudo certo!!',
+                text: 'Recusada criado com sucesso',
+                icon: 'success'
+            })
+        }).catch((e) => {
+
+            console.log(e)
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Algo está errado!',
+            })
+        })
+    }
 
 
 
@@ -64,8 +169,8 @@ const ColetasProximas = () => {
         setData(order)
     })
 
-    
 
+    console.log(data)
 
 
     return (
@@ -97,7 +202,7 @@ const ColetasProximas = () => {
                 {data.id == 0 &&
                     <>
 
-                        <h1 style={{ paddingTop: 400, alignItems: 'center', display: 'flex', justifyContent: 'center    ' }}>Sselecione um local para saber quais catadores estao pertos</h1>
+                        <h1 style={{ paddingTop: 400, alignItems: 'center', display: 'flex', justifyContent: 'center    ' }}>Você não recebeu nenhuma solicitação de coleta</h1>
                     </>
                 }
 
@@ -105,11 +210,7 @@ const ColetasProximas = () => {
                 {data.id > 0 &&
 
                     <>
-                        <div id={`${data.id}`} key={`${data.id}_${uuidv4()}`} className="boxUserProximos" onClick={(event) => {
-                            localStorage.setItem('view-edit', 'view')
-                            navigate(`/profile/${event.currentTarget.id}`,)
-                            localStorage.setItem('viewPriv', event.currentTarget.id)
-                        }} >
+                        <div id={`${data.id}`} key={`${data.id}_${uuidv4()}`} className="boxUserProximos">
 
                             <div className="container-branco">
                                 <div className="subContainer-info">
@@ -123,19 +224,29 @@ const ColetasProximas = () => {
                                         })} </h2>
                                     </div>
                                     <div className="AcceptRecuse">
-                                        <button className="acceptButton">Aceitar</button>
-                                        <button className="declineButton">Recusar</button>
+                                        {data.id_status == 2 &&
+                                            <button className='acceptButton' type='button' onClick={finishOrder}>Já recolhi o material</button>
+                                        }
+                                        {data.id_status == 1 &&
+                                            <>
+                                                <button className="acceptButton" type='button' onClick={acceptOrder}>Aceitar</button>
+                                                <button className="declineButton" type='button' onClick={denyOrder}>Recusar</button>
+                                            </>
+
+
+                                        }
+
                                     </div>
                                 </div>
                             </div>
                             <hr />
-                            </div>
-                        </>
+                        </div>
+                    </>
                 }
 
-                    </div>
+            </div>
         </div >
-            )
+    )
 }
 
-            export default ColetasProximas
+export default ColetasProximas
