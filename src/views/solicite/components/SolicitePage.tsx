@@ -132,6 +132,9 @@ const SolicitePage = () => {
             }
         })
 
+
+        
+
         if (cadastrarPedido.ok) {
             Swal.fire({
                 title: 'Tudo certo!!',

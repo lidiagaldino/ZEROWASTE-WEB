@@ -74,9 +74,15 @@ const form = () => {
       localStorage.setItem('cpfcnpj', responde.data.user.pessoa_juridica.length > 0 ? responde.data.user.pessoa_juridica[0].cnpj : responde.data.user.pessoa_fisica[0].cpf)
       localStorage.setItem('id_modo', responde.data.user.catador.length > 0 ? responde.data.user.catador[0].id : responde.data.user.gerador[0].id)
       connectionWebSocket.connect()
-      console.log(connectionWebSocket.connected)
-      connectionWebSocket.on('disconnect', (disc) => {
+      if (connectionWebSocket.connected){
+        console.log('conectado');
+      }else {
+        console.log('nao foi conectado');
+        
+      }
+      connectionWebSocket.on('disconnected', (disc) => {
         console.log(disc);
+        
       })
       navigate('/home', { replace: true })
     }).catch(() => {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import DropwDownColetas from './DropDownColetas'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import { faMagnifyingGlass, faLocationDot, faRecycle } from '@fortawesome/free-solid-svg-icons'
 import '../bg-animation.css'
 import { useNavigate, useParams } from 'react-router-dom'
 import { CheckIcon } from '@radix-ui/react-icons';
@@ -40,6 +40,7 @@ const ColetasProximas = () => {
     const [regiao, setRegiao] = useState([])
     const [data, setData] = useState<dados>({ id: 0, id_material: [{ material: { nome: '' } }], id_gerador: 0, id_catador: 0, id_status: 0, endereco: { id: 0, bairro: '', cidade: '', estado: '', cep: '', complemento: '', latitude: 0, longitude: 0, apelido: '', numero: '', logradouro: '' }, created_at: new Date('0000-00-00T00:00:00'), finished_at: new Date('0000-00-00T00:00:00'), distancia: 0 })
     const [resIO, setResIO] = useState([])
+    const [modal, setModal] = useState(false)
     const [checkFavorite, setCheckFavorite] = useState([])
 
     const navigate = useNavigate()
@@ -165,6 +166,19 @@ const ColetasProximas = () => {
 
 
 
+    const toggleModal = () => {
+        setModal(!modal);
+
+    };
+
+    if (modal) {
+        document.body.classList.add('active-modal')
+    } else {
+        document.body.classList.remove('active-modal')
+    }
+
+
+
     connectionWebSocket.on('newOrder', (order) => {
         setData(order)
     })
@@ -189,7 +203,7 @@ const ColetasProximas = () => {
                     <FontAwesomeIcon icon={faMagnifyingGlass} style={{ color: "#ffffff", }} />
                 </a>
             </div>
-            <div className='scroll'>
+            <div className='scrollc'>
                 <div className='infoS'>
                     <h1 className='titleBoxU'>Coletas proximas</h1>
                     <div className='reg-bt'>
@@ -210,14 +224,15 @@ const ColetasProximas = () => {
                 {data.id > 0 &&
 
                     <>
-                        <div id={`${data.id}`} key={`${data.id}_${uuidv4()}`} className="boxUserProximos">
+
+                        <div id={`${data.id}`} key={`${data.id}_${uuidv4()}`} className="boxUserProximoss">
 
                             <div className="container-branco">
                                 <div className="subContainer-info">
                                     <div className="info-card">
-                                        <h1>{data.distancia} Metros de distancia</h1>
-                                        <h2>Destino: {data.endereco.logradouro} {data.endereco.numero}, {data.endereco.cidade} - {data.endereco.estado}</h2>
-                                        <h2>Materiais presentes no local: {data.id_material.map((elemento) => {
+                                        <h1>{data.distancia} Metros de distância</h1>
+                                        <h2><FontAwesomeIcon icon={faLocationDot} /> <h2>Destino:</h2> {data.endereco.logradouro} {data.endereco.numero}, {data.endereco.cidade} - {data.endereco.estado}</h2>
+                                        <h2><FontAwesomeIcon icon={faRecycle} /> <h3>Materiais presentes no local:</h3> {data.id_material.map((elemento) => {
                                             return (
                                                 <p>{elemento.material.nome} </p>
                                             )
@@ -225,7 +240,28 @@ const ColetasProximas = () => {
                                     </div>
                                     <div className="AcceptRecuse">
                                         {data.id_status == 2 &&
-                                            <button className='acceptButton' type='button' onClick={finishOrder}>Já recolhi o material</button>
+                                            <>
+                                                <div className="containerProgress">
+                                                    <div className="infoProgress">
+                                                        <h2>Destino:</h2>
+                                                        <h3>{data.endereco.logradouro}</h3>
+                                                        <h1 >Materiais:</h1>
+                                                        <div className="materiais">
+                                                            <p>{ }</p>
+
+                                                        </div>
+
+                                                    </div>
+                                                    <div className="circleProgress">
+                                                        <div className="nb-spinner"></div>
+                                                        <span>O cliente esta aguardando</span>
+                                                    </div>
+                                                    <div className="buttonsProgress">
+                                                        <button className="accept" type='button' onClick={finishOrder} >Eu recolhi o material</button>
+                                                        <button className="decline" type='button' onClick={denyOrder}>Cancelar corrida</button>
+                                                    </div>
+                                                </div>
+                                            </>
                                         }
                                         {data.id_status == 1 &&
                                             <>
@@ -240,7 +276,9 @@ const ColetasProximas = () => {
                                 </div>
                             </div>
                             <hr />
+
                         </div>
+
                     </>
                 }
 

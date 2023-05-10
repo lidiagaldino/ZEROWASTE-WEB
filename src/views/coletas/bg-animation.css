@@ -9,6 +9,20 @@
   background-color: #dff8ea;
 }
 
+.scrollc {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 45vw;
+  height: 50vh;
+  padding: 15px 2%;
+  overflow-y: scroll;
+  background-color: #ffffffa2;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
 .wave {
   position: fixed;
   top: 0;
@@ -65,10 +79,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 200px;
-  margin-left: 40px;
-  height: 40vh;
-  width: 50vw;
+  margin-top: 100px;
+width: 100%;
   background-color: white;
   border-radius: 15px;
   box-shadow: 0px 143px 328px rgba(0, 0, 0, 0.06), 0px 84.1984px 171.085px rgba(0, 0, 0, 0.043392), 0px 43.2432px 80.2944px rgba(0, 0, 0, 0.033696), 0px 17.3888px 35.1616px rgba(0, 0, 0, 0.026304), 0px 3.8896px 15.2192px rgba(0, 0, 0, 0.016608);
@@ -77,21 +89,33 @@
 .subContainer-info {
   display: flex;
   align-items: center;
-  height: 25vh;
-  width: 35vw;
+margin-left: 22px;
+color: #71829e;
+width: 100%;
 }
 
 .info-card {
   display: flex;
-  margin-left: 15px;
-  height: 12vh;
-  width: 34vw;
+width: 100%;
+
   flex-direction: column;
 }
 
 .info-card h1 {
   color: black;
-  font-size: 3rem;
+  font-size: 1.5rem;
+}
+
+
+
+.info-card h2 h2 {
+  color: black;
+  display: flex;
+  justify-content: space-between;
+}
+
+.info-card h2 h3 {
+  color: black;
 }
 
 .subContainer-info .AcceptRecuse {
@@ -105,21 +129,226 @@
 
 .declineButton,
 .acceptButton {
-  height: 60px;
-  width: 250px;
-  border-radius: 15px;
-  border: none;
-  outline: none;
-  color: white;
+  height: 40px;
+  width: 150px;
+  border-radius: 100px;
+  cursor: pointer;
+  display: inline-block;
+  font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
+  padding: 7px 20px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 250ms;
+  border: 0;
+  font-size: 16px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
 
 }
 
 .acceptButton {
-  background-color: green;
-  font-size: 1.5rem;
+  background-color: #c2fbd7;
+  color: green;
+  box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset, rgba(44, 187, 99, .15) 0 1px 2px, rgba(44, 187, 99, .15) 0 2px 4px, rgba(44, 187, 99, .15) 0 4px 8px, rgba(44, 187, 99, .15) 0 8px 16px, rgba(44, 187, 99, .15) 0 16px 32px;
+}
+
+.acceptButton:hover{
+  box-shadow: rgba(44, 187, 99, .35) 0 -25px 18px -14px inset, rgba(44, 187, 99, .25) 0 1px 2px, rgba(44, 187, 99, .25) 0 2px 4px, rgba(44, 187, 99, .25) 0 4px 8px, rgba(44, 187, 99, .25) 0 8px 16px, rgba(44, 187, 99, .25) 0 16px 32px;
+  transform: scale(1.05) rotate(-1deg);
 }
 
 .declineButton {
-  background-color: red;
-  font-size: 1.5rem;
+  background-color: #f33737;
+  box-shadow: rgba(187, 44, 44, 0.2) 0 -25px 18px -14px inset, rgba(187, 44, 44, 0.15) 0 1px 2px, rgba(187, 44, 44, 0.15) 0 2px 4px, rgba(187, 44, 44, 0.15) 0 4px 8px, rgba(187, 44, 44, 0.15) 0 8px 16px, rgba(187, 44, 44, 0.15) 0 16px 32px;
+  color: rgb(255, 215, 215);
+}
+
+.declineButton:hover{
+  box-shadow: rgba(187, 44, 44, 0.35) 0 -25px 18px -14px inset, rgba(187, 44, 44, 0.25) 0 1px 2px, rgba(187, 44, 44, 0.25) 0 2px 4px, rgba(187, 44, 44, 0.25) 0 4px 8px, rgba(187, 44, 44, 0.25) 0 8px 16px, rgba(187, 44, 44, 0.25) 0 16px 32px;
+  transform: scale(1.05) rotate(-1deg);
+}
+
+
+/* Progress */
+
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
+
+
+.containerProgress{
+  background-color: #f1f1f1;
+  height: 570px;
+  width: 400px;
+  border-radius: 8px;
+  box-shadow: 0px 60px 386px rgba(0, 0, 0, 0.08), 0px 12px 240.044px rgba(0, 0, 0, 0.04);
+}
+
+.infoProgress{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  margin-top: 5px;
+  flex-direction: column;
+}
+
+.infoProgress h1 {
+  margin-top: 5px;
+     font-family: 'Poppins', sans-serif;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.infoProgress h2 {
+font-family: 'Poppins', sans-serif;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.infoProgress h3 {
+  color: black;
+  font-size: 1.0rem;
+  margin-top: -5px;
+ font-family: 'Poppins', sans-serif;
+  font-weight: 200;
+}
+
+.materiais {
+  margin-top: -20px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.circleProgress{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 50px;
+}
+
+.circleProgress span {
+  margin-top: 30px;
+  animation: fadeInOut 3s infinite;
+   font-family: 'Poppins', sans-serif;
+  margin-top: 70px;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.1;
+  }
+}
+
+.buttonsProgress{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 50px;
+  flex-direction: column;
+  
+}
+
+.buttonsProgress .accept {
+  width: 140px;
+   background: linear-gradient(145.31deg, #C6DA4A 29.84%, rgba(78, 155, 17, 0.93) 79.55%);
+  border-radius: 999px;
+  box-shadow: green 0 10px 20px -10px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 24px;
+  opacity: 1;
+  outline: 0 solid transparent;
+  padding: 8px 18px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: fit-content;
+  word-break: break-word;
+  border: 0;
+}
+
+.buttonsProgress .decline {
+  width: 180px;
+   background: linear-gradient(145.31deg, #DA4A52 29.84%, rgba(155, 17, 17, 0.93) 79.55%);
+  border-radius: 999px;
+  box-shadow: red 0px 10px 20px -10px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 24px;
+  opacity: 1;
+  outline: 0 solid transparent;
+  padding: 8px 18px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: fit-content;
+  word-break: break-word;
+  border: 0;
+}
+
+
+
+
+.nb-spinner {
+  display: flex;
+  flex-direction: column;
+  width: 75px;
+  height: 75px;
+  margin: 0;
+  background: transparent;
+  border-top: 4px solid #009688;
+  border-right: 4px solid transparent;
+  border-radius: 50%;
+  -webkit-animation: 1s spin linear infinite;
+  animation: 1s spin linear infinite;
+}
+
+@-webkit-@keyframes spin {
+  -webkit-from {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  -webkit-to {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
