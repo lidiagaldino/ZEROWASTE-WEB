@@ -369,3 +369,87 @@ margin-left: 20px;
 
 
 }
+
+
+
+
+
+
+
+
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600);
+
+body{
+  background-color: grey
+    
+}
+
+.containerAviso{
+  display: flex;
+  background-color: #52555E;
+  width: 470px;
+  height: 80px;
+  border-radius: 20px;
+  transform: translateY(-500px);
+}
+
+
+
+.containerAviso .iconAviso {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  height: 80px;
+  width: 100px;
+  border-radius:  0px 20px;
+
+}
+
+.containerAviso .iconAviso .circleAviso svg {
+ height: 45px;
+  width: 45px;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.containerAviso .infoAviso {
+  width: 73%;
+  margin-left: 20px;
+  
+}
+
+.containerAviso .infoAviso h1 {
+  font-size: 1.3rem;
+  color: white;
+  display: flex;
+  margin-top: 3px;
+  font-weight: 800;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.containerAviso .infoAviso span {
+  font-size: 1rem;
+  color: #c3c3c3;
+  display: flex;
+  margin-top: 5px;
+  font-weight: 200;
+  font-family: 'Open Sans', sans-serif;
+}
+
+
+.X{
+  margin-top: -9px;
+  margin-right: 25px;
+  cursor: pointer;
+}
+
+.X i {
+  font-size: 20px;
+  padding-left: 0px;
+  color: white;
+  cursor: pointer;
+}

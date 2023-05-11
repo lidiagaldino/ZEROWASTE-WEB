@@ -23,6 +23,13 @@
   border-radius: 10px;
 }
 
+.AcceptRecuse{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ 
+}
+
 .wave {
   position: fixed;
   top: 0;
@@ -177,7 +184,11 @@ width: 100%;
 
 
 .containerProgress{
-  background-color: #f1f1f1;
+  background-color: #ffffffa2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   height: 570px;
   width: 400px;
   border-radius: 8px;
@@ -204,18 +215,19 @@ width: 100%;
 font-family: 'Poppins', sans-serif;
   font-size: 1.2rem;
   font-weight: bold;
+  margin-top: -30px;
 }
 
 .infoProgress h3 {
   color: black;
   font-size: 1.0rem;
-  margin-top: -5px;
+  margin-top: 0px;
  font-family: 'Poppins', sans-serif;
   font-weight: 200;
 }
 
 .materiais {
-  margin-top: -20px;
+  margin-top: 0px;
   font-family: 'Poppins', sans-serif;
 }
 

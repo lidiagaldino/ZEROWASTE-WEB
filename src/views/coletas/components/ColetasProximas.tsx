@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import DropwDownColetas from './DropDownColetas'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass, faLocationDot, faRecycle } from '@fortawesome/free-solid-svg-icons'
 import '../bg-animation.css'
@@ -202,14 +201,22 @@ const ColetasProximas = () => {
                     <FontAwesomeIcon icon={faMagnifyingGlass} style={{ color: "#ffffff", }} />
                 </a>
             </div>
+           
             <div className='scrollc'>
+            {data.id_status == 1 &&
+            
+            <>
                 <div className='infoS'>
+                    {data.id == 0 && 
                     <h1 className='titleBoxU'>Coletas proximas</h1>
+                    }
+                    
                     <div className='reg-bt'>
 
                     </div>
                 </div>
-
+            </>
+            }
 
 
                 {data.id == 0 &&
@@ -221,7 +228,7 @@ const ColetasProximas = () => {
 
                {modal == false &&
                <>
-                {data.id > 0 &&
+                {data.id > 0 && data.id_status == 1 &&
 
                     <>
 
@@ -270,7 +277,11 @@ const ColetasProximas = () => {
                                                         <h3>{data.endereco.logradouro}</h3>
                                                         <h1 >Materiais:</h1>
                                                         <div className="materiais">
-                                                            <p>{ }</p>
+                                                            <p>{data.id_material.map((elemento) => {
+                                                                return (
+                                                                <p>{elemento.material.nome}</p>
+                                                                )
+                                                            }) }</p>
 
                                                         </div>
 
@@ -290,7 +301,6 @@ const ColetasProximas = () => {
                                     }
                                 
                                         </div>
-                            <hr />
             </div>
         </div >
     )
