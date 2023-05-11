@@ -84,68 +84,65 @@
   justify-content: center;
   align-items: center;
   margin-top: 9px;
-  margin-left: 40px;
-}
-
-.blip, .blip::after, .blip::before {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  height: 30px;
-  width: 30px;
-  background: #fff;
-  border-radius: 100%;
+  margin-left: 20px;
 }
 
 .blip {
-  transform: translate(-50%, -50%);
-  animation: go 4s cubic-bezier(0.86, 0.31, 0.29, 0.86) infinite;
-  box-shadow: 0 0 10px 2px #000;
+margin-left: 20px;
+  position: relative;
+ margin-top: 18.5px;
 }
 
-.blip::after {
-  content: "";
-  animation: goo 4s infinite;
-  animation-delay: 1s;
-  background: rgba(255, 255, 255, 0.8);
-  transform: translate(-50%, -50%);
+.blip-base {
+	position:absolute;
+
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  top: 0%;
+  left: 50%;
+  -webkit-transform: translate(-50%,-50%);
 }
 
-.blip::before {
-  content: "";
-  background: rgba(255, 255, 255, 0.6);
-  transform: translate(-50%, -50%);
-  animation: gooo 4s infinite;
-  animation-delay: 1.5s;
+.blip-pulse {
+	position: absolute;
+  height: 60px;
+  width: 60px;
+
+  top: 0%;
+  left: 50%;
+  margin-left: -30px;
+  margin-top: -30px;
+  text-align: center;
+  border-radius: 50%;
+  -webkit-animation: blip 3s infinite ease-out;
+  -webkit-animation-name: blip;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-timing-function: ease-out;
 }
 
-@keyframes go { 
-  50% { 
-    transform: translate(-50%, -50%) scale(0.5);
-    box-shadow: 0 0 10px 2px white;
-  } 
-}
+@-webkit-keyframes blip {
+  0% {
+    -webkit-transform: scale(0.1);
+    opacity: 0;
+  }
 
-@keyframes goo { 
-  50% { 
-    transform: translate(-50%, -50%) scale(3);
-    background: rgba(255, 255, 255, 0);
-  } 
-  100% { 
-    background: rgba(255, 255, 255, 0);
-  } 
-}
+  1% {
+    -webkit-transform: scale(0.1);
+    opacity: .6;
+  }
 
-@keyframes gooo { 
-  50% { 
-    transform: translate(-50%, -50%) scale(4);
-    background: rgba(255, 255, 255, 0);
-  } 
-  100% { 
-    background: rgba(255, 255, 255, 0);
-  } 
-}
+  60% {
+    opacity: 0;
+    -webkit-transform: scale(1);
+  }
 
+  100% {
+  	-webkit-transform: scale(1);
+    opacity: 0;
+  }
+}
 
 
 

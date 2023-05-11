@@ -167,7 +167,7 @@ const ColetasProximas = () => {
 
 
     const toggleModal = () => {
-        setModal(!modal);
+        setModal(true);
 
     };
 
@@ -178,12 +178,11 @@ const ColetasProximas = () => {
     }
 
 
-
     connectionWebSocket.on('newOrder', (order) => {
         setData(order)
     })
 
-
+    const [appeared, setAppeared] = useState(false)
     console.log(data)
 
 
@@ -220,7 +219,8 @@ const ColetasProximas = () => {
                     </>
                 }
 
-
+               {modal == false &&
+               <>
                 {data.id > 0 &&
 
                     <>
@@ -239,7 +239,30 @@ const ColetasProximas = () => {
                                         })} </h2>
                                     </div>
                                     <div className="AcceptRecuse">
-                                        {data.id_status == 2 &&
+                                    {data.id_status == 1 &&
+                                            <>
+                                                <button className="acceptButton" type='button' onClick={() => {
+                                                    acceptOrder()
+                                                    toggleModal()
+                                                }}>Aceitar</button>
+                                                <button className="declineButton" type='button' onClick={denyOrder}>Recusar</button>
+                                            </>
+                                        }
+                                        
+                                        </div>
+                                </div>
+                            </div>
+                         </div>
+                         </>
+                }
+                </>
+            }
+                           <div className="AcceptRecuse">
+                                        
+                                       {modal == false &&
+                                       <>
+                                        {data.id_status == 2 &&  
+                                            
                                             <>
                                                 <div className="containerProgress">
                                                     <div className="infoProgress">
@@ -263,25 +286,11 @@ const ColetasProximas = () => {
                                                 </div>
                                             </>
                                         }
-                                        {data.id_status == 1 &&
-                                            <>
-                                                <button className="acceptButton" type='button' onClick={acceptOrder}>Aceitar</button>
-                                                <button className="declineButton" type='button' onClick={denyOrder}>Recusar</button>
-                                            </>
-
-
-                                        }
-
-                                    </div>
-                                </div>
-                            </div>
+                                        </>
+                                    }
+                                
+                                        </div>
                             <hr />
-
-                        </div>
-
-                    </>
-                }
-
             </div>
         </div >
     )

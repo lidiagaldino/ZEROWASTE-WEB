@@ -58,7 +58,23 @@ const SolicitePage = () => {
         })))
     }, [])
 
+    const [data, setData] = useState(false)
 
+    useEffect(() => {
+      fetch(`https://zero-waste-logistic.azurewebsites.net/order/gerador`, {
+        method: 'GET',
+        headers: {
+          'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
+        }
+      }).then((response) => {
+       
+  
+        setData(response.status == 200 ? true : false)
+      }).catch((e) => {
+        console.log(e)
+        setData(false)
+      })
+    }, [])
 
     const [dropOptions, setDropOptions] = useState([])
 
@@ -185,13 +201,13 @@ const SolicitePage = () => {
                     <img src={celular} />
                 </div>
                 <div className="form-boxx">
+                    {data == false &&
+                  
+                   <>
                     <h2>Solicite uma coleta</h2>
                     <p>Formulario para solicitacao de uma coleta</p>
                     <form onSubmit={pedido} className='form-solicite'>
-                        {/* <div className="input-groupp">
-                            <input type="text" id="localizacao" placeholder="Localizaçao" required />
-                        </div> */}
-
+                       
                         <div className='drop' style={{ width: 375, height: 50, borderRadius: 100 }}>
                             <p>Selecione o local que será solicitado:</p>
                             <Select
@@ -222,28 +238,21 @@ const SolicitePage = () => {
 
                         </div>
 
-
-                        {/* <div className='drop' style={{ width: 375, height: 50, borderRadius: 100}}>
-                    <Select
-                        defaultValue={[dropOptions[2]]}
-                        isMulti
-                        name="materials"
-                        options={dropOptions}
-                        className="basic-multi-select"
-                        classNamePrefix="select"
-                        onChange={handleChange}
-                    />
-                </div> */}
-
-
-
-
                         <div className="input-groupp w50">
                             <button type='submit'   >Solicite</button>
                         </div>
 
 
                     </form>
+                    </>
+                }
+                {data == true &&
+                <>
+                <div>
+                    <h1>voce tem uma solicitacao pendente</h1>
+                </div>
+                </>
+                }
                 </div>
             </div>
         </div>

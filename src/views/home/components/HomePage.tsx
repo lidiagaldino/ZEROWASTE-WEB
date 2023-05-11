@@ -29,7 +29,7 @@ const HomePage = () => {
         'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
       }
     }).then((response) => {
-      console.log(response.status == 201 ? true : false)
+     
 
       setData(response.status == 200 ? true : false)
     }).catch((e) => {
@@ -57,7 +57,10 @@ const HomePage = () => {
               localStorage.getItem('tipo') == 'Gerador' ?
               <div className='progressSolicite'>
                 <div className="blip">
-                 
+                  <div className="blip-base" style={{background: '#F0AD4E'}}>
+                  </div>
+                  <div className="blip-pulse" style={{background: '#F0AD4E'}}>
+                  </div>
                 </div>
                 <div>
                   <h1>Sua solicitação foi aceita, o catador esta a caminho</h1>
