@@ -170,6 +170,21 @@ form .input-groupp button:hover {
     transition: 0.3s ease-in-out;
 }
 
+
+.SpecificCatador {
+    display: flex;
+    width: 60%;
+    background-color: black;
+border-radius: 5px;
+
+    height: 15%;
+}
+
+.SpecificCatador .infoCatadorSpec p {
+    color: white;
+    margin-left: -60%;
+}
+
 @media (max-width:930px) {
     .img-boxx {
         display: none;
@@ -204,3 +219,4 @@ form .input-groupp button:hover {
     }
 
 }
+

@@ -143,6 +143,11 @@ const Container = () => {
         })))
     }, [])
 
+    
+
+
+   
+
     console.log(info)
 
     return (
@@ -197,13 +202,21 @@ const Container = () => {
                     < div className="btns">
                         <ul>
                             <li className="sendMsg">
-                                <a href="#">Solicite uma coleta</a>
+                                <button type='button' id={localStorage.getItem('viewPriv')} onClick={(e) => {
+                                    e.currentTarget.id
+                                    console.log(e.currentTarget.id);
+                               
+                                    location.href='/ZEROWASTE-WEB/solicite#/solicite'
+                                    navigator.geolocation.getCurrentPosition(function(position) { console.log(position.coords);
+                                    })
+                                    
+                                }}>Solicite uma coleta</button>
                             </li>
                             <li className="sendMsgC active">
                                 <a href="#">Contatos</a>
                             </li>
-                            <li className="sendMsg">
-                                <a href="#">Avaliar usuario</a>
+                            <li className="sendMsgg">
+                                <a href="#">Chat</a>
                             </li>
                         </ul>
                     </div>

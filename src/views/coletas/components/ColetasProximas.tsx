@@ -118,26 +118,51 @@ const ColetasProximas = () => {
     }
 
     const finishOrder = () => {
-        fetch(`https://zero-waste-logistic.azurewebsites.net/order/finish/${data.id}`, {
-            method: 'PUT',
-            headers: {
-                'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
+        let local: { latitude: number, longitude: number } = { latitude: 0, longitude: 0 }
+        let teste = navigator.geolocation.getCurrentPosition(function (position) {
+            local = {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude
             }
-        }).then(() => {
-            Swal.fire({
-                title: 'Tudo certo!!',
-                text: 'Finalizada criado com sucesso',
-                icon: 'success'
-            })
-        }).catch((e) => {
-
-            console.log(e)
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Algo está errado!',
-            })
         })
+
+        setTimeout(() => {
+            fetch(`https://zero-waste-logistic.azurewebsites.net/order/finish/${data.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
+                },
+                body: JSON.stringify(local)
+            }).then((response) => {
+                if (response.ok) {
+                    Swal.fire({
+                        title: 'Tudo certo!!',
+                        text: 'Finalizada criado com sucesso',
+                        icon: 'success'
+                    })
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Não foi possível finalizar',
+                    })
+                }
+
+            }).catch((e) => {
+
+                console.log(e)
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: e.message,
+                })
+            })
+        }, 2000)
+
+
+
+
     }
 
     const denyOrder = () => {
@@ -181,6 +206,11 @@ const ColetasProximas = () => {
         setData(order)
     })
 
+    connectionWebSocket.on('acceptOrder', (order) => {
+        console.log(order)
+        setData(order)
+    })
+
     const [appeared, setAppeared] = useState(false)
     console.log(data)
 
@@ -201,22 +231,22 @@ const ColetasProximas = () => {
                     <FontAwesomeIcon icon={faMagnifyingGlass} style={{ color: "#ffffff", }} />
                 </a>
             </div>
-           
-            <div className='scrollc'>
-            {data.id_status == 1 &&
-            
-            <>
-                <div className='infoS'>
-                    {data.id == 0 && 
-                    <h1 className='titleBoxU'>Coletas proximas</h1>
-                    }
-                    
-                    <div className='reg-bt'>
 
-                    </div>
-                </div>
-            </>
-            }
+            <div className='scrollc'>
+                {data.id_status == 1 &&
+
+                    <>
+                        <div className='infoS'>
+                            {data.id == 0 &&
+                                <h1 className='titleBoxU'>Coletas proximas</h1>
+                            }
+
+                            <div className='reg-bt'>
+
+                            </div>
+                        </div>
+                    </>
+                }
 
 
                 {data.id == 0 &&
@@ -226,81 +256,81 @@ const ColetasProximas = () => {
                     </>
                 }
 
-               {modal == false &&
-               <>
-                {data.id > 0 && data.id_status == 1 &&
-
+                {modal == false &&
                     <>
+                        {data.id > 0 && data.id_status == 1 &&
 
-                        <div id={`${data.id}`} key={`${data.id}_${uuidv4()}`} className="boxUserProximoss">
+                            <>
 
-                            <div className="container-branco">
-                                <div className="subContainer-info">
-                                    <div className="info-card">
-                                        <h1>{data.distancia} Metros de distância</h1>
-                                        <h2><FontAwesomeIcon icon={faLocationDot} /> <h2>Destino:</h2> {data.endereco.logradouro} {data.endereco.numero}, {data.endereco.cidade} - {data.endereco.estado}</h2>
-                                        <h2><FontAwesomeIcon icon={faRecycle} /> <h3>Materiais presentes no local:</h3> {data.id_material.map((elemento) => {
-                                            return (
-                                                <p>{elemento.material.nome} </p>
-                                            )
-                                        })} </h2>
+                                <div id={`${data.id}`} key={`${data.id}_${uuidv4()}`} className="boxUserProximoss">
+
+                                    <div className="container-branco">
+                                        <div className="subContainer-info">
+                                            <div className="info-card">
+                                                <h1>{data.distancia} Metros de distância</h1>
+                                                <h2><FontAwesomeIcon icon={faLocationDot} /> <h2>Destino:</h2> {data.endereco.logradouro} {data.endereco.numero}, {data.endereco.cidade} - {data.endereco.estado}</h2>
+                                                <h2><FontAwesomeIcon icon={faRecycle} /> <h3>Materiais presentes no local:</h3> {data.id_material.map((elemento) => {
+                                                    return (
+                                                        <p>{elemento.material.nome} </p>
+                                                    )
+                                                })} </h2>
+                                            </div>
+                                            <div className="AcceptRecuse">
+                                                {data.id_status == 1 &&
+                                                    <>
+                                                        <button className="acceptButton" type='button' onClick={() => {
+                                                            acceptOrder()
+                                                            toggleModal()
+                                                        }}>Aceitar</button>
+                                                        <button className="declineButton" type='button' onClick={denyOrder}>Recusar</button>
+                                                    </>
+                                                }
+
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="AcceptRecuse">
-                                    {data.id_status == 1 &&
-                                            <>
-                                                <button className="acceptButton" type='button' onClick={() => {
-                                                    acceptOrder()
-                                                    toggleModal()
-                                                }}>Aceitar</button>
-                                                <button className="declineButton" type='button' onClick={denyOrder}>Recusar</button>
-                                            </>
-                                        }
-                                        
-                                        </div>
                                 </div>
-                            </div>
-                         </div>
-                         </>
+                            </>
+                        }
+                    </>
                 }
-                </>
-            }
-                           <div className="AcceptRecuse">
-                                        
-                                       {modal == false &&
-                                       <>
-                                        {data.id_status == 2 &&  
-                                            
-                                            <>
-                                                <div className="containerProgress">
-                                                    <div className="infoProgress">
-                                                        <h2>Destino:</h2>
-                                                        <h3>{data.endereco.logradouro}</h3>
-                                                        <h1 >Materiais:</h1>
-                                                        <div className="materiais">
-                                                            <p>{data.id_material.map((elemento) => {
-                                                                return (
-                                                                <p>{elemento.material.nome}</p>
-                                                                )
-                                                            }) }</p>
+                <div className="AcceptRecuse">
 
-                                                        </div>
+                    {modal == false &&
+                        <>
+                            {data.id_status == 2 &&
 
-                                                    </div>
-                                                    <div className="circleProgress">
-                                                        <div className="nb-spinner"></div>
-                                                        <span>O cliente esta aguardando</span>
-                                                    </div>
-                                                    <div className="buttonsProgress">
-                                                        <button className="accept" type='button' onClick={finishOrder} >Eu recolhi o material</button>
-                                                        <button className="decline" type='button' onClick={denyOrder}>Cancelar corrida</button>
-                                                    </div>
-                                                </div>
-                                            </>
-                                        }
-                                        </>
-                                    }
-                                
+                                <>
+                                    <div className="containerProgress">
+                                        <div className="infoProgress">
+                                            <h2>Destino:</h2>
+                                            <h3>{data.endereco.logradouro}</h3>
+                                            <h1 >Materiais:</h1>
+                                            <div className="materiais">
+                                                <p>{data.id_material.map((elemento) => {
+                                                    return (
+                                                        <p>{elemento.material.nome}</p>
+                                                    )
+                                                })}</p>
+
+                                            </div>
+
                                         </div>
+                                        <div className="circleProgress">
+                                            <div className="nb-spinner"></div>
+                                            <span>O cliente esta aguardando</span>
+                                        </div>
+                                        <div className="buttonsProgress">
+                                            <button className="accept" type='button' onClick={finishOrder} >Eu recolhi o material</button>
+                                            <button className="decline" type='button' onClick={denyOrder}>Cancelar corrida</button>
+                                        </div>
+                                    </div>
+                                </>
+                            }
+                        </>
+                    }
+
+                </div>
             </div>
         </div >
     )

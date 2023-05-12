@@ -61,19 +61,19 @@ const SolicitePage = () => {
     const [data, setData] = useState(false)
 
     useEffect(() => {
-      fetch(`https://zero-waste-logistic.azurewebsites.net/order/gerador`, {
-        method: 'GET',
-        headers: {
-          'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
-        }
-      }).then((response) => {
-       
-  
-        setData(response.status == 200 ? true : false)
-      }).catch((e) => {
-        console.log(e)
-        setData(false)
-      })
+        fetch(`https://zero-waste-logistic.azurewebsites.net/order/gerador`, {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
+            }
+        }).then((response) => {
+
+
+            setData(response.status == 200 ? true : false)
+        }).catch((e) => {
+            console.log(e)
+            setData(false)
+        })
     }, [])
 
     const [dropOptions, setDropOptions] = useState([])
@@ -127,6 +127,45 @@ const SolicitePage = () => {
 
     console.log(order)
 
+    async function pedidoSpec(event: FormEvent) {
+        event.preventDefault
+
+        const requisitos: dados = {
+            id_endereco: Number(local),
+            id_gerador: Number(localStorage.getItem('id_modo')),
+            id_materiais: selected
+        }
+        console.log(requisitos);
+
+
+        const cadastrarPedido = await fetch('https://zero-waste-logistic.azurewebsites.net/order/', {
+            method: 'POST',
+            body: JSON.stringify(requisitos),
+            headers: {
+                'content-type': 'application/json', 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
+            }
+        })
+
+
+
+
+        if (cadastrarPedido.ok) {
+            Swal.fire({
+                title: 'Tudo certo!!',
+                text: 'Material foi enviado (fila)',
+                icon: 'success'
+            })
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Nao foi possivel criar a fila',
+            })
+        }
+    }
+
+
+
 
     async function pedido(event: FormEvent) {
         event.preventDefault()
@@ -149,7 +188,7 @@ const SolicitePage = () => {
         })
 
 
-        
+
 
         if (cadastrarPedido.ok) {
             Swal.fire({
@@ -166,6 +205,26 @@ const SolicitePage = () => {
         }
 
     }
+
+    const [dataSpec, setDataSpec] = useState(false)
+
+    useEffect(() => {
+        fetch(`https://zero-waste-logistic.azurewebsites.net/order/1`, {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
+            }
+        }).then((response) => {
+
+                console.log(response.status);
+                
+            setDataSpec(response.status == 200 ? true : false)
+        }).catch((e) => {
+            console.log(e)
+            setDataSpec(false)
+        })
+    }, [])
+
 
 
     const [local, setLocal] = useState('')
@@ -202,57 +261,74 @@ const SolicitePage = () => {
                 </div>
                 <div className="form-boxx">
                     {data == false &&
-                  
-                   <>
-                    <h2>Solicite uma coleta</h2>
-                    <p>Formulario para solicitacao de uma coleta</p>
-                    <form onSubmit={pedido} className='form-solicite'>
-                       
-                        <div className='drop' style={{ width: 375, height: 50, borderRadius: 100 }}>
-                            <p>Selecione o local que será solicitado:</p>
-                            <Select
-                                name="materials"
-                                options={complementoOptions}
-                                className="basic-multi-select"
-                                classNamePrefix="Selecione"
-                                onChange={handleSelectChange}
-                                required
-                            />
 
-                        </div>
+                        <>
+                            <h2>Solicite uma coleta</h2>
+                            <p>Formulario para solicitacao de uma coleta</p>
+
+                            {dataSpec == true &&
+                            <div className="SpecificCatador">
+                                <div className="infoCatadorSpec">
+                                    <h2>Eduardo Perucci</h2>
+                                    <p>Catador</p>
+                                </div>
+                            </div>
+                            }
+                            
 
 
+                            <form onSubmit={pedido} className='form-solicite'>
 
-                        <div className='drop' style={{ width: 375, height: 50, borderRadius: 100, paddingTop: 30 }}>
-                            <p>Selecione os materiais que serão descartados:</p>
-                            <Select
-                                defaultValue={[dropOptions[2]]}
-                                isMulti
-                                name="materials"
-                                options={dropOptions}
-                                className="basic-multi-select"
-                                classNamePrefix="Selecione"
-                                onChange={handleChange}
-                                required
-                            />
+                                <div className='drop' style={{ width: 375, height: 50, borderRadius: 100 }}>
+                                    <p>Selecione o local que será solicitado:</p>
+                                    <Select
+                                        name="materials"
+                                        options={complementoOptions}
+                                        className="basic-multi-select"
+                                        classNamePrefix="Selecione"
+                                        onChange={handleSelectChange}
+                                        required
+                                    />
 
-                        </div>
-
-                        <div className="input-groupp w50">
-                            <button type='submit'   >Solicite</button>
-                        </div>
+                                </div>
 
 
-                    </form>
-                    </>
-                }
-                {data == true &&
-                <>
-                <div>
-                    <h1>voce tem uma solicitacao pendente</h1>
-                </div>
-                </>
-                }
+
+
+
+
+                                <div className='drop' style={{ width: 375, height: 50, borderRadius: 100, paddingTop: 30 }}>
+                                    <p>Selecione os materiais que serão descartados:</p>
+                                    <Select
+                                        defaultValue={[dropOptions[2]]}
+                                        isMulti
+                                        name="materials"
+                                        options={dropOptions}
+                                        className="basic-multi-select"
+                                        classNamePrefix="Selecione"
+                                        onChange={handleChange}
+                                        required
+                                    />
+
+                                </div>
+
+
+
+                                <div className="input-groupp w50">
+                                    <button type='submit'   >Solicite</button>
+                                </div>
+
+
+                            </form>
+                        </>
+                    }
+                    {data == true &&
+                        <>
+                            <div>
+                                <h1>voce tem uma solicitacao pendente</h1>
+                            </div>
+                        </>
+                    }
                 </div>
             </div>
         </div>

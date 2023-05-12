@@ -45,8 +45,8 @@ const CatadoresProximos = () => {
             },
         }).then(response => response.json()).then(resposta => setData(resposta.map((item) => {
        
-            console.log(resposta);
-            
+            console.log(item);
+
             return ({
                 id: item.id_usuario,
                 id_modo: item.id_catador,

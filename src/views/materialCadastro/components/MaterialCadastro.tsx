@@ -36,7 +36,7 @@ const MaterialCadastro = () => {
                 }
             )
         })))
-    })
+    }, [])
 
     const [dropAllMaterials, setDropAllMaterials] = useState([])
 
@@ -51,7 +51,7 @@ const MaterialCadastro = () => {
                 }
             )
         })))
-    })
+    },[])
 
     const [selected, setSelected] = useState<string[]>([]);
     const handleChange = (value: any) => {
