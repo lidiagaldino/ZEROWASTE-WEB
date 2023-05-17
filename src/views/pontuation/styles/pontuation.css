@@ -1,0 +1,172 @@
+.body-pontuation {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+    outline: none;
+    
+  }
+
+  .containerPontuation{
+    background-color: red;
+    width: 95vw;
+    height: 97vh;
+    margin-left: 20px;
+    margin-top: 30px;
+  }
+
+  .containerPontuation .saldo-container {
+    width: 40vw;
+    height: 10vh;
+    margin-left: 30px;
+    margin-top: 30px;
+  }
+  
+  .containerPontuation .saldo-container .saldo {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 24vh
+  }
+
+  .containerPontuation .saldo-container .saldo h1 {
+    display: flex;
+    font-size: 3rem;
+    color: black;
+  }
+
+  .containerPontuation .saldo-container .saldo .SaldoTitle{
+    margin-left: 15px;
+    color: green;
+  }
+
+  .containerPontuation .saldo-container .saldo span {
+    display: flex;
+    height: 10vh;
+    font-size: 1.2rem;
+  }
+
+
+  /* box cupom */
+
+  .containerPontuation .box-cupom {
+    overflow-x: scroll;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    height: 58vh;
+    width: 93vw;
+    margin-left: 30px;
+    margin-top: 25vh;
+  }
+
+  .scroll::-webkit-scrollbar {
+    width: 12px;
+    border: 1px solid rgb(200, 200, 200);
+    border-radius: 20px;
+  }
+  
+  .scroll::-webkit-scrollbar-thumb {
+    background-color: rgb(6, 87, 21);
+    border-radius: 20px;
+  }
+
+  .containerPontuation .container-cupom {
+    background-color: blue;
+    display: flex;
+    width: 91vw;
+    flex-direction: column;
+    height: 50vh;
+    margin-left: 20px;
+    margin-top: 10px;
+  }
+
+  .containerPontuation .container-cupom .cumpon-disponivel{
+    display: flex;
+    align-items: center;
+    background-color: green;
+    width: 91vw;
+    height: 21.5vh;
+		gap: 20px;
+  }
+
+  .containerPontuation .container-cupom .cumpon-resgatados{
+    display: flex;
+    align-items: center;
+    background-color: rgb(223, 226, 23);
+    width: 91vw;
+    height: 22vh;
+    margin-top: 20px;
+  }
+
+  .couponList {
+    display: block;
+    margin-left: 10px;
+    max-width: 800px;
+  }
+  
+  .couponItem {
+    background-color: #ffffff;
+    border: 1px solid rgba(220, 220, 220, 0.75);
+    border-radius: 6px;
+    display: block;
+    margin-bottom: 10px;
+    padding: 30px 20px;
+  }
+  
+  .couponItem-info {
+    position: relative;
+    display: inline-block;
+    margin: 0 20px 0 120px;
+    width: calc(100% - 350px);
+    vertical-align: middle;
+  }
+  
+  .couponItem-title {
+    font-size: 1.6rem;
+    letter-spacing: -1px;
+    line-height: 115%;
+  }
+  
+  .couponItem-desc {
+    color: #7D7D7D;
+    font-size: 0.7rem;
+    line-height: 125%;
+  }
+  
+  .couponItem-link {
+    position: absolute;
+    top: 0px;
+    left: -120px;
+    margin-right: 30px;
+    text-align: center;
+    z-index: 1;
+  }
+  
+  .couponItem-action {
+    position: relative;
+    top: 2px;
+    display: inline-block;
+    min-width: 200px;
+    max-width: 200px;
+    width: 200px;
+  }
+  
+  .couponItem-action a {
+    background-color: #46C600;
+    border: none;
+    border-bottom: 3px solid darken(#46C600, 5%);
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-block;
+    color: #ffffff;
+    font-size: 1.2rem;
+    letter-spacing: -0.5px;
+    line-height: 120%;
+    margin: 0;
+    padding: 12px 20px;
+    text-align: center;
+    text-decoration: none;
+    min-width: 150px;
+  }

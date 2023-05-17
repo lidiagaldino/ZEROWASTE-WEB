@@ -4,6 +4,14 @@ import celular from '../../../assets/celular.png'
 import Swal from 'sweetalert2';
 import { connectionWebSocket } from '../../../utils/connectionWebSocket';
 import Select from "react-select";
+import teste from "../../profile/components/Container";
+import { response } from 'express';
+import { Divide } from 'phosphor-react';
+import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
+import { buildTransform } from 'framer-motion';
+
 
 type dados = {
     id_endereco: number
@@ -41,6 +49,70 @@ type data = {
     distancia?: number;
 }
 
+type dadosUser = {
+    id: number,
+    email: string,
+    senha: string,
+    telefone: string,
+    foto: string,
+    biografia: string
+    catador: [
+        {
+            id: number,
+            id_usuario: number,
+            materiais_catador: [
+                {
+                    id: number,
+                    id_materiais: number,
+                    id_catador: number,
+                    material: {
+                        id: number,
+                        nome: string
+                    }
+                }
+            ]
+        }
+    ],
+    gerador: [],
+    pessoa_fisica?: [
+        {
+            id: number,
+            cpf: string,
+            nome: string,
+            data_nascimento: string,
+            id_usuario: number
+        }
+    ],
+    pessoa_juridica?: [
+        {
+            id: number,
+            cnpj: string,
+            nome_fantasia: string,
+            id_usuario: number
+        }
+    ],
+    endereco_usuario: [
+        {
+            id: number,
+            id_endereco: number,
+            id_usuario: number,
+            endereco: {
+                id: number,
+                logradouro: string,
+                bairro: string,
+                cidade: string,
+                estado: string,
+                cep: string,
+                complemento: string
+            }
+        }
+    ]
+
+}
+
+
+
+
 const SolicitePage = () => {
 
     const [complementoOptions, setComplementoOptions] = useState([])
@@ -75,6 +147,10 @@ const SolicitePage = () => {
             setData(false)
         })
     }, [])
+
+    connectionWebSocket.on("orderError", (order) => {
+        console.log(order);
+    })
 
     const [dropOptions, setDropOptions] = useState([])
 
@@ -125,45 +201,70 @@ const SolicitePage = () => {
         })))
     }, [])
 
-    console.log(order)
 
-    async function pedidoSpec(event: FormEvent) {
-        event.preventDefault
+
+
+    const soliciteSpec = () => {
 
         const requisitos: dados = {
             id_endereco: Number(local),
             id_gerador: Number(localStorage.getItem('id_modo')),
             id_materiais: selected
         }
-        console.log(requisitos);
 
 
-        const cadastrarPedido = await fetch('https://zero-waste-logistic.azurewebsites.net/order/', {
+        const cadastrarPedido = fetch(`https://zero-waste-logistic.azurewebsites.net/order/${localStorage.getItem('viewPriv')}`, {
             method: 'POST',
-            body: JSON.stringify(requisitos),
             headers: {
                 'content-type': 'application/json', 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
-            }
+            },
+            body: JSON.stringify(requisitos)
         })
 
-
-
-
-        if (cadastrarPedido.ok) {
+        if (cadastrarPedido) {
             Swal.fire({
                 title: 'Tudo certo!!',
-                text: 'Material foi enviado (fila)',
+                text: 'pedido enviado para catador especifico',
                 icon: 'success'
             })
         } else {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: 'Nao foi possivel criar a fila',
+                text: 'pedido nao enviado para catador especifico',
             })
         }
     }
 
+
+
+
+    const cancelOrder = () => {
+
+
+        fetch(`https://zero-waste-logistic.azurewebsites.net/order/cancel/${order[0].id}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
+            }
+        }).then((response) => {
+            console.log(response);
+
+            Swal.fire({
+                title: 'Tudo certo!!',
+                text: 'Solicitação cancelada',
+                icon: 'success'
+            })
+        }).catch((e) => {
+
+            console.log(e)
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Algo está errado!',
+            })
+        })
+    }
 
 
 
@@ -206,22 +307,19 @@ const SolicitePage = () => {
 
     }
 
-    const [dataSpec, setDataSpec] = useState(false)
+    const [dataSpec, setDataSpec] = useState<dadosUser>()
+    const [dataOrder, setDataOrder] = useState(false)
+
 
     useEffect(() => {
-        fetch(`https://zero-waste-logistic.azurewebsites.net/order/1`, {
+        fetch(`https://webappdeploy-backend.azurewebsites.net/user/${localStorage.getItem('id-other-person')}`, {
             method: 'GET',
             headers: {
+                'Access-Control-Allow-Origin': '*',
                 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
             }
-        }).then((response) => {
-
-                console.log(response.status);
-                
-            setDataSpec(response.status == 200 ? true : false)
-        }).catch((e) => {
-            console.log(e)
-            setDataSpec(false)
+        }).then(response => response.json()).then(resposta => setDataSpec(resposta)).catch((e) => {
+            setDataOrder(true)
         })
     }, [])
 
@@ -250,6 +348,10 @@ const SolicitePage = () => {
 
 
 
+    const navigate = useNavigate()
+
+
+
 
 
 
@@ -266,21 +368,29 @@ const SolicitePage = () => {
                             <h2>Solicite uma coleta</h2>
                             <p>Formulario para solicitacao de uma coleta</p>
 
-                            {dataSpec == true &&
-                            <div className="SpecificCatador">
-                                <div className="infoCatadorSpec">
-                                    <h2>Eduardo Perucci</h2>
-                                    <p>Catador</p>
-                                </div>
-                            </div>
-                            }
-                            
+                            {localStorage.getItem('orderSpec') != '0' ?
+                                <>
+                                    {dataSpec?.email.length > 0 &&
+
+                                        <div className="SpecificCatador">
+                                            <div className="infoCatadorSpec">
+                                                <h2>{dataSpec?.pessoa_fisica.length > 0 ? dataSpec?.pessoa_fisica[0].nome : dataSpec?.pessoa_juridica[0].nome_fantasia}</h2>
+                                                <p>Catador</p>
+                                            </div>
+                                        </div>
+
+
+                                    }
+                                </>
+                                : ''}
+
+
 
 
                             <form onSubmit={pedido} className='form-solicite'>
 
                                 <div className='drop' style={{ width: 375, height: 50, borderRadius: 100 }}>
-                                    <p>Selecione o local que será solicitado:</p>
+                                    <p style={{fontSize: 15}}>Selecione o local que será solicitado:</p>
                                     <Select
                                         name="materials"
                                         options={complementoOptions}
@@ -313,9 +423,10 @@ const SolicitePage = () => {
                                 </div>
 
 
-
                                 <div className="input-groupp w50">
-                                    <button type='submit'   >Solicite</button>
+                                    {localStorage.getItem('orderSpec') != '0' ? 
+                                       <button type='button' onClick={soliciteSpec}>SoliciteSpec</button>  : <button type='submit'>Solicite</button>}
+                                   
                                 </div>
 
 
@@ -324,8 +435,14 @@ const SolicitePage = () => {
                     }
                     {data == true &&
                         <>
-                            <div>
-                                <h1>voce tem uma solicitacao pendente</h1>
+
+                            <div className='SoliAndamento-container'>
+                                <div className="circle-warning" style={{border: "3px solid black",  }}>
+                                    <FontAwesomeIcon icon={faTriangleExclamation} style={{fontSize: 35, alignItems: 'center', justifyContent: 'center', marginBottom: 5}}/>
+                                </div>
+                                
+                                <h1 style={{marginTop: 15}} >Você já tem uma solicitação em andamento</h1>
+                                <button className="btn-hover color-11" type='button' onClick={cancelOrder}>Cancelar corrida</button>
                             </div>
                         </>
                     }
@@ -335,4 +452,4 @@ const SolicitePage = () => {
     )
 }
 
-export default SolicitePage
+export default SolicitePage; teste

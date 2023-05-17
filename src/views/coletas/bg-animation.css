@@ -9,6 +9,13 @@
   background-color: #dff8ea;
 }
 
+.boxUserProximoss{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 .scrollc {
   position: absolute;
   left: 50%;
@@ -111,19 +118,38 @@ width: 100%;
 
 .info-card h1 {
   color: black;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
+  display: flex;
+  padding-right: 6px;
 }
-
 
 
 .info-card h2 h2 {
   color: black;
   display: flex;
-  justify-content: space-between;
+
 }
 
 .info-card h2 h3 {
   color: black;
+  margin-top: 5px;
+}
+
+.info-card .material-presente {
+  display: flex;
+  flex-direction: column;
+}
+
+.hr-colets{
+  margin-top: 5px;
+  width: 55%;
+  background: linear-gradient(90deg, #D9D9D9 0%, rgba(217, 217, 217, 0) 100%);
+}
+
+.info-card .material-presente p {
+  color: rgb(169, 107, 0);
+  display: flex;
+margin-left: 5px;
 }
 
 .subContainer-info .AcceptRecuse {

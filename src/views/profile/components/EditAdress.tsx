@@ -411,7 +411,7 @@ export default function EditAdress() {
 
 
                                                                     <button className="close-modal-2" onClick={toggleModall} >
-                                                                    <FontAwesomeIcon icon={faXmark} className="icon-xmark" />
+                                                                    <FontAwesomeIcon icon={faXmark} className="icon-xmark" style={{paddingTop: 30}} />
                                                                     </button>
                                                                     
                                                                 </form>

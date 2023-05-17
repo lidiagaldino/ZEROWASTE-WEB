@@ -39,7 +39,7 @@ const MenuLateral = () => {
         {
             text: localStorage.getItem('tipo') == "Catador" ? "Cadastre um novo material" : "Solicite uma coleta",
             icon: <FontAwesomeIcon className='icon' icon={faStreetView} />,
-            href: localStorage.getItem('tipo') == "Catador" ? '/material' : '/solicite'
+            href: localStorage.getItem('tipo') == "Catador" ? '/material' : '/solicite',
         },
         {
             text: "Cadastre um endereço",
@@ -54,7 +54,7 @@ const MenuLateral = () => {
         {
             text: "Pontuação",
             icon: <FontAwesomeIcon className='icon' icon={faTicket} />,
-            href: '/'
+            href: '/pontuation'
         },
         {
             text: "Dicas",
@@ -99,6 +99,7 @@ const MenuLateral = () => {
                             key={text}
                             onClick={() => {
                                 navigate(href, { replace: true })
+                                localStorage.setItem("orderSpec", "0")
                             }}
                         >
                             {icon}

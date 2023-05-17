@@ -39,9 +39,9 @@ div {
 }
 
 .form-solicite {
-    display: block;
-
-
+display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .w60 {
@@ -57,6 +57,15 @@ div {
 
 
 
+}
+
+.drop {
+    height: 100%;
+
+}
+
+.drop p {
+    width: 100%;
 }
 
 .img-boxx {
@@ -78,7 +87,9 @@ div {
     backdrop-filter: blur(40px);
     padding: 30px 30px;
     width: 50%;
-
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
     align-items: center;
     border-radius: 0 20px 20px 0;
 }
@@ -151,23 +162,13 @@ form .input-groupp button {
     color: white;
     cursor: pointer;
     font-size: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+
+    transition: all 0.2s ease-in-out;
 }
 
 form .input-groupp button:hover {
-    width: 100%;
-    height: 47px;
-    background: #35D31B;
-    border-radius: 20px;
-    outline: none;
-    border: none;
-    margin-top: 15px;
-    color: white;
-    cursor: pointer;
-    font-size: 16px;
-    transition: 0.3s ease-in-out;
+    height: 50px;
+    transition: all 1s ease-in-out;
 }
 
 
@@ -175,14 +176,76 @@ form .input-groupp button:hover {
     display: flex;
     width: 60%;
     background-color: black;
-border-radius: 5px;
-
+    border-radius: 15px;
+    align-items: center;
     height: 15%;
+    margin-left: 100px;
 }
 
 .SpecificCatador .infoCatadorSpec p {
     color: white;
-    margin-left: -60%;
+    font-weight: 200;
+}
+
+
+.SoliAndamento-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.SoliAndamento-container h1 {
+    color: white;
+    font-size: 1.3rem;
+}
+
+.btn-hover {
+    width: 200px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    margin: 20px;
+    height: 55px;
+    text-align: center;
+    border: none;
+    background-size: 300% 100%;
+
+    border-radius: 50px;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+.btn-hover:hover {
+    background-position: 100% 0;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+.btn-hover:focus {
+    outline: none;
+}
+
+.btn-hover.color-11 {
+    background-image: linear-gradient(to right, #eb3941, #f15e64, #e14e53, #e2373f);
+    box-shadow: 0 5px 15px rgba(242, 97, 103, .4);
+}
+
+.circle-warning {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
+    box-shadow: inset 3px 6px 10px rgba(0, 0, 0, 0.25);
+
 }
 
 @media (max-width:930px) {
@@ -219,4 +282,3 @@ border-radius: 5px;
     }
 
 }
-

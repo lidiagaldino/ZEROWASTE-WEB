@@ -10,6 +10,7 @@ import { CheckIcon } from '@radix-ui/react-icons';
 import api from '../../../api/axios'
 
 import { v4 as uuidv4 } from 'uuid';
+import e from 'express'
 
 const CatadoresProximos = () => {
     const [selected, setSelected] = useState('')
@@ -178,7 +179,8 @@ const CatadoresProximos = () => {
                                 <div id={item.id} key={`${item.id_modo}_${uuidv4()}`} data-key={item.id_modo} className="boxUserProximos" onClick={(event) => {
                                     localStorage.setItem('view-edit', 'view')
                                     navigate(`/profile/${event.currentTarget.id}`,)
-                                    localStorage.setItem('viewPriv', event.currentTarget.getAttribute('data-key'))
+                                    localStorage.setItem('viewPriv', event.currentTarget.getAttribute('data-key')) 
+                                    localStorage.setItem('id-other-person', event.currentTarget.id) 
                                 }} >
                                     <img src={item.foto} alt="photo" className='fotoUser' style={{ borderRadius: 100, width: 93, height: 93 }} />
                                     <div className='boxInfoU'>

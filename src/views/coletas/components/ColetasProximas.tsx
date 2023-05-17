@@ -103,7 +103,7 @@ const ColetasProximas = () => {
         }).then(() => {
             Swal.fire({
                 title: 'Tudo certo!!',
-                text: 'Aceito criado com sucesso',
+                text: 'Solicitação aceita com sucesso',
                 icon: 'success'
             })
         }).catch((e) => {
@@ -138,7 +138,7 @@ const ColetasProximas = () => {
                 if (response.ok) {
                     Swal.fire({
                         title: 'Tudo certo!!',
-                        text: 'Finalizada criado com sucesso',
+                        text: 'Solicitação finalizada',
                         icon: 'success'
                     })
                 } else {
@@ -166,15 +166,19 @@ const ColetasProximas = () => {
     }
 
     const denyOrder = () => {
+
+        console.log(data.id)
         fetch(`https://zero-waste-logistic.azurewebsites.net/order/deny/${data.id}`, {
             method: 'PUT',
             headers: {
                 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
             }
-        }).then(() => {
+        }).then((response) => {
+            console.log(response);
+
             Swal.fire({
                 title: 'Tudo certo!!',
-                text: 'Recusada criado com sucesso',
+                text: 'Solicitação recusada',
                 icon: 'success'
             })
         }).catch((e) => {
@@ -187,6 +191,8 @@ const ColetasProximas = () => {
             })
         })
     }
+
+
 
 
 
@@ -225,12 +231,7 @@ const ColetasProximas = () => {
 
 
 
-            <div className="search-box">
-                <input className="search-txt" type="text" name="" placeholder="Procure por nome ou endereço" />
-                <a className="search-btn">
-                    <FontAwesomeIcon icon={faMagnifyingGlass} style={{ color: "#ffffff", }} />
-                </a>
-            </div>
+    
 
             <div className='scrollc'>
                 {data.id_status == 1 &&
@@ -251,8 +252,10 @@ const ColetasProximas = () => {
 
                 {data.id == 0 &&
                     <>
-
-                        <h1 style={{ paddingTop: 400, alignItems: 'center', display: 'flex', justifyContent: 'center    ' }}>Você não recebeu nenhuma solicitação de coleta</h1>
+                        <div style={{ height: 650, width: 1090, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                            <h1 style={{fontSize: 25 }}>Você não recebeu nenhuma solicitação de coleta</h1>
+                        </div>
+                        
                     </>
                 }
 
@@ -263,15 +266,16 @@ const ColetasProximas = () => {
                             <>
 
                                 <div id={`${data.id}`} key={`${data.id}_${uuidv4()}`} className="boxUserProximoss">
-
+                                    <h1 style={{fontSize: 30}}>Coleta Disponível</h1>
                                     <div className="container-branco">
                                         <div className="subContainer-info">
                                             <div className="info-card">
-                                                <h1>{data.distancia} Metros de distância</h1>
+                                                <h1><h1 style={{color: 'green'}}>{data.distancia}</h1> Metros de distância</h1>
                                                 <h2><FontAwesomeIcon icon={faLocationDot} /> <h2>Destino:</h2> {data.endereco.logradouro} {data.endereco.numero}, {data.endereco.cidade} - {data.endereco.estado}</h2>
-                                                <h2><FontAwesomeIcon icon={faRecycle} /> <h3>Materiais presentes no local:</h3> {data.id_material.map((elemento) => {
+                                                <hr className='hr-colets'/>
+                                                <h2 className='material-presente'> <h3>Materiais presentes no local:</h3> {data.id_material.map((elemento) => {
                                                     return (
-                                                        <p>{elemento.material.nome} </p>
+                                                        <p>{elemento.material.nome} / </p>
                                                     )
                                                 })} </h2>
                                             </div>

@@ -3,10 +3,11 @@ import '../styles/bio.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import EditProfile from '../components/EditProfile'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import api from '../../../api/axios'
 import FavoritarButton from './FavoritarButton';
 import EditAdress from '../components/EditAdress'
+
 
 
 
@@ -72,7 +73,6 @@ type dados = {
 }
 
 type view = 'view' | 'edit'
-
 
 const Container = () => {
 
@@ -143,10 +143,16 @@ const Container = () => {
         })))
     }, [])
 
-    
 
 
-   
+
+
+    const [lucas, setLucas] = useState(false)
+
+
+
+
+
 
     console.log(info)
 
@@ -205,11 +211,12 @@ const Container = () => {
                                 <button type='button' id={localStorage.getItem('viewPriv')} onClick={(e) => {
                                     e.currentTarget.id
                                     console.log(e.currentTarget.id);
-                               
-                                    location.href='/ZEROWASTE-WEB/solicite#/solicite'
-                                    navigator.geolocation.getCurrentPosition(function(position) { console.log(position.coords);
+                                    localStorage.setItem('orderSpec', '999')
+                                    location.href = '/ZEROWASTE-WEB/solicite#/solicite'
+                                    navigator.geolocation.getCurrentPosition(function (position) {
+                                        console.log(position.coords);
                                     })
-                                    
+
                                 }}>Solicite uma coleta</button>
                             </li>
                             <li className="sendMsgC active">
@@ -330,4 +337,6 @@ const Container = () => {
     )
 }
 
-export default Container
+export default Container;
+
+

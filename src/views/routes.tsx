@@ -16,6 +16,7 @@ import CatadorePro from './catadoresProximos/CatadorePro'
 import Material from './materialCadastro/Material'
 import { ProtectedRoutes, CatadorRoutes, GeradorRoutes } from './ProtectedRoutes'
 import ColetasPro from './coletas/ColetasPro'
+import Pontuation from './pontuation/Pontuation'
 
 const Routess = () => {
 
@@ -56,6 +57,14 @@ const Routess = () => {
             <GeradorRoutes>
               <Solicite />
             </GeradorRoutes>
+          </ProtectedRoutes>
+        } />
+
+        <Route path='/pontuation' element={
+          <ProtectedRoutes>
+
+            <Pontuation />
+
           </ProtectedRoutes>
         } />
 

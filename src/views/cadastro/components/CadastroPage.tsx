@@ -8,6 +8,8 @@ import { getLatitudeLongitude } from '../../../utils/getLatitudeLongitude';
 import enderecoValidation from '../../../validations/cadastroValidation';
 import { validateEndereco } from '../../../validations/enderecoValidation';
 import api from '../../../api/axios';
+import wave from '../img/wave.png'
+import  bg from '../img/bg.svg'
 
 
 type dados = {
@@ -127,7 +129,7 @@ const CadastroPage = () => {
         // const json = await cadstro.json()
         // console.log(json)
         console.log(cadstro);
-        
+
 
         if (cadstro.status == 201) {
             Swal.fire({
@@ -188,44 +190,54 @@ const CadastroPage = () => {
 
 
     return (
-        <div className="bd">
-            <div className="box">
-                <div className="img-box">
-                    <img src={celular} />
-                </div>
+        <>
+        <div className='bd'>
+
+        
+        <img className="wavee" src={wave}/> 
+        <div className="container-cadastro">
+            <div className="img-cadastro">
+                <img src={bg} />
+            </div>
+            <div className="login-content">
+
                 <div className="form-box">
                     <h2>Cadastrar um novo endereço</h2>
-                    <p> Cadastre um ponto de entrega.</p>
+                    <p>{localStorage.getItem('tipo') == 'Catador' ? 'Cadastre uma região em que você atua.' : 'Cadastre um ponto de entrega.'}</p>
                     <form onSubmit={registrar} action="#" className='form-endereco'>
-                        {status.type === 'success' ? <p style={{ color: "green" }}>{status.message}</p> : ""}
+                    {status.type === 'success' ? <p style={{ color: "green" }}>{status.message}</p> : ""}
                         {status.type === 'error' ? <p style={{ color: "red" }}>{status.message}</p> : ""}
                         <div className="input-group">
-                            <InputMask {...register("cep")} mask="99999-999" maskChar={null} onChange={checkCEP} placeholder="CEP" />
+                        <InputMask {...register("cep")} mask="99999-999" maskChar={null} onChange={checkCEP} placeholder="CEP" />
                         </div>
 
                         <div className="input-group w50">
 
-                            <input  {...register("city")} onChange={handleChangeCidade} value={cidade} type="text" id="cidade" placeholder="Cidade" />
+                        <input  {...register("city")} onChange={handleChangeCidade} value={cidade} type="text" id="cidade" placeholder="Cidade" />
                         </div>
 
                         <div className="input-group w50">
 
-                            <input {...register("estado")} onChange={handleChangeEstado} value={estado} type="text" id="estado" placeholder="Estado" />
+                            <input {...register("estado")} onChange={handleChangeEstado} value={estado} type="text" id="estado"
+                                placeholder="Estado" />
                         </div>
 
                         <div className="input-group w50">
 
-                            <input {...register("logradouro")} onChange={handleChangeLogradouro} value={logradouro} type="text" id="logradouro" placeholder="Logradouro" />
+                            <input {...register("logradouro")} onChange={handleChangeLogradouro} value={logradouro} type="text" id="logradouro"
+                                placeholder="Logradouro" />
                         </div>
 
                         <div className="input-group w50">
 
-                            <input {...register("numero")} onChange={handleChangeNumero} value={numero} type="text" id="logradouro" placeholder="Numero" />
+                            <input {...register("numero")} onChange={handleChangeNumero} value={numero} type="text" id="numero"
+                                placeholder="Numero" />
                         </div>
 
                         <div className="input-group">
 
-                            <input onChange={handleChangeComplemento} value={complemento} type="text" id="complemento" placeholder="Complemento" />
+                            <input onChange={handleChangeComplemento} value={complemento} type="text" id="complemento"
+                                placeholder="Complemento" />
                         </div>
 
                         <div className="input-group">
@@ -239,8 +251,11 @@ const CadastroPage = () => {
 
                     </form>
                 </div>
+
             </div>
         </div>
+        </div>
+        </>
     )
 }
 
