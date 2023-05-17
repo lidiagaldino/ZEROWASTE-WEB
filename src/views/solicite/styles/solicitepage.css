@@ -174,17 +174,40 @@ form .input-groupp button:hover {
 
 .SpecificCatador {
     display: flex;
+    box-shadow: inset 5px 3px 20px 3px rgba(255, 255, 255, 0.44);
     width: 60%;
     background-color: black;
-    border-radius: 15px;
+    border-radius: 50px;
     align-items: center;
     height: 15%;
-    margin-left: 100px;
+    margin-top: 10px;
+}
+
+.infoCatadorSpec {
+    margin-left: 10px;
 }
 
 .SpecificCatador .infoCatadorSpec p {
     color: white;
     font-weight: 200;
+    width: 100%;
+}
+
+.SpecificCatador .infoCatadorSpec h2 {
+
+    font-size: 1.3rem;
+    width: 100%;
+}
+
+.circleSpec {
+    display: flex;
+    width: 53px;
+    height: 53px;
+    border-radius: 50%;
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+    margin-left: 4px;
 }
 
 

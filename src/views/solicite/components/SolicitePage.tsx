@@ -9,7 +9,7 @@ import { response } from 'express';
 import { Divide } from 'phosphor-react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
+import {faTriangleExclamation, faUser } from '@fortawesome/free-solid-svg-icons'
 import { buildTransform } from 'framer-motion';
 
 
@@ -373,7 +373,9 @@ const SolicitePage = () => {
                                     {dataSpec?.email.length > 0 &&
 
                                         <div className="SpecificCatador">
+                                            <div className="circleSpec"><FontAwesomeIcon icon={faUser} style={{fontSize: 30}} /></div>
                                             <div className="infoCatadorSpec">
+                                                
                                                 <h2>{dataSpec?.pessoa_fisica.length > 0 ? dataSpec?.pessoa_fisica[0].nome : dataSpec?.pessoa_juridica[0].nome_fantasia}</h2>
                                                 <p>Catador</p>
                                             </div>
@@ -425,7 +427,7 @@ const SolicitePage = () => {
 
                                 <div className="input-groupp w50">
                                     {localStorage.getItem('orderSpec') != '0' ? 
-                                       <button type='button' onClick={soliciteSpec}>SoliciteSpec</button>  : <button type='submit'>Solicite</button>}
+                                       <button type='button' onClick={soliciteSpec}>Solicite com {dataSpec?.pessoa_fisica.length > 0 ? dataSpec?.pessoa_fisica[0].nome : dataSpec?.pessoa_juridica[0].nome_fantasia}</button>  : <button type='submit'>Solicite</button>}
                                    
                                 </div>
 
