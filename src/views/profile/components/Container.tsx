@@ -85,6 +85,7 @@ const Container = () => {
     const [info, setInfo] = useState<dados>()
     const [viewState, setViewState] = useState<view>('edit')
     const [foto, setFoto] = useState(localStorage.getItem('foto'))
+    const [modal, setModal] = useState(false);
     const [nota3, setNota3] = useState(Number)
 
     const handleClick = () => {
@@ -149,11 +150,11 @@ const Container = () => {
 
     useEffect(() => {
         console.log(clicked);
-        
+
     }, [clicked]);
 
-    
-    
+
+
 
     const avaliarUser = async () => {
 
@@ -173,10 +174,11 @@ const Container = () => {
             }
         })
 
-        console.log(avaliar.status);
-        
+
+
 
         if (avaliar.status == 201) {
+            setReaval(true)
             Swal.fire({
                 text: 'Tudo certo!!',
                 title: 'avaliado',
@@ -201,7 +203,7 @@ const Container = () => {
             },
         }).then(response => response.json()).then(data => setArrayNota(data.map((item) => {
             console.log(item);
-            
+
             return (
                 {
                     nota: item.media
@@ -216,10 +218,10 @@ const Container = () => {
     useEffect(() => {
     }, [newClicked]);
 
-    
+
 
     const updateNota = async () => {
-       
+
         let bodyUserAvaliation
 
         bodyUserAvaliation = {
@@ -237,7 +239,7 @@ const Container = () => {
         })
 
         console.log(avaliarUp.status);
-        
+
 
         if (avaliarUp.status == 201) {
             Swal.fire({
@@ -254,16 +256,82 @@ const Container = () => {
         }
 
     }
+    const [isRating, setIsRating] = useState(false)
 
-    const [clickCount, setClickCount] = useState(0);
+    useEffect(() => {
+        fetch(`https://zero-waste-logistic.azurewebsites.net/rating/my/${localStorage.getItem('viewPriv')}`, {
+            method: 'GET',
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
+            },
+        }).then(response => response.json()).then(resposta => {
+            setIsRating(resposta.ok ? true : false)
+            console.log(resposta.nota)
+            setClicked(resposta.nota)
+            console.log(clicked)
+        })
+    }, [])
 
-    const handleButtonClick = () => {
-      setClickCount(clickCount + 1);
+    const toggleModal = () => {
+        setModal(!modal);
     };
+
+    if (modal) {
+        document.body.classList.add('active-modal')
+    } else {
+        document.body.classList.remove('active-modal')
+    }
+
+    const [reaval, setReaval] = useState(false)
+    console.log(clicked)
 
     return (
 
         <div className='container-bio'>
+            
+
+
+            {modal && (
+                
+                <div className="modal-aval ">
+                    
+                    <div className="overlay-aval "></div>
+                    <div className="modal-content-aval">
+                        <div className="rating-aval">
+                            <input type="radio" name="rating" id="star1" onClick={() => { setClicked(5) }} />
+                            <label htmlFor="star1">&#9733;</label>
+                            <input type="radio" name="rating" id="star2" onClick={() => { setClicked(4) }} />
+                            <label htmlFor="star2">&#9733;</label>
+                            <input type="radio" name="rating" id="star3" onClick={() => { setClicked(3) }} />
+                            <label htmlFor="star3">&#9733;</label>
+                            <input type="radio" name="rating" id="star4" onClick={() => { setClicked(2) }} />
+                            <label htmlFor="star4">&#9733;</label>
+                            <input type="radio" name="rating" id="star5" onClick={() => { setClicked(1) }} />
+                            <label htmlFor="star5">&#9733;</label>
+                        </div>
+                        <button className="button">
+                            <div className="hand">
+                                <div className="thumb"></div>
+                            </div>
+                            <span className='spanLiked1' onClick={() => {
+                                if (isRating) {
+                                    updateNota()
+                                } else{
+                                    avaliarUser()
+                                }
+                                
+                            }} >Okkk</span>
+                        </button>
+
+
+                        <button onClick={toggleModal}>Fechar</button>
+                    </div>
+
+                </div>
+
+            )}
+
             <section className="userProfile card">
                 <div className="profile">
                     <figure><img src={localStorage.getItem('view-edit') == 'view' ? info?.foto : localStorage.getItem('foto')} style={localStorage.getItem('tipo') == 'Gerador' ? {} : { border: "4px solid red" }} alt="profile" width="250px" height="250px" />
@@ -296,47 +364,29 @@ const Container = () => {
                     </div>
                     <p>{info?.gerador.length > 0 ? 'Gerador' : 'Catador'}</p>
                 </div>
-                <div className='rank'>
+                {Number(localStorage.getItem('view-edit') == 'view') ?
+                    <div className='rank'>
 
-                    <h1 className="heading">Avaliação</h1>
-                    
+                        <h1 className="heading">Avaliação</h1>
+
                         {arrayNota.map((item) => {
                             return (
-                                <span style={{color: 'green'}} >{item.nota ? item.nota : '0'}</span>
+                                <span style={{ color: 'green' }} >{item.nota ? item.nota : '0'}</span>
                             )
                         })}
-                       
-                    
-                    <div className="rating">
-                        <FontAwesomeIcon icon={faStar}  className={clicked === 1 ? 'star-icon active' : 'star-icon'} style={{ height: 20 }} onClick={() => {
-                            setClicked(1)
-                            avaliarUser()
-                            handleButtonClick()
-                            {clickCount > 1 && 
-                            setNewClicked
-                            updateNota()
-                            }
-                        }} />
-                        <FontAwesomeIcon icon={faStar}  className={clicked === 2 ? 'star-icon active' : 'star-icon'} style={{ height: 20 }} onClick={() => {
-                            setClicked(2)
-                            avaliarUser()
-                          
-                        }} />
-                        <FontAwesomeIcon icon={faStar} className={clicked === 3 ? 'star-icon active' : 'star-icon'} style={{ height: 20 }} onClick={() => {
-                            setClicked(3)
-                            avaliarUser()
-                        }} />
-                        <FontAwesomeIcon icon={faStar}  className={clicked === 4 ? 'star-icon active' : 'star-icon'} style={{ height: 20 }} onClick={() => {
-                            setClicked(4)
-                            avaliarUser()
-                        }} />
-                        <FontAwesomeIcon icon={faStar}   style={{ height: 20 }} onClick={() => {
-                            setClicked(5)
-                            avaliarUser()
-                            
-                        }} />
+
+
+                        <div className="rating">
+                            <FontAwesomeIcon icon={faStar} className={clicked === 1 ? 'star-iconcolor' : 'star-icon'} style={{ height: 20 }} />
+                            <FontAwesomeIcon icon={faStar} className={clicked === 2 ? 'star-iconcolor' : 'star-icon'} style={{ height: 20 }} />
+                            <FontAwesomeIcon icon={faStar} className={clicked === 3 ? 'star-iconcolor' : 'star-icon'} style={{ height: 20 }} />
+                            <FontAwesomeIcon icon={faStar} className={clicked === 4 ? 'star-iconcolor' : 'star-icon'} style={{ height: 20 }} />
+                            <FontAwesomeIcon icon={faStar} className={clicked === 5 ? 'star-iconcolor' : 'star-icon'} style={{ height: 20 }} />
+
+                        </div>
+
                     </div>
-                </div>
+                    : ''}
 
 
 
@@ -356,15 +406,12 @@ const Container = () => {
 
                                 }}>Solicite uma coleta</button>
                             </li>
-                            <li className="sendMsgC active">
-                                <a href="#">Contatos</a>
-                            </li>
-                            <li className="sendMsgg">
-                                <a href="#">Chat</a>
-                            </li>
+                            <button className="login-trigger" onClick={toggleModal} >{reaval ? 'Reavaliar' : 'Avaliar'}</button>
                         </ul>
                     </div>
                 }
+
+
 
                 {
                     viewState == 'edit' &&

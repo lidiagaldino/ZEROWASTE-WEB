@@ -66,7 +66,7 @@ type dados = {
 }
 
 function FavoritarButton(props: { id: number }) {
-  console.log(props.id)
+ 
 
   const [info, setInfo] = useState<dados>()
   const buttonRef = useRef(null);
@@ -80,7 +80,7 @@ function FavoritarButton(props: { id: number }) {
 
     await fetch(`https://webappdeploy-backend.azurewebsites.net/favoritar/${localStorage.getItem('id_modo')}/${props.id}`, {
     }).then(response => {
-      console.log(response);
+
 
       if (response.status == 200) {
         setButton('active')
