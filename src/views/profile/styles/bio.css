@@ -230,21 +230,21 @@ figure {
     font-weight: 700;
 }
 
-.userDetails .rank .rating {
-    position: absolute;
-    top: 4.0rem;
-    left: 6rem;
+    .userDetails .rank .rating {
+        position: absolute;
+        top: 4.0rem;
+        left: 6rem;
 
-}
+    }
 
-.userDetails .rank .rating .rate {
-    color: var(--f5-color);
-    font-size: 8rem;
-}
+    .userDetails .rank .rating .rate {
+        color: var(--f5-color);
+        font-size: 8rem;
+    }
 
-.userDetails .rank .rating .underrate {
-    color: var(--f6-color);
-}
+    .userDetails .rank .rating .underrate {
+        color: var(--f6-color);
+    }
 
 .userDetails .btns ul li a {
 
@@ -345,7 +345,6 @@ figure {
     padding: 10px;
     border: none;
     border-radius: 50%;
-    background: #FFFFFF;
     box-shadow: 31.3778px 24.8079px 67px rgba(0, 0, 0, 0.08), 20.3375px 16.0792px 39.2384px rgba(0, 0, 0, 0.0607407), 12.0863px 9.55563px 21.3407px rgba(0, 0, 0, 0.0485926), 6.27557px 4.96158px 10.8875px rgba(0, 0, 0, 0.04), 2.55671px 2.02138px 5.45926px rgba(0, 0, 0, 0.0314074), 0.581071px 0.459406px 2.63657px rgba(0, 0, 0, 0.0192593);
     border-radius: 50px;
 
@@ -353,7 +352,7 @@ figure {
     font-size: 16px;
     transition: all 0.5s ease-in-out;
     display: flex;
-    justify-content: center;
+        justify-content: center;
     margin-bottom: 32px;
     align-items: center;
 }
@@ -367,18 +366,14 @@ figure {
 
     height: 150px;
     width: 50%;
-    background: #FFFFFF;
     box-shadow: 31.3778px 24.8079px 67px rgba(0, 0, 0, 0.08), 20.3375px 16.0792px 39.2384px rgba(0, 0, 0, 0.0607407), 12.0863px 9.55563px 21.3407px rgba(0, 0, 0, 0.0485926), 6.27557px 4.96158px 10.8875px rgba(0, 0, 0, 0.04), 2.55671px 2.02138px 5.45926px rgba(0, 0, 0, 0.0314074), 0.581071px 0.459406px 2.63657px rgba(0, 0, 0, 0.0192593);
     border-radius: 25px;
-
-
     transition: all 0.5s ease-in-out;
     animation-name: descer;
     animation-duration: 0.5s;
     animation-fill-mode: forwards;
     display: flex;
     justify-content: center;
-    align-items: center;
 }
 
 @keyframes descer {
@@ -392,9 +387,7 @@ figure {
 }
 
 .ListaOqRecolho {
-    display: flex;
-    justify-content: column;
-    align-items: center;
+
 
 }
 
@@ -405,30 +398,39 @@ figure {
 
 }
 
+.star-icon {
+    color: black;
+}
+
+.star-icon active {
+    color: orange;
+    
+}
+
 .retangulo {
     list-style-type: none;
     padding: 0;
-    margin-left: 100px;
     display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-    position: relative;
+    flex-direction: column;
+    gap: 14px;
+    height: 100%;
+    width: 100%;
     border-radius: 60px;
+    
 
 }
 
 .retangulo li {
-    width: 100%;
+    width: 150%;
     padding: 3px;
-    color: white;
-    background-color: green;
-    border: 1px solid rgb(144, 163, 232);
-    border-radius: 10px;
+    color: rgb(0, 0, 0);
+    background-color: rgb(247, 247, 247);
+    border-radius: 15px;
 
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     transition: opacity 5.2s ease-in;
     text-align: center;
-    position: relative;
+  
 }
 
 .iconnaoclicado {
@@ -557,21 +559,6 @@ figure {
         padding: 0.7rem;
     }
 
-    .botao.clicado {
-
-        height: 130px;
-        width: 50%;
-        background: #FFFFFF;
-        box-shadow: 31.3778px 24.8079px 67px rgba(0, 0, 0, 0.08), 20.3375px 16.0792px 39.2384px rgba(0, 0, 0, 0.0607407), 12.0863px 9.55563px 21.3407px rgba(0, 0, 0, 0.0485926), 6.27557px 4.96158px 10.8875px rgba(0, 0, 0, 0.04), 2.55671px 2.02138px 5.45926px rgba(0, 0, 0, 0.0314074), 0.581071px 0.459406px 2.63657px rgba(0, 0, 0, 0.0192593);
-        border-radius: 25px;
-        transition: all 0.5s ease-in-out;
-        animation-name: descer;
-        animation-duration: 0.5s;
-        animation-fill-mode: forwards;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
 }
 
 

@@ -7,7 +7,9 @@ import { useNavigate, useParams } from 'react-router-dom'
 import api from '../../../api/axios'
 import FavoritarButton from './FavoritarButton';
 import EditAdress from '../components/EditAdress'
-
+import Swal from 'sweetalert2';
+import { number } from 'yup'
+import { Item } from 'firebase/analytics'
 
 
 
@@ -83,7 +85,7 @@ const Container = () => {
     const [info, setInfo] = useState<dados>()
     const [viewState, setViewState] = useState<view>('edit')
     const [foto, setFoto] = useState(localStorage.getItem('foto'))
-
+    const [nota3, setNota3] = useState(Number)
 
     const handleClick = () => {
         setClicado(!clicado);
@@ -143,18 +145,121 @@ const Container = () => {
         })))
     }, [])
 
+    const [clicked, setClicked] = useState(Number(null))
 
+    useEffect(() => {
+        console.log(clicked);
+        
+    }, [clicked]);
 
+    
+    
 
+    const avaliarUser = async () => {
 
-    const [lucas, setLucas] = useState(false)
+        let bodyUserAvaliation
 
+        bodyUserAvaliation = {
+            nota: clicked,
+            id_catador: Number(localStorage.getItem('viewPriv'))
+        }
 
+        const avaliar = await fetch(`https://zero-waste-logistic.azurewebsites.net/rating`, {
+            method: 'POST',
+            body: JSON.stringify(bodyUserAvaliation),
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'content-type': 'application/json', 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
+            }
+        })
 
+        console.log(avaliar.status);
+        
 
+        if (avaliar.status == 201) {
+            Swal.fire({
+                text: 'Tudo certo!!',
+                title: 'avaliado',
+                icon: 'success'
+            })
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Algo deu errado!',
+            })
+        }
+    }
 
+    const [arrayNota, setArrayNota] = useState([])
 
-    console.log(info)
+    useEffect(() => {
+        fetch(`https://zero-waste-logistic.azurewebsites.net/rating/${localStorage.getItem('viewPriv')}`, {
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
+            },
+        }).then(response => response.json()).then(data => setArrayNota(data.map((item) => {
+            console.log(item);
+            
+            return (
+                {
+                    nota: item.media
+                }
+            )
+        })))
+
+    }, [])
+
+    const [newClicked, setNewClicked] = useState(0)
+
+    useEffect(() => {
+    }, [newClicked]);
+
+    
+
+    const updateNota = async () => {
+       
+        let bodyUserAvaliation
+
+        bodyUserAvaliation = {
+            nota: newClicked,
+            id_catador: Number(localStorage.getItem('viewPriv'))
+        }
+
+        const avaliarUp = await fetch(`https://zero-waste-logistic.azurewebsites.net/rating`, {
+            method: 'PUT',
+            body: JSON.stringify(bodyUserAvaliation),
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'content-type': 'application/json', 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
+            }
+        })
+
+        console.log(avaliarUp.status);
+        
+
+        if (avaliarUp.status == 201) {
+            Swal.fire({
+                text: 'Tudo certo!!',
+                title: 'Avaliacao atualizada',
+                icon: 'success'
+            })
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Algo deu errado!',
+            })
+        }
+
+    }
+
+    const [clickCount, setClickCount] = useState(0);
+
+    const handleButtonClick = () => {
+      setClickCount(clickCount + 1);
+    };
 
     return (
 
@@ -192,16 +297,48 @@ const Container = () => {
                     <p>{info?.gerador.length > 0 ? 'Gerador' : 'Catador'}</p>
                 </div>
                 <div className='rank'>
+
                     <h1 className="heading">Avaliação</h1>
-                    <span>8,6</span>
+                    
+                        {arrayNota.map((item) => {
+                            return (
+                                <span style={{color: 'green'}} >{item.nota ? item.nota : '0'}</span>
+                            )
+                        })}
+                       
+                    
                     <div className="rating">
-                        <FontAwesomeIcon icon={faStar} style={{ height: 20 }} />
-                        <FontAwesomeIcon icon={faStar} style={{ height: 20 }} />
-                        <FontAwesomeIcon icon={faStar} style={{ height: 20 }} />
-                        <FontAwesomeIcon icon={faStar} style={{ height: 20 }} />
-                        <FontAwesomeIcon icon={faStar} style={{ height: 20 }} />
+                        <FontAwesomeIcon icon={faStar}  className={clicked === 1 ? 'star-icon active' : 'star-icon'} style={{ height: 20 }} onClick={() => {
+                            setClicked(1)
+                            avaliarUser()
+                            handleButtonClick()
+                            {clickCount > 1 && 
+                            setNewClicked
+                            updateNota()
+                            }
+                        }} />
+                        <FontAwesomeIcon icon={faStar}  className={clicked === 2 ? 'star-icon active' : 'star-icon'} style={{ height: 20 }} onClick={() => {
+                            setClicked(2)
+                            avaliarUser()
+                          
+                        }} />
+                        <FontAwesomeIcon icon={faStar} className={clicked === 3 ? 'star-icon active' : 'star-icon'} style={{ height: 20 }} onClick={() => {
+                            setClicked(3)
+                            avaliarUser()
+                        }} />
+                        <FontAwesomeIcon icon={faStar}  className={clicked === 4 ? 'star-icon active' : 'star-icon'} style={{ height: 20 }} onClick={() => {
+                            setClicked(4)
+                            avaliarUser()
+                        }} />
+                        <FontAwesomeIcon icon={faStar}   style={{ height: 20 }} onClick={() => {
+                            setClicked(5)
+                            avaliarUser()
+                            
+                        }} />
                     </div>
                 </div>
+
+
 
                 {
                     viewState == 'view' &&

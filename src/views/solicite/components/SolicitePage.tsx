@@ -427,7 +427,7 @@ const SolicitePage = () => {
 
                                 <div className="input-groupp w50">
                                     {localStorage.getItem('orderSpec') != '0' ? 
-                                       <button type='button' onClick={soliciteSpec}>Solicite com {dataSpec?.pessoa_fisica.length > 0 ? dataSpec?.pessoa_fisica[0].nome : dataSpec?.pessoa_juridica[0].nome_fantasia}</button>  : <button type='submit'>Solicite</button>}
+                                       <button type='button' onClick={soliciteSpec}>Solicite</button>  : <button type='submit'>Solicite</button>}
                                    
                                 </div>
 

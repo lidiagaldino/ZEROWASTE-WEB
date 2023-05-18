@@ -8,7 +8,7 @@ const PontuationCupom = () => {
         <div className="saldo-container">
             <div className="saldo">
                 <h1>Saldo: <h1 className='SaldoTitle' style={{paddingRight: 10}}>200</h1>pontos</h1>
-                <span>Ganhe pontos para trocar com recompensas exclusivas com nossos parceiros, acumule pontos fazendo  reciclagem ou coletandpo reciclagem</span>
+                <span>Ganhe pontos para trocar com recompensas exclusivas com nossos parceiros, acumule pontos fazendo reciclagem ou coletando reciclagem</span>
             </div>
         </div>
         <div className="box-cupom">
