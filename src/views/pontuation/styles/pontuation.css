@@ -158,7 +158,7 @@
     width: 200px;
   }
   
-  .couponItem-action a {
+  .couponItem-action button {
     background-color: #46C600;
     border: none;
     border-bottom: 3px solid darken(#46C600, 5%);
@@ -176,3 +176,187 @@
     text-decoration: none;
     min-width: 150px;
   }
+
+
+
+  body.active-modal {
+    overflow-y: hidden;
+    transition: all 1s ease-in-out;
+}
+
+
+.modal-aval,
+.overlay-aval {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+    transition: all 1s ease-in-out;
+
+}
+
+.modal-aval {
+    display: flex;
+    z-index: 998;
+    transition: all 1s ease-in-out;
+}
+
+.overlay-aval {
+    background: rgba(49, 49, 49, 0.8);
+}
+  
+  .containerCupom{
+    display: flex;
+    z-index: 999;
+    width: 697px;
+    height: 348px;
+    border-radius: 20px;
+    background-color: white
+  }
+  
+  .containerCupom .containerCupom2{
+    display: flex;
+    width: 697px;
+    height: 348px;
+    border-radius: 20px;
+    background: linear-gradient(54.48deg, #06C918 41.57%, rgba(19, 180, 35, 0) 41.68%);
+    filter: drop-shadow(0px 0px 98px rgba(0, 0, 0, 0.09)) drop-shadow(0px 0px 66.0543px rgba(0, 0, 0, 0.0728438)) drop-shadow(0px 0px 42.7219px rgba(0, 0, 0, 0.06075)) drop-shadow(0px 0px 26.5098px rgba(0, 0, 0, 0.0520312)) drop-shadow(0px 0px 15.925px rgba(0, 0, 0, 0.045)) drop-shadow(0px 0px 9.47461px rgba(0, 0, 0, 0.0379688)) drop-shadow(0px 0px 5.66563px rgba(0, 0, 0, 0.02925)) drop-shadow(0px 0px 3.00508px rgba(0, 0, 0, 0.0171563));
+    flex-direction: column;
+  }
+  
+  .containerCupom .containerCupom2 .titleReedem {
+    display: flex;
+    width: 60%;
+    height: 60px;
+    margin-left: 35%;
+    justify-content: center;
+  }
+  
+  .containerCupom .containerCupom2 .titleReedem h1 {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 27px;
+    color: #000000;
+  }
+  
+  .containerCupom .containerCupom2 .descCupom {
+    display: flex;
+    width: 370px;
+    height: 45px;
+    margin-left: 40%;
+  }
+  
+  .containerCupom .containerCupom2 .descCupom span {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 20px;
+  
+    color: #000000;
+  }
+  
+  .containerCupom .containerCupom2 .criterios {
+    display: flex;
+    justify-content: center;
+    width: 340px;
+    height: 80px;
+    border-radius: 10px;
+    background-color: blue;
+    margin-left: 43%;
+    background: #FCFCFC;
+  box-shadow: 22.1255px 23.032px 92.0729px rgba(0, 0, 0, 0.00241983), 16.1196px 16.78px 55.379px rgba(0, 0, 0, 0.00692711), 11.597px 12.0721px 31.621px rgba(0, 0, 0, 0.0132362), 8.38316px 8.72662px 17.5015px rgba(0, 0, 0, 0.0210496), 6.30363px 6.56189px 9.72303px rgba(0, 0, 0, 0.03007), 5.18388px 5.39626px 4.98834px rgba(0, 0, 0, 0.04);
+    flex-direction: column;
+    gap: 15px;
+    
+  }
+  
+  .containerCupom .containerCupom2 .criterios span {
+    font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  /* identical to box height */
+  color: #000000;
+   margin-left: 10px;
+  }
+
+
+  
+  .containerNotEnought{
+  display: flex;
+  background-color: #52555E;
+  width: 470px;
+  height: 80px;
+  border-radius: 20px;
+
+}
+
+
+
+.containerNotEnought .iconNotEnought {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  height: 80px;
+  width: 100px;
+  border-radius:  0px 20px;
+
+}
+
+.containerNotEnought .iconNotEnought .circleNotEnought svg {
+ height: 45px;
+  width: 45px;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.containerNotEnought .iconNotEnought {
+  width: 73%;
+  margin-left: 20px;
+  
+}
+
+.containerNotEnought .iconNotEnought h1 {
+  font-size: 1.3rem;
+  color: white;
+  display: flex;
+  margin-top: 3px;
+  font-weight: 800;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.containerNotEnought .infoNotEnought span {
+  font-size: 1rem;
+  color: #c3c3c3;
+  display: flex;
+  margin-top: 5px;
+  font-weight: 200;
+  font-family: 'Open Sans', sans-serif;
+}
+
+
+.X{
+  margin-top: -9px;
+  margin-right: 25px;
+  cursor: pointer;
+}
+
+.X i {
+  font-size: 20px;
+  padding-left: 0px;
+  color: white;
+  cursor: pointer;
+}

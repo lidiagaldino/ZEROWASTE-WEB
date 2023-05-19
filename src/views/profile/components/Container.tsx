@@ -193,7 +193,7 @@ const Container = () => {
         }
     }
 
-    const [arrayNota, setArrayNota] = useState([])
+    const [arrayNota, setArrayNota] = useState([{ media: 0 }])
 
     useEffect(() => {
         fetch(`https://zero-waste-logistic.azurewebsites.net/rating/${localStorage.getItem('viewPriv')}`, {
@@ -201,15 +201,13 @@ const Container = () => {
                 'Access-Control-Allow-Origin': '*',
                 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
             },
-        }).then(response => response.json()).then(data => setArrayNota(data.map((item) => {
-            console.log(item);
+        }).then(response => response.json()).then(data => {
+            let rounded = [{
+                media: Math.round(data[0].media)
+            }]
 
-            return (
-                {
-                    nota: item.media
-                }
-            )
-        })))
+            setArrayNota(rounded)
+        })
 
     }, [])
 
@@ -222,12 +220,12 @@ const Container = () => {
 
     const updateNota = async () => {
 
-        let bodyUserAvaliation
-
-        bodyUserAvaliation = {
-            nota: newClicked,
+        let bodyUserAvaliation = {
+            nota: clicked,
             id_catador: Number(localStorage.getItem('viewPriv'))
         }
+
+        console.log(bodyUserAvaliation);
 
         const avaliarUp = await fetch(`https://zero-waste-logistic.azurewebsites.net/rating`, {
             method: 'PUT',
@@ -241,7 +239,7 @@ const Container = () => {
         console.log(avaliarUp.status);
 
 
-        if (avaliarUp.status == 201) {
+        if (avaliarUp.status == 200) {
             Swal.fire({
                 text: 'Tudo certo!!',
                 title: 'Avaliacao atualizada',
@@ -266,12 +264,15 @@ const Container = () => {
                 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
             },
         }).then(response => response.json()).then(resposta => {
-            setIsRating(resposta.ok ? true : false)
-            console.log(resposta.nota)
-            setClicked(resposta.nota)
-            console.log(clicked)
+            if (resposta.nota) {
+                setIsRating(true)
+                setClicked(resposta.nota)
+            }
+
         })
     }, [])
+
+    console.log(isRating);
 
     const toggleModal = () => {
         setModal(!modal);
@@ -289,13 +290,13 @@ const Container = () => {
     return (
 
         <div className='container-bio'>
-            
+
 
 
             {modal && (
-                
+
                 <div className="modal-aval ">
-                    
+
                     <div className="overlay-aval "></div>
                     <div className="modal-content-aval">
                         <div className="rating-aval">
@@ -310,17 +311,17 @@ const Container = () => {
                             <input type="radio" name="rating" id="star5" onClick={() => { setClicked(1) }} />
                             <label htmlFor="star5">&#9733;</label>
                         </div>
-                        <button className="button">
+                        <button className="button-liked">
                             <div className="hand">
                                 <div className="thumb"></div>
                             </div>
                             <span className='spanLiked1' onClick={() => {
                                 if (isRating) {
                                     updateNota()
-                                } else{
+                                } else {
                                     avaliarUser()
                                 }
-                                
+
                             }} >Okkk</span>
                         </button>
 
@@ -368,23 +369,24 @@ const Container = () => {
                     <div className='rank'>
 
                         <h1 className="heading">Avaliação</h1>
+                        <div className="ranknota">
+                            {arrayNota.map((item) => {
+                                return (
+                                    <span style={{ color: 'green' }} >{item.media ? item.media : '0'}</span>
+                                )
+                            })}
 
-                        {arrayNota.map((item) => {
-                            return (
-                                <span style={{ color: 'green' }} >{item.nota ? item.nota : '0'}</span>
-                            )
-                        })}
 
+                            <div className="rating">
+                                <FontAwesomeIcon icon={faStar} className={arrayNota[0].media === 1 ? 'star-iconcolor' : 'star-icon'} style={{ height: 25 }} />
+                                <FontAwesomeIcon icon={faStar} className={arrayNota[0].media === 2 ? 'star-iconcolor' : 'star-icon'} style={{ height: 25 }} />
+                                <FontAwesomeIcon icon={faStar} className={arrayNota[0].media === 3 ? 'star-iconcolor' : 'star-icon'} style={{ height: 25 }} />
+                                <FontAwesomeIcon icon={faStar} className={arrayNota[0].media === 4 ? 'star-iconcolor' : 'star-icon'} style={{ height: 25 }} />
+                                <FontAwesomeIcon icon={faStar} className={arrayNota[0].media === 5 ? 'star-iconcolor' : 'star-icon'} style={{ height: 25 }} />
 
-                        <div className="rating">
-                            <FontAwesomeIcon icon={faStar} className={clicked === 1 ? 'star-iconcolor' : 'star-icon'} style={{ height: 20 }} />
-                            <FontAwesomeIcon icon={faStar} className={clicked === 2 ? 'star-iconcolor' : 'star-icon'} style={{ height: 20 }} />
-                            <FontAwesomeIcon icon={faStar} className={clicked === 3 ? 'star-iconcolor' : 'star-icon'} style={{ height: 20 }} />
-                            <FontAwesomeIcon icon={faStar} className={clicked === 4 ? 'star-iconcolor' : 'star-icon'} style={{ height: 20 }} />
-                            <FontAwesomeIcon icon={faStar} className={clicked === 5 ? 'star-iconcolor' : 'star-icon'} style={{ height: 20 }} />
+                            </div>
 
                         </div>
-
                     </div>
                     : ''}
 

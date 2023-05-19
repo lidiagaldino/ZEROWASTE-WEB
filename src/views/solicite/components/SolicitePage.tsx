@@ -204,7 +204,7 @@ const SolicitePage = () => {
 
 
 
-    const soliciteSpec = () => {
+    const soliciteSpec = async () => {
 
         const requisitos: dados = {
             id_endereco: Number(local),
@@ -213,7 +213,7 @@ const SolicitePage = () => {
         }
 
 
-        const cadastrarPedido = fetch(`https://zero-waste-logistic.azurewebsites.net/order/${localStorage.getItem('viewPriv')}`, {
+        const cadastrarPedido = await fetch(`https://zero-waste-logistic.azurewebsites.net/order/${localStorage.getItem('viewPriv')}`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json', 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
@@ -221,7 +221,7 @@ const SolicitePage = () => {
             body: JSON.stringify(requisitos)
         })
 
-        if (cadastrarPedido) {
+        if (cadastrarPedido.ok) {
             Swal.fire({
                 title: 'Tudo certo!!',
                 text: 'pedido enviado para catador especifico',

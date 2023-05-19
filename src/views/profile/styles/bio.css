@@ -214,8 +214,14 @@ figure {
 }
 
 .userDetails .rank {
-    position: relative;
-    margin-bottom: var(--m-1-8);
+  display: flex;
+
+ flex-direction: column;
+   
+}
+
+.userDetails .ranknota{
+    display: flex;
 }
 
 .userDetails .rank .heading {
@@ -223,18 +229,23 @@ figure {
     color: var(--f4-color);
     text-transform: uppercase;
     margin-bottom: var(--m-0-6);
+    display: flex;
+    flex-direction: column;
 }
 
 .userDetails .rank span {
+    display: flex;
     font-size: 3.5rem;
     font-weight: 700;
+
+    width: 5%;
 }
 
     .userDetails .rank .rating {
-        position: absolute;
-        top: 4.0rem;
-        left: 6rem;
-
+        display: flex;
+    
+        width: 15%;
+        align-items: center;
     }
 
     .userDetails .rank .rating .rate {
@@ -731,7 +742,7 @@ figure {
     color: red;
   }
 
-  .button {
+  .button-liked {
     --color: #1E2235;
     --color-hover: #1E2235;
     --color-active: #fff;
@@ -762,7 +773,7 @@ figure {
     transition: color 0.2s linear;
   }
   
-  .button.dark {
+  .button-liked.dark {
     --color: #F6F8FF;
     --color-hover: #F6F8FF;
     --color-active: #fff;
@@ -777,24 +788,24 @@ figure {
     --shadow: #{rgba(#001177, .16)};
   }
   
-  .button:hover {
+  .button-liked:hover {
     --icon: var(--icon-hover);
     --color: var(--color-hover);
     --background: var(--background-hover);
     --border-width: 2px;
   }
   
-  .button:active {
+  .button-liked:active {
     --scale: 0.95;
   }
   
-  .button:not(.liked):hover {
+  .button-liked:not(.liked):hover {
     --hand-rotate: 8;
     --hand-thumb-1: -12deg;
     --hand-thumb-2: 36deg;
   }
   
-  .button.liked {
+  .button-liked.liked {
     --span-x: 2px;
     --span-d-o: 1;
     --span-d-x: 0;
@@ -804,7 +815,7 @@ figure {
     --background: var(--background-active);
   }
   
-  .button:before {
+  .button-liked:before {
     content: "";
     min-width: 103px;
     position: absolute;
