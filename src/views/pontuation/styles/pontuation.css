@@ -96,8 +96,8 @@
     align-items: center;
     width: 91vw;
     height: 21.5vh;
-		gap: 20px;
-
+		
+    overflow-x: scroll;
   }
   
 
@@ -107,8 +107,33 @@
   
     width: 91vw;
     height: 22vh;
-    margin-top: 20px;
-    overflow-x: auto;
+   gap: 200px;
+   overflow-x: scroll;
+
+  }
+
+  .cumpon-disponivel::-webkit-scrollbar {
+    width: 12px;
+    height: 15px;
+    border: 1px solid rgb(200, 200, 200);
+    border-radius: 20px;
+  }
+  
+  .cumpon-disponivel::-webkit-scrollbar-thumb {
+    background-color: rgb(6, 87, 21);
+    border-radius: 20px;
+  }
+
+  .cumpon-resgatados::-webkit-scrollbar {
+    width: 12px;
+    height: 15px;
+    border: 1px solid rgb(200, 200, 200);
+    border-radius: 20px;
+  }
+  
+  .cumpon-resgatados::-webkit-scrollbar-thumb {
+    background-color: rgb(87, 6, 6);
+    border-radius: 20px;
   }
 
   .couponList {
@@ -237,6 +262,7 @@
     background: linear-gradient(54.48deg, #06C918 41.57%, rgba(19, 180, 35, 0) 41.68%);
     filter: drop-shadow(5px 0px 10px rgba(0, 0, 0, 0.09)) drop-shadow(0px 0px 66.0543px rgba(0, 0, 0, 0.0728438)) drop-shadow(0px 0px 12.7219px rgba(0, 0, 0, 0.06075)) drop-shadow(0px 0px 26.5098px rgba(0, 0, 0, 0.0520312)) drop-shadow(0px 0px 15.925px rgba(0, 0, 0, 0.045)) drop-shadow(0px 0px 9.47461px rgba(0, 0, 0, 0.0379688)) drop-shadow(0px 0px 5.66563px rgba(0, 0, 0, 0.02925)) drop-shadow(0px 0px 3.00508px rgba(0, 0, 0, 0.0171563));
     flex-direction: column;
+    z-index: 20;
   }
 
   .containerCupom2 .giftCupom {
@@ -361,4 +387,66 @@ margin-top: 5px;
   padding-left: 0px;
   color: white;
   cursor: pointer;
+}
+
+
+
+
+
+
+.containerCupomFirst {
+  display: flex;
+  background: rgb(255, 255, 255);
+  height: 200px;
+  border: 1px solid rgba(220, 220, 220, 0.75);
+  width: 800px;
+  z-index: 0;
+  box-shadow: 0px 40px 74px rgba(0, 0, 0, 0.07), 0px 25.9259px 43.338px rgba(0, 0, 0, 0.0531481), 0px 15.4074px 23.5704px rgba(0, 0, 0, 0.0425185), 0px 8px 12.025px rgba(0, 0, 0, 0.035), 0px 3.25926px 6.02963px rgba(0, 0, 0, 0.0274815), 0px 0.740741px 2.91204px rgba(0, 0, 0, 0.0168519);
+  border-radius: 11px;
+}
+
+.containerCupomFirst .brand {
+  width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.containerCupomFirst .infoC{
+  display: flex;
+  width: 400px;
+  flex-direction: column;
+  margin-top: 50px;
+}
+
+.containerCupomFirst .infoC h2 {
+  
+
+  font-size: 1.4rem
+}
+
+.containerCupomFirst .buttonC {
+  width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.containerCupomFirst .buttonC button {
+   background-color: #46C600;
+    border: none;
+    border-bottom: 3px solid darken(#46C600, 5%);
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-block;
+    color: #ffffff;
+    font-size: 1.2rem;
+    letter-spacing: -0.5px;
+    line-height: 120%;
+    margin: 0;
+    padding: 12px 20px;
+    text-align: center;
+    text-decoration: none;
+    min-width: 150px;
 }

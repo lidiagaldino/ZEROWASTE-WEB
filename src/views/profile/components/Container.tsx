@@ -333,7 +333,7 @@ const Container = () => {
 
             )}
 
-            <section className="userProfile card">
+            <section className="userProfile card" style={localStorage.getItem('tipo') == 'Gerador' ? {height: 400} : {height: 360}}>
                 <div className="profile">
                     <figure><img src={localStorage.getItem('view-edit') == 'view' ? info?.foto : localStorage.getItem('foto')} style={localStorage.getItem('tipo') == 'Gerador' ? {} : { border: "4px solid red" }} alt="profile" width="250px" height="250px" />
                         <h1 className='statusCliente'>{localStorage.getItem('tipo') == 'Gerador' ? '' : 'Status:'}</h1>
@@ -365,6 +365,7 @@ const Container = () => {
                     </div>
                     <p>{info?.gerador.length > 0 ? 'Gerador' : 'Catador'}</p>
                 </div>
+                
                 {Number(localStorage.getItem('view-edit') == 'view') ?
                     <div className='rank'>
 
@@ -389,6 +390,7 @@ const Container = () => {
                         </div>
                     </div>
                     : ''}
+                    
 
 
 
@@ -494,26 +496,7 @@ const Container = () => {
 
                 }
 
-
-                {/* <div className='basic_info'>
-                    <ul>
-                        <li className="birthday">
-                            <h1 className="label">{localStorage.getItem('tipo') == "Catador" ? 'Hora/Disponível:' : ''}</h1>
-                            <span className="info">{localStorage.getItem('tipo') == "Catador" ? '14:00 -- 19:30' : ''}</span>
-                        </li>
-                    </ul>
-                </div> */}
-
-                {/* {info?.user.catador.length > 0 && info?.user.catador[0].materiais_catador.map((item) => {
-                    return (
-                        <li className='item' key={item.id}>
-                            <span className='checkbox'>
-                                <i></i>
-                            </span>
-                            <span className='item-text'>{item.material.nome}</span>
-                        </li>
-                    )
-                })} */}
+          
 
 
             </section>

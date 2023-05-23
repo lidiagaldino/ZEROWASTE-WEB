@@ -166,10 +166,7 @@ form .input-groupp button {
     transition: all 0.2s ease-in-out;
 }
 
-form .input-groupp button:hover {
-    height: 50px;
-    transition: all 1s ease-in-out;
-}
+
 
 
 .SpecificCatador {

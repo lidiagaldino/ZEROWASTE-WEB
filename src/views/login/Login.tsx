@@ -115,7 +115,7 @@ const Login = () => {
             <div className='content'>
               <h3>É novo por aqui ?</h3>
               <p>
-                Cadastra-se para participar de uma nova inovação no mundo para salvar nosso planeta.
+                Faça parte da nossa comunidade, para juntos, fazer a inovação.
               </p>
 
               <button className='button' onClick={() => {
@@ -138,9 +138,9 @@ const Login = () => {
         <motion.div variants={signUpContainerVariants} initial='hidden' animate={isSignUpContainerOpen ? 'visible' : 'hidden'}>
           <div className='panel right-panel'>
             <div className='content'>
-              <h3>Ja faz parte da nossa comunidade ?</h3>
+              <h3>Já faz parte da nossa comunidade ?</h3>
               <p>
-                Faça login em sua conta e continue nos ajudando a salvar o planeta.
+                Faça login em sua conta.
               </p>
 
               <button className='button' onClick={() => {

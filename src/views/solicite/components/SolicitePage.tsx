@@ -366,7 +366,7 @@ const SolicitePage = () => {
 
                         <>
                             <h2>Solicite uma coleta</h2>
-                            <p>Formulario para solicitacao de uma coleta</p>
+                            <p>Formulário para solicitação de uma coleta</p>
 
                             {localStorage.getItem('orderSpec') != '0' ?
                                 <>

@@ -60,8 +60,38 @@ const PontuationCupom = () => {
 			)
 		})))
 	}, [])
+	
+	//
+
+	const [notEnought, setNotEnought] = useState(false)
+	const [enought, setEnought] = useState(false)
+	const [semSaldo, setSemSaldo] = useState(0)
+
+	const reedemCupom = async () => {
+		const reedem = await fetch(`https://zero-waste-logistic.azurewebsites.net/coupon/${localStorage.getItem("cupom")}`, {
+			method: 'POST',
+			headers: {
+				'content-type': 'application/json', 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
+			}
+		})
+
+		if (reedem.ok) {
+			openModalCupom()
+			setEnought(true)
+			
+		} else {
+			setEnought(false)
+			setSemSaldo(1)
+			setNotEnought(true)
+		}
+
+
+	}
+
+	//
 
 	const [modal, setModal] = useState(false)
+	const [abriu, setAbriu] = useState(false)
 
 	const openModalCupom = () => {
 		setModal(!modal);
@@ -72,35 +102,11 @@ const PontuationCupom = () => {
 	} else {
 		document.body.classList.remove('active-modal')
 	}
-	
-	//
-
-	const [notEnought, setNotEnought] = useState(false)
-	const [enought, setEnought] = useState(false)
-
-	const reedemCupom = async (e) => {
-		const reedem = await fetch(`https://zero-waste-logistic.azurewebsites.net/coupon/${e.currentTarget.id}`, {
-			method: 'POST',
-			headers: {
-				'content-type': 'application/json', 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
-			}
-		})
-
-		if (reedem.ok) {
-			setEnought(true)
-			openModalCupom()
-		} else {
-			setNotEnought(true)
-		}
-
-	}
-
-	//
 
 	const [uniqueCupom, setUniqueCupom] = useState(0)
 
 	const uniqueCupomCod = async (e) => {
-		await fetch(`https://zero-waste-logistic.azurewebsites.net/coupon/unique/${e.currentTarget.id}`, {
+		await fetch(`https://zero-waste-logistic.azurewebsites.net/coupon/unique/${localStorage.getItem("cupom")}`, {
 			method: 'GET',
 			headers: {
 				'content-type': 'application/json', 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
@@ -133,7 +139,8 @@ const PontuationCupom = () => {
 			<div className="saldo-container">
 				<div className="saldo">
 					<h1>Saldo: <h1 className='SaldoTitle' style={{ paddingRight: 10 }}>{dataCupom}</h1>pontos</h1>
-					<span>Ganhe pontos para trocar com recompensas exclusivas com nossos parceiros, acumule pontos fazendo reciclagem ou coletando reciclagem</span>
+					<span>{localStorage.getItem('tipo') == 'Gerador' ? 'Ganhe pontos para trocar com recompensas exclusivas com nossos parceiros, acumule pontos fazendo reciclagem.' : 
+					'Ganhe pontos para trocar com recompensas exclusivas com nossos parceiros, acumule pontos coletando lixos recicláveis.'}</span>
 				</div>
 				<>
 					{notEnought && (
@@ -152,23 +159,82 @@ const PontuationCupom = () => {
 						{cupomInfo.map((elemento) => {
 							return (
 								<>
-									<ul className="couponList">
-										<li className="couponItem">
-											<div className="couponItem-info">
-												<h1 className="couponItem-title">Cupom de 15% OFF em toda a categoria de Smartphones</h1>
-												<a className="couponItem-link" href="#" title="Cupons de desconto do Submarino">
-													<img src="https://cuponomia-a.akamaihd.net/img/stores/small/submarino.png" alt="Logo do Submarino" />
-												</a>
-												<span className="couponItem-desc"><strong>Regras: </strong>Cupom válido somente para os produtos selecionados, que sejam vendidos e entregues pelo Submarino. Insira o cupom na finalização do pedido para obter o desconto e ganhe mais descontos pagando no boleto ou em 1x no Cartão Submarino.</span>
-											</div>
-											<div className="couponItem-action">
-												<button id={elemento.id} key={elemento.id} onClick={(e) => {
-													reedemCupom(e)
+									<div className="containerCupomFirst">
+									<div className="brand">
+											<img src="https://cuponomia-a.akamaihd.net/img/stores/small/submarino.png" alt="Logo do Submarino"/>
+										
+									</div>
+									<div className="infoC">
+										<h2>{elemento.nome}</h2>
+										<span>{elemento.descricao}</span>
+										
+									</div>
+									<div className="buttonC">
+									<button id={elemento.id} key={elemento.id} onClick={(e) => {
+													localStorage.setItem('cupom', e.currentTarget.id)
+											        
+
+
+
+													const swalWithBootstrapButtons = Swal.mixin({
+														customClass: {
+														  confirmButton: 'btn btn-success',
+														  cancelButton: 'btn btn-danger'
+														},
+														buttonsStyling: false
+													  })
+
+													 swalWithBootstrapButtons.fire({
+														title: 'Você deseja resgatar o cupom?',
+														text: "",
+														icon: 'warning',
+														showCancelButton: true,
+														confirmButtonText: 'Sim!',
+														cancelButtonText: 'Não!',
+														reverseButtons: true
+													  }).then((result) => {
+														if (result.isConfirmed) {
+															reedemCupom()
+															console.log(enought);
+															if(enought == false)  {
+															 reedemCupom() 
+															}else if(enought)
+															{
+															
+														  swalWithBootstrapButtons.fire(
+															'Resgatado!',
+															'Aproveite seu cupom',
+															'success'
+														  )
+														  setTimeout(() => {
+															 console.log('cu');
+															 
+														  }, 3000);
+														 
+														  
+														  	
+															}
+														} else if (
+														  /* Read more about handling dismissals below */
+														  result.dismiss === Swal.DismissReason.cancel
+														) {
+														  swalWithBootstrapButtons.fire(
+															'Cancelado',
+															'O cupom não foi resgatado :)',
+															'error'
+														  )
+														}
+													  })
+													
+													  
+													 
 													uniqueCupomCod(e)
 												}}>{elemento.pontos} PONTOS</button>
+  </div>
+</div>
+											<div className="couponItem-action">
+												
 											</div>
-										</li>
-									</ul>
 								</>
 							)
 						})}
@@ -181,8 +247,8 @@ const PontuationCupom = () => {
 										{/*<FontAwesomeIcon icon={faGift} className="giftCupom" style={{color: "#ffffff",}} />*/}
 										<div className="titleReedem">
 	
-											<h1>{click ? 'CUPOM RESGATADO COM SUCESSO' : 'RESGATAR ESTE CUPOM ?'}</h1>
-											<FontAwesomeIcon onClick={() => { openModalCupom() }} icon={faXmark} className="Xmarkk" style={{ color: "#000", paddingLeft: 20 }} />
+											<h1>RESGATADO COM SUCESSO</h1>
+											<FontAwesomeIcon onClick={() => { openModalCupom(); window.location.reload() }} icon={faXmark} className="Xmarkk" style={{ color: "#000", paddingLeft: 20 }} />
 										</div>
 										
 										<div className="descCupom">
@@ -197,7 +263,7 @@ const PontuationCupom = () => {
 											
 										}} style={{ flexDirection: 'column', cursor: 'pointer' }} className="codigo">
 											<span>Codigo:</span>
-											<h1>{click ? uniqueCupom : 'RESGATAR'}</h1>
+											<h1>{uniqueCupom}</h1>
 										</div>
 									</div>
 
@@ -217,20 +283,20 @@ const PontuationCupom = () => {
 						{alreadyReedem.map((elemento) => {
 							return (
 								<>
-									<ul className="couponList">
-										<li className="couponItem">
-											<div className="couponItem-info">
-												<h1 className="couponItem-title">{elemento.nome}</h1>
-												<a className="couponItem-link" href="#" title="Cupons de desconto do Submarino">
-													<img src="https://cuponomia-a.akamaihd.net/img/stores/small/submarino.png" alt="Logo do Submarino" />
-												</a>
-												<span className="couponItem-desc"><strong>Regras: </strong>{elemento.criterios}</span>
-											</div>
-											<div className="couponItem-action">
-												<button>Resgatado</button>
-											</div>
-										</li>
-									</ul>
+									<div className="containerCupomFirst">
+										<div className="brand">
+												<img src="https://cuponomia-a.akamaihd.net/img/stores/small/submarino.png" alt="Logo do Submarino"/>
+											
+										</div>
+										<div className="infoC">
+											<h2>{elemento.nome}</h2>
+											<span>{elemento.descricao}</span>
+											
+										</div>
+										<div className="buttonC">
+											<button>{elemento.codigo}</button>
+										</div>
+										</div>
 								</>
 							)
 						})}
