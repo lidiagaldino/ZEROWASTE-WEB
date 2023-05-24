@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import '../styles/bio.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar } from '@fortawesome/free-solid-svg-icons'
+import { faStar, faHeart } from '@fortawesome/free-solid-svg-icons'
 import EditProfile from '../components/EditProfile'
 import { useNavigate, useParams } from 'react-router-dom'
 import api from '../../../api/axios'
@@ -10,7 +10,7 @@ import EditAdress from '../components/EditAdress'
 import Swal from 'sweetalert2';
 import { number } from 'yup'
 import { Item } from 'firebase/analytics'
-
+import minhafoto from '../../../assets/a - Copia.png'
 
 
 type dados = {
@@ -289,7 +289,90 @@ const Container = () => {
 
     return (
 
-        <div className='container-bio'>
+        <div className="containerProfile">
+            <div className="header_profile"></div>
+            <div className="photo_and_info">
+                <img src={minhafoto} style={{borderRadius: 100, marginLeft: 20, height: 190, width: 190, zIndex: 1}} alt="" />
+                <div className="info_user">
+                    <div className="info_user_two">
+                        <h3>Eduardo</h3>
+                        <span>Catador</span>
+                    </div>
+                    <FontAwesomeIcon icon={faHeart} className='heart_profile'/>
+                </div>
+            </div>
+            <div className="middle_profile">
+                <div className="infos_buttons">
+                    <button className='button-17'>Solicitar uma coleta</button>
+                    <button className='button-17'>Avaliar</button>
+                </div>
+                <div className="info_middle_card">
+                    <div className="middle_card">
+                            <div className="top_middle_info">
+                            <span>Nome</span>
+                            <span>Cidade</span>
+                            <span>Telefone</span>
+                            </div>
+                        <div className="response_top_middle_info">
+                            <span>Eduardo Perucci</span>
+                            <span>Barueri</span>
+                            <span>1195387977</span>
+                        </div>
+                        <div className="middle_material"></div>
+                    </div>
+                </div>
+                <div className="rating_card_profile">
+                    <div className="rating_card"></div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /*<div className='container-bio'>
 
 
 
@@ -501,7 +584,7 @@ const Container = () => {
 
             </section>
 
-        </div >
+        </div >*/
 
     )
 }
