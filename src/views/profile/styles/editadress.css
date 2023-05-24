@@ -144,21 +144,21 @@ body.active-modal {
 }
 
 .edit-adresss {
-    background-color: green;
-    border-radius: 40px;
-    border-color: #fff;
-    outline: none;
-    color: #fff;
-    height: 40px;
-    width: 140px;
-
-    transition: all 0.2s ease-in-out;
+    background: #21DA6B;
+    box-shadow: 4px 32px 13px rgba(0, 0, 0, 0.01), 2px 18px 11px rgba(0, 0, 0, 0.05), 1px 8px 8px rgba(0, 0, 0, 0.09), 0px 2px 4px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    height: 160px;
+    border: none;
+    color: white;
+    width: 200px;
+    cursor: pointer;
+    transition: all 1s ease-in-out;
 }
 
 .edit-adresss:hover {
-    height: 45px;
-    width: 145px;
-    transition: all 0.2s ease-in-out;
+    height: 165px;
+    width: 205px;
+    transition: all 1s ease-in-out;
 }
 
 .Edit_adress_buton_remove {

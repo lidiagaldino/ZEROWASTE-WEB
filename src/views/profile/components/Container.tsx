@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 import { number } from 'yup'
 import { Item } from 'firebase/analytics'
 import minhafoto from '../../../assets/a - Copia.png'
+import { color } from 'framer-motion'
 
 
 type dados = {
@@ -203,7 +204,7 @@ const Container = () => {
             },
         }).then(response => response.json()).then(data => {
             let rounded = [{
-                media: Math.round(data[0].media)
+                media: data[0].media
             }]
 
             setArrayNota(rounded)
@@ -287,42 +288,104 @@ const Container = () => {
     const [reaval, setReaval] = useState(false)
     console.log(clicked)
 
+    const [aboutClick, setAboutClick] = useState(false)
+    const [bioClick, setBioClick] = useState(false)
+
     return (
 
         <div className="containerProfile">
-            <div className="header_profile"></div>
-            <div className="photo_and_info">
-                <img src={minhafoto} style={{borderRadius: 100, marginLeft: 20, height: 190, width: 190, zIndex: 1}} alt="" />
-                <div className="info_user">
-                    <div className="info_user_two">
-                        <h3>Eduardo</h3>
-                        <span>Catador</span>
+            <div className="container_profile">
+                <div className="top_profile_info">
+                    {localStorage.getItem('view-edit') == 'view' ?
+                        <>
+                            {arrayNota.map((star) => {
+                                return (
+                                    <>
+                                        <div className="rating">{star.media}
+                                        <FontAwesomeIcon icon={faStar} style={{ color: "#f7d702", fontSize: 40, marginLeft: 10}} />
+                                        </div>
+                                    </>
+                                )
+                            })}
+                        </>
+                        : ''}
+                    <img src={localStorage.getItem('view-edit') == 'view' ? info?.foto : localStorage.getItem('foto')} />
+                    <div className="info_userr">
+                        <h1>{info?.pessoa_fisica[0] ? info?.pessoa_fisica[0].nome : info?.pessoa_juridica[0].nome_fantasia}</h1>
+                        <h2>{info?.gerador.length > 0 ? 'Gerador' : 'Catador'}</h2>
+                        {viewState == 'view' &&
+                            <FavoritarButton id={Number(localStorage.getItem('viewPriv'))}></FavoritarButton>
+                        }
                     </div>
-                    <FontAwesomeIcon icon={faHeart} className='heart_profile'/>
-                </div>
-            </div>
-            <div className="middle_profile">
-                <div className="infos_buttons">
-                    <button className='button-17'>Solicitar uma coleta</button>
-                    <button className='button-17'>Avaliar</button>
-                </div>
-                <div className="info_middle_card">
-                    <div className="middle_card">
-                            <div className="top_middle_info">
-                            <span>Nome</span>
-                            <span>Cidade</span>
-                            <span>Telefone</span>
+                    {
+                        viewState == 'view' ?
+                            <div className="infos_buttuns_container">
+                                <button type='button' id={localStorage.getItem('viewPriv')} onClick={(e) => {
+                                    e.currentTarget.id
+                                    console.log(e.currentTarget.id);
+                                    localStorage.setItem('orderSpec', '999')
+                                    location.href = '/ZEROWASTE-WEB/solicite#/solicite'
+                                    navigator.geolocation.getCurrentPosition(function (position) {
+                                        console.log(position.coords);
+                                    })
+                                }}>Solicite uma coleta</button>
+                                <button onClick={toggleModal} >{reaval ? 'Reavaliar' : 'Avaliar'}</button>
                             </div>
-                        <div className="response_top_middle_info">
-                            <span>Eduardo Perucci</span>
-                            <span>Barueri</span>
-                            <span>1195387977</span>
+                            :
+                            <EditAdress></EditAdress>
+                    }
+
+                    {
+                        viewState == 'edit' &&
+                        <EditProfile foto={foto} setFoto={setFoto} setInfo={update} />
+                    }
+
+                    {info?.catador.length > 0 &&
+                        <div className="middle_material_info">
+                            <div className='recolheButton'>
+                                <nav className={clicado ? "botao clicado" : "botao"} onClick={handleClick}>
+                                    <h3 className={clicado ? "iconclicado" : "iconnaoclicado"}>
+                                        Materiais
+                                    </h3>
+                                    <div className=''>
+                                        <ul className={clicado ? "retangulo" : "quadrado"} >
+                                            {recolhoMateriais.map((item) => {
+                                                return (
+                                                    <li className='item-text'>{item.value}</li>
+                                                )
+                                            })}
+                                        </ul>
+                                    </div>
+                                </nav>
+                            </div>
                         </div>
-                        <div className="middle_material"></div>
-                    </div>
+                    }
+
                 </div>
-                <div className="rating_card_profile">
-                    <div className="rating_card"></div>
+
+                <div className="under_profile_info">
+                    <div className="bio_and_about">
+                        <h1 onClick={() => {
+                            setBioClick(false)
+                            setAboutClick(true)
+                        }} >Sobre</h1>
+                        <h1 onClick={() => {
+                            setAboutClick(false)
+                            setBioClick(true)
+
+                        }}>Biografia</h1>
+                    </div>
+                    {aboutClick &&
+                        <div className='about_infos_user'>
+
+                        </div>
+                    }
+
+                    {bioClick &&
+                        <div className='bio_infos_user'>
+                            <span>{info?.biografia}
+                            </span></div>
+                    }
                 </div>
             </div>
         </div>

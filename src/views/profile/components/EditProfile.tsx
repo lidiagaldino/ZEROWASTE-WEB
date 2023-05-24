@@ -252,9 +252,9 @@ console.log(image);
                     <form onSubmit={registrarEdit} className="modal-content">
                         <div className='top-content-profile'>
                             <h1>Minha Conta</h1>
-                            {image && (
+                            {image ? 
                                 <img src={URL.createObjectURL(image)} style={{ width: 190, height: 190, borderRadius: 100 }} alt="Preview" />
-                            )}
+                            : <img src={localStorage.getItem('foto')} style={{ width: 190, height: 190, borderRadius: 100 }} alt="Preview" />}
                             <input type="file" onChange={handleImageChange} className='customfile' />
 
                             <hr />
