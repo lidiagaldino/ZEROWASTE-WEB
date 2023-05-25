@@ -302,7 +302,7 @@ const Container = () => {
                                 return (
                                     <>
                                         <div className="rating">{star.media}
-                                        <FontAwesomeIcon icon={faStar} style={{ color: "#f7d702", fontSize: 40, marginLeft: 10}} />
+                                            <FontAwesomeIcon icon={faStar} style={{ color: "#f7d702", fontSize: 40, marginLeft: 10 }} />
                                         </div>
                                     </>
                                 )
@@ -334,6 +334,50 @@ const Container = () => {
                             :
                             <EditAdress></EditAdress>
                     }
+
+                    {modal && (
+
+                        <div className="modal-aval ">
+
+                            <div className="overlay-aval "></div>
+                            <div className="modal-content-aval">
+                                <div className="rating-aval">
+                                    <input type="radio" name="rating" id="star1" onClick={() => { setClicked(5) }} />
+                                    <label htmlFor="star1">&#9733;</label>
+                                    <input type="radio" name="rating" id="star2" onClick={() => { setClicked(4) }} />
+                                    <label htmlFor="star2">&#9733;</label>
+                                    <input type="radio" name="rating" id="star3" onClick={() => { setClicked(3) }} />
+                                    <label htmlFor="star3">&#9733;</label>
+                                    <input type="radio" name="rating" id="star4" onClick={() => { setClicked(2) }} />
+                                    <label htmlFor="star4">&#9733;</label>
+                                    <input type="radio" name="rating" id="star5" onClick={() => { setClicked(1) }} />
+                                    <label htmlFor="star5">&#9733;</label>
+                                </div>
+                                <button className="button-liked">
+                                    <div className="hand">
+                                        <div className="thumb"></div>
+                                    </div>
+                                    <span className='spanLiked1' onClick={() => {
+                                        if (isRating) {
+                                            updateNota()
+                                        } else {
+                                            avaliarUser()
+                                        }
+
+                                        setTimeout(() => {
+                                            toggleModal
+                                        }, 1500);
+
+                                    }} >Avaliar</span>
+                                </button>
+
+
+                                <button className='closeButtonRating' onClick={toggleModal}>Fechar</button>
+                            </div>
+
+                        </div>
+
+                    )}  
 
                     {
                         viewState == 'edit' &&

@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import { getLatitudeLongitude } from '../../../utils/getLatitudeLongitude';
 import cadastroValidation from '../../../validations/cadastroValidation';
+import e from 'express';
 
 type dados = {
     email: string,
@@ -53,7 +54,7 @@ function RegisterForm() {
     const navigate = useNavigate()
 
     const [dropOptions, setDropOptions] = useState([])
-
+    const [checkedItems, setCheckedItems] = useState({});
     useEffect(() => {
         fetch(`https://webappdeploy-backend.azurewebsites.net/materiais`).then(response => response.json()).then(resposta => setDropOptions(resposta.message.map((item) => {
             return (
@@ -65,6 +66,16 @@ function RegisterForm() {
             )
         })))
     }, [])
+
+  
+
+    const handleToggle = () => {
+        setIsActive(!isActive);
+      };
+
+    const handleToggleChecked = () => {
+        setIsChecked(!IsChecked)
+    }
 
     const options = [
         {
@@ -90,11 +101,15 @@ function RegisterForm() {
         value.map((item: drop) => {
             console.log(typeof (item.id))
             array.push(item.id)
+           
+            
         })
         console.log(array);
         setSelected(array)
     }
 
+    const [IsChecked, setIsChecked] = useState(false)
+    const [isActive, setIsActive] = useState(false)
     const [cpfCnpj, setCpfCnpj] = useState('CNPJ')
     const [isMaterialVisible, setIsmaterialVisible] = useState('none')
 
@@ -317,7 +332,45 @@ function RegisterForm() {
             </div>
 
 
-            <div className='drop' style={{ width: 375, height: 50, borderRadius: 100, display: isMaterialVisible }}>
+
+
+            <div onClick={handleToggle} style={{display: isMaterialVisible}} className={isActive ? 'select-btn open' : 'select-btn' } >
+                <span className="btn-text">Select Language</span>
+                <span className="arrow-dwn">
+                    <i className="fa-solid fa-chevron-down"></i>
+                </span>
+            </div>
+            <ul  className="list-items">
+                {dropOptions.map((item) => {
+                      const isChecked = checkedItems[item.id] || false;
+                    return (
+                        <li
+                        id={item.id}
+                        key={item.id}
+                        onClick={e => {
+                        e.currentTarget.id
+                        console.log(e.currentTarget.id);
+                        
+                          handleToggleChecked();
+                          const itemId = e.currentTarget.id;
+                          setCheckedItems(prevState => ({
+                            ...prevState,
+                            [itemId]: !prevState[itemId]
+                          }));
+                        }}
+                        className={isChecked ? 'item checked' : 'item'}
+                      >
+                        <span className="checkbox">
+                          <i className="fa-solid fa-check check-icon"></i>
+                        </span>
+                        <span className="item-text">{item.label}</span>
+                      </li>            
+                    )
+                })}
+            </ul>
+        
+
+           { /*<div className='drop' style={{ display: isMaterialVisible }}>
                 <Select
                     defaultValue={[dropOptions[2]]}
                     isMulti
@@ -329,7 +382,7 @@ function RegisterForm() {
                 />
 
             </div>
-
+    */}
             <ul id="lista" className="list-items"></ul>
 
             <div className="divbotao">
