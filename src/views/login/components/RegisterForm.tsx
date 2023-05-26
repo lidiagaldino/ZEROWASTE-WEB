@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
+import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react'
 import '../styles/formSignUp.css'
 import '../styles/drop.css'
 import logo from '../../../assets/logo.png'
@@ -77,6 +77,17 @@ function RegisterForm() {
         setIsChecked(!IsChecked)
     }
 
+    const handleChange = (itemId: string) => {
+        setSelected(prevSelected => {
+          if (prevSelected.includes(itemId)) {
+            return prevSelected.filter(id => id !== itemId);
+          } else {
+            return [...prevSelected, itemId];
+          }
+        });
+      };
+    
+
     const options = [
         {
             label: "Pessoa Juridica",
@@ -95,7 +106,7 @@ function RegisterForm() {
 
     const [selected, setSelected] = useState<string[]>([]);
 
-    const handleChange = (value: any) => {
+    /*const handleChange = (value: any) => {
         let array: string[] = []
 
         value.map((item: drop) => {
@@ -106,7 +117,7 @@ function RegisterForm() {
         })
         console.log(array);
         setSelected(array)
-    }
+    }*/
 
     const [IsChecked, setIsChecked] = useState(false)
     const [isActive, setIsActive] = useState(false)
@@ -272,6 +283,20 @@ function RegisterForm() {
             })
         }
     }
+    const btnTextRef = useRef<HTMLSpanElement>(null);
+    
+    useEffect(() => {
+        const checkedCount = selected.length;
+        const btnTextElement = btnTextRef.current;
+    
+        if (btnTextElement) {
+          if (checkedCount > 0) {
+            btnTextElement.innerText = `${checkedCount} Selecionado`;
+          } else {
+            btnTextElement.innerText = "Selecione seus materiais";
+          }
+        }
+      }, [checkedItems]);
 
 
 
@@ -334,13 +359,13 @@ function RegisterForm() {
 
 
 
-            <div onClick={handleToggle} style={{display: isMaterialVisible}} className={isActive ? 'select-btn open' : 'select-btn' } >
-                <span className="btn-text">Select Language</span>
+            <div  onClick={handleToggle} style={{display: isMaterialVisible}} className={isActive ? 'select-btn open' : 'select-btn' } >
+                <span ref={btnTextRef} className="btn-text">Seleciones os materiais</span>
                 <span className="arrow-dwn">
                     <i className="fa-solid fa-chevron-down"></i>
                 </span>
             </div>
-            <ul  className="list-items">
+            <ul   className="list-items">
                 {dropOptions.map((item) => {
                       const isChecked = checkedItems[item.id] || false;
                     return (
@@ -350,20 +375,21 @@ function RegisterForm() {
                         onClick={e => {
                         e.currentTarget.id
                         console.log(e.currentTarget.id);
-                        
+                        handleChange(item.id)
                           handleToggleChecked();
                           const itemId = e.currentTarget.id;
                           setCheckedItems(prevState => ({
                             ...prevState,
                             [itemId]: !prevState[itemId]
+                            
                           }));
                         }}
-                        className={isChecked ? 'item checked' : 'item'}
+                       className={isChecked ? 'item checked' : 'item'}
                       >
                         <span className="checkbox">
                           <i className="fa-solid fa-check check-icon"></i>
                         </span>
-                        <span className="item-text">{item.label}</span>
+                        <span  className="item-text">{item.label}</span>
                       </li>            
                     )
                 })}

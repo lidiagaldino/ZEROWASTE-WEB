@@ -2,7 +2,7 @@
   z-index: 1;
   width: 375px;
  height: 100vh;
- background-color: red;
+
 }
 
 
@@ -21,6 +21,7 @@
     font-size: 17px;
     font-weight: 400;
     color: #333;
+  
 }
 .select-btn .arrow-dwn{
     display: flex;
@@ -29,7 +30,7 @@
     color: #fff;
     font-size: 14px;
     border-radius: 50%;
-    background: #6e93f7;
+    background: #7cf76e;
     align-items: center;
     justify-content: center;
     transition: 0.3s;
@@ -46,10 +47,26 @@
     background-color: #fff;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
     display: none;
+    overflow-y: auto;
 }
+
+.select-btn.open ~ .list-items::-webkit-scrollbar {
+    width: 12px;
+    border: 1px solid rgb(200, 200, 200);
+    border-radius: 20px;
+  }
+  
+  .select-btn.open ~ .list-items::-webkit-scrollbar-thumb {
+    background-color: rgb(6, 87, 21);
+    border-radius: 20px;
+  }
+
+
 .select-btn.open ~ .list-items{
     display: block;
     width: 375px;
+    height: 400px;
+    overflow-y: scroll;
 }
 .list-items .item{
     display: flex;
@@ -83,8 +100,8 @@
     transition: all 0.3s ease-in-out;
 }
 .item.checked .checkbox{
-    background-color: #4070f4;
-    border-color: #4070f4;
+    background-color: #6af440;
+    border-color: #40f449;
 }
 .checkbox .check-icon{
     color: #fff;

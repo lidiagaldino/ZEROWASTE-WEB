@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faTriangleExclamation, faUser } from '@fortawesome/free-solid-svg-icons'
 import { buildTransform } from 'framer-motion';
-
+import card_solicite from '../../../assets/card_solicite.png'
 
 type dados = {
     id_endereco: number
@@ -357,7 +357,20 @@ const SolicitePage = () => {
 
     return (
         <div className="bdd">
-            <div className="boxx">
+            <div className="card_solicite">
+                {/*<img src={card_solicite} style={{height: 620}} alt="" />*/}
+                
+            </div>
+            <div className="card_info_solicite"></div>
+
+
+
+
+
+
+
+
+         {   /*<div className="boxx">
                 <div className="img-boxx">
                     <img src={celular} />
                 </div>
@@ -391,7 +404,7 @@ const SolicitePage = () => {
 
                             <form onSubmit={pedido} className='form-solicite'>
 
-                                <div className='drop' style={{ width: 375, height: 50, borderRadius: 100 }}>
+                                <div className='dro' style={{ width: 375, height: 50, borderRadius: 100 }}>
                                     <p style={{fontSize: 15}}>Selecione o local que será solicitado:</p>
                                     <Select
                                         name="materials"
@@ -449,7 +462,7 @@ const SolicitePage = () => {
                         </>
                     }
                 </div>
-            </div>
+                </div>*/}
         </div>
     )
 }

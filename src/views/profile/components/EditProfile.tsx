@@ -240,7 +240,7 @@ console.log(image);
             <div className="btns">
                 <ul>
                     <li className="sendMsg">
-                        <button onClick={toggleModal}>Editar</button>
+                        <button onClick={toggleModal}>Editar Perfil</button>
 
                     </li>
                 </ul>

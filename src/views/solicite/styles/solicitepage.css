@@ -9,7 +9,7 @@
 }
 
 .bdd {
-    background-image: url(../../../assets//bgcadastro.png);
+    background-image: url(../../../assets//bgsolicite.png);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -22,6 +22,37 @@
 
 
 }
+
+.card_solicite {
+
+    background-image: url(../../../assets/card_solicite2.png);
+    
+}
+
+.card_info_solicite{
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .home-section-solicite {
     position: relative;
@@ -302,3 +333,7 @@ form .input-groupp button {
     }
 
 }
+
+
+
+

@@ -181,8 +181,8 @@ const Container = () => {
         if (avaliar.status == 201) {
             setReaval(true)
             Swal.fire({
-                text: 'Tudo certo!!',
-                title: 'avaliado',
+                text: 'Agradescemos pela sua avaliação',
+                title: 'Usuário avaliado',
                 icon: 'success'
             })
         } else {
@@ -242,10 +242,11 @@ const Container = () => {
 
         if (avaliarUp.status == 200) {
             Swal.fire({
-                text: 'Tudo certo!!',
-                title: 'Avaliacao atualizada',
+                text: 'Agradescemos pela sua avaliação',
+                title: 'Usuário avaliado',
                 icon: 'success'
             })
+            
         } else {
             Swal.fire({
                 icon: 'error',
@@ -310,8 +311,8 @@ const Container = () => {
                         </>
                         : ''}
                     <img src={localStorage.getItem('view-edit') == 'view' ? info?.foto : localStorage.getItem('foto')} />
-                    <div className="info_userr">
-                        <h1>{info?.pessoa_fisica[0] ? info?.pessoa_fisica[0].nome : info?.pessoa_juridica[0].nome_fantasia}</h1>
+                    <div className="info_userr" style={localStorage.getItem('tipo') == 'Gerador' ? {height: 140} : {height: 600}} >
+                        <h1 style={{marginTop: 10}} >{info?.pessoa_fisica[0] ? info?.pessoa_fisica[0].nome : info?.pessoa_juridica[0].nome_fantasia}</h1>
                         <h2>{info?.gerador.length > 0 ? 'Gerador' : 'Catador'}</h2>
                         {viewState == 'view' &&
                             <FavoritarButton id={Number(localStorage.getItem('viewPriv'))}></FavoritarButton>
@@ -421,7 +422,24 @@ const Container = () => {
                     </div>
                     {aboutClick &&
                         <div className='about_infos_user'>
+                            <ul>
+                        <li className='phone'>
+                            <h1 className='label'>Telefone:</h1>
+                            <span className='info'>{info?.telefone}</span>
+                        </li>
+                        <li className='adress'>
+                            <h1 className='label'>CEP:</h1>
+                            <span className='info'>{info?.endereco_usuario[0].endereco.cep}</span>
+                        </li>
+                        <li className='email'>
+                            <h1 className='label'>Email:</h1>
+                            <span className='info'>{info?.email}</span>
+                        </li>
+                        <li className=''>
+                            <span className='info'></span>
 
+                        </li>
+                    </ul>
                         </div>
                     }
 

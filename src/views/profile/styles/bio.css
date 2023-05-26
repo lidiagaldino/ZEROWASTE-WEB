@@ -676,7 +676,7 @@ figure {
 
   
   .containerProfile .container_profile {
-
+  
       width: 40vw;
       height: 100vh;
      position: absolute;
@@ -688,7 +688,7 @@ figure {
   }
 
   .containerProfile .container_profile .top_profile_info {
-     
+   
       height: 55vh;
       width: 30vw;
       margin-top: 30px;
@@ -710,6 +710,7 @@ figure {
 
   .containerProfile .container_profile .top_profile_info img {
       border-radius: 50%;
+      border: #21DA6B 2px solid;
       height: 370px;
       width: 370px;
       box-shadow: 0px 113px 45px rgba(0, 0, 0, 0.03), 0px 64px 38px rgba(0, 0, 0, 0.08), 0px 28px 28px rgba(0, 0, 0, 0.14), 0px 7px 16px rgba(0, 0, 0, 0.17), 0px 0px 0px rgba(0, 0, 0, 0.17);
@@ -719,6 +720,7 @@ figure {
   .containerProfile .container_profile .under_profile_info {
       height: 40vh;
       width: 30vw;
+      
   }
   .containerProfile .container_profile .under_profile_info .bio_and_about{
       display: flex;
@@ -727,6 +729,7 @@ figure {
       justify-content: center;
       align-items: center;
       gap: 280px;
+   
   }
 
   .containerProfile .container_profile .under_profile_info .bio_and_about h1 {
@@ -744,7 +747,7 @@ figure {
       width: 30vw;
      flex-direction: column;
      align-items: center;
-
+   
   }
 
   .containerProfile .container_profile .top_profile_info .info_userr h1 {
@@ -763,7 +766,8 @@ figure {
         justify-content: center;
         gap: 40px;
         align-items: center;
-        margin-top: 20px;
+        margin-top: 35px;
+      
     }
 
     .containerProfile .container_profile .top_profile_info .infos_buttuns_container button{
