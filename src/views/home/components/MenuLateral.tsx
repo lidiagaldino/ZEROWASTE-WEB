@@ -47,7 +47,7 @@ const MenuLateral = () => {
             href: '/cadastro'
         },
         {
-            text: localStorage.getItem('tipo') == "Catador" ? 'Coletas' : "Catadores proximos",
+            text: localStorage.getItem('tipo') == "Catador" ? 'Coletas' : "Catadores próximos",
             icon: <FontAwesomeIcon className='icon' icon={faMapPin} />,
             href: localStorage.getItem('tipo') == "Catador" ? '/coletas_proximas' : "/catadores_proximos"
         },

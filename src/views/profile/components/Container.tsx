@@ -310,7 +310,7 @@ const Container = () => {
                             })}
                         </>
                         : ''}
-                    <img src={localStorage.getItem('view-edit') == 'view' ? info?.foto : localStorage.getItem('foto')} />
+                    <img style={{minHeight: 350}} src={localStorage.getItem('view-edit') == 'view' ? info?.foto : localStorage.getItem('foto')} />
                     <div className="info_userr" style={localStorage.getItem('tipo') == 'Gerador' ? {height: 140} : {height: 600}} >
                         <h1 style={{marginTop: 10}} >{info?.pessoa_fisica[0] ? info?.pessoa_fisica[0].nome : info?.pessoa_juridica[0].nome_fantasia}</h1>
                         <h2>{info?.gerador.length > 0 ? 'Gerador' : 'Catador'}</h2>

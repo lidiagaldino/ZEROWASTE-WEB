@@ -45,7 +45,7 @@ const CatadoresProximos = () => {
                 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
             },
         }).then(response => response.json()).then(resposta => setData(resposta.map((item) => {
-       
+
             console.log(item);
 
             return ({
@@ -103,7 +103,7 @@ const CatadoresProximos = () => {
             </div>
             <div className='scroll'>
                 <div className='infoS'>
-                    <h1 className='titleBoxU'>Catadores proximos</h1>
+                    <h1 className='titleBoxU'>Catadores próximos</h1>
 
                     <div>
                         <h2>Catadores Favoritos</h2>
@@ -137,6 +137,7 @@ const CatadoresProximos = () => {
                             <div id={elemento.id} key={`${elemento.id}_${uuidv4()}`} className="boxUserProximos" onClick={(event) => {
                                 console.log(event.currentTarget.id);
 
+
                                 localStorage.setItem('view-edit', 'view')
                                 navigate(`/profile/${event.currentTarget.id}`,)
                                 localStorage.setItem('viewPriv', event.currentTarget.id)
@@ -148,9 +149,12 @@ const CatadoresProximos = () => {
                                     <p>{elemento.logradouro}</p>
                                 </div>
                                 <div className='buttonPosition'>
-                                    <button className='buttonBox'>Solicite</button>
+                                    <button className='buttonBox' onClick={() => {
+
+                                    }} >Solicite</button>
                                 </div>
                             </div>
+
                             <hr />
                         </>
                     )
@@ -163,7 +167,7 @@ const CatadoresProximos = () => {
                 {data.length == 0 &&
                     <>
 
-                        <h1 style={{ paddingTop: 400, alignItems: 'center', display: 'flex', justifyContent: 'center    ' }}>Sselecione um local para saber quais catadores estao pertos</h1>
+                        <h1 style={{ paddingTop: 400, alignItems: 'center', display: 'flex', justifyContent: 'center    ' }}>Selecione um local para saber quais catadores estão pertos</h1>
                     </>
                 }
 
@@ -177,10 +181,11 @@ const CatadoresProximos = () => {
                             <>
                                 <h1>{codeTrue == false ? mensagem : ''}</h1>
                                 <div id={item.id} key={`${item.id_modo}_${uuidv4()}`} data-key={item.id_modo} className="boxUserProximos" onClick={(event) => {
+
                                     localStorage.setItem('view-edit', 'view')
                                     navigate(`/profile/${event.currentTarget.id}`,)
-                                    localStorage.setItem('viewPriv', event.currentTarget.getAttribute('data-key')) 
-                                    localStorage.setItem('id-other-person', event.currentTarget.id) 
+                                    localStorage.setItem('viewPriv', event.currentTarget.getAttribute('data-key'))
+                                    localStorage.setItem('id-other-person', event.currentTarget.id)
                                 }} >
                                     <img src={item.foto} alt="photo" className='fotoUser' style={{ borderRadius: 100, width: 93, height: 93 }} />
                                     <div className='boxInfoU'>
@@ -188,7 +193,10 @@ const CatadoresProximos = () => {
                                         <p>{item.endereco}</p>
                                     </div>
                                     <div className='buttonPosition'>
-                                        <button className='buttonBox'>Solicite</button>
+                                        <button className='buttonBox' onClick={() => {
+                                            localStorage.setItem('orderSpec', '999')
+                                            location.href = '/ZEROWASTE-WEB/solicite#/solicite'
+                                        }} >Solicite</button>
                                     </div>
                                 </div>
                                 <hr />

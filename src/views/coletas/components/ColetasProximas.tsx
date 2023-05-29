@@ -106,6 +106,10 @@ const ColetasProximas = () => {
                 text: 'Solicitação aceita com sucesso',
                 icon: 'success'
             })
+
+            setTimeout(() => {
+                window.location.reload()
+            }, 1500);
         }).catch((e) => {
 
             console.log(e)
@@ -220,9 +224,15 @@ const ColetasProximas = () => {
     const [appeared, setAppeared] = useState(false)
     console.log(data)
 
+    if(data.id_status == 2) {
+        localStorage.setItem('corrida', '2')
+    } else {
+        localStorage.setItem('corrida', '0')
+    }
+
 
     return (
-        <div>
+        <div >
             <div className='bg-proximos'>
                 <div className='wave -one'></div>
                 <div className='wave -two'></div>
@@ -233,7 +243,7 @@ const ColetasProximas = () => {
 
     
 
-            <div className='scrollc'>
+            <div style={localStorage.getItem('corrida') == '2' ? {background: 'transparent', overflow: 'none', boxShadow: 'none'} : {background: '#ffffffa2'}} className='scrollc'>
                 {data.id_status == 1 &&
 
                     <>
@@ -301,11 +311,12 @@ const ColetasProximas = () => {
                 <div className="AcceptRecuse">
 
                     {modal == false &&
+                    
                         <>
-                            {data.id_status == 2 &&
-
+                            {data.id_status == 2 && 
+                               
                                 <>
-                                    <div className="containerProgress">
+                                   <div style={{background: 'white'}} className="containerProgress">
                                         <div className="infoProgress">
                                             <h2>Destino:</h2>
                                             <h3>{data.endereco.logradouro}</h3>
@@ -326,9 +337,12 @@ const ColetasProximas = () => {
                                         </div>
                                         <div className="buttonsProgress">
                                             <button className="accept" type='button' onClick={finishOrder} >Eu recolhi o material</button>
-                                            <button className="decline" type='button' onClick={denyOrder}>Cancelar corrida</button>
                                         </div>
                                     </div>
+                              
+                                     
+                              
+                                   
                                 </>
                             }
                         </>
