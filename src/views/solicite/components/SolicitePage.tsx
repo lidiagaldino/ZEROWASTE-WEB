@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
+import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react'
 import '../styles/solicitepage.css'
 import celular from '../../../assets/celular.png'
 import Swal from 'sweetalert2';
@@ -9,9 +9,9 @@ import { response } from 'express';
 import { Divide } from 'phosphor-react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faTriangleExclamation, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faTriangleExclamation, faUser } from '@fortawesome/free-solid-svg-icons'
 import { buildTransform } from 'framer-motion';
-import card_solicite from '../../../assets/card_solicite.png'
+import solicite_img from '../../../assets/solicite_img.png'
 
 type dados = {
     id_endereco: number
@@ -221,6 +221,9 @@ const SolicitePage = () => {
             body: JSON.stringify(requisitos)
         })
 
+        console.log(cadastrarPedido);
+        
+
         if (cadastrarPedido.ok) {
             Swal.fire({
                 title: 'Tudo certo!!',
@@ -277,7 +280,7 @@ const SolicitePage = () => {
             id_gerador: Number(localStorage.getItem('id_modo')),
             id_materiais: selected
         }
-        console.log(requisitos);
+       
 
 
         const cadastrarPedido = await fetch('https://zero-waste-logistic.azurewebsites.net/order', {
@@ -288,7 +291,7 @@ const SolicitePage = () => {
             }
         })
 
-
+        console.log(requisitos);
 
 
         if (cadastrarPedido.ok) {
@@ -340,130 +343,226 @@ const SolicitePage = () => {
         setSelected(array)
     }
 
-    const handleSelectChange = (value: any) => {
-        console.log(value);
-
-        setLocal(value.id)
-    }
 
 
 
     const navigate = useNavigate()
 
+    const [isActive, setIsActive] = useState(false)
+
+    const handleToggle = () => {
+        setIsActive(!isActive);
+    };
+
+
+    const btnTextRef = useRef<HTMLSpanElement>(null);
+    const [checkedItems, setCheckedItems] = useState({});
+    useEffect(() => {
+        const checkedCount = selected.length;
+        const btnTextElement = btnTextRef.current;
+
+        if (btnTextElement) {
+            if (checkedCount > 0) {
+                btnTextElement.innerText = `${checkedCount} Selecionado`;
+            } else {
+                btnTextElement.innerText = "Selecione";
+            }
+        }
+    }, [checkedItems]);
+
+    const [IsChecked, setIsChecked] = useState(false)
+    const [isActiveMaterial, setIsActiveMaterial] = useState(false)
+
+    const handleToggleMaterial = () => {
+        setIsActiveMaterial(!isActiveMaterial);
+    };
+
+    const handleSelectChange = (value: any) => {
+       
+        setLocal(value.id)
+    }
+
+    const handleToggleChecked = () => {
+        setIsChecked(!IsChecked)
+    }
+
+    const handleChangeMaterial = (itemId: string) => {
+        setSelected(prevSelected => {
+            if (prevSelected.includes(itemId)) {
+                return prevSelected.filter(id => id !== itemId);
+            } else {
+                return [...prevSelected, itemId];
+            }
+        });
+    };
 
 
 
+    const [nome, setNome] = useState<string[]>([])
+
+    const [isActive2, setIsActive2] = useState(false)
+
+    const handleToggle2 = () => {
+        setIsActive2(!isActive2);
+    };
 
 
+    const btnTextReff = useRef<HTMLSpanElement>(null);
+    const [nomeSelecioned, setNomeSelecioned] = useState({});
+    useEffect(() => {
+        const checkedCount = selected.length;
+        const btnTextElement = btnTextRef.current;
+
+        if (btnTextElement) {
+            if (checkedCount > 0) {
+                btnTextElement.innerText = `${nome} Selecionado`;
+            } else {
+                btnTextElement.innerText = "Selecione";
+            }
+        }
+    }, [nomeSelecioned]);
+
+
+    const [selectedValue, setSelectedValue] = useState('');
+    const handleItemClick = (value: string) => {
+        setSelectedValue(value);
+        setIsActive(false);
+    };
+
+    
     return (
+
         <div className="bdd">
             <div className="card_solicite">
-                {/*<img src={card_solicite} style={{height: 620}} alt="" />*/}
-                
-            </div>
-            <div className="card_info_solicite"></div>
+                <img src={solicite_img} style={{ height: 610, marginLeft: -6, marginTop: -10 }} alt="" />
+                {data == false &&
+                    <div className="card_info_solicite">
+                        <h1>SOLICITE UMA COLETA</h1>
+                        <p>Formulario para solicitacao de coleta</p>
 
+                        {localStorage.getItem('orderSpec') != '0' ?
+                            <>
+                                {dataSpec?.email.length > 0 &&
 
+                                    <div className="SpecificCatador">
+                                        <div className="circleSpec"><FontAwesomeIcon icon={faUser} style={{ fontSize: 30 }} /></div>
+                                        <div className="infoCatadorSpec">
 
-
-
-
-
-
-         {   /*<div className="boxx">
-                <div className="img-boxx">
-                    <img src={celular} />
-                </div>
-                <div className="form-boxx">
-                    {data == false &&
-
-                        <>
-                            <h2>Solicite uma coleta</h2>
-                            <p>Formulário para solicitação de uma coleta</p>
-
-                            {localStorage.getItem('orderSpec') != '0' ?
-                                <>
-                                    {dataSpec?.email.length > 0 &&
-
-                                        <div className="SpecificCatador">
-                                            <div className="circleSpec"><FontAwesomeIcon icon={faUser} style={{fontSize: 30}} /></div>
-                                            <div className="infoCatadorSpec">
-                                                
-                                                <h2>{dataSpec?.pessoa_fisica.length > 0 ? dataSpec?.pessoa_fisica[0].nome : dataSpec?.pessoa_juridica[0].nome_fantasia}</h2>
-                                                <p>Catador</p>
-                                            </div>
+                                            <h2 style={{color: 'white'}} >{dataSpec?.pessoa_fisica.length > 0 ? dataSpec?.pessoa_fisica[0].nome : dataSpec?.pessoa_juridica[0].nome_fantasia}</h2>
+                                            <p>Catador</p>
                                         </div>
+                                    </div>
 
 
-                                    }
-                                </>
-                                : ''}
-
-
-
-
-                            <form onSubmit={pedido} className='form-solicite'>
-
-                                <div className='dro' style={{ width: 375, height: 50, borderRadius: 100 }}>
-                                    <p style={{fontSize: 15}}>Selecione o local que será solicitado:</p>
-                                    <Select
-                                        name="materials"
-                                        options={complementoOptions}
-                                        className="basic-multi-select"
-                                        classNamePrefix="Selecione"
-                                        onChange={handleSelectChange}
-                                        required
-                                    />
-
-                                </div>
-
-
-
-
-
-
-                                <div className='drop' style={{ width: 375, height: 50, borderRadius: 100, paddingTop: 30 }}>
-                                    <p>Selecione os materiais que serão descartados:</p>
-                                    <Select
-                                        defaultValue={[dropOptions[2]]}
-                                        isMulti
-                                        name="materials"
-                                        options={dropOptions}
-                                        className="basic-multi-select"
-                                        classNamePrefix="Selecione"
-                                        onChange={handleChange}
-                                        required
-                                    />
-
-                                </div>
-
-
-                                <div className="input-groupp w50">
-                                    {localStorage.getItem('orderSpec') != '0' ? 
-                                       <button type='button' onClick={soliciteSpec}>Solicite</button>  : <button type='submit'>Solicite</button>}
-                                   
-                                </div>
-
-
-                            </form>
-                        </>
-                    }
-                    {data == true &&
-                        <>
-
-                            <div className='SoliAndamento-container'>
-                                <div className="circle-warning" style={{border: "3px solid black",  }}>
-                                    <FontAwesomeIcon icon={faTriangleExclamation} style={{fontSize: 35, alignItems: 'center', justifyContent: 'center', marginBottom: 5}}/>
-                                </div>
-                                
-                                <h1 style={{marginTop: 15}} >Você já tem uma solicitação em andamento</h1>
-                                <button className="btn-hover color-11" type='button' onClick={cancelOrder}>Cancelar corrida</button>
+                                }
+                            </>
+                            : ''}
+                    <form onSubmit={pedido}>
+                        <div className="middle_card_info_solicite">
+                            <span>Selecione o local que sera solicitado</span>
+                            <div onClick={handleToggle} className={isActive ? 'select-btn_solicite open' : 'select-btn_solicite'}>
+                                <span ref={btnTextReff} className="btn-text_solicite">{selectedValue || 'Selecione'}</span>
+                                <span className="arrow-dwn">
+                                    <i className="fa-solid fa-chevron-down"></i>
+                                </span>
                             </div>
-                        </>
-                    }
-                </div>
-                </div>*/}
-        </div>
+                            <ul className="list-items_solicite">
+                                {complementoOptions.map((item) => {
+
+                                    return (
+                                        <li key={item.value} className="item" onChange={handleSelectChange} onClick={() => {
+                                            setLocal(item.id)
+                                            handleItemClick(item.value)
+                                            
+                                           
+                                            
+
+                                        }} >
+                                            <span className="item-text">{item.value}</span>
+                                        </li>
+                                    )
+                                })}
+                            </ul>
+                        </div>
+
+                        <div className="middle_card_info_solicite">
+                            <span>Selecione os materiais que serao descartados</span>
+                            <div onClick={handleToggle2} className={isActive2 ? 'select-btn_solicite open' : 'select-btn_solicite'}>
+                                <span ref={btnTextRef} className="btn-text_solicite">Selecione</span>
+
+                            </div>
+                            <ul className="list-items_solicite">
+                                {dropOptions.map((item) => {
+                                    const isChecked = checkedItems[item.id] || false;
+                                    return (
+                                        <li
+                                            id={item.id}
+                                            key={item.id}
+                                            onClick={e => {
+                                                e.currentTarget.id
+                                               
+                                                handleChangeMaterial(item.id)
+                                                handleToggleChecked();
+                                                const itemId = e.currentTarget.id;
+                                                setCheckedItems(prevState => ({
+                                                    ...prevState,
+                                                    [itemId]: !prevState[itemId]
+
+                                                }));
+                                            }}
+                                            className={isChecked ? 'item checked' : 'item'}
+                                        >
+                                            <span className="checkbox">
+                                                <i className="fa-solid fa-check check-icon"></i>
+                                            </span>
+                                            <span className="item-text">{item.label}</span>
+                                        </li>
+                                    )
+                                })}
+
+                            </ul>
+                        </div>
+                        
+
+                        {localStorage.getItem('orderSpec') != '0' ? 
+                            <button type='button' className='solicite_button' onClick={soliciteSpec}>Solicitee</button>  : <button className='solicite_button' type='submit'>Solicite</button>}
+                        </form>
+
+
+                    </div>
+                }
+                {data == true &&
+                    <>
+
+                        <div className='SoliAndamento-container'>
+                            <div className="circle-warning" style={{ border: "3px solid black", }}>
+                                <FontAwesomeIcon icon={faTriangleExclamation} style={{ fontSize: 35, alignItems: 'center', justifyContent: 'center', marginBottom: 5 }} />
+                            </div>
+
+                            <h1 style={{ marginTop: 15, color: 'black' }} >Você já tem uma solicitação em andamento</h1>
+                            <button className="btn-hover color-11" type='button' onClick={cancelOrder}>Cancelar corrida</button>
+                        </div>
+                    </>
+                }
+            </div>
+
+
+
+
+
+
+
+
+
+            </div>
+
+
+
+
+
+
+
+          
     )
 }
 
