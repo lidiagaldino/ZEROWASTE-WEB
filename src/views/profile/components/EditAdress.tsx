@@ -231,7 +231,7 @@ export default function EditAdress() {
 
 
    
-
+      const [clickmodal2, setClickModal2] = useState(false)
 
 
     const toggleModal = () => {
@@ -325,10 +325,10 @@ export default function EditAdress() {
                                                                     toggleModall()
                                                                     e.currentTarget.id
                                                                     localStorage.setItem('clickEdit', e.currentTarget.id)
-
+                                            
                                                                     takeID(e)
 
-                                                                }} className='Edit_adress_buton'>Editar</button>
+                                                                }} className='Edit_adress_buton' >Editar</button>
                                                             }
                                                         </div>
                                                         {viewState == 'edit' &&
@@ -349,12 +349,13 @@ export default function EditAdress() {
                                                             <div className="modal-2">
                                                                 <div className="overlay-2"></div>
                                                                 <form onSubmit={updateAdress} className="modal-content-2">
-                                                                    <div className='top-contentadrees-profile-2'>
-                                                                        <h1 className='toph1'>Editar Endereço</h1>
+                                                                    <div className="tudo">
+                                                                        <div className='top-contentadrees-profile-2'>
+                                                                            <h1 className='toph1'>Editar Endereço</h1>
                                                                       
-                                                                    </div>
+                                                                        </div>
 
-                                                                    <div className='under-content-profile-2'>
+                                                                     <div className='under-content-profile-2'>
                                                                         <div className='content-edit-profile-2'>
 
                                                                             <div className="form__groupg field">
@@ -408,6 +409,8 @@ export default function EditAdress() {
                                                                         </button>
 
                                                                     </div>
+                                                                    </div>
+                                                                    
 
 
                                                                     <button className="close-modal-2" onClick={toggleModall} >

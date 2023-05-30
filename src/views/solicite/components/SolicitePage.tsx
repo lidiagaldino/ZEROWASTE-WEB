@@ -110,7 +110,29 @@ type dadosUser = {
 
 }
 
-
+type dadosOrder = {
+    id: number;
+    id_material: { material: { nome: string } }[];
+    id_gerador: number;
+    id_catador?: number;
+    endereco: {
+        id?: number,
+        bairro?: string,
+        logradouro?: string
+        cidade?: string,
+        estado?: string,
+        cep?: string,
+        complemento?: string,
+        latitude?: number
+        longitude?: number,
+        apelido?: string,
+        numero?: string
+    };
+    created_at: Date;
+    finished_at?: Date;
+    id_status: number;
+    distancia?: number;
+}
 
 
 const SolicitePage = () => {
@@ -131,17 +153,21 @@ const SolicitePage = () => {
     }, [])
 
     const [data, setData] = useState(false)
-
+    const [finishOrder, setFinishOrder] =  useState<dadosOrder>({ id: 0, id_material: [{ material: { nome: '' } }], id_gerador: 0, id_catador: 0, id_status: 0, endereco: { id: 0, bairro: '', cidade: '', estado: '', cep: '', complemento: '', latitude: 0, longitude: 0, apelido: '', numero: '', logradouro: '' }, created_at: new Date('0000-00-00T00:00:00'), finished_at: new Date('0000-00-00T00:00:00'), distancia: 0 })
+    const [orderAccept, setOrderAccept] =  useState<dadosOrder>({ id: 0, id_material: [{ material: { nome: '' } }], id_gerador: 0, id_catador: 0, id_status: 0, endereco: { id: 0, bairro: '', cidade: '', estado: '', cep: '', complemento: '', latitude: 0, longitude: 0, apelido: '', numero: '', logradouro: '' }, created_at: new Date('0000-00-00T00:00:00'), finished_at: new Date('0000-00-00T00:00:00'), distancia: 0 })
     useEffect(() => {
         fetch(`https://zero-waste-logistic.azurewebsites.net/order/gerador`, {
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
             }
-        }).then((response) => {
+        }).then(() => {
+                connectionWebSocket.on('acceptOrder', (order) => {
+                    setOrderAccept(order)
+                })
 
-
-            setData(response.status == 200 ? true : false)
+           console.log(order);
+           
         }).catch((e) => {
             console.log(e)
             setData(false)
@@ -212,6 +238,8 @@ const SolicitePage = () => {
             id_materiais: selected
         }
 
+      
+        
 
         const cadastrarPedido = await fetch(`https://zero-waste-logistic.azurewebsites.net/order/${localStorage.getItem('viewPriv')}`, {
             method: 'POST',
@@ -222,6 +250,9 @@ const SolicitePage = () => {
         })
 
         console.log(cadastrarPedido);
+
+        const a = await cadastrarPedido.json()
+        console.log(a);
         
 
         if (cadastrarPedido.ok) {
@@ -430,12 +461,17 @@ const SolicitePage = () => {
     };
 
     
+    connectionWebSocket.on('finishOrder', (order) =>{
+        setFinishOrder(order)
+    })
+
+    
     return (
 
         <div className="bdd">
             <div className="card_solicite">
                 <img src={solicite_img} style={{ height: 610, marginLeft: -6, marginTop: -10 }} alt="" />
-                {data == false &&
+                {orderAccept.id_status == 0 &&
                     <div className="card_info_solicite">
                         <h1>SOLICITE UMA COLETA</h1>
                         <p>Formulario para solicitacao de coleta</p>
@@ -531,7 +567,7 @@ const SolicitePage = () => {
 
                     </div>
                 }
-                {data == true &&
+                {orderAccept.id_status == 2  &&
                     <>
 
                         <div className='SoliAndamento-container'>
@@ -540,10 +576,15 @@ const SolicitePage = () => {
                             </div>
 
                             <h1 style={{ marginTop: 15, color: 'black' }} >Você já tem uma solicitação em andamento</h1>
-                            <button className="btn-hover color-11" type='button' onClick={cancelOrder}>Cancelar corrida</button>
+                            <button className="btn-hover color-11" type='button' onClick={() => {
+                                cancelOrder()
+                                setTimeout(() => {
+                                    window.location.reload()
+                                }, 25000);
+                                }}>Cancelar corrida</button>
                         </div>
                     </>
-                }
+                 }
             </div>
 
 

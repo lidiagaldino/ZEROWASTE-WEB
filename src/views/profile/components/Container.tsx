@@ -41,6 +41,8 @@ type dados = {
     gerador: [],
     pessoa_fisica?: [
         {
+            length: number
+            lenght: number
             id: number,
             cpf: string,
             nome: string,
@@ -130,7 +132,7 @@ const Container = () => {
     }
 
     useEffect(() => {
-        api.get(`/materiais/${localStorage.getItem('id_modo')}`, {
+         api.get(`/materiais/${localStorage.getItem(localStorage.getItem('view-edit') == 'view' ? 'viewPriv' : 'id_modo')}`, {
             headers: {
                 'Access-Control-Allow-Origin': '*',
                 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
@@ -286,6 +288,18 @@ const Container = () => {
         document.body.classList.remove('active-modal')
     }
 
+    const [modalRecolho, setModalRecolho] = useState(false)
+
+    const toggleModalRecolho = () => {
+        setModalRecolho(!modalRecolho);
+    };
+
+    if (modalRecolho) {
+        document.body.classList.add('active-modal')
+    } else {
+        document.body.classList.remove('active-modal')
+    }
+
     const [reaval, setReaval] = useState(false)
     console.log(clicked)
 
@@ -366,8 +380,8 @@ const Container = () => {
                                         }
 
                                         setTimeout(() => {
-                                            toggleModal
-                                        }, 1500);
+                                            window.location.reload()
+                                        }, 3000);
 
                                     }} >Avaliar</span>
                                 </button>
@@ -386,25 +400,52 @@ const Container = () => {
                     }
 
                     {info?.catador.length > 0 &&
+
                         <div className="middle_material_info">
-                            <div className='recolheButton'>
-                                <nav className={clicado ? "botao clicado" : "botao"} onClick={handleClick}>
-                                    <h3 className={clicado ? "iconclicado" : "iconnaoclicado"}>
-                                        Materiais
+                            <div onClick={toggleModalRecolho} style={{cursor: 'pointer', background: 'green', color: 'white', padding: 20, borderRadius: 50, width: 220, display: 'flex', justifyContent: 'center'}}>
+                                <nav className='' onClick={handleClick}>
+                                    <h3 style={{fontSize: 15, cursor: 'pointer'}}>
+                                        Materiais atendidos
                                     </h3>
-                                    <div className=''>
-                                        <ul className={clicado ? "retangulo" : "quadrado"} >
-                                            {recolhoMateriais.map((item) => {
-                                                return (
-                                                    <li className='item-text'>{item.value}</li>
-                                                )
-                                            })}
-                                        </ul>
-                                    </div>
+                                   
                                 </nav>
                             </div>
-                        </div>
+                            </div>
+                     
+                        
                     }
+    {info?.catador.length > 0 && 
+    <>
+        {modalRecolho && (
+                           <div className="modal-recolho ">
+                            <div className="overlay-recolho "></div>
+                            <div className="modal-content-recolho animate__animated animate__fadeInUp">
+                            <div className='material-list'>
+                                {viewState == 'edit' ?  
+                                <div className="top_material_recolho"><h1>Materiais que {localStorage.getItem('nome')} Recolhe</h1></div> 
+                                : <div className="top_material_recolho"><h1>Materiais que {info?.pessoa_fisica[0] ? 
+                                info?.pessoa_fisica[0].nome : 
+                                info?.pessoa_juridica[0].nome_fantasia} recolhe</h1></div>}
+                                   
+                                            {recolhoMateriais.map((item) => {
+                                                return (
+                                                    <div className="item-text-div">
+                                                         <li className='item-text-li'>{item.value}</li>
+                                                    </div>
+                                                   
+                                                )
+                                            })}
+                                            <div onClick={toggleModalRecolho} style={{cursor: 'pointer', background: 'red', padding: 8 , width: 100, borderRadius: 50, display: 'flex', justifyContent: 'center', alignItems: 'center'}} className="close-modal-recolhe">
+                                                 <h1 style={{color: 'white', alignItems: 'center', justifyContent: 'center'}}>FECHAR</h1>
+                                            </div>
+                                       
+                                    </div>
+                            </div>
+                           </div>     
+                    )}
+                    </>
+    }
+                    
 
                 </div>
 

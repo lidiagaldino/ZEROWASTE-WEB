@@ -78,6 +78,8 @@ const form = () => {
 
       connectionWebSocket.connect();
 
+      localStorage.setItem('socket', connectionWebSocket.connected ? 'conectad' :  'desconectado')
+
       if(connectionWebSocket.connected){
       console.log('conectou');
       

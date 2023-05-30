@@ -145,6 +145,10 @@ const ColetasProximas = () => {
                         text: 'Solicitação finalizada',
                         icon: 'success'
                     })
+
+                    setTimeout(() => {
+                        window.location.reload()
+                    }, 3000);
                 } else {
                     Swal.fire({
                         icon: 'error',
@@ -316,7 +320,7 @@ const ColetasProximas = () => {
                             {data.id_status == 2 && 
                                
                                 <>
-                                   <div style={{background: 'white'}} className="containerProgress">
+                                   <div style={{background: 'white'}}  className="containerProgress">
                                         <div className="infoProgress">
                                             <h2>Destino:</h2>
                                             <h3>{data.endereco.logradouro}</h3>

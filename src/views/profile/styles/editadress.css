@@ -57,6 +57,9 @@ body.active-modal {
     padding: 14px 28px;
     border-radius: 15px;
     width: 720px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 1020px;
     overflow-y: scroll;
     z-index: 998;

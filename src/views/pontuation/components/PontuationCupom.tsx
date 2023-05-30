@@ -243,7 +243,7 @@ const PontuationCupom = () => {
 							<div className="modal-aval ">
 								<div className="overlay-aval "></div>
 								<div className="containerCupom">									
-									<div className="containerCupom2">
+									<div className="containerCupom2" >
 										{/*<FontAwesomeIcon icon={faGift} className="giftCupom" style={{color: "#ffffff",}} />*/}
 										<div className="titleReedem">
 	
@@ -256,7 +256,7 @@ const PontuationCupom = () => {
 										</div>
 										<div className="criterios">
 											<span>Disponivel apenas em redes Giga</span>
-											<span>Disponivel apenas em redes Giga</span>
+											<span>Apresente o código cupom na compra</span>
 										</div>
 										<div  onClick={(e) => { 
 											setClick(true)

@@ -24,19 +24,35 @@ body.active-modal-2 {
 
 
 .modal-content-2 {
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
     transform: translate(-15%, -1%);
     line-height: 1.4;
     background: #eef3f7;
     color: #71829e;
     padding: 14px 28px;
+    align-items: center;
     border-radius: 3px;
     width: 700px;
     height: 1020px;
     z-index: 999;
     border-radius: 25px;
     transition: all 1s ease-in-out;
+}
+
+.tudo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.content-edit-profile-2{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: -85px;
 }
 
     .toph1 {
@@ -196,6 +212,94 @@ padding-left: 20px;
    
 }
 
+
+
+
+
+
+
+
+body.active-modal-recolho {
+    overflow-y: hidden;
+    
+    transition: all 1s ease-in-out;
+}
+
+.modal-recolho,
+.overlay-recolho {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    flex-direction: column;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.38);
+    transition: all 1s ease-in-out;
+    gap: 50px;
+}
+
+.modal-recolho {  
+    z-index: 999;
+    transition: all 1s ease-in-out;
+}
+
+.material-list{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+
+}
+
+.top_material_recolho{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+}
+.top_material_recolho h1 {
+    font-size: 20px;
+}
+
+.item-text-div{
+    background-color: #ffffff;
+    padding: 5px 10px;
+    width: 140px;
+    text-align: center;
+    border-radius: 50px;
+    box-shadow: 0px 35px 14px rgba(0, 0, 0, 0.01), 0px 20px 12px rgba(0, 0, 0, 0.03), 0px 9px 9px rgba(0, 0, 0, 0.05), 0px 2px 5px rgba(0, 0, 0, 0.06), 0px 0px 0px rgba(0, 0, 0, 0.06);
+}
+
+.item-text-li{
+    background-color: #524f4f;
+    border-radius: 50px;
+    color: white;
+    padding: 5px 10px;
+}
+
+.modal-content-recolho {
+    display: flex;
+    justify-content: center;
+    line-height: 1.4;
+    background: #eef3f7;
+    color: #71829e;
+    padding: 14px 28px;
+    align-items: center;
+    border-radius: 3px;
+    gap: 50px;
+    width: 700px;
+    height: auto;
+    z-index: 999;
+    border-radius: 25px;
+    transition: all 1s ease-in-out;
+}
 
 
 

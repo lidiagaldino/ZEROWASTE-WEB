@@ -359,11 +359,8 @@ function RegisterForm() {
 
 
 
-            <div  onClick={handleToggle} style={{display: isMaterialVisible}} className={isActive ? 'select-btn open' : 'select-btn' } >
-                <span ref={btnTextRef} className="btn-text">Seleciones os materiais</span>
-                <span className="arrow-dwn">
-                    <i className="fa-solid fa-chevron-down"></i>
-                </span>
+            <div  onClick={handleToggle} style={{display: isMaterialVisible, justifyContent: 'center', alignItems: 'center', borderRadius: 50, background: 'white'}} className={isActive ? 'select-btn open' : 'select-btn' } >
+                <span style={{display: 'flex', justifyContent: 'center', alignContent: 'center', textAlign: 'center', fontWeight: 'bold'}} ref={btnTextRef} className="btn-text">Seleciones os materiais</span>
             </div>
             <ul   className="list-items">
                 {dropOptions.map((item) => {
