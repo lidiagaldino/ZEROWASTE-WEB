@@ -17,6 +17,7 @@ import Material from './materialCadastro/Material'
 import { ProtectedRoutes, CatadorRoutes, GeradorRoutes } from './ProtectedRoutes'
 import ColetasPro from './coletas/ColetasPro'
 import Pontuation from './pontuation/Pontuation'
+import Chat from './chat/Chat'
 
 const Routess = () => {
 
@@ -98,6 +99,12 @@ const Routess = () => {
             </CatadorRoutes>
           </ProtectedRoutes>
         } />
+
+        <Route path='/chat' element={
+          <ProtectedRoutes>
+            <Chat></Chat>
+          </ProtectedRoutes>
+        }></Route>
 
 
       </Routes>

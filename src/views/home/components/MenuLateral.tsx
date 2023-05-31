@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import '../styles/SideNavBar.css'
-import { faBook, faHouseUser, faMapLocationDot, faMapPin, faStreetView, faTicket, faRecycle, faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
+import { faBook, faHouseUser, faMapLocationDot, faMapPin, faStreetView, faTicket, faRecycle, faRightFromBracket, faComments } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useNavigate } from 'react-router-dom'
 import 'boxicons'
@@ -60,6 +60,11 @@ const MenuLateral = () => {
             text: "Dicas",
             icon: <FontAwesomeIcon className='icon' icon={faBook} />,
             href: '/dicas'
+        },
+        {
+            text: "Chat",
+            icon: <FontAwesomeIcon className='icon' icon={faComments} />,
+            href: '/chat'
         }
 
 
