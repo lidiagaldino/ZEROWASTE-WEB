@@ -249,7 +249,7 @@ console.log(image);
             {modal && (
                 <div className="modal">
                     <div onClick={toggleModal} className="overlay"></div>
-                    <form onSubmit={registrarEdit} className="modal-content">
+                    <form onSubmit={registrarEdit} className="modal-content form">
                         <div className='top-content-profile'>
                             <h1>Minha Conta</h1>
                             {image ? 

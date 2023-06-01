@@ -298,7 +298,7 @@ export default function EditAdress() {
             {modal && (
                 <div className="modal ">
                     <div className="overlay "></div>
-                    <form className="modal-contentt animate__animated animate__fadeInUp ">
+                    <form className="modal-contentt animate__animated animate__fadeInUp form">
                         <div className='modal-support animate__animated animate__fadeInUp'>
 
                         
@@ -348,7 +348,7 @@ export default function EditAdress() {
 
                                                             <div className="modal-2">
                                                                 <div className="overlay-2"></div>
-                                                                <form onSubmit={updateAdress} className="modal-content-2">
+                                                                <form onSubmit={updateAdress} className="modal-content-2 form">
                                                                     <div className="tudo">
                                                                         <div className='top-contentadrees-profile-2'>
                                                                             <h1 className='toph1'>Editar Endereço</h1>

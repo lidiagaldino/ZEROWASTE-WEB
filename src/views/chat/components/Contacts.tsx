@@ -41,57 +41,30 @@ type dados = {
 }
 
 const Contacts = ({ changeChat }) => {
-    const [contacts, setContacts] = useState<Array<dados>>([{
-        id: 0,
-        id_catador: 0,
-        id_gerador: 0,
-        catador: {
-            id: 0,
-            id_usuario: 0,
-            id_status_catador: 0,
-            user: {
-                id: 0,
-                email: '',
-                senha: '',
-                telefone: '',
-                foto: '',
-                biografia: '',
-                pontos: 0,
-                pessoa_fisica: [
-                    {
-                        id: 0,
-                        cpf: '',
-                        nome: '',
-                        data_nascimento: '',
-                        id_usuario: 0
-                    }
-                ],
-                pessoa_juridica: [
-                    {
-                        id: 0,
-                        cnpj: '',
-                        nome_fantasia: '',
-                        id_usuario: 0
-                    }
-                ]
-            }
-        }
-    }])
+    const [contacts, setContacts] = useState([])
+
+    const mode = localStorage.getItem('tipo') == 'Catador' ? 'geradores/' : ''
+    const modo = localStorage.getItem('tipo')
 
     useEffect(() => {
-        fetch(`https://webappdeploy-backend.azurewebsites.net/favoritar/${localStorage.getItem('id_modo')}`, {
+        fetch(`https://webappdeploy-backend.azurewebsites.net/favoritar/${mode}${localStorage.getItem('id_modo')}`, {
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('token')
             }
-        }).then(response => response.json()).then(resposta => setContacts(resposta))
+        }).then(response => response.json()).then(resposta => {
+          console.log(resposta)
+          setContacts(resposta)
+        })
     }, [])
 
     const [currentSelected, setCurrentSelected] = useState(0)
 
     const changeCurrentChat = (index, contact) => {
         setCurrentSelected(index);
+        localStorage.setItem('id_chat', modo == 'Gerador' ? contact.catador.user.id_usuario : contact.gerador.user.id_usuario)
         changeChat(contact);
     };
+    console.log(contacts);
 
     return (
         <Container>
@@ -100,6 +73,7 @@ const Contacts = ({ changeChat }) => {
                 <h3>Zero Waste</h3>
             </div>
             <div className='contacts'>
+
                 {contacts.map((item, index) => {
                     return (
                         <div
@@ -110,12 +84,12 @@ const Contacts = ({ changeChat }) => {
                         >
                             <div className="avatar">
                                 <img
-                                    src={`${item.catador.user.foto}`}
+                                    src={`${modo == 'Gerador' ? item.catador.user.foto : item.gerador.user.foto}`}
                                     alt="avatar"
                                 />
                             </div>
                             <div className="username">
-                                <h3>{item.catador.user.email}</h3>
+                                <h3>{modo == 'Gerador' ? item.catador.user.email : item.gerador.user.email}</h3>
                             </div>
                         </div>
                     )

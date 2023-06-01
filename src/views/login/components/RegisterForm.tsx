@@ -301,7 +301,7 @@ function RegisterForm() {
 
 
     return (
-        <form onSubmit={registrar} id="form-sign-up" action="#" className="sign-up-form">
+        <form onSubmit={registrar} id="form-sign-up" action="#" className="sign-up-form form">
             {status.type === 'success' ? <p style={{ color: "green" }}>{status.message}</p> : ""}
             {status.type === 'error' ? <p style={{ color: "red" }}>{status.message}</p> : ""}
             <img src={logo} className='logoo' alt="logo" />

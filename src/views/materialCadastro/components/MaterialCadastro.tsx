@@ -128,7 +128,7 @@ const MaterialCadastro = () => {
         <>
             <div className={`material ${addclass}`} id="material">
                 <div className="form-material  sign-up-material">
-                    <form className='form-cadastro-materiall' >
+                    <form className='form-cadastro-materiall form' >
                         <div className='material-contentt'>
                             <h1>Olá,{localStorage.getItem('nome')}!</h1>
                             <p>Selecione materiais que voce queira remover</p>
@@ -146,7 +146,7 @@ const MaterialCadastro = () => {
                     </form>
                 </div>
                 <div className="form-material sign-in-material">
-                    <form className='form-cadastro-material' onSubmit={registrarMaterial}>
+                    <form className='form-cadastro-material form' onSubmit={registrarMaterial}>
                         <div className='material-content'>
                             <h1>Bem-vindo {localStorage.getItem('nome')} ao cadastro de materiais !</h1>
                             <p>Selecione materiais que voce recolhe</p>

@@ -3,6 +3,7 @@ import MenuLateral from '../home/components/MenuLateral'
 import Contacts from './components/Contacts'
 import styled from 'styled-components'
 import Welcome from './components/Welcome'
+import ChatContainer from './components/ChatContainer'
 
 const Chat = () => {
   const [currentChat, setCurrentChat] = useState(undefined);
@@ -10,6 +11,8 @@ const Chat = () => {
   const handleChatChange = (chat) => {
     setCurrentChat(chat);
   };
+
+  console.log(currentChat);
   return (
     <body>
       <div style={{ display: 'flex' }}>
@@ -19,7 +22,11 @@ const Chat = () => {
         <Container>
           <div className='container-do-chat'>
             <Contacts changeChat={handleChatChange}></Contacts>
-            <Welcome></Welcome>
+            {currentChat === undefined ? 
+              <Welcome></Welcome> :
+              <ChatContainer currentChat={currentChat}></ChatContainer>
+          }
+            
           </div>
 
         </Container>

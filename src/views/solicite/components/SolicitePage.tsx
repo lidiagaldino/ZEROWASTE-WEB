@@ -163,7 +163,7 @@ const SolicitePage = () => {
             }
         }).then(() => {
                 connectionWebSocket.on('acceptOrder', (order) => {
-                    setOrderAccept(order)
+                    setOrder(order)
                 })
 
            console.log(order);
@@ -175,7 +175,7 @@ const SolicitePage = () => {
     }, [])
 
     connectionWebSocket.on("orderError", (order) => {
-        console.log(order);
+        setOrder({ id: 0, id_material: [{ material: { nome: '' } }], id_gerador: 0, id_catador: 0, id_status: 0, endereco: { id: 0, bairro: '', cidade: '', estado: '', cep: '', complemento: '', latitude: 0, longitude: 0, apelido: '', numero: '', logradouro: '' }, created_at: new Date('0000-00-00T00:00:00'), finished_at: new Date('0000-00-00T00:00:00'), distancia: 0 })
     })
 
     const [dropOptions, setDropOptions] = useState([])
@@ -276,13 +276,14 @@ const SolicitePage = () => {
     const cancelOrder = () => {
 
 
-        fetch(`https://zero-waste-logistic.azurewebsites.net/order/cancel/${order[0].id}`, {
+        fetch(`https://zero-waste-logistic.azurewebsites.net/order/cancel/${order.id}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
             }
         }).then((response) => {
             console.log(response);
+            setOrder({ id: 0, id_material: [{ material: { nome: '' } }], id_gerador: 0, id_catador: 0, id_status: 0, endereco: { id: 0, bairro: '', cidade: '', estado: '', cep: '', complemento: '', latitude: 0, longitude: 0, apelido: '', numero: '', logradouro: '' }, created_at: new Date('0000-00-00T00:00:00'), finished_at: new Date('0000-00-00T00:00:00'), distancia: 0 })
 
             Swal.fire({
                 title: 'Tudo certo!!',
@@ -461,8 +462,8 @@ const SolicitePage = () => {
     };
 
     
-    connectionWebSocket.on('finishOrder', (order) =>{
-        setFinishOrder(order)
+    connectionWebSocket.on('finishOrder', (_order) =>{
+        setOrder({ id: 0, id_material: [{ material: { nome: '' } }], id_gerador: 0, id_catador: 0, id_status: 0, endereco: { id: 0, bairro: '', cidade: '', estado: '', cep: '', complemento: '', latitude: 0, longitude: 0, apelido: '', numero: '', logradouro: '' }, created_at: new Date('0000-00-00T00:00:00'), finished_at: new Date('0000-00-00T00:00:00'), distancia: 0 })
     })
 
     
@@ -471,7 +472,7 @@ const SolicitePage = () => {
         <div className="bdd">
             <div className="card_solicite">
                 <img src={solicite_img} style={{ height: 610, marginLeft: -6, marginTop: -10 }} alt="" />
-                {orderAccept.id_status == 0 &&
+                {order.id_status == 0 &&
                     <div className="card_info_solicite">
                         <h1>SOLICITE UMA COLETA</h1>
                         <p>Formulario para solicitacao de coleta</p>
@@ -493,7 +494,7 @@ const SolicitePage = () => {
                                 }
                             </>
                             : ''}
-                    <form onSubmit={pedido}>
+                    <form onSubmit={pedido} className='form'>
                         <div className="middle_card_info_solicite">
                             <span>Selecione o local que sera solicitado</span>
                             <div onClick={handleToggle} className={isActive ? 'select-btn_solicite open' : 'select-btn_solicite'}>
@@ -567,7 +568,7 @@ const SolicitePage = () => {
 
                     </div>
                 }
-                {orderAccept.id_status == 2  &&
+                {order.id_status == 2  &&
                     <>
 
                         <div className='SoliAndamento-container'>
@@ -578,9 +579,7 @@ const SolicitePage = () => {
                             <h1 style={{ marginTop: 15, color: 'black' }} >Você já tem uma solicitação em andamento</h1>
                             <button className="btn-hover color-11" type='button' onClick={() => {
                                 cancelOrder()
-                                setTimeout(() => {
-                                    window.location.reload()
-                                }, 25000);
+                                
                                 }}>Cancelar corrida</button>
                         </div>
                     </>

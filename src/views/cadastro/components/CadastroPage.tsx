@@ -204,7 +204,7 @@ const CadastroPage = () => {
                 <div className="form-box">
                     <h2>Cadastrar um novo endereço</h2>
                     <p>{localStorage.getItem('tipo') == 'Catador' ? 'Cadastre uma região em que você atua.' : 'Cadastre um ponto de entrega.'}</p>
-                    <form onSubmit={registrar} action="#" className='form-endereco'>
+                    <form onSubmit={registrar} action="#" className='form-endereco form'>
                     {status.type === 'success' ? <p style={{ color: "green" }}>{status.message}</p> : ""}
                         {status.type === 'error' ? <p style={{ color: "red" }}>{status.message}</p> : ""}
                         <div className="input-group">

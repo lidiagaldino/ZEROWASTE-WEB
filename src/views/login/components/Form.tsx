@@ -99,7 +99,7 @@ const form = () => {
 
   return (
 
-    <form onSubmit={login} className="sign-in-form">
+    <form onSubmit={login} className="sign-in-form form">
       {status.type === 'success' ? <p style={{ color: "green" }}>{status.message}</p> : ""}
       {status.type === 'error' ? <p style={{ color: "red" }}>{status.message}</p> : ""}
       <img src={logo} className='logoo' alt="logo" />

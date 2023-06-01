@@ -42,6 +42,10 @@ const ColetasProximas = () => {
     const [modal, setModal] = useState(false)
     const [checkFavorite, setCheckFavorite] = useState([])
 
+    connectionWebSocket.on('canceledOrder', (_message) => {
+        setData({ id: 0, id_material: [{ material: { nome: '' } }], id_gerador: 0, id_catador: 0, id_status: 0, endereco: { id: 0, bairro: '', cidade: '', estado: '', cep: '', complemento: '', latitude: 0, longitude: 0, apelido: '', numero: '', logradouro: '' }, created_at: new Date('0000-00-00T00:00:00'), finished_at: new Date('0000-00-00T00:00:00'), distancia: 0 })
+    }) 
+
     const navigate = useNavigate()
 
     useEffect(() => {
