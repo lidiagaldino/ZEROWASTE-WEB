@@ -7,9 +7,7 @@ import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { useForm } from "react-hook-form";
 import { validateLogin } from '../../../validations/loginValidation'
 import api from '../../../api/axios'
-
 import { connectionWebSocket } from '../../../utils/connectionWebSocket'
-
 
 
 
@@ -73,22 +71,10 @@ const form = () => {
       localStorage.setItem('foto', responde.data.user.foto)
       localStorage.setItem('cpfcnpj', responde.data.user.pessoa_juridica.length > 0 ? responde.data.user.pessoa_juridica[0].cnpj : responde.data.user.pessoa_fisica[0].cpf)
       localStorage.setItem('id_modo', responde.data.user.catador.length > 0 ? responde.data.user.catador[0].id : responde.data.user.gerador[0].id)
-   
+      console.log(responde.data.token);
+    
       navigate('/home', { replace: true })
-
-      connectionWebSocket.connect();
-
-      localStorage.setItem('socket', connectionWebSocket.connected ? 'conectad' :  'desconectado')
-
-      if(connectionWebSocket.connected){
-      console.log('conectou');
-      
-      } else {
-        console.log('n conectou');
-        
-      }
-
-
+      window.location.reload()
     }).catch(() => {
       setStatus({
         message: 'Email ou senha incorretos',

@@ -177,9 +177,6 @@ const Container = () => {
             }
         })
 
-
-
-
         if (avaliar.status == 201) {
             setReaval(true)
             Swal.fire({
@@ -324,7 +321,7 @@ const Container = () => {
                             })}
                         </>
                         : ''}
-                    <img style={{minHeight: 350}} src={localStorage.getItem('view-edit') == 'view' ? info?.foto : localStorage.getItem('foto')} />
+                    <img   src={localStorage.getItem('view-edit') == 'view' ? info?.foto : localStorage.getItem('foto')} />
                     <div className="info_userr" style={localStorage.getItem('tipo') == 'Gerador' ? {height: 140} : {height: 600}} >
                         <h1 style={{marginTop: 10}} >{info?.pessoa_fisica[0] ? info?.pessoa_fisica[0].nome : info?.pessoa_juridica[0].nome_fantasia}</h1>
                         <h2>{info?.gerador.length > 0 ? 'Gerador' : 'Catador'}</h2>
@@ -402,7 +399,7 @@ const Container = () => {
                     {info?.catador.length > 0 &&
 
                         <div className="middle_material_info">
-                            <div onClick={toggleModalRecolho} style={{cursor: 'pointer', background: 'green', color: 'white', padding: 20, borderRadius: 50, width: 220, display: 'flex', justifyContent: 'center'}}>
+                            <div onClick={toggleModalRecolho} className="materiais_atendidos" style={{}}>
                                 <nav className='' onClick={handleClick}>
                                     <h3 style={{fontSize: 15, cursor: 'pointer'}}>
                                         Materiais atendidos

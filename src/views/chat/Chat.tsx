@@ -4,6 +4,7 @@ import Contacts from './components/Contacts'
 import styled from 'styled-components'
 import Welcome from './components/Welcome'
 import ChatContainer from './components/ChatContainer'
+import { connectionChat } from '../../utils/chatConnection'
 
 const Chat = () => {
   const [currentChat, setCurrentChat] = useState(undefined);
@@ -11,6 +12,9 @@ const Chat = () => {
   const handleChatChange = (chat) => {
     setCurrentChat(chat);
   };
+  connectionChat.on("msg-recieve", (msg) => {
+    console.log(msg);
+  });
 
   console.log(currentChat);
   return (

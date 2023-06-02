@@ -11,6 +11,8 @@ import Swal from 'sweetalert2'
 import 'animate.css';
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { io } from 'socket.io-client'
+import {connectionWebSocket} from '../../../utils/connectionWebSocket'
 
 type dados = {
   id: number;
@@ -40,6 +42,19 @@ type dados = {
 export const ThemeContext = createContext(null)
 
 const HomePage = () => {
+  const [count, setCount] = useState(localStorage.getItem('token'))
+
+  useEffect(() => {
+    connectionWebSocket.on("newOrder", (teste) => {
+      console.log(teste);
+      
+    })
+  
+  }, [])
+
+  //setToken(localStorage.getItem('token'))
+
+  
 
   const [theme, setTheme] = useState("dark")
 

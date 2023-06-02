@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom'
 import 'boxicons'
 import storage from '../../../firebase';
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { connectionWebSocket } from '../../../utils/connectionWebSocket'
+import { connectionChat } from '../../../utils/chatConnection'
 
 function limitarTexto(texto, limite) {
     if (texto.length > limite) {
@@ -104,6 +106,7 @@ const MenuLateral = () => {
                             key={text}
                             onClick={() => {
                                 navigate(href, { replace: true })
+                                window.location.reload()
                                 localStorage.setItem("orderSpec", "0")
                             }}
                         >
@@ -140,9 +143,15 @@ const MenuLateral = () => {
                     </div>
                 )}
                 <FontAwesomeIcon onClick={() => {
+                    
                     localStorage.removeItem('token')
                     localStorage.removeItem('nome')
                     localStorage.removeItem('tipo')
+                    connectionWebSocket.close()
+
+                        
+                                        
+                
                     navigate('/', { replace: true })
                 }} className='logout-icon' icon={faRightFromBracket} />
             </div>

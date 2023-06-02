@@ -688,7 +688,7 @@ figure {
   }
 
   .containerProfile .container_profile .top_profile_info {
-   
+       
       height: 55vh;
       width: 30vw;
       margin-top: 30px;
@@ -709,6 +709,7 @@ figure {
   }
 
   .containerProfile .container_profile .top_profile_info img {
+      height: 350px;
       border-radius: 50%;
       border: #21DA6B 2px solid;
       height: 370px;
@@ -716,11 +717,22 @@ figure {
       box-shadow: 0px 113px 45px rgba(0, 0, 0, 0.03), 0px 64px 38px rgba(0, 0, 0, 0.08), 0px 28px 28px rgba(0, 0, 0, 0.14), 0px 7px 16px rgba(0, 0, 0, 0.17), 0px 0px 0px rgba(0, 0, 0, 0.17);
   }
 
+  .materiais_atendidos {
+    cursor: pointer;
+    background: green; 
+    color: white;
+    padding: 20px;
+    border-radius: 50px;
+    width: 220px;
+    display: flex;
+    justify-content: center;
+  }
+
   
   .containerProfile .container_profile .under_profile_info {
       height: 40vh;
       width: 30vw;
-      
+    
   }
   .containerProfile .container_profile .under_profile_info .bio_and_about{
       display: flex;
@@ -848,3 +860,119 @@ figure {
     .about_infos_user span{
         font-size: 1.4rem;
     }
+
+
+
+@media (max-width: 1368px){
+    
+    .containerProfile .container_profile .top_profile_info {
+        height: 52vh;
+        width: 30vw;
+        margin-top: 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .containerProfile .container_profile .under_profile_info {
+        height: 40vh;
+        width: 30vw;
+        margin-top: 140px;
+    }
+
+    .containerProfile .container_profile .top_profile_info img {
+        height: 220px;
+        width: 200px;
+        background-color: saddlebrown;
+        margin-top: 20px;
+        border-radius: 50%;
+        border: #21DA6B 2px solid;
+
+        box-shadow: 0px 113px 45px rgba(0, 0, 0, 0.03), 0px 64px 38px rgba(0, 0, 0, 0.08), 0px 28px 28px rgba(0, 0, 0, 0.14), 0px 7px 16px rgba(0, 0, 0, 0.17), 0px 0px 0px rgba(0, 0, 0, 0.17);
+    }
+
+    .containerProfile .container_profile .top_profile_info .info_userr h1 {
+        font-size: 1.8rem;
+    }
+
+    .containerProfile .container_profile .top_profile_info .info_userr h2 {
+        font-size: 1.3rem;
+        color: green;
+    }
+
+    .containerProfile .container_profile .top_profile_info .infos_buttuns_container {
+        display: flex;
+        height: 20vh;
+        width: 24vw;
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        align-items: center;
+        margin-top: 35px;
+    }
+
+    .containerProfile .container_profile .top_profile_info .infos_buttuns_container button {
+        background: #21DA6B;
+        box-shadow: 4px 32px 13px rgb(0 0 0 / 1%), 2px 18px 11px rgb(0 0 0 / 5%), 1px 8px 8px rgb(0 0 0 / 9%), 0px 2px 4px rgb(0 0 0 / 10%), 0px 0px 0px rgb(0 0 0 / 10%);
+        border-radius: 20px;
+        height: 60px;
+        border: none;
+        color: white;
+        width: 200px;
+        cursor: pointer;
+    }
+
+    .materiais_atendidos {
+        cursor: pointer;
+        background: green; 
+        color: white;
+        padding: 15px;
+        border-radius: 50px;
+        width: 220px;
+        display: flex;
+        justify-content: center;
+      }
+
+      .containerProfile .container_profile .under_profile_info .bio_and_about {
+        display: flex;
+        height: 5vh;
+        color: black;
+        justify-content: center;
+        align-items: center;
+        gap: 180px;
+    }
+
+      .containerProfile .container_profile .under_profile_info .bio_and_about h1 {
+        font-size: 1.3rem;
+    }
+
+    .about_infos_user {
+        background: #FFFFFF;
+        border-top: 3px solid #000000;
+        box-shadow: 0px 58px 80px rgb(0 0 0 / 13%), 0px 22.3407px 25.4815px rgb(0 0 0 / 8%), 0px 4.72593px 6.51852px rgb(0 0 0 / 5%);
+        border-radius: 20px;
+        height: auto;
+        width: auto;
+        display: flex;
+    }
+
+    .about_infos_user h1 {
+        font-size: 1rem;
+        background-color: black;
+        color: white;
+        border-radius: 50px;
+        padding-left: 10px;
+    }
+
+    .about_infos_user span {
+        font-size: 0.8rem;
+    }
+
+    .about_infos_user {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px 20px;
+    }
+
+}

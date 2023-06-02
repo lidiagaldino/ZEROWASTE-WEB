@@ -136,6 +136,7 @@ type dadosOrder = {
 
 
 const SolicitePage = () => {
+    const [order, setOrder] = useState<data>({ id: 0, id_material: [{ material: { nome: '' } }], id_gerador: 0, id_catador: 0, id_status: 0, endereco: { id: 0, bairro: '', cidade: '', estado: '', cep: '', complemento: '', latitude: 0, longitude: 0, apelido: '', numero: '', logradouro: '' }, created_at: new Date('0000-00-00T00:00:00'), finished_at: new Date('0000-00-00T00:00:00'), distancia: 0 })
 
     const [complementoOptions, setComplementoOptions] = useState([])
 
@@ -153,26 +154,26 @@ const SolicitePage = () => {
     }, [])
 
     const [data, setData] = useState(false)
-    const [finishOrder, setFinishOrder] =  useState<dadosOrder>({ id: 0, id_material: [{ material: { nome: '' } }], id_gerador: 0, id_catador: 0, id_status: 0, endereco: { id: 0, bairro: '', cidade: '', estado: '', cep: '', complemento: '', latitude: 0, longitude: 0, apelido: '', numero: '', logradouro: '' }, created_at: new Date('0000-00-00T00:00:00'), finished_at: new Date('0000-00-00T00:00:00'), distancia: 0 })
-    const [orderAccept, setOrderAccept] =  useState<dadosOrder>({ id: 0, id_material: [{ material: { nome: '' } }], id_gerador: 0, id_catador: 0, id_status: 0, endereco: { id: 0, bairro: '', cidade: '', estado: '', cep: '', complemento: '', latitude: 0, longitude: 0, apelido: '', numero: '', logradouro: '' }, created_at: new Date('0000-00-00T00:00:00'), finished_at: new Date('0000-00-00T00:00:00'), distancia: 0 })
+   
     useEffect(() => {
         fetch(`https://zero-waste-logistic.azurewebsites.net/order/gerador`, {
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
             }
-        }).then(() => {
-                connectionWebSocket.on('acceptOrder', (order) => {
-                    setOrder(order)
-                })
-
-           console.log(order);
-           
+        }).then(response => response.json()).then(resposta => {
+            console.log(resposta);
+            if (resposta[0].id) {
+                setOrder(resposta[0])
+            }
         }).catch((e) => {
             console.log(e)
             setData(false)
         })
     }, [])
+
+    
+    
 
     connectionWebSocket.on("orderError", (order) => {
         setOrder({ id: 0, id_material: [{ material: { nome: '' } }], id_gerador: 0, id_catador: 0, id_status: 0, endereco: { id: 0, bairro: '', cidade: '', estado: '', cep: '', complemento: '', latitude: 0, longitude: 0, apelido: '', numero: '', logradouro: '' }, created_at: new Date('0000-00-00T00:00:00'), finished_at: new Date('0000-00-00T00:00:00'), distancia: 0 })
@@ -193,39 +194,8 @@ const SolicitePage = () => {
         })))
     }, [])
 
-    const [order, setOrder] = useState<data>({ id: 0, id_material: [{ material: { nome: '' } }], id_gerador: 0, id_catador: 0, id_status: 0, endereco: { id: 0, bairro: '', cidade: '', estado: '', cep: '', complemento: '', latitude: 0, longitude: 0, apelido: '', numero: '', logradouro: '' }, created_at: new Date('0000-00-00T00:00:00'), finished_at: new Date('0000-00-00T00:00:00'), distancia: 0 })
+    
 
-    useEffect(() => {
-        fetch(`https://zero-waste-logistic.azurewebsites.net/order/gerador`, {
-            headers: {
-                'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
-            }
-        }).then(response => response.json()).then(resposta => setOrder(resposta.map((item) => {
-            return {
-                id: item.id,
-                id_gerador: item.id_gerador,
-                id_catador: item.id_catador,
-                id_status: item.id_status,
-                endereco: {
-                    id: item.endereco.id,
-                    bairro: item.endereco.bairro,
-                    cidade: item.endereco.cidade,
-                    estado: item.endereco.estado,
-                    cep: item.endereco.cep,
-                    complemento: item.endereco.complemento,
-                    latitude: item.endereco.latitude,
-                    longitude: item.endereco.longitude,
-                    apelido: item.endereco.apelido,
-                    numero: item.endereco.numero,
-                    logradouro: item.endereco.logradouro
-                },
-                created_at: item.created_at,
-                finished_at: item.finished_at,
-                distancia: item.FilaPedidoCatador[0].distancia,
-                id_material: item.MateriaisPedido
-            }
-        })))
-    }, [])
 
 
 
@@ -258,7 +228,7 @@ const SolicitePage = () => {
         if (cadastrarPedido.ok) {
             Swal.fire({
                 title: 'Tudo certo!!',
-                text: 'pedido enviado para catador especifico',
+                text: 'Pedido enviado!',
                 icon: 'success'
             })
         } else {
@@ -329,7 +299,7 @@ const SolicitePage = () => {
         if (cadastrarPedido.ok) {
             Swal.fire({
                 title: 'Tudo certo!!',
-                text: 'Material foi enviado (fila)',
+                text: 'Solicitação enviada!',
                 icon: 'success'
             })
         } else {
@@ -466,6 +436,13 @@ const SolicitePage = () => {
         setOrder({ id: 0, id_material: [{ material: { nome: '' } }], id_gerador: 0, id_catador: 0, id_status: 0, endereco: { id: 0, bairro: '', cidade: '', estado: '', cep: '', complemento: '', latitude: 0, longitude: 0, apelido: '', numero: '', logradouro: '' }, created_at: new Date('0000-00-00T00:00:00'), finished_at: new Date('0000-00-00T00:00:00'), distancia: 0 })
     })
 
+    connectionWebSocket.on('acceptOrder', (order) => {
+        console.log(order)
+        setOrder(order)
+    })
+
+    console.log(order);
+    
     
     return (
 

@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { CheckIcon } from '@radix-ui/react-icons';
 import api from '../../../api/axios'
 import { v4 as uuidv4 } from 'uuid';
-import { connectionWebSocket } from '../../../utils/connectionWebSocket'
+import  {connectionWebSocket} from '../../../utils/connectionWebSocket'
 import Swal from 'sweetalert2'
 
 
