@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { CheckIcon } from '@radix-ui/react-icons';
 import api from '../../../api/axios'
 import { v4 as uuidv4 } from 'uuid';
-import  {connectionWebSocket} from '../../../utils/connectionWebSocket'
+import { connectionWebSocket } from '../../../utils/connectionWebSocket'
 import Swal from 'sweetalert2'
 
 
@@ -44,7 +44,7 @@ const ColetasProximas = () => {
 
     connectionWebSocket.on('canceledOrder', (_message) => {
         setData({ id: 0, id_material: [{ material: { nome: '' } }], id_gerador: 0, id_catador: 0, id_status: 0, endereco: { id: 0, bairro: '', cidade: '', estado: '', cep: '', complemento: '', latitude: 0, longitude: 0, apelido: '', numero: '', logradouro: '' }, created_at: new Date('0000-00-00T00:00:00'), finished_at: new Date('0000-00-00T00:00:00'), distancia: 0 })
-    }) 
+    })
 
     const navigate = useNavigate()
 
@@ -128,13 +128,14 @@ const ColetasProximas = () => {
     const finishOrder = () => {
         let local: { latitude: number, longitude: number } = { latitude: 0, longitude: 0 }
         let teste = navigator.geolocation.getCurrentPosition(function (position) {
+            console.log(position);
             local = {
                 latitude: position.coords.latitude,
                 longitude: position.coords.longitude
             }
-        })
 
-        setTimeout(() => {
+            console.log(local);
+
             fetch(`https://zero-waste-logistic.azurewebsites.net/order/finish/${data.id}`, {
                 method: 'PUT',
                 headers: {
@@ -170,7 +171,8 @@ const ColetasProximas = () => {
                     text: e.message,
                 })
             })
-        }, 2000)
+        })
+
 
 
 
@@ -232,7 +234,7 @@ const ColetasProximas = () => {
     const [appeared, setAppeared] = useState(false)
     console.log(data)
 
-    if(data.id_status == 2) {
+    if (data.id_status == 2) {
         localStorage.setItem('corrida', '2')
     } else {
         localStorage.setItem('corrida', '0')
@@ -249,9 +251,9 @@ const ColetasProximas = () => {
 
 
 
-    
 
-            <div style={localStorage.getItem('corrida') == '2' ? {background: 'transparent', overflow: 'none', boxShadow: 'none'} : {background: '#ffffffa2'}} className='scrollc'>
+
+            <div style={localStorage.getItem('corrida') == '2' ? { background: 'transparent', overflow: 'none', boxShadow: 'none' } : { background: '#ffffffa2' }} className='scrollc'>
                 {data.id_status == 1 &&
 
                     <>
@@ -270,10 +272,10 @@ const ColetasProximas = () => {
 
                 {data.id == 0 &&
                     <>
-                        <div style={{ height: 650, width: 1090, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                            <h1 style={{fontSize: 25 }}>Você não recebeu nenhuma solicitação de coleta</h1>
+                        <div style={{ height: 650, width: 1090, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            <h1 style={{ fontSize: 25 }}>Você não recebeu nenhuma solicitação de coleta</h1>
                         </div>
-                        
+
                     </>
                 }
 
@@ -284,13 +286,13 @@ const ColetasProximas = () => {
                             <>
 
                                 <div id={`${data.id}`} key={`${data.id}_${uuidv4()}`} className="boxUserProximoss">
-                                    <h1 style={{fontSize: 30}}>Coleta Disponível</h1>
+                                    <h1 style={{ fontSize: 30 }}>Coleta Disponível</h1>
                                     <div className="container-branco">
                                         <div className="subContainer-info">
                                             <div className="info-card">
-                                                <h1><h1 style={{color: 'green'}}>{data.distancia}</h1> Metros de distância</h1>
+                                                <h1><h1 style={{ color: 'green' }}>{data.distancia}</h1> Metros de distância</h1>
                                                 <h2><FontAwesomeIcon icon={faLocationDot} /> <h2>Destino:</h2> {data.endereco.logradouro} {data.endereco.numero}, {data.endereco.cidade} - {data.endereco.estado}</h2>
-                                                <hr className='hr-colets'/>
+                                                <hr className='hr-colets' />
                                                 <h2 className='material-presente'> <h3>Materiais presentes no local:</h3> {data.id_material.map((elemento) => {
                                                     return (
                                                         <p>{elemento.material.nome} / </p>
@@ -319,12 +321,12 @@ const ColetasProximas = () => {
                 <div className="AcceptRecuse">
 
                     {modal == false &&
-                    
+
                         <>
-                            {data.id_status == 2 && 
-                               
+                            {data.id_status == 2 &&
+
                                 <>
-                                   <div style={{background: 'white'}}  className="containerProgress">
+                                    <div style={{ background: 'white' }} className="containerProgress">
                                         <div className="infoProgress">
                                             <h2>Destino:</h2>
                                             <h3>{data.endereco.logradouro}</h3>
@@ -347,10 +349,10 @@ const ColetasProximas = () => {
                                             <button className="accept" type='button' onClick={finishOrder} >Eu recolhi o material</button>
                                         </div>
                                     </div>
-                              
-                                     
-                              
-                                   
+
+
+
+
                                 </>
                             }
                         </>

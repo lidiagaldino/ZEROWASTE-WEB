@@ -1,16 +1,34 @@
 import React from 'react'
 import styled from "styled-components";
 import Hello from "../../../assets/hello.gif";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTriangleExclamation, faUser } from '@fortawesome/free-solid-svg-icons'
 const Welcome = () => {
-    return (
-        <Container>
-            <img src={Hello} alt="hello" />
-            <h1>
-                Bem-vindo, <span>{localStorage.getItem('nome')}</span>!
-            </h1>
-            <h3>Por favor, selecione uma conversa para começar.</h3>
-        </Container>
-    )
+  return (
+    <Container>
+      <img src={Hello} alt="hello" />
+      <h1>
+        Bem-vindo, <span>{localStorage.getItem('nome')}</span>!
+      </h1>
+      {localStorage.getItem('contatos') == 'ntem' &&
+        <>
+          <div className="circle-warning" style={{ border: "3px solid black", marginTop: 20 }}>
+            <FontAwesomeIcon icon={faTriangleExclamation} style={{ fontSize: 35, alignItems: 'center', justifyContent: 'center', marginBottom: 5, color: 'black' }} />
+          </div>
+          <h3>Favorite um catador para iniciar uma conversa</h3>
+        </>
+      }
+
+      {localStorage.getItem('contatos') == 'tem' &&
+        <>
+     
+          <h3>Selecione um catador para iniciar uma conversa</h3>
+        </>
+      }
+
+
+    </Container>
+  )
 }
 
 

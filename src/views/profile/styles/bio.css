@@ -732,7 +732,9 @@ figure {
   .containerProfile .container_profile .under_profile_info {
       height: 40vh;
       width: 30vw;
-    
+    display: flex;
+    flex-direction: column;
+
   }
   .containerProfile .container_profile .under_profile_info .bio_and_about{
       display: flex;
@@ -740,17 +742,55 @@ figure {
       color: black;
       justify-content: center;
       align-items: center;
-      gap: 220px;
+      gap: 100px;
+    
+    
+    }
+
+    .bio_and_about_button {
+        align-items: center;
+        appearance: none;
+        background-color: #fff;
+            border-radius: 24px;
+            border-style: none;
+            box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0;
+            box-sizing: border-box;
+            color: #3c4043;
+            cursor: pointer;
+            display: inline-flex;
+            fill: currentcolor;
+            font-family: "Google Sans",Roboto,Arial,sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            height: 48px;
+            justify-content: center;
+            letter-spacing: .25px;
+            line-height: normal;
+            width: 140px;
+            overflow: visible;
+            padding: 2px 24px;
+            position: relative;
+            text-align: center;
+            text-transform: none;
+            transition: box-shadow 280ms cubic-bezier(.4, 0, .2, 1),opacity 15ms linear 30ms,transform 270ms cubic-bezier(0, 0, .2, 1) 0ms;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
    
-  }
+            will-change: transform,opacity;
+            z-index: 0;
+    }
+
+
+    .bio_and_about_button:hover {
+        background: #F6F9FE;
+        color: #174ea6;
+    }
 
   .containerProfile .container_profile .under_profile_info .bio_and_about h1 {
-      font-size: 1.7rem;
+      font-size: 1.3rem;
   }
-  .containerProfile .container_profile .under_profile_info .bio_and_about h1:hover{
-      cursor: pointer;
-      border-bottom: 5px solid green;
-  }
+
 
   .containerProfile .container_profile .top_profile_info .info_userr {
 
@@ -782,7 +822,7 @@ figure {
       
     }
 
-    .containerProfile .container_profile .top_profile_info .infos_buttuns_container button{
+    .containerProfile .container_profile .top_profile_info .infos_buttuns_container .infos_buttuns_solicitar{
         background: #21DA6B;
         box-shadow: 4px 32px 13px rgba(0, 0, 0, 0.01), 2px 18px 11px rgba(0, 0, 0, 0.05), 1px 8px 8px rgba(0, 0, 0, 0.09), 0px 2px 4px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
         border-radius: 20px;
@@ -792,6 +832,17 @@ figure {
         width: 200px;
         cursor: pointer;
     } 
+
+    .infos_buttuns_avaliar {
+        background-color: rgb(130, 152, 4);
+        box-shadow: 4px 32px 13px rgba(0, 0, 0, 0.01), 2px 18px 11px rgba(0, 0, 0, 0.05), 1px 8px 8px rgba(0, 0, 0, 0.09), 0px 2px 4px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
+        border-radius: 20px;
+        height: 60px;
+        border: none;
+        color: white;
+        width: 200px;
+        cursor: pointer;
+    }
 
     .middle_material_info{
         display: flex;

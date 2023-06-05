@@ -69,8 +69,12 @@ const CatadoresProximos = () => {
         }).then(response => setCheckFavorite(response.data.map((elemento) => {
             setIsFavorited(true)
             setCodeTrue(true)
+            console.log(elemento);
+
             return ({
-                nome: elemento.nome,
+                id: elemento.id_usuario,
+                id_modo: elemento.id_catador,
+                nome: elemento.nome ? elemento.nome : elemento.nome_fantasia,
                 logradouro: elemento.logradouro,
                 foto: elemento.foto
             })
@@ -95,7 +99,7 @@ const CatadoresProximos = () => {
 
 
 
-           
+
             <div className='scroll'>
                 <div className='infoS'>
                     <h1 className='titleBoxU'>Catadores próximos</h1>
@@ -129,13 +133,15 @@ const CatadoresProximos = () => {
                     return (
 
                         <>
-                            <div id={elemento.id} key={`${elemento.id}_${uuidv4()}`} className="boxUserProximos" onClick={(event) => {
+                            <div id={elemento.id} key={elemento.id_modo} data-key={elemento.id_modo} className="boxUserProximos" onClick={(event) => {
                                 console.log(event.currentTarget.id);
 
 
                                 localStorage.setItem('view-edit', 'view')
+                                localStorage.setItem('viewPriv', event.currentTarget.getAttribute('data-key'))
+                                    localStorage.setItem('id-other-person', event.currentTarget.id)
                                 navigate(`/profile/${event.currentTarget.id}`,)
-                                localStorage.setItem('viewPriv', event.currentTarget.id)
+
                             }} >
                                 <img src={elemento.foto} alt="photo" className='fotoUser' style={{ borderRadius: 100, width: 93, height: 93 }} />
                                 <div className='boxInfoU'>
@@ -162,9 +168,9 @@ const CatadoresProximos = () => {
                 {data.length == 0 &&
                     <>
                         <div className="square_container_catadores"  >
-                            <h1   style={{  alignItems: 'center', display: 'flex', justifyContent: 'center' }}>Selecione um local para saber quais catadores estão pertos de sua região.</h1>
+                            <h1 style={{ alignItems: 'center', display: 'flex', justifyContent: 'center' }}>Selecione um local para saber quais catadores estão pertos de sua região.</h1>
                         </div>
-                        
+
                     </>
                 }
 

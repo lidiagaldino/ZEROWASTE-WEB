@@ -2,6 +2,7 @@ import { faRecycle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { boolean } from 'yup'
 
 type dados = {
     id: number,
@@ -54,7 +55,10 @@ const Contacts = ({ changeChat }) => {
         }).then(response => response.json()).then(resposta => {
           console.log(resposta)
           setContacts(resposta)
+          localStorage.setItem('contatos',  resposta.length > 0 ? 'tem' : 'ntem')
         })
+
+       
     }, [])
 
     const [currentSelected, setCurrentSelected] = useState(0)
@@ -74,7 +78,7 @@ const Contacts = ({ changeChat }) => {
             </div>
             <div className='contacts'>
 
-                {contacts.map((item, index) => {
+                {contacts.map ? contacts.map((item, index) => {
                     return (
                         <div
                             key={item.id}
@@ -93,7 +97,7 @@ const Contacts = ({ changeChat }) => {
                             </div>
                         </div>
                     )
-                })}
+                }) : 'oi'}
             </div>
 
         </Container>

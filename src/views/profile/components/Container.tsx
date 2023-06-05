@@ -167,7 +167,8 @@ const Container = () => {
             nota: clicked,
             id_catador: Number(localStorage.getItem('viewPriv'))
         }
-
+        console.log(bodyUserAvaliation);
+        
         const avaliar = await fetch(`https://zero-waste-logistic.azurewebsites.net/rating`, {
             method: 'POST',
             body: JSON.stringify(bodyUserAvaliation),
@@ -313,7 +314,7 @@ const Container = () => {
                             {arrayNota.map((star) => {
                                 return (
                                     <>
-                                        <div className="rating">{star.media}
+                                        <div className="rating">{star.media ? star.media : '0'} 
                                             <FontAwesomeIcon icon={faStar} style={{ color: "#f7d702", fontSize: 40, marginLeft: 10 }} />
                                         </div>
                                     </>
@@ -332,7 +333,7 @@ const Container = () => {
                     {
                         viewState == 'view' ?
                             <div className="infos_buttuns_container">
-                                <button type='button' id={localStorage.getItem('viewPriv')} onClick={(e) => {
+                                <button className='infos_buttuns_solicitar' type='button' id={localStorage.getItem('viewPriv')} onClick={(e) => {
                                     e.currentTarget.id
                                     console.log(e.currentTarget.id);
                                     localStorage.setItem('orderSpec', '999')
@@ -341,7 +342,7 @@ const Container = () => {
                                         console.log(position.coords);
                                     })
                                 }}>Solicite uma coleta</button>
-                                <button onClick={toggleModal} >{reaval ? 'Reavaliar' : 'Avaliar'}</button>
+                                <button className='infos_buttuns_avaliar' onClick={toggleModal} >{reaval ? 'Reavaliar' : 'Avaliar catador'}</button>
                             </div>
                             :
                             <EditAdress></EditAdress>
@@ -448,15 +449,21 @@ const Container = () => {
 
                 <div className="under_profile_info">
                     <div className="bio_and_about">
-                        <h1 onClick={() => {
+                        <button className='bio_and_about_button'>
+                            <h1 onClick={() => {
                             setBioClick(false)
                             setAboutClick(true)
                         }} >Sobre</h1>
-                        <h1 onClick={() => {
+                        </button>
+                        
+                        <button className='bio_and_about_button' onClick={() => {
                             setAboutClick(false)
                             setBioClick(true)
 
-                        }}>Biografia</h1>
+                        }}>
+                            <h1>Biografia</h1>
+                        </button>
+                        
                     </div>
                     {aboutClick &&
                         <div className='about_infos_user'>

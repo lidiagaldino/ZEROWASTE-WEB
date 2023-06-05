@@ -182,12 +182,12 @@ const SolicitePage = () => {
     const [dropOptions, setDropOptions] = useState([])
 
     useEffect(() => {
-        fetch(`https://webappdeploy-backend.azurewebsites.net/materiais`).then(response => response.json()).then(resposta => setDropOptions(resposta.message.map((item) => {
+        fetch(`https://webappdeploy-backend.azurewebsites.net/materiais/${localStorage.getItem('viewPriv')}`).then(response => response.json()).then(resposta => setDropOptions(resposta.map((item) => {
             return (
                 {
 
-                    label: item.nome,
-                    value: item.nome,
+                    label: item.material.nome,
+                    value: item.material.nome,
                     id: item.id
                 }
             )

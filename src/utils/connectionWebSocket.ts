@@ -1,5 +1,5 @@
 import { io } from "socket.io-client";
-export const URL = "https://zero-waste-chat.azurewebsites.net/";
+export const URL = "https://zero-waste-logistic.azurewebsites.net/";
 
 export const connectionWebSocket = io(URL, {
   auth: {
