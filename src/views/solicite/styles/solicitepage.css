@@ -48,7 +48,7 @@
     font-weight: 700;
     font-size: 24px;
     line-height: 31px;
-    margin-top: 40px;
+    margin-top: 20px;
     color: #482D2D;
 }
 
@@ -534,6 +534,20 @@ form .input-groupp button {
 
 }
 
+@media (max-width: 1368px) {
+    .card_solicite .middle_card_info_solicite {
+        display: flex;
+        flex-direction: column;
+        margin-top: 42px;
+        height: 100%;
+        width: 200%;
+        align-items: center;
+    }
+
+    .card_solicite {
+        margin-left: 80px;
+    }
+}
 
 
 

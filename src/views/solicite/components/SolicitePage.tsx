@@ -539,7 +539,7 @@ const SolicitePage = () => {
                         
 
                         {localStorage.getItem('orderSpec') != '0' ? 
-                            <button type='button' className='solicite_button' onClick={soliciteSpec}>Solicitee</button>  : <button className='solicite_button' type='submit'>Solicite</button>}
+                            <button type='button' className='solicite_button' onClick={soliciteSpec}>Solicite</button>  : <button className='solicite_button' type='submit'>Solicite</button>}
                         </form>
 
 

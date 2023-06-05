@@ -95,12 +95,7 @@ const CatadoresProximos = () => {
 
 
 
-            <div className="search-box">
-                <input className="search-txt" type="text" name="" placeholder="Procure por nome ou endereço" />
-                <a className="search-btn">
-                    <FontAwesomeIcon icon={faMagnifyingGlass} style={{ color: "#ffffff", }} />
-                </a>
-            </div>
+           
             <div className='scroll'>
                 <div className='infoS'>
                     <h1 className='titleBoxU'>Catadores próximos</h1>
@@ -166,8 +161,10 @@ const CatadoresProximos = () => {
 
                 {data.length == 0 &&
                     <>
-
-                        <h1 style={{ paddingTop: 400, alignItems: 'center', display: 'flex', justifyContent: 'center    ' }}>Selecione um local para saber quais catadores estão pertos</h1>
+                        <div className="square_container_catadores"  >
+                            <h1   style={{  alignItems: 'center', display: 'flex', justifyContent: 'center' }}>Selecione um local para saber quais catadores estão pertos de sua região.</h1>
+                        </div>
+                        
                     </>
                 }
 

@@ -69,15 +69,6 @@ div {
     width: 100%;
 }
 
-.form-box {
-  display: flex;
-    backdrop-filter: blur(40px);
-    padding: 30px 30px;
-    width: 100%;
-    transform: scale(1.1);
-    align-items: center;
-    border-radius: 0 20px 20px 0;
-}
 
 .form-box h2 {
     font-size: 25px;
@@ -151,41 +142,6 @@ form .input-group button {
 
 
 
-@media (max-width:930px) {
-    .img-box {
-        display: none;
-    }
-
-    .box {
-        width: 700px;
-    }
-
-    .form-box {
-        width: 100%;
-        border-radius: 20px;
-    }
-}
-
-@media (max-width:500px) {
-    .w50 {
-        width: 100%;
-        padding: 0;
-    }
-
-
-    .menu-item-NX {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        /* width: 50px; */
-        height: 50px;
-        /* margin: 6px; */
-        /* margin-left: 20px; */
-        font-size: 18px;
-        border-radius: 12px;
-    }
-
-}
 
 
 
@@ -233,13 +189,14 @@ form .input-group button {
 
     backdrop-filter: blur(40px);
     padding: 30px 30px;
-    width: 55%;
+    width: 95%;
     transform: scale(1.1);
     align-items: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
     border-radius: 0 20px 20px 0;
+    margin-left: -90px;
 }
 
 .form-box h2 {
@@ -389,13 +346,9 @@ margin-left: 100px;
 
 
 
-@media screen and (max-width: 1050px){
-	.container-cadastro{
-		grid-gap: 5rem;
-	}
-}
 
-@media screen and (max-width: 1000px){
+
+@media screen and (max-width: 1368px){
 	form{
 		width: 290px;
 	}
@@ -408,22 +361,21 @@ margin-left: 100px;
 	.img img{
 		width: 400px;
 	}
+
+    .form-box {
+            backdrop-filter: blur(40px);
+            padding: 30px 30px;
+            transform: scale(1.1);
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-radius: 0 20px 20px 0;
+            width: 100%;
+    }
+
+    .bg-cadastro_endereço {
+        display: none;
+    }
 }
 
-@media screen and (max-width: 900px){
-	.container-cadastro{
-		grid-template-columns: 1fr;
-	}
-
-	.img{
-		display: none;
-	}
-
-	.wave{
-		display: none;
-	}
-
-	.login-content{
-		justify-content: center;
-	}
-}

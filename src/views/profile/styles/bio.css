@@ -709,11 +709,11 @@ figure {
   }
 
   .containerProfile .container_profile .top_profile_info img {
-      height: 350px;
+      
       border-radius: 50%;
       border: #21DA6B 2px solid;
-      height: 370px;
-      width: 370px;
+      height: 290px;
+      width: 290px;
       box-shadow: 0px 113px 45px rgba(0, 0, 0, 0.03), 0px 64px 38px rgba(0, 0, 0, 0.08), 0px 28px 28px rgba(0, 0, 0, 0.14), 0px 7px 16px rgba(0, 0, 0, 0.17), 0px 0px 0px rgba(0, 0, 0, 0.17);
   }
 
@@ -736,11 +736,11 @@ figure {
   }
   .containerProfile .container_profile .under_profile_info .bio_and_about{
       display: flex;
-      height: 5vh;
+      height: 15vh;
       color: black;
       justify-content: center;
       align-items: center;
-      gap: 280px;
+      gap: 220px;
    
   }
 

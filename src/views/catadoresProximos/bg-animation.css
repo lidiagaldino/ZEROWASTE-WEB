@@ -51,6 +51,23 @@
     transform: translate3d(0, 0, 0);
 }
 
+.square_container_catadores {
+    height: 513px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 1368px) {
+    .square_container_catadores {
+        height: 513px;
+        width: 1020px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
 @keyframes drift {
     from {
         transform: rotate(0deg);

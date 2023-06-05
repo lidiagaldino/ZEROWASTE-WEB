@@ -197,7 +197,7 @@ const CadastroPage = () => {
         <img className="wavee" src={wave}/> 
         <div className="container-cadastro">
             <div className="img-cadastro">
-                <img src={bg} />
+                <img className='bg-cadastro_endereço' src={bg} />
             </div>
             <div className="login-content">
 
