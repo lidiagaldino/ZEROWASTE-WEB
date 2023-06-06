@@ -155,8 +155,8 @@ const HomePage = () => {
 
 
             <h2><span className="zerowastetext">ZeroWaste</span> é fazer nossa parte para um mundo mais sustentável.</h2>
-            <p>Seja bem vindo ao nosso website, caso não saiba por quais materiais reciclar, clique
-              no botão "Saiba mais" para ter uma representação em slides.
+            <p>Seja bem-vindo(a) ao nosso website!
+            Clique no botão "Saiba mais" e veja uma pequena apresentação informando quais materiais podem ser reciclados.
             </p>
             <Link to='/dicas' className="SAIBAMAIS">Saiba mais</Link>
             <div className="switch">

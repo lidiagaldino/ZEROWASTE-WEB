@@ -55,6 +55,11 @@ div {
 
 }
 
+.input-groupp {
+    
+    margin-top: -80px;
+}
+
 .img-box {
    
     width: 50%;
@@ -94,8 +99,10 @@ div {
    width: 110%;
 }
 
-form .input-group {
-    margin-bottom: 15px;
+form .input-groupp {
+
+    width: 100%;
+
 }
 
 form .input-group label {
@@ -138,6 +145,7 @@ form .input-group button {
     color: white;
     cursor: pointer;
     font-size: 16px;
+   
 }
 
 
@@ -238,11 +246,18 @@ form .input-group button {
     margin-bottom: 5px;
 }
 
+.form-endereco  {
 
+    justify-content: center;
+    align-items: center;
+    
+}
 
 
 .form-box .form-endereco button{
-margin-left: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
@@ -379,3 +394,72 @@ margin-left: 100px;
     }
 }
 
+@media screen and (max-width: 1920px){
+    .form-box {
+        backdrop-filter: blur(40px);
+        padding: 30px 30px;
+        transform: scale(1.1);
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-radius: 0 20px 20px 0;
+        width: 80%;
+}
+}
+
+@media screen and (max-width: 1790px){
+    .form-box {
+        backdrop-filter: blur(40px);
+        padding: 30px 30px;
+        transform: scale(1.1);
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-radius: 0 20px 20px 0;
+        width: 100%;
+}
+}
+
+@media screen and (max-width: 1724px){
+    .form-box {
+        backdrop-filter: blur(40px);
+        padding: 30px 30px;
+        transform: scale(1.1);
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-radius: 0 20px 20px 0;
+        width: 150%;
+}
+}
+
+@media screen and (max-width: 1610px){
+    .form-box {
+        backdrop-filter: blur(40px);
+        padding: 30px 30px;
+        transform: scale(1.1);
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-radius: 0 20px 20px 0;
+        width: 150%;
+}
+}
+
+@media screen and (max-width: 1550px){
+    .form-box {
+        backdrop-filter: blur(40px);
+        padding: 30px 30px;
+        transform: scale(1.1);
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-radius: 0 20px 20px 0;
+        width: 260%;
+}
+}

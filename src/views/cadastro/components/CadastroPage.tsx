@@ -244,7 +244,7 @@ const CadastroPage = () => {
                             <input onChange={handleChangeApelido} type="text" id="cep" placeholder="Nomear Local" />
                         </div>
 
-                        <div className="input-group w50">
+                        <div className="input-groupp w50">
                             <button type='submit'>Cadastrar</button>
                         </div>
 

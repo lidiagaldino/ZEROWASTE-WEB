@@ -380,7 +380,7 @@ figure {
     justify-content: center;
     align-items: center;
     height: 200px;
-    overflow-y: scroll;
+ 
     z-index: 998;
     border-radius: 25px;
     transition: all 1s ease-in-out;

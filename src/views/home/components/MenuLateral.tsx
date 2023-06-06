@@ -39,15 +39,16 @@ const MenuLateral = () => {
             href: '/home'
         },
         {
-            text: localStorage.getItem('tipo') == "Catador" ? "Cadastre um novo material" : "Solicite uma coleta",
-            icon: <FontAwesomeIcon className='icon' icon={faStreetView} />,
-            href: localStorage.getItem('tipo') == "Catador" ? '/material' : '/solicite',
-        },
-        {
             text: "Cadastre um endereço",
             icon: <FontAwesomeIcon className='icon' icon={faMapLocationDot} />,
             href: '/cadastro'
         },
+        {
+            text: localStorage.getItem('tipo') == "Catador" ? "Cadastre um novo material" : "Solicite uma coleta",
+            icon: <FontAwesomeIcon className='icon' icon={faStreetView} />,
+            href: localStorage.getItem('tipo') == "Catador" ? '/material' : '/solicite',
+        },
+       
         {
             text: localStorage.getItem('tipo') == "Catador" ? 'Coletas' : "Catadores próximos",
             icon: <FontAwesomeIcon className='icon' icon={faMapPin} />,

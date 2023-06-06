@@ -106,7 +106,7 @@ const PontuationCupom = () => {
 	const [uniqueCupom, setUniqueCupom] = useState(0)
 
 	const uniqueCupomCod = async (e) => {
-		await fetch(`https://zero-waste-logistic.azurewebsites.net/coupon/unique/${localStorage.getItem("cupom")}`, {
+		await fetch(`https://zero-waste-logistic.azurewebsites.net/coupon/uniqu	e/${localStorage.getItem("cupom")}`, {
 			method: 'GET',
 			headers: {
 				'content-type': 'application/json', 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
@@ -197,7 +197,7 @@ const PontuationCupom = () => {
 															reedemCupom()
 															console.log(enought);
 															if(enought == false)  {
-															 reedemCupom() 
+															 
 															}else if(enought)
 															{
 															

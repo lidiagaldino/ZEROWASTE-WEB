@@ -188,7 +188,7 @@ const SolicitePage = () => {
 
                     label: item.material.nome,
                     value: item.material.nome,
-                    id: item.id
+                    id: item.material.id
                 }
             )
         })))
@@ -209,6 +209,7 @@ const SolicitePage = () => {
         }
 
       
+        console.log(requisitos);
         
 
         const cadastrarPedido = await fetch(`https://zero-waste-logistic.azurewebsites.net/order/${localStorage.getItem('viewPriv')}`, {
@@ -473,7 +474,7 @@ const SolicitePage = () => {
                             : ''}
                     <form onSubmit={pedido} className='form'>
                         <div className="middle_card_info_solicite">
-                            <span>Selecione o local que sera solicitado</span>
+                            <span>Selecione o local que será solicitado</span>
                             <div onClick={handleToggle} className={isActive ? 'select-btn_solicite open' : 'select-btn_solicite'}>
                                 <span ref={btnTextReff} className="btn-text_solicite">{selectedValue || 'Selecione'}</span>
                                 <span className="arrow-dwn">
@@ -500,7 +501,7 @@ const SolicitePage = () => {
                         </div>
 
                         <div className="middle_card_info_solicite">
-                            <span>Selecione os materiais que serao descartados</span>
+                            <span>Selecione os materiais que serão descartados</span>
                             <div onClick={handleToggle2} className={isActive2 ? 'select-btn_solicite open' : 'select-btn_solicite'}>
                                 <span ref={btnTextRef} className="btn-text_solicite">Selecione</span>
 

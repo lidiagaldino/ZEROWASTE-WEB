@@ -40,6 +40,7 @@
     align-items: center;
     flex-direction: column;
     overflow: hidden;
+   
 }
 
 .card_solicite .card_info_solicite h1 {
@@ -49,6 +50,7 @@
     font-size: 24px;
     line-height: 31px;
     margin-top: 20px;
+
     color: #482D2D;
 }
 
@@ -66,11 +68,12 @@
 
     display: flex;
     flex-direction: column;
-    margin-top: 42px;
+    margin-top: 22px;
     height: 100%;
     width: 90%;
     align-items: center;
-    
+ 
+    z-index: 1;
 }
 
 .card_solicite .middle_card_info_solicite span {
@@ -100,6 +103,7 @@
     font-size: 15px;
     line-height: 20px;
     color: rgba(0, 0, 0, 0.48);
+   
 }
 
 
@@ -120,6 +124,7 @@
     line-height: 20px;
     color: #FFFFFF;
     margin-top: 10px;
+    
 }
 
 
@@ -178,7 +183,7 @@
     transform: rotate(-180deg);
 }
 .list-items_solicite{
-    overflow: hidden;
+
     margin-top: 10px;
     border-radius: 8px;
     padding: 16px;
@@ -186,12 +191,14 @@
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
     display: none;
     width: 100%;
-    overflow: scroll;
+    overflow-y: scroll;
+    z-index: 2;
+    overflow: visible;
    
 }
 .select-btn_solicite.open ~ .list-items_solicite{
     display: block;
-    
+  
 }
 .list-items_solicite .item{
     display: flex;
@@ -204,7 +211,7 @@
     border-radius: 8px;
 }
 .list-items_solicite .item:hover{
-    background-color: #e7edfe;
+    background-color: #c9fab6;
 }
 .item .item-text{
     font-size: 16px;

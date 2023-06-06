@@ -45,12 +45,14 @@ const Container = styled.div`
   height: 100vh;
   width: 100vw;
   display: flex;
+ 
   flex-direction: column;
   justify-content: center;
   gap: 1rem;
   align-items: center;
   background-color: #DEF6D8;
   .container-do-chat {
+    border-radius: 15px;
     height: 85vh;
     width: 85vw;
     background-color: green;
@@ -60,6 +62,47 @@ const Container = styled.div`
       grid-template-columns: 35% 65%;
     }
   }
+  .ftiPHt {
+    display: grid;
+    grid-template-rows: 10% 75% 15%;
+    overflow: hidden;
+    background-color: rgb(8, 4, 32);
+    border-radius: 15px 0px 0px 15px;
+}
+.ftiPHt .contacts {
+  display: flex;
+  flex-direction: column;
+  -webkit-box-align: center;
+  align-items: center;
+  overflow: auto;
+  gap: 0.8rem;
+  border-radius: 20px;
+}
+
+.imaFcA .chat-header {
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  align-items: center;
+  padding: 0px 2rem;
+  
+}
+
+.ftiPHt .contacts .contact .avatar img {
+border: 10px red;
+border-radius: 50%;
+max-height: 60px;
+max-width: 60px;
+}
+
+.eTdZnv .chat-header .user-details .avatar img {
+  border-radius: 50%;
+  max-height: 60px;
+max-width: 60px;
+}
+
+
 `;
 
 export default Chat
