@@ -184,7 +184,7 @@ const CatadoresProximos = () => {
             {data.length == 0 && 
             <>
              <div className="square_container_catadores"  >
-                   <h1 style={{ alignItems: 'center', display: 'flex', justifyContent: 'center', fontSize: 25 }}>Selecione um local para saber quais catadores estão pertos de sua região.</h1>
+                   <h1 style={{ alignItems: 'center', display: 'flex', justifyContent: 'center', fontSize: 26 }}>Selecione um local para saber quais catadores estão pertos de sua região.</h1>
                </div>
             </>
                   
