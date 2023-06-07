@@ -52,7 +52,8 @@ const ColetasProximas = () => {
     useEffect(() => {
         fetch(`https://zero-waste-logistic.azurewebsites.net/order`, {
             headers: {
-                'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
+                'Authorization': 'Bearer' + ' ' + localStorage.getItem('token'),
+                'Access-Control-Allow-Origin': '*'
             }
         }).then(response => response.json()).then((resposta) => {
             console.log(resposta.pedido.FilaPedidoCatador)
@@ -103,7 +104,8 @@ const ColetasProximas = () => {
         fetch(`https://zero-waste-logistic.azurewebsites.net/order/${data.id}`, {
             method: 'PUT',
             headers: {
-                'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
+                'Authorization': 'Bearer' + ' ' + localStorage.getItem('token'),
+                'Access-Control-Allow-Origin': '*'
             }
         }).then(() => {
             Swal.fire({
@@ -141,7 +143,8 @@ const ColetasProximas = () => {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
+                    'Authorization': 'Bearer' + ' ' + localStorage.getItem('token'),
+                    'Access-Control-Allow-Origin': '*'
                 },
                 body: JSON.stringify(local)
             }).then((response) => {
@@ -186,7 +189,8 @@ const ColetasProximas = () => {
         fetch(`https://zero-waste-logistic.azurewebsites.net/order/deny/${data.id}`, {
             method: 'PUT',
             headers: {
-                'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
+                'Authorization': 'Bearer' + ' ' + localStorage.getItem('token'),
+                'Access-Control-Allow-Origin': '*'
             }
         }).then((response) => {
             console.log(response);

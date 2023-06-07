@@ -51,8 +51,9 @@ const CatadoresProximos = () => {
     const handleDropChange = (id) => {
         fetch(`https://webappdeploy-backend.azurewebsites.net/gerador/${id}`, {
             headers: {
-                'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
-            },
+                'Authorization': 'Bearer' + ' ' + localStorage.getItem('token'),
+                'Access-Control-Allow-Origin': '*'
+            }
         }).then(response => response.json()).then(resposta => {
             if (resposta.length > 0) {
                 setIsArray(2)
@@ -80,7 +81,8 @@ const CatadoresProximos = () => {
     function clickFavorite() {
         api.get(`/favoritar/endereco/${localStorage.getItem('id_modo')}/${localStorage.getItem('idEnd')}`, {
             headers: {
-                'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
+                'Authorization': 'Bearer' + ' ' + localStorage.getItem('token') ,
+                'Access-Control-Allow-Origin': '*'
             },
         }).then(response => setCheckFavorite(response.data.map((elemento) => {
             setIsFavorited(true)

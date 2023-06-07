@@ -123,7 +123,8 @@ const CadastroPage = () => {
             method: 'POST',
             body: JSON.stringify(pontocadastro),
             headers: {
-                'content-type': 'application/json', 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
+             'content-type': 'application/json', 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token'),
+             'Access-Control-Allow-Origin': '*'
             }
         })
         // const json = await cadstro.json()

@@ -140,8 +140,15 @@ const SolicitePage = () => {
 
     const [complementoOptions, setComplementoOptions] = useState([])
 
+    console.log(`https://webappdeploy-backend.azurewebsites.net/endereco/${localStorage.getItem('id')}`);
+
     useEffect(() => {
-        fetch(`https://webappdeploy-backend.azurewebsites.net/endereco/${localStorage.getItem('id')}`).then(response => response.json()).then(resposta => setComplementoOptions(resposta.map((item) => {
+        fetch(`https://webappdeploy-backend.azurewebsites.net/endereco/${localStorage.getItem('id')}`, {
+            headers: {
+                
+  'Access-Control-Allow-Origin': '*'
+            }
+        }).then(response => response.json()).then(resposta => setComplementoOptions(resposta.map((item) => {
             localStorage.setItem('idEndP', item.id)
             return (
                 {
@@ -153,7 +160,7 @@ const SolicitePage = () => {
         })))
     }, [])
 
-    console.log(`https://webappdeploy-backend.azurewebsites.net/endereco/${localStorage.getItem('id')}`);
+    
 
 
     const [data, setData] = useState(false)
@@ -162,7 +169,8 @@ const SolicitePage = () => {
         fetch(`https://zero-waste-logistic.azurewebsites.net/order/gerador`, {
             method: 'GET',
             headers: {
-                'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
+                'Authorization': 'Bearer' + ' ' + localStorage.getItem('token'),
+                'Access-Control-Allow-Origin': '*'
             }
         }).then(response => response.json()).then(resposta => {
 
@@ -185,7 +193,12 @@ const SolicitePage = () => {
 
     const [dropOptions2, setDropOptions2] = useState([])
     useEffect(() => {
-        fetch(`https://webappdeploy-backend.azurewebsites.net/materiais`).then(response => response.json()).then(resposta => setDropOptions2(resposta.message.map((item) => {
+        fetch(`https://webappdeploy-backend.azurewebsites.net/materiais`, {
+            headers: {
+                
+  'Access-Control-Allow-Origin': '*'
+            }
+        }).then(response => response.json()).then(resposta => setDropOptions2(resposta.message.map((item) => {
             return (
                 {
 
@@ -199,9 +212,14 @@ const SolicitePage = () => {
 
     const [dropOptions, setDropOptions] = useState([])
 
-    if (localStorage.getItem('viewPriv')) {
+    if (localStorage.getItem('viewPriv') != null) {
         useEffect(() => {
-            fetch(`https://webappdeploy-backend.azurewebsites.net/materiais/${localStorage.getItem('viewPriv')}`).then(response => response.json()).then(resposta => setDropOptions(resposta.map((item) => {
+            fetch(`https://webappdeploy-backend.azurewebsites.net/materiais/${localStorage.getItem('viewPriv')}`, {
+                headers: {
+                    
+  'Access-Control-Allow-Origin': '*'
+                }
+            }).then(response => response.json()).then(resposta => setDropOptions(resposta.map((item) => {
                 return (
                     {
 
@@ -240,7 +258,8 @@ const SolicitePage = () => {
         const cadastrarPedido = await fetch(`https://zero-waste-logistic.azurewebsites.net/order/${localStorage.getItem('viewPriv')}`, {
             method: 'POST',
             headers: {
-                'content-type': 'application/json', 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
+                'content-type': 'application/json', 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token'),
+                'Access-Control-Allow-Origin': '*'
             },
             body: JSON.stringify(requisitos)
         })
@@ -275,7 +294,8 @@ const SolicitePage = () => {
         fetch(`https://zero-waste-logistic.azurewebsites.net/order/cancel/${order.id}`, {
             method: 'DELETE',
             headers: {
-                'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
+                'Authorization': 'Bearer' + ' ' + localStorage.getItem('token'),
+                'Access-Control-Allow-Origin': '*'
             }
         }).then((response) => {
 
@@ -315,7 +335,8 @@ const SolicitePage = () => {
             method: 'POST',
             body: JSON.stringify(requisitos),
             headers: {
-                'content-type': 'application/json', 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
+                'content-type': 'application/json', 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token'),
+                'Access-Control-Allow-Origin': '*'
             }
         })
 
@@ -341,18 +362,22 @@ const SolicitePage = () => {
     const [dataSpec, setDataSpec] = useState<dadosUser>()
     const [dataOrder, setDataOrder] = useState(false)
 
+    if (localStorage.getItem('id-other-person') != null) {
+        useEffect(() => {
+            fetch(`https://webappdeploy-backend.azurewebsites.net/user/${localStorage.getItem('id-other-person')}`, {
+                method: 'GET',
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
+                }
+            }).then(response => response.json()).then(resposta => setDataSpec(resposta)).catch((e) => {
+                setDataOrder(true)
+            })
+        }, [])
+    }
 
-    useEffect(() => {
-        fetch(`https://webappdeploy-backend.azurewebsites.net/user/${localStorage.getItem('id-other-person')}`, {
-            method: 'GET',
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
-            }
-        }).then(response => response.json()).then(resposta => setDataSpec(resposta)).catch((e) => {
-            setDataOrder(true)
-        })
-    }, [])
+
+    
 
 
 

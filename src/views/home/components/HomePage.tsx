@@ -67,7 +67,8 @@ const HomePage = () => {
   useEffect(() => {
     fetch(`https://zero-waste-logistic.azurewebsites.net/order/gerador`, {
       headers: {
-        'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
+        'Authorization': 'Bearer' + ' ' + localStorage.getItem('token'),
+        'Access-Control-Allow-Origin': '*'
       }
     }).then(response => response.json()).then((resposta) => {
       setData(
@@ -86,7 +87,8 @@ const HomePage = () => {
   useEffect(() => {
     fetch(`https://zero-waste-logistic.azurewebsites.net/order`, {
       headers: {
-        'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
+        'Authorization': 'Bearer' + ' ' + localStorage.getItem('token'),
+        'Access-Control-Allow-Origin': '*'
       }
     }).then(response => response.json()).then((resposta) => {
       console.log(resposta.pedido.FilaPedidoCatador)
