@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
+
 .bg-proximos {
   position: fixed;
   top: 0;
@@ -204,9 +206,9 @@ margin-left: 5px;
 }
 
 
-/* Progress */
 
-@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
+
+
 
 
 .containerProgress{
