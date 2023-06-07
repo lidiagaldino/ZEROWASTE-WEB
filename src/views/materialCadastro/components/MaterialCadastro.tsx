@@ -137,7 +137,12 @@ const MaterialCadastro = () => {
                                     <div className='list-mt' key={item2.id_material}>
                                         <ul className='list-lc'>
                                             <li>{item2.value}</li>
-                                            <button id={item2.id_material} onClick={removeMaterial}>Remover</button>
+                                            <button id={item2.id_material} onClick={(e) => {
+                                                removeMaterial(e)
+                                                setTimeout(() => {
+                                                    window.location.reload()
+                                                }, 2000);
+                                            }}>Remover</button>
                                         </ul>
                                     </div>
                                 )
@@ -178,7 +183,10 @@ const MaterialCadastro = () => {
                             <button
                                 className="ghost"
                                 id="signUp"
-                                onClick={() => setaddclass("right-panel-active-mt")}>Remover materiais</button>
+                                onClick={() => {
+                                    setaddclass("right-panel-active-mt")
+                                  
+                                }}>Remover materiais</button>
                         </div>
                     </div>
                 </div>

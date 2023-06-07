@@ -11,6 +11,7 @@ import api from '../../../api/axios'
 
 import { v4 as uuidv4 } from 'uuid';
 import e from 'express'
+import { array } from 'yup'
 
 const CatadoresProximos = () => {
     const [selected, setSelected] = useState('')
@@ -41,10 +42,10 @@ const CatadoresProximos = () => {
 
 
 
-    const [isArray, setIsArray] = useState(data != [] ? false : true)
 
 
 
+    const [isArray, setIsArray] = useState(0)
 
 
     const handleDropChange = (id) => {
@@ -52,23 +53,27 @@ const CatadoresProximos = () => {
             headers: {
                 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
             },
-        }).then(response => response.json()).then(resposta => setData(resposta.map((item) => {
-            if (data.length > 0) {
-                setIsArray(true)
-            } else {
-                setIsArray(false)
+        }).then(response => response.json()).then(resposta => {
+            if (resposta.length > 0) {
+                setIsArray(2)
+                setData(resposta.map((item) => {
+               
+               
+                    return ({
+                        id: item.id_usuario,
+                        id_modo: item.id_catador,
+                        foto: item.foto,
+                        endereco: `${item.logradouro} - ${item.cidade}, ${item.numero}`,
+                        nome: item.nome ? item.nome : item.nome_fantasia
+                    })
+        
+        
+                }))
+            } else{
+                setIsArray(1)
             }
-
-            return ({
-                id: item.id_usuario,
-                id_modo: item.id_catador,
-                foto: item.foto,
-                endereco: `${item.logradouro} - ${item.cidade}, ${item.numero}`,
-                nome: item.nome ? item.nome : item.nome_fantasia
-            })
-
-
-        })))
+            
+        })
 
     }
 
@@ -176,28 +181,28 @@ const CatadoresProximos = () => {
                     : ''}
 
 
-                {data.length == 0 &&
+            {data.length == 0 && 
+            <>
+             <div className="square_container_catadores"  >
+                   <h1 style={{ alignItems: 'center', display: 'flex', justifyContent: 'center', fontSize: 25 }}>Selecione um local para saber quais catadores estão pertos de sua região.</h1>
+               </div>
+            </>
+                  
+                }
+
+                {isArray == 1 ?
                     <>
                         <div className="square_container_catadores"  >
-                            <h1 style={{ alignItems: 'center', display: 'flex', justifyContent: 'center' }}>Selecione um local para saber quais catadores estão pertos de sua região.</h1>
+                            <h1 style={{ alignItems: 'center', display: 'flex', justifyContent: 'center', fontSize: 25 }}>Não existem nenhum catador que atenda neste local.</h1>
                         </div>
 
                     </>
-                }
-
-                {isArray == false &&
-                    <>
-                        <div className="square_container_catadores"  >
-                            <h1 style={{ alignItems: 'center', display: 'flex', justifyContent: 'center' }}>Selecione um local para saber quais catadores estão pertos de sua região.</h1>
-                        </div>
-
-                    </>
-                }
-
-
-
-
-                {data.map((item) => {
+                
+                : 
+                
+                <>
+                
+                 {data.map((item) => {
                     if (codeTrue == false) {
 
 
@@ -229,6 +234,13 @@ const CatadoresProximos = () => {
                         )
                     }
                 })}
+                </>
+                }
+
+        
+
+           
+               
             </div>
         </div >
     )

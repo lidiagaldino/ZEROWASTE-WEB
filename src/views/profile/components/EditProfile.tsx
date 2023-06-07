@@ -304,7 +304,11 @@ console.log(image);
                         </div>
 
                         <div className='save-changes-position'>
-                            <button type='submit'  className='save-changes' > {isLoading ? 'Salvando alteracoes...' : 'Salvar Alteracoes'} </button>
+                            <button type='submit' onClick={() => {
+                                setTimeout(() => {
+                                    window.location.reload()
+                                }, 2500);
+                            }} className='save-changes' > {isLoading ? 'Salvando alteracoes...' : 'Salvar Alteracoes'} </button>
                         </div>
 
 

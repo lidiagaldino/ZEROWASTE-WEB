@@ -182,6 +182,18 @@
 .select-btn_solicite.open .arrow-dwn{
     transform: rotate(-180deg);
 }
+
+.list-items_solicite::-webkit-scrollbar {
+    width: 12px;
+    border: 1px solid rgb(200, 200, 200)
+  }
+  
+.list-items_solicite::-webkit-scrollbar-thumb {
+    background-color: rgb(6, 87, 21);
+    border-radius: 20px;
+  }
+
+  
 .list-items_solicite{
 
     margin-top: 10px;
@@ -192,11 +204,12 @@
     display: none;
     width: 100%;
     overflow-y: scroll;
-   
+    height: 240px;
    
 }
 .select-btn_solicite.open ~ .list-items_solicite{
     display: block;
+    
   
 }
 .list-items_solicite .item{
@@ -552,6 +565,11 @@ form .input-groupp button {
 
     .card_solicite {
         margin-left: 80px;
+    }
+
+    .list-items_solicite {
+        height: 210px;
+
     }
 }
 

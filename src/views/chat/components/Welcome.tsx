@@ -10,7 +10,7 @@ const Welcome = () => {
       <h1>
         Bem-vindo, <span>{localStorage.getItem('nome')}</span>!
       </h1>
-      {localStorage.getItem('contatos') == 'ntem' &&
+      {localStorage.getItem('contatos') == 'ntem' && localStorage.getItem('contato') == 'Gerador' &&
         <>
           <div className="circle-warning" style={{ border: "3px solid black", marginTop: 20 }}>
             <FontAwesomeIcon icon={faTriangleExclamation} style={{ fontSize: 35, alignItems: 'center', justifyContent: 'center', marginBottom: 5, color: 'black' }} />
@@ -19,13 +19,24 @@ const Welcome = () => {
         </>
       }
 
-      {localStorage.getItem('contatos') == 'tem' &&
+      {localStorage.getItem('contatos') == 'tem' && localStorage.getItem('tipo') == 'Gerador' &&
         <>
      
           <h3>Selecione um catador para iniciar uma conversa</h3>
         </>
       }
 
+      {localStorage.getItem('tipo') == 'Catador' && localStorage.getItem('contatos') == 'ntem' &&
+        <>
+        <h3>Espere um gerador favoritar você para iniciar uma conversa.</h3>
+        </>      
+      }
+
+{localStorage.getItem('tipo') == 'Catador' && localStorage.getItem('contatos') == 'tem' &&
+        <>
+        <h3>Selecione um gerador para iniciar uma conversa</h3>
+        </>      
+      }
 
 
     </Container>

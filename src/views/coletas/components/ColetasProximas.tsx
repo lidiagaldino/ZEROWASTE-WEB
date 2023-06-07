@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMagnifyingGlass, faLocationDot, faRecycle } from '@fortawesome/free-solid-svg-icons'
+import { faMagnifyingGlass, faLocationDot, faRecycle, faExclamation } from '@fortawesome/free-solid-svg-icons'
 import '../bg-animation.css'
 import { useNavigate, useParams } from 'react-router-dom'
 import { CheckIcon } from '@radix-ui/react-icons';
@@ -8,6 +8,7 @@ import api from '../../../api/axios'
 import { v4 as uuidv4 } from 'uuid';
 import { connectionWebSocket } from '../../../utils/connectionWebSocket'
 import Swal from 'sweetalert2'
+
 
 
 type dados = {
@@ -272,8 +273,15 @@ const ColetasProximas = () => {
 
                 {data.id == 0 &&
                     <>
-                        <div style={{ height: 650, width: 1090, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                            <h1 style={{ fontSize: 25 }}>Você não recebeu nenhuma solicitação de coleta</h1>
+                     <div style={{ height: '100%', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+                        <div  className="circle-wrapper">
+                            <div className="warning circle-w"></div>
+                            <div className="icon-w">
+                                <FontAwesomeIcon icon={faExclamation} style={{ color: "#ffffff", height: 50 }} />
+                            </div>
+                        </div>
+                       
+                            <h1 style={{ fontSize: 25, justifyContent: 'center', alignItems: 'center', marginTop: 15 }}>Você não recebeu nenhuma solicitação de coleta</h1>
                         </div>
 
                     </>

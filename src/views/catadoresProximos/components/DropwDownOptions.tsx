@@ -15,7 +15,7 @@ function DropwDownOptions({ selected, setSelected, regiao, setRegiao, dropChange
 
 
     const [isActive, setIsActive] = useState(false)
-    console.log(regiao)
+
 
     return (
         <div className="dropdown">
@@ -26,7 +26,7 @@ function DropwDownOptions({ selected, setSelected, regiao, setRegiao, dropChange
                     {regiao.map((option) => {
                         return (
                             <div key={option.id} onClick={(e) => {
-                                console.log(option.value)
+                     
                                 setSelected(option.value)
                                 setIsActive(false)
                                 dropChange(option.id_endereco)
