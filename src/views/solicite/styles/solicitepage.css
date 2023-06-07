@@ -192,8 +192,7 @@
     display: none;
     width: 100%;
     overflow-y: scroll;
-    z-index: 2;
-    overflow: visible;
+   
    
 }
 .select-btn_solicite.open ~ .list-items_solicite{

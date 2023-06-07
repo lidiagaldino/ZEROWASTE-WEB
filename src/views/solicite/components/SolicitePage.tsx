@@ -154,7 +154,7 @@ const SolicitePage = () => {
     }, [])
 
     const [data, setData] = useState(false)
-   
+
     useEffect(() => {
         fetch(`https://zero-waste-logistic.azurewebsites.net/order/gerador`, {
             method: 'GET',
@@ -172,8 +172,8 @@ const SolicitePage = () => {
         })
     }, [])
 
-    
-    
+
+
 
     connectionWebSocket.on("orderError", (order) => {
         setOrder({ id: 0, id_material: [{ material: { nome: '' } }], id_gerador: 0, id_catador: 0, id_status: 0, endereco: { id: 0, bairro: '', cidade: '', estado: '', cep: '', complemento: '', latitude: 0, longitude: 0, apelido: '', numero: '', logradouro: '' }, created_at: new Date('0000-00-00T00:00:00'), finished_at: new Date('0000-00-00T00:00:00'), distancia: 0 })
@@ -194,7 +194,22 @@ const SolicitePage = () => {
         })))
     }, [])
 
-    
+    const [dropOptions2, setDropOptions2] = useState([])
+
+    useEffect(() => {
+        fetch(`https://webappdeploy-backend.azurewebsites.net/materiais`).then(response => response.json()).then(resposta => setDropOptions2(resposta.message.map((item) => {
+            return (
+                {
+
+                    label: item.nome,
+                    value: item.nome,
+                    id: item.id
+                }
+            )
+        })))
+    }, [])
+
+
 
 
 
@@ -208,9 +223,9 @@ const SolicitePage = () => {
             id_materiais: selected
         }
 
-      
+
         console.log(requisitos);
-        
+
 
         const cadastrarPedido = await fetch(`https://zero-waste-logistic.azurewebsites.net/order/${localStorage.getItem('viewPriv')}`, {
             method: 'POST',
@@ -224,7 +239,7 @@ const SolicitePage = () => {
 
         const a = await cadastrarPedido.json()
         console.log(a);
-        
+
 
         if (cadastrarPedido.ok) {
             Swal.fire({
@@ -283,7 +298,7 @@ const SolicitePage = () => {
             id_gerador: Number(localStorage.getItem('id_modo')),
             id_materiais: selected
         }
-       
+
 
 
         const cadastrarPedido = await fetch('https://zero-waste-logistic.azurewebsites.net/order', {
@@ -381,7 +396,7 @@ const SolicitePage = () => {
     };
 
     const handleSelectChange = (value: any) => {
-       
+
         setLocal(value.id)
     }
 
@@ -432,8 +447,8 @@ const SolicitePage = () => {
         setIsActive(false);
     };
 
-    
-    connectionWebSocket.on('finishOrder', (_order) =>{
+
+    connectionWebSocket.on('finishOrder', (_order) => {
         setOrder({ id: 0, id_material: [{ material: { nome: '' } }], id_gerador: 0, id_catador: 0, id_status: 0, endereco: { id: 0, bairro: '', cidade: '', estado: '', cep: '', complemento: '', latitude: 0, longitude: 0, apelido: '', numero: '', logradouro: '' }, created_at: new Date('0000-00-00T00:00:00'), finished_at: new Date('0000-00-00T00:00:00'), distancia: 0 })
     })
 
@@ -443,8 +458,8 @@ const SolicitePage = () => {
     })
 
     console.log(order);
-    
-    
+
+
     return (
 
         <div className="bdd">
@@ -463,7 +478,7 @@ const SolicitePage = () => {
                                         <div className="circleSpec"><FontAwesomeIcon icon={faUser} style={{ fontSize: 30 }} /></div>
                                         <div className="infoCatadorSpec">
 
-                                            <h2 style={{color: 'white'}} >{dataSpec?.pessoa_fisica.length > 0 ? dataSpec?.pessoa_fisica[0].nome : dataSpec?.pessoa_juridica[0].nome_fantasia}</h2>
+                                            <h2 style={{ color: 'white' }} >{dataSpec?.pessoa_fisica.length > 0 ? dataSpec?.pessoa_fisica[0].nome : dataSpec?.pessoa_juridica[0].nome_fantasia}</h2>
                                             <p>Catador</p>
                                         </div>
                                     </div>
@@ -472,81 +487,155 @@ const SolicitePage = () => {
                                 }
                             </>
                             : ''}
-                    <form onSubmit={pedido} className='form'>
-                        <div className="middle_card_info_solicite">
-                            <span>Selecione o local que será solicitado</span>
-                            <div onClick={handleToggle} className={isActive ? 'select-btn_solicite open' : 'select-btn_solicite'}>
-                                <span ref={btnTextReff} className="btn-text_solicite">{selectedValue || 'Selecione'}</span>
-                                <span className="arrow-dwn">
-                                    <i className="fa-solid fa-chevron-down"></i>
-                                </span>
+                        <form onSubmit={pedido} className='form'>
+                            <div className="middle_card_info_solicite">
+                                <span>Selecione o local que será solicitado</span>
+                                <div onClick={handleToggle} className={isActive ? 'select-btn_solicite open' : 'select-btn_solicite'}>
+                                    <span ref={btnTextReff} className="btn-text_solicite">{selectedValue || 'Selecione'}</span>
+                                    <span className="arrow-dwn">
+                                        <i className="fa-solid fa-chevron-down"></i>
+                                    </span>
+                                </div>
+                                <ul className="list-items_solicite">
+                                    {complementoOptions.map((item) => {
+
+                                        return (
+                                            <li key={item.value} className="item" onChange={handleSelectChange} onClick={() => {
+                                                setLocal(item.id)
+                                                handleItemClick(item.value)
+
+
+
+
+                                            }} >
+                                                <span className="item-text">{item.value}</span>
+                                            </li>
+                                        )
+                                    })}
+                                </ul>
                             </div>
-                            <ul className="list-items_solicite">
-                                {complementoOptions.map((item) => {
 
-                                    return (
-                                        <li key={item.value} className="item" onChange={handleSelectChange} onClick={() => {
-                                            setLocal(item.id)
-                                            handleItemClick(item.value)
-                                            
-                                           
-                                            
+                            <div className="middle_card_info_solicite">
+                                <span>Selecione os materiais que serão descartados</span>
+                                <div onClick={handleToggle2} className={isActive2 ? 'select-btn_solicite open' : 'select-btn_solicite'}>
+                                    <span ref={btnTextRef} className="btn-text_solicite">Selecione</span>
 
-                                        }} >
-                                            <span className="item-text">{item.value}</span>
-                                        </li>
-                                    )
-                                })}
-                            </ul>
-                        </div>
+                                </div>
+                                {localStorage.getItem('orderSpec') != '0' ?
+                                        <>
+                                         <ul className="list-items_solicite">
+                                        {dropOptions.map((item) => {
+                                            const isChecked = checkedItems[item.id] || false;
+                                            return (
+                                                <li
+                                                    id={item.id}
+                                                    key={item.id}
+                                                    onClick={e => {
+                                                        e.currentTarget.id
 
-                        <div className="middle_card_info_solicite">
-                            <span>Selecione os materiais que serão descartados</span>
-                            <div onClick={handleToggle2} className={isActive2 ? 'select-btn_solicite open' : 'select-btn_solicite'}>
-                                <span ref={btnTextRef} className="btn-text_solicite">Selecione</span>
+                                                        handleChangeMaterial(item.id)
+                                                        handleToggleChecked();
+                                                        const itemId = e.currentTarget.id;
+                                                        setCheckedItems(prevState => ({
+                                                            ...prevState,
+                                                            [itemId]: !prevState[itemId]
 
+                                                        }));
+                                                    }}
+                                                    className={isChecked ? 'item checked' : 'item'}
+                                                >
+                                                    <span className="checkbox">
+                                                        <i className="fa-solid fa-check check-icon"></i>
+                                                    </span>
+                                                    <span className="item-text">{item.label}</span>
+                                                </li>
+                                            )
+                                        })}
+                                    </ul>
+                                        </>
+                                   
+                                : 
+                                <>
+                                     <ul className="list-items_solicite">
+                                        {dropOptions2.map((item) => {
+                                            const isChecked = checkedItems[item.id] || false;
+                                            return (
+                                                <li
+                                                    id={item.id}
+                                                    key={item.id}
+                                                    onClick={e => {
+                                                        e.currentTarget.id
+
+                                                        handleChangeMaterial(item.id)
+                                                        handleToggleChecked();
+                                                        const itemId = e.currentTarget.id;
+                                                        setCheckedItems(prevState => ({
+                                                            ...prevState,
+                                                            [itemId]: !prevState[itemId]
+
+                                                        }));
+                                                    }}
+                                                    className={isChecked ? 'item checked' : 'item'}
+                                                >
+                                                    <span className="checkbox">
+                                                        <i className="fa-solid fa-check check-icon"></i>
+                                                    </span>
+                                                    <span className="item-text">{item.label}</span>
+                                                </li>
+                                            )
+                                        })}
+                                    </ul>
+                                </>
+                                
+                                }
+
+                               
+                               
                             </div>
-                            <ul className="list-items_solicite">
-                                {dropOptions.map((item) => {
-                                    const isChecked = checkedItems[item.id] || false;
-                                    return (
-                                        <li
-                                            id={item.id}
-                                            key={item.id}
-                                            onClick={e => {
-                                                e.currentTarget.id
-                                               
-                                                handleChangeMaterial(item.id)
-                                                handleToggleChecked();
-                                                const itemId = e.currentTarget.id;
-                                                setCheckedItems(prevState => ({
-                                                    ...prevState,
-                                                    [itemId]: !prevState[itemId]
 
-                                                }));
-                                            }}
-                                            className={isChecked ? 'item checked' : 'item'}
-                                        >
-                                            <span className="checkbox">
-                                                <i className="fa-solid fa-check check-icon"></i>
-                                            </span>
-                                            <span className="item-text">{item.label}</span>
-                                        </li>
-                                    )
-                                })}
 
-                            </ul>
-                        </div>
-                        
+                            {localStorage.getItem('orderSpec') != '0' ?
+                                <button type='button' className='solicite_button' onClick={(event) => {
+                                    event.preventDefault()
+                                    Swal.fire({
+                                        title: 'Voce confirma em fazer a solicitação?',
+                                        text: "Você não conseguira reverter isso depois!",
+                                        icon: 'warning',
+                                        showCancelButton: true,
+                                        confirmButtonColor: 'green',
+                                        cancelButtonColor: '#d33',
+                                        confirmButtonText: 'Sim, confirmo',
+                                        cancelButtonText: 'Cancelar'
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            soliciteSpec()
+                                        }
+                                    })
+                                }}>Solicite</button> :
 
-                        {localStorage.getItem('orderSpec') != '0' ? 
-                            <button type='button' className='solicite_button' onClick={soliciteSpec}>Solicite</button>  : <button className='solicite_button' type='submit'>Solicite</button>}
+                                <button className='solicite_button' onClick={(event) => {
+                                    event.preventDefault()
+                                    Swal.fire({
+                                        title: 'Voce confirma em fazer a solicitação?',
+                                        text: "Você não conseguira reverter isso depois!",
+                                        icon: 'warning',
+                                        showCancelButton: true,
+                                        confirmButtonColor: 'green',
+                                        cancelButtonColor: '#d33',
+                                        confirmButtonText: 'Sim, confirmo',
+                                        cancelButtonText: 'Cancelar'
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            pedido(event)
+                                        }
+                                    })
+                                }} >Solicite</button>}
                         </form>
 
 
                     </div>
                 }
-                {order.id_status == 2  &&
+                {order.id_status == 2 &&
                     <>
 
                         <div className='SoliAndamento-container'>
@@ -557,11 +646,11 @@ const SolicitePage = () => {
                             <h1 style={{ marginTop: 15, color: 'black' }} >Você já tem uma solicitação em andamento</h1>
                             <button className="btn-hover color-11" type='button' onClick={() => {
                                 cancelOrder()
-                                
-                                }}>Cancelar corrida</button>
+
+                            }}>Cancelar corrida</button>
                         </div>
                     </>
-                 }
+                }
             </div>
 
 
@@ -572,7 +661,7 @@ const SolicitePage = () => {
 
 
 
-            </div>
+        </div>
 
 
 
@@ -580,7 +669,7 @@ const SolicitePage = () => {
 
 
 
-          
+
     )
 }
 
