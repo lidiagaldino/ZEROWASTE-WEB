@@ -39,15 +39,26 @@ const CatadoresProximos = () => {
         })))
     }, [])
 
+
+ 
+        const [isArray, setIsArray] = useState(data != [] ? false : true) 
+
+    
+
+    
+
     const handleDropChange = (id) => {
         fetch(`https://webappdeploy-backend.azurewebsites.net/gerador/${id}`, {
             headers: {
                 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
             },
         }).then(response => response.json()).then(resposta => setData(resposta.map((item) => {
-
-            console.log(item);
-
+            if(data.length > 0){
+                setIsArray(true)
+            }else {
+                setIsArray(false)
+            }
+            
             return ({
                 id: item.id_usuario,
                 id_modo: item.id_catador,
@@ -89,6 +100,9 @@ const CatadoresProximos = () => {
 
     }
 
+    console.log(data.length);
+    
+
     return (
         <div>
             <div className='bg-proximos'>
@@ -97,15 +111,12 @@ const CatadoresProximos = () => {
                 <div className='wave -three'></div>
             </div>
 
-
-
-
             <div className='scroll'>
-                <div className='infoS'>
+                <div className='infoS' >
                     <h1 className='titleBoxU'>Catadores próximos</h1>
 
-                    <div>
-                        <h2>Catadores Favoritos</h2>
+                    <div style={{width: 205, display: 'flex', gap: 5, height: 40, borderRadius: 50}} >
+                        <h2  style={{marginLeft: 8 ,display: 'flex',justifyContent: 'center', alignItems: 'center'}} >Catadores Favoritos</h2>
                         <input type="checkbox" name="" id="check"
                             onClick={(event) => {
 
@@ -173,6 +184,12 @@ const CatadoresProximos = () => {
 
                     </>
                 }
+
+                {isArray == false && 
+                ''
+                }
+
+                
 
 
                 {data.map((item) => {
