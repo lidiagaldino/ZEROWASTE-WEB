@@ -40,12 +40,12 @@ const CatadoresProximos = () => {
     }, [])
 
 
- 
-        const [isArray, setIsArray] = useState(data != [] ? false : true) 
 
-    
+    const [isArray, setIsArray] = useState(data != [] ? false : true)
 
-    
+
+
+
 
     const handleDropChange = (id) => {
         fetch(`https://webappdeploy-backend.azurewebsites.net/gerador/${id}`, {
@@ -53,12 +53,12 @@ const CatadoresProximos = () => {
                 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
             },
         }).then(response => response.json()).then(resposta => setData(resposta.map((item) => {
-            if(data.length > 0){
+            if (data.length > 0) {
                 setIsArray(true)
-            }else {
+            } else {
                 setIsArray(false)
             }
-            
+
             return ({
                 id: item.id_usuario,
                 id_modo: item.id_catador,
@@ -101,7 +101,7 @@ const CatadoresProximos = () => {
     }
 
     console.log(data.length);
-    
+
 
     return (
         <div>
@@ -115,8 +115,8 @@ const CatadoresProximos = () => {
                 <div className='infoS' >
                     <h1 className='titleBoxU'>Catadores próximos</h1>
 
-                    <div style={{width: 205, display: 'flex', gap: 5, height: 40, borderRadius: 50}} >
-                        <h2  style={{marginLeft: 8 ,display: 'flex',justifyContent: 'center', alignItems: 'center'}} >Catadores Favoritos</h2>
+                    <div style={{ width: 205, display: 'flex', gap: 5, height: 40, borderRadius: 50 }} >
+                        <h2 style={{ marginLeft: 8, display: 'flex', justifyContent: 'center', alignItems: 'center' }} >Catadores Favoritos</h2>
                         <input type="checkbox" name="" id="check"
                             onClick={(event) => {
 
@@ -150,7 +150,7 @@ const CatadoresProximos = () => {
 
                                 localStorage.setItem('view-edit', 'view')
                                 localStorage.setItem('viewPriv', event.currentTarget.getAttribute('data-key'))
-                                    localStorage.setItem('id-other-person', event.currentTarget.id)
+                                localStorage.setItem('id-other-person', event.currentTarget.id)
                                 navigate(`/profile/${event.currentTarget.id}`,)
 
                             }} >
@@ -185,11 +185,16 @@ const CatadoresProximos = () => {
                     </>
                 }
 
-                {isArray == false && 
-                ''
+                {isArray == false &&
+                    <>
+                        <div className="square_container_catadores"  >
+                            <h1 style={{ alignItems: 'center', display: 'flex', justifyContent: 'center' }}>Selecione um local para saber quais catadores estão pertos de sua região.</h1>
+                        </div>
+
+                    </>
                 }
 
-                
+
 
 
                 {data.map((item) => {

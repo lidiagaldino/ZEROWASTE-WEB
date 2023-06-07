@@ -130,7 +130,7 @@ const MenuLateral = () => {
                         <img
                             className="nav-footer-avatar"
 
-                            src={`https://firebasestorage.googleapis.com/v0/b/profile-picture-zerowaste.appspot.com/o/image%2F${localStorage.getItem('id')}?alt=media&token=5d893246-31d9-4e40-af16-8bbb8df714d9`} style={{ borderRadius: 100, height: 70, width: 70}}
+                            src={localStorage.getItem('foto')} style={{ borderRadius: 100, height: 70, width: 70}}
                             alt=""
 
                         />

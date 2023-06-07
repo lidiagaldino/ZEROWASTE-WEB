@@ -153,6 +153,9 @@ const SolicitePage = () => {
         })))
     }, [])
 
+    console.log(`https://webappdeploy-backend.azurewebsites.net/endereco/${localStorage.getItem('id')}`);
+
+
     const [data, setData] = useState(false)
 
     useEffect(() => {
@@ -162,12 +165,12 @@ const SolicitePage = () => {
                 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
             }
         }).then(response => response.json()).then(resposta => {
-            console.log(resposta);
+
             if (resposta[0].id) {
                 setOrder(resposta[0])
             }
         }).catch((e) => {
-            console.log(e)
+
             setData(false)
         })
     }, [])
@@ -179,23 +182,8 @@ const SolicitePage = () => {
         setOrder({ id: 0, id_material: [{ material: { nome: '' } }], id_gerador: 0, id_catador: 0, id_status: 0, endereco: { id: 0, bairro: '', cidade: '', estado: '', cep: '', complemento: '', latitude: 0, longitude: 0, apelido: '', numero: '', logradouro: '' }, created_at: new Date('0000-00-00T00:00:00'), finished_at: new Date('0000-00-00T00:00:00'), distancia: 0 })
     })
 
-    const [dropOptions, setDropOptions] = useState([])
-
-    useEffect(() => {
-        fetch(`https://webappdeploy-backend.azurewebsites.net/materiais/${localStorage.getItem('viewPriv')}`).then(response => response.json()).then(resposta => setDropOptions(resposta.map((item) => {
-            return (
-                {
-
-                    label: item.material.nome,
-                    value: item.material.nome,
-                    id: item.material.id
-                }
-            )
-        })))
-    }, [])
 
     const [dropOptions2, setDropOptions2] = useState([])
-
     useEffect(() => {
         fetch(`https://webappdeploy-backend.azurewebsites.net/materiais`).then(response => response.json()).then(resposta => setDropOptions2(resposta.message.map((item) => {
             return (
@@ -208,6 +196,28 @@ const SolicitePage = () => {
             )
         })))
     }, [])
+
+    const [dropOptions, setDropOptions] = useState([])
+
+    if (localStorage.getItem('viewPriv')) {
+        useEffect(() => {
+            fetch(`https://webappdeploy-backend.azurewebsites.net/materiais/${localStorage.getItem('viewPriv')}`).then(response => response.json()).then(resposta => setDropOptions(resposta.map((item) => {
+                return (
+                    {
+
+                        label: item.material.nome,
+                        value: item.material.nome,
+                        id: item.material.id
+                    }
+                )
+            })))
+        }, [])
+    }
+
+
+
+
+
 
 
 
@@ -224,7 +234,7 @@ const SolicitePage = () => {
         }
 
 
-        console.log(requisitos);
+            ;
 
 
         const cadastrarPedido = await fetch(`https://zero-waste-logistic.azurewebsites.net/order/${localStorage.getItem('viewPriv')}`, {
@@ -235,7 +245,7 @@ const SolicitePage = () => {
             body: JSON.stringify(requisitos)
         })
 
-        console.log(cadastrarPedido);
+
 
         const a = await cadastrarPedido.json()
         console.log(a);
@@ -268,7 +278,7 @@ const SolicitePage = () => {
                 'Authorization': 'Bearer' + ' ' + localStorage.getItem('token')
             }
         }).then((response) => {
-            console.log(response);
+
             setOrder({ id: 0, id_material: [{ material: { nome: '' } }], id_gerador: 0, id_catador: 0, id_status: 0, endereco: { id: 0, bairro: '', cidade: '', estado: '', cep: '', complemento: '', latitude: 0, longitude: 0, apelido: '', numero: '', logradouro: '' }, created_at: new Date('0000-00-00T00:00:00'), finished_at: new Date('0000-00-00T00:00:00'), distancia: 0 })
 
             Swal.fire({
@@ -278,7 +288,7 @@ const SolicitePage = () => {
             })
         }).catch((e) => {
 
-            console.log(e)
+
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -309,7 +319,7 @@ const SolicitePage = () => {
             }
         })
 
-        console.log(requisitos);
+
 
 
         if (cadastrarPedido.ok) {
@@ -354,10 +364,10 @@ const SolicitePage = () => {
         let array: string[] = []
 
         value.map((item: drop) => {
-            console.log(typeof (item.id))
+
             array.push(item.id)
         })
-        console.log(array);
+
         setSelected(array)
     }
 
@@ -457,7 +467,7 @@ const SolicitePage = () => {
         setOrder(order)
     })
 
-    console.log(order);
+
 
 
     return (
@@ -522,75 +532,75 @@ const SolicitePage = () => {
 
                                 </div>
                                 {localStorage.getItem('orderSpec') != '0' ?
-                                        <>
-                                         <ul className="list-items_solicite">
-                                        {dropOptions.map((item) => {
-                                            const isChecked = checkedItems[item.id] || false;
-                                            return (
-                                                <li
-                                                    id={item.id}
-                                                    key={item.id}
-                                                    onClick={e => {
-                                                        e.currentTarget.id
+                                    <>
+                                        <ul className="list-items_solicite">
+                                            {dropOptions.map((item) => {
+                                                const isChecked = checkedItems[item.id] || false;
+                                                return (
+                                                    <li
+                                                        id={item.id}
+                                                        key={item.id}
+                                                        onClick={e => {
+                                                            e.currentTarget.id
 
-                                                        handleChangeMaterial(item.id)
-                                                        handleToggleChecked();
-                                                        const itemId = e.currentTarget.id;
-                                                        setCheckedItems(prevState => ({
-                                                            ...prevState,
-                                                            [itemId]: !prevState[itemId]
+                                                            handleChangeMaterial(item.id)
+                                                            handleToggleChecked();
+                                                            const itemId = e.currentTarget.id;
+                                                            setCheckedItems(prevState => ({
+                                                                ...prevState,
+                                                                [itemId]: !prevState[itemId]
 
-                                                        }));
-                                                    }}
-                                                    className={isChecked ? 'item checked' : 'item'}
-                                                >
-                                                    <span className="checkbox">
-                                                        <i className="fa-solid fa-check check-icon"></i>
-                                                    </span>
-                                                    <span className="item-text">{item.label}</span>
-                                                </li>
-                                            )
-                                        })}
-                                    </ul>
-                                        </>
-                                   
-                                : 
-                                <>
-                                     <ul className="list-items_solicite">
-                                        {dropOptions2.map((item) => {
-                                            const isChecked = checkedItems[item.id] || false;
-                                            return (
-                                                <li
-                                                    id={item.id}
-                                                    key={item.id}
-                                                    onClick={e => {
-                                                        e.currentTarget.id
+                                                            }));
+                                                        }}
+                                                        className={isChecked ? 'item checked' : 'item'}
+                                                    >
+                                                        <span className="checkbox">
+                                                            <i className="fa-solid fa-check check-icon"></i>
+                                                        </span>
+                                                        <span className="item-text">{item.label}</span>
+                                                    </li>
+                                                )
+                                            })}
+                                        </ul>
+                                    </>
 
-                                                        handleChangeMaterial(item.id)
-                                                        handleToggleChecked();
-                                                        const itemId = e.currentTarget.id;
-                                                        setCheckedItems(prevState => ({
-                                                            ...prevState,
-                                                            [itemId]: !prevState[itemId]
+                                    :
+                                    <>
+                                        <ul className="list-items_solicite">
+                                            {dropOptions2.map((item) => {
+                                                const isChecked = checkedItems[item.id] || false;
+                                                return (
+                                                    <li
+                                                        id={item.id}
+                                                        key={item.id}
+                                                        onClick={e => {
+                                                            e.currentTarget.id
 
-                                                        }));
-                                                    }}
-                                                    className={isChecked ? 'item checked' : 'item'}
-                                                >
-                                                    <span className="checkbox">
-                                                        <i className="fa-solid fa-check check-icon"></i>
-                                                    </span>
-                                                    <span className="item-text">{item.label}</span>
-                                                </li>
-                                            )
-                                        })}
-                                    </ul>
-                                </>
-                                
+                                                            handleChangeMaterial(item.id)
+                                                            handleToggleChecked();
+                                                            const itemId = e.currentTarget.id;
+                                                            setCheckedItems(prevState => ({
+                                                                ...prevState,
+                                                                [itemId]: !prevState[itemId]
+
+                                                            }));
+                                                        }}
+                                                        className={isChecked ? 'item checked' : 'item'}
+                                                    >
+                                                        <span className="checkbox">
+                                                            <i className="fa-solid fa-check check-icon"></i>
+                                                        </span>
+                                                        <span className="item-text">{item.label}</span>
+                                                    </li>
+                                                )
+                                            })}
+                                        </ul>
+                                    </>
+
                                 }
 
-                               
-                               
+
+
                             </div>
 
 
