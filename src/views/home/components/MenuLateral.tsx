@@ -44,16 +44,15 @@ const MenuLateral = () => {
             href: '/cadastro'
         },
         {
-            text: localStorage.getItem('tipo') == "Catador" ? "Cadastre um novo material" : "Solicite uma coleta",
-            icon: <FontAwesomeIcon className='icon' icon={faStreetView} />,
-            href: localStorage.getItem('tipo') == "Catador" ? '/material' : '/solicite',
-        },
-       
-        {
             text: localStorage.getItem('tipo') == "Catador" ? 'Coletas' : "Catadores próximos",
             icon: <FontAwesomeIcon className='icon' icon={faMapPin} />,
             href: localStorage.getItem('tipo') == "Catador" ? '/coletas_proximas' : "/catadores_proximos"
         },
+        {
+            text: localStorage.getItem('tipo') == "Catador" ? "Cadastre um novo material" : "Solicite uma coleta",
+            icon: <FontAwesomeIcon className='icon' icon={faStreetView} />,
+            href: localStorage.getItem('tipo') == "Catador" ? '/material' : '/solicite',
+        },    
         {
             text: "Pontuação",
             icon: <FontAwesomeIcon className='icon' icon={faTicket} />,

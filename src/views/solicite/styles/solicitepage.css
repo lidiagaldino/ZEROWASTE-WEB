@@ -204,7 +204,7 @@
     display: none;
     width: 100%;
     overflow-y: scroll;
-    height: 240px;
+    height: 210px;
    
 }
 .select-btn_solicite.open ~ .list-items_solicite{

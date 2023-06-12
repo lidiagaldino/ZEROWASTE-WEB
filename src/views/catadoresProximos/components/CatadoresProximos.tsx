@@ -195,7 +195,7 @@ const CatadoresProximos = () => {
                 {isArray == 1 ?
                     <>
                         <div className="square_container_catadores"  >
-                            <h1 style={{ alignItems: 'center', display: 'flex', justifyContent: 'center', fontSize: 25 }}>Não existem nenhum catador que atenda neste local.</h1>
+                            <h1 style={{ alignItems: 'center', display: 'flex', justifyContent: 'center', fontSize: 25 }}>Não existe nenhum catador que atenda neste local.</h1>
                         </div>
 
                     </>
