@@ -353,7 +353,7 @@ const SolicitePage = () => {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: 'Nao foi possivel criar a fila',
+                text: 'Não existe um catador que atenda esta região',
             })
         }
 
